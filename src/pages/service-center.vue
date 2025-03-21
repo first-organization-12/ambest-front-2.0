@@ -1,0 +1,644 @@
+<template>
+  <q-page class="">
+    <q-page-container style="padding: 0;">
+    <!-- Hero Section -->
+      <div class="hero-container relative-position" style="height: 300px;">
+        <q-img src="/images/man-using-laptop-factory-with-red-light 1.png" class="absolute-full" style="z-index: -1; background-color: transparent;">
+          <div class="absolute-center text-center text-white" style="background: transparent;">
+            <q-img src="/images/Ambest-service-centers.png" width="499px"/><div>
+            </div>
+          </div>
+        </q-img>
+      </div>
+
+      <div class="custom-banner text-center q-ma-xl">
+        <h5 class="text-h5 q-ma-md"><strong>Where America Stops for Service and Value</strong></h5>
+        <q-btn label="SEARCH SERVICE CENTERS" rounded unelevated color="primary"  to="/about-ambest" />
+      </div>
+
+      <div class="intro-section row items-center bg-light">
+        <!-- Right Side: Image -->
+        <div class="col-12 col-md-6" style="border-radius: 20px;">
+          <q-carousel
+            v-model="slide"
+            transition-prev="slide-right"
+            transition-next="slide-left"
+            swipeable
+            animated
+            control-color="primary"
+            navigation
+            padding
+            class="custom-carousel"
+          >
+
+      <q-carousel-slide :name="1" class="column no-wrap">
+          <div class="fit flex justify-center">
+            <q-img class="rounded-borders col-6 full-height" src="/images/full-shot-mechanic-checking-truck.png" style="border-radius: 20px; width: 550px;" />
+          </div>
+      </q-carousel-slide>
+      <q-carousel-slide :name="2" class="column no-wrap">
+        <div class="fit flex justify-center">
+          <q-img class="rounded-borders col-6 full-height" src="/images/full-shot-mechanic-checking-truck.png" style="border-radius: 20px; width: 550px;" />
+        </div>
+      </q-carousel-slide>
+      <q-carousel-slide :name="3" class="column no-wrap">
+        <div class="fit flex justify-center">
+          <q-img class="rounded-borders col-6 full-height" src="/images/full-shot-mechanic-checking-truck.png" style="border-radius: 20px; width: 550px;" />
+        </div>
+      </q-carousel-slide>
+      <q-carousel-slide :name="4" class="column no-wrap">
+        <div class="fit flex justify-center">
+          <q-img class="rounded-borders col-6 full-height" src="/images/full-shot-mechanic-checking-truck.png" style="border-radius: 20px; width: 550px;" />
+        </div>
+      </q-carousel-slide>
+    </q-carousel>
+      </div>
+        <!-- Left Side: Text Content -->
+        <div class="col-12  col-md-6 "  >
+          <div class="content q-px-xl">
+            <h5 class="text-h5" style="margin-block: 5px;">From <strong>Routine Maintenance </strong> to <strong>Complex Repairs</strong>, We’ve Got You Covered.</h5>
+            <p class="text-desc_1_1" style="line-height: normal;">
+              Our expert technicians are equipped to handle everything from regular tune-ups to advanced diagnostics and repairs. With state-of-the-art facilities and a commitment to quality service, we ensure your vehicle is in top condition so you can keep moving forward with confidence.
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+  <q-container class=" q-pa-md">
+    <q-card class="bg-primary service-section text-white q-pa-lg">
+      <div class="text-center text-h5">Key <span class="text-bold">Services</span></div>
+      <div class="q-pa-xl">
+      <div class="row justify-center ">
+        <q-card v-for="(service, index) in services.slice(0,5)" :key="index" flat class="col-12 col-sm-6 col-md-2 col-lg-2 text-center bg-primary text-white">
+          <q-card-section>
+            <q-icon :name="service.icon" class="service-icons" color="primary" size="lg" />
+          </q-card-section>
+          <q-card-section>
+            <div class="text-subtitle1">{{ service.title }}</div>
+          </q-card-section>
+        </q-card>
+      </div>
+      <div class="row justify-center ">
+        <q-card v-for="(service, index) in services.slice(5,10)" :key="index" flat class="col-12 col-sm-6 col-md-2 col-lg-2 text-center bg-primary text-white">
+          <q-card-section>
+            <q-icon :name="service.icon" class="service-icons" color="primary" size="lg"></q-icon>
+          </q-card-section>
+          <q-card-section>
+            <div class="text-subtitle1">{{ service.title }}</div>
+          </q-card-section>
+        </q-card>
+      </div>
+    </div>
+    </q-card>
+  </q-container>
+
+      <div class="intro-section row items-center bg-light">
+
+        <!-- Left Side: Text Content -->
+        <div class="col-12  col-md-6 "  >
+          <div class="content q-pa-xl">
+            <q-img src="/images/service-connection-logo.png"
+            class="rounded-borders"
+            fit="cover"
+             width="80%"/>
+             <div class="q-pr-xl">
+               <h5 class="text-h5" style="margin-block: 5px;"><strong>Connecting You to Quality Care. </strong></h5>
+               <p class="text-desc_1_1" style="line-height: normal;">
+                 AMBEST Service Centers are dedicated to keeping you moving. We’re always innovating to find more efficient ways to keep you on the road, doing what you do best. That’s why we’ve introduced Service Connection—a new program designed to simplify your experience and make your journey smoother than ever.
+                </p>
+              </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Image -->
+        <div class="col-12 col-md-6 text-center q-pa-xl" style="max-width: 600px;">
+          <q-responsive :ratio="9/6">
+            <q-img
+            src="/images/men-in-call.png"
+            class="rounded-borders"
+            fit="cover"
+            width="100%"
+            style="border-radius: 20px;"
+            />
+          </q-responsive>
+        </div>
+      </div>
+
+
+      <div class="intro-section row items-center bg-light">
+        <!-- Right Side: Image -->
+        <div class="col-12 col-md-6 text-center q-pa-xl">
+          <q-carousel
+      v-model="slide"
+      transition-prev="slide-right"
+      transition-next="slide-left"
+      swipeable
+      animated
+      control-color="primary"
+      navigation
+      padding
+    >
+
+      <q-carousel-slide :name="1" class="column no-wrap">
+          <div class="fit flex justify-center">
+            <q-img class="rounded-borders col-6 full-height" src="/images/forest.png" style="border-radius: 20px; width: 550px;" />
+          </div>
+      </q-carousel-slide>
+      <q-carousel-slide :name="2" class="column no-wrap">
+        <div class="fit flex justify-center">
+          <q-img class="rounded-borders col-6 full-height" src="/images/forest.png" style="border-radius: 20px; width: 550px;" />
+        </div>
+      </q-carousel-slide>
+      <q-carousel-slide :name="3" class="column no-wrap">
+        <div class="fit flex justify-center">
+          <q-img class="rounded-borders col-6 full-height" src="/images/forest.png"  style="border-radius: 20px; width: 550px;"/>
+        </div>
+      </q-carousel-slide>
+      <q-carousel-slide :name="4" class="column no-wrap">
+        <div class="fit flex justify-center">
+          <q-img class="rounded-borders col-6 full-height" src="/images/forest.png"  style="border-radius: 20px; width: 550px;"/>
+        </div>
+      </q-carousel-slide>
+    </q-carousel>
+      </div>
+        <!-- Left Side: Text Content -->
+        <div class="col-12  col-md-6 "  >
+          <div class="content q-pa-xl">
+            <q-img src="/images/CargoSolutions26x10.png"
+            class="rounded-borders"
+            fit="cover"
+             width="50%"/>
+             <div class="q-pr-xl">
+               <h5 class="text-h5" style="margin-block: 5px;"><strong>Connecting You to Quality Care. </strong></h5>
+               <p class="text-desc_1_1" style="line-height: normal;">
+                 AMBEST Service Centers are dedicated to keeping you moving. We’re always innovating to find more efficient ways to keep you on the road, doing what you do best. That’s why we’ve introduced Service Connection—a new program designed to simplify your experience and make your journey smoother than ever.
+                </p>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="intro-section row items-center bg-light">
+        <!-- Left Side: Text Content -->
+        <div class="col-12  col-md-6 "  >
+
+          <div class="col-12 col-md-3 q-pa-md row" style="flex-direction: column;">
+              <q-img
+              src="/images/freedom-warranty-logo.png"
+              class="rounded-borders"
+              fit="cover"
+              width="200px"
+              />
+            <h5 class=" text-bold q-mt-md q-mb-none" style="font-size: 22px;">Peace of Mind in Every Repair. </h5>
+            <div class="">
+              <q-btn label="learn more" outline color="primary" rounded unelevated class="q-mt-md text-bold"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Image -->
+        <div class="col-12 col-md-6 text-center q-pa-xl" style="max-width: 600px; margin-inline: auto;">
+          <q-responsive :ratio="9/6"  style="border-radius: 20px;">
+            <q-img
+            src="/images/car-reparing.png"
+            class="rounded-borders"
+            fit="cover"
+            width="100%"
+            style="border-radius: 20px;"
+            />
+          </q-responsive>
+        </div>
+        </div>
+
+
+
+
+
+    <div class="q-pa-md">
+    <!-- Title -->
+    <h4 class="text-center text-bold q-mb-md">Find an AMBEST Location Near You!</h4>
+
+    <!-- Search Bar -->
+    <div class="row justify-center q-gutter-sm q-mb-md">
+      <q-input
+        v-model="searchQuery"
+        outlined
+        dense
+        placeholder="Enter City, State, or ZIP"
+        class="search-input"
+      />
+      <q-btn color="primary" rounded label="SEARCH" class="search-btn" />
+    </div>
+
+    <!-- Map -->
+    <div class="row justify-center">
+      <q-img src="/images/map.png" alt="AMBEST Locations" class="map-image" />
+    </div>
+
+    <!-- Legend (Below & Left-Aligned) -->
+    <div class="row justify-start q-mt-md legend-container">
+      <div v-for="(item, index) in legendItems" :key="index" class="legend-item">
+        <q-badge :style="{ backgroundColor: item.color }" class="legend-color" />
+        <span class="legend-text">{{ item.label }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-pa-md q-mb-xl">
+    <!-- Section Title -->
+    <h4 class="text-center text-bold q-mb-xl">Locations Near You</h4>
+
+    <!-- Locations Grid -->
+    <div class="row justify-center q-gutter-xl q-mb-lg">
+      <div v-for="(location, index) in locations" :key="index" class="col-12 col-md-3 location-card">
+        <div class="row items-baseline">
+          <!-- Circle Dot beside heading -->
+          <q-badge color="blue" rounded class="location-dot q-mr-md" />
+          <div>
+            <p class="text-bold text-primary text-h6 q-mb-xs">{{ location.name }}</p>
+            <p class="text-body1 q-mb-none">{{ location.address }}</p>
+            <p class="text-body1">{{ location.phone }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- View More Button -->
+    <div class="row justify-center q-mb-xl">
+      <q-btn color="primary" label="VIEW MORE" class="view-more-btn" />
+    </div>
+    </div>
+
+
+    <div class="form-section row  bg-primary" style="margin: auto; border-radius: 20px;">
+
+      <!-- Right Side: Image -->
+      <div class="col-12 col-md-6 text-center">
+            <q-img
+              src="/images/headphone-girl.png"
+              class="rounded-borders form-section-image"
+              fit="cover"
+              height="100%"
+            />
+          </div>
+
+        <!-- Left Side: Text Content -->
+        <div class="col-12  col-md-6 q-pa-xl">
+          <div class="content  q-px-xl q-py-lg">
+            <h5 class="text-white text-bold text-center q-mb-sm"><strong>Get In touch</strong></h5>
+            <p class="text-white text-center text-body2 text-desc">
+              Complete the form, and our team will get in touch with you!
+            </p>
+            <div class="">
+              <q-form class="contact-form">
+                <div class="row q-col-gutter-md">
+                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="form.firstName" label="First Name" />
+                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="form.lastName" label="Last Name" />
+                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="form.email" label="Email" />
+                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="form.phone" label="Phone" />
+                  <q-select
+                    class="col-12 input-area"
+                    bg-color="white"
+                    outlined
+                    v-model="form.contactPerson"
+                    :options="contactOptions"
+                    label="Who would you like to contact"
+                  />
+                  <q-input class="col-12 " bg-color="white" outlined v-model="form.message" label="Message" type="textarea" />
+                </div>
+                <div class="flex flex-center q-mt-md">
+                  <q-btn unelevated rounded color="white" text-color="primary" label="SUBMIT" class="text-bold" @click="submitForm" />
+                </div>
+              </q-form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+    </q-page-container>
+  </q-page>
+</template>
+
+<script>
+import { defineComponent, ref } from 'vue';
+
+
+export default defineComponent({
+  components: {
+
+  },
+  setup() {
+    const search = ref('');
+
+    const perks = [
+      { icon: "/images/ToiletPaper.png", title: "Clean Restrooms" },
+      { icon: "/images/GasPump.png", title: "Quality Fuel" },
+      { icon: "/images/ThumbsUp.png", title: "Friendly Service" },
+      { icon: "/images/Hamburger.png", title: "Convenience Stores" },
+      { icon: "/images/TruckTrailer.png", title: "Truck Parking" },
+      { icon: "/images/WashingMachine.png", title: "Showers & Laundry" },
+    ];
+    const searchQuery = ref("");
+
+    const legendItems = [
+      { color: "#007bff", label: "AMBEST Travel/Service Center" },
+      { color: "#dc3545", label: "AMBEST Travel Center" },
+      { color: "#28a745", label: "AMBEST Express" },
+      { color: "#ffc107", label: "AMBEST Fuel Stop" },
+      { color: "#89CFF0", label: "AMBEST Service Center/Mobile Locations" },
+    ];
+
+    const locations = ref([
+      { name: "Name of AMBEST Location", address: "HWY, Exit 123\nCity Name, ST 12345", phone: "123-456-7890" },
+      { name: "Name of AMBEST Location", address: "HWY, Exit 123\nCity Name, ST 12345", phone: "123-456-7890" },
+      { name: "Name of AMBEST Location", address: "HWY, Exit 123\nCity Name, ST 12345", phone: "123-456-7890" },
+    ]);
+
+    const services = [
+      { icon: 'build', title: 'Preventative Maintenance & Repairs' },
+        { icon: 'directions_car', title: 'Tire and Brake Repairs' },
+        { icon: 'settings', title: 'Engine Diagnostics' },
+        { icon: 'invert_colors', title: 'Oil Changes & Fluid Checks' },
+        { icon: 'flash_on', title: 'Electrical Repairs' },
+        { icon: 'local_shipping', title: 'Trailer Maintenance' },
+        { icon: 'warning', title: 'Vehicle Recovery' },
+        { icon: 'local_taxi', title: 'Box Truck Maintenance' },
+        { icon: 'wifi_tethering', title: 'Mobile Service' },
+        { icon: 'airport_shuttle', title: 'Towing Service' }
+      ];
+
+
+    return {
+      search,
+      perks,
+      searchQuery,
+      legendItems,
+      locations,
+      form: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        contactPerson: null,
+        message: "",
+      },
+      contactOptions: ["Support", "Sales", "General Inquiry"],
+      slide: ref(1),
+      services
+    };
+  }
+});
+</script>
+<!-- <style scope>
+/* Button Container (Flexbox) */
+.btn-container {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+</style> -->
+<style scoped>
+.services-container {
+  border-radius: 12px;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.service-icon {
+  width: 64px;
+  height: 64px;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+@media (max-width: 768px) {
+  .text-section {
+    text-align: center;
+  }
+  .btn-group {
+    justify-content: center;
+  }
+}
+
+.info-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 50px 15%;
+  background-color: white;
+  text-align: center;
+}
+
+.text-desc{
+  font-size: 1.2rem;
+}
+.text-desc_1_1{
+  font-size: 1.1rem;
+}
+
+.q-btn{
+  min-width: 220px;
+}
+
+.about-section {
+
+margin: auto;
+background: #f5f9fc;
+border-radius: 10px;
+/* padding: 20px; */
+}
+
+.icon-img {
+    max-width: 50px;
+    max-height: 50px;
+
+  }
+
+.custom-col {
+  flex-basis: 12.5%; /* Between 8.33% (col-1) and 16.67% (col-2) */
+  max-width: 12.5%;
+}
+
+.banner-container {
+  background-color: #0066a1; /* Blue background */
+  border-radius: 10px; /* Rounded corners */
+  padding: 16px; /* Adjust padding */
+  text-align: center; /* Center align text horizontally */
+  width: 100%; /* Full width */
+  max-width: 1650px; /* Limit width on larger screens */
+  height: 80px; /* Set height */
+  display: flex; /* Flexbox for centering */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  margin: 0 auto; /* Center horizontally */
+}
+
+
+.banner-text {
+  color: white; /* Text color */
+
+  line-height: 2.8; /* Better readability */
+}
+
+
+/* Search Bar */
+.search-input {
+  width: 600px;
+}
+
+/* Map */
+.map-image {
+  width: 100%;
+  max-width: 900px;
+  border-radius: 8px;
+}
+
+/* Legend (Below & Left-Aligned) */
+.legend-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligns to left */
+  gap: 8px;
+  padding-left: 20%; /* Slight padding to align with map */
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legend-text {
+  font-size: 20px;
+}
+
+/* Bigger Location Card */
+.location-card {
+  text-align: left;
+  max-width: 350px;
+}
+
+/* Bigger Circle Dot */
+.location-dot {
+  width: 14px;
+  height: 14px;
+}
+
+/* View More Button */
+.view-more-btn {
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 10px 25px;
+}
+
+/* form section */
+.form-section{
+  /* max-height: 700px; */
+  max-width: 90%;
+  margin: auto;
+  margin-left:10%;
+}
+
+.input-area .q-field__control{
+  height: 44px !important;
+  min-height: 44px !important;
+}
+.q-field--outlined .q-field__control{
+  border-radius: 8px;
+}
+.form-section-image{
+  border-radius:  20px 0 0 20px;
+  object-fit: cover;
+}
+
+/* intro-section */
+.intro-section{
+  width: 80%;
+  margin: auto;
+}
+
+.service-section{
+  max-width: 90%;
+  margin: 0 auto;
+  border-radius: 20px;
+}
+.service-icons{
+  padding: 20px;
+   border-radius:100%;
+    background-color: white;
+}
+
+/* ✅ Responsive Behavior */
+@media (max-width: 1280px) { /* Large screens */
+  .custom-col {
+    flex: 0 0 16.67%; /* Same as col-lg-2 */
+    max-width: 16.67%;
+  }
+}
+
+@media (max-width: 1024px) { /* Medium screens */
+  .custom-col {
+    flex: 0 0 25%; /* Same as col-md-3 */
+    max-width: 25%;
+  }
+  .content{
+    padding: 0;
+  }
+}
+
+@media (max-width: 768px) { /* Small screens */
+  .custom-col {
+    flex: 0 0 50%; /* Same as col-sm-6 */
+    max-width: 50%;
+  }
+
+  .banner-text {
+    font-size: 1rem; /* Reduce font size for mobile */
+    line-height: 1.7; /* Better readability */
+  }
+
+  .q-avatar {
+    size: 40px !important; /* Reduce size on small screens */
+  }
+  .icon-img {
+    max-width: 30px;
+    max-height: 30px;
+    padding:30px;
+  }
+
+  .legend-text {
+    font-size: 10px;
+  }
+
+  .content{
+    padding: 0;
+  }
+  .form-section-image{
+  border-radius:  20px 20px 0 0 ;
+  }
+}
+
+@media (max-width: 480px) { /* Extra small screens */
+  .custom-col {
+    flex: 0 0 100%; /* Full width */
+    max-width: 100%;
+  }
+}
+
+</style>

@@ -1,0 +1,39 @@
+body {
+    font-family: 'Inter', sans-serif;
+  }  
+// app global css in SCSS form
+@media (min-width: 1024px) {  /* Hides on tablets & larger screens */
+    .custom-hide-menu {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 1023px) { /* Hide for md and smaller screens */
+    .custom-hide-nav {
+      display: none !important;
+    }
+  }
+
+
+  .responsive-logo {
+    width: 150px; /* Default size for larger screens */
+    max-width: 180px;
+  }
+  
+  /* Adjust for medium screens (tablets) */
+  @media (max-width: 1024px) {
+    .responsive-logo {
+      width: 120px;
+    }
+  }
+  
+  /* Adjust for small screens (mobile) */
+  @media (max-width: 600px) {
+    .responsive-logo {
+      width: 100px;
+    }
+  }
+
+  
+  
+  
