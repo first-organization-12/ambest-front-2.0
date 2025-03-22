@@ -23,6 +23,7 @@
           class="q-mt-xs text-bold"
           label="Apply for a card today"
           size="md"
+          
         />
       </div>
 

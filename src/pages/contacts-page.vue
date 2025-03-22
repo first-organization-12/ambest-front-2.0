@@ -67,51 +67,74 @@
         <div class="form-container" style="margin-top: 8rem;">
         <h5 class="" style="margin: 25px 0 !important;">Have questions? <strong>Fill out the form and our team will get back to you within 24 hours.</strong></h5>
 
-        <form action="#" method="POST">
-            <div class="form-group row" style="display: flex;gap: 10px;">
-                <div class="form-field">
-                    <label>First Name *</label>
-                    <input type="text" required>
-                </div>
-                <div class="form-field">
-                    <label>Last Name *</label>
-                    <input type="text" required>
-                </div>
+        <q-form @submit="handleContactSubmit">
+            <div class="form-group row q-col-gutter-md">
+                   <!-- <q-form class="row q-col-gutter-md"> -->
+
+                  <div class="col-12 col-md-6">
+                    <label class="input-label">First Name <span class="required">*</span></label>
+                    <q-input v-model="firstName"
+                    :rules="[validateRequired]"
+                      outlined class="custom-input" />
+                  </div>
+
+                  <!-- Last Name -->
+                  <div class="col-12 col-md-6">
+                    <label class="input-label">Last Name <span class="required">*</span></label>
+                    <q-input v-model="lastName"
+                    :rules="[validateRequired]"
+                     outlined class="custom-input" />
+                  </div>
+                <!-- </q-form> -->
             </div>
 
             <div class="form-group">
                 <label>Phone *</label>
-                <input type="tel" required>
+                <q-input outlined
+                :rules="[validateRequired,validatePhone]"
+                v-model="phone"
+                type="tel"  />
             </div>
 
             <div class="form-group">
                 <label>Email *</label>
-                <input type="email" required>
+                <q-input type="email"
+                :rules="[validateRequired,validateEmail]"
+                v-model="email"
+                outlined />
             </div>
 
             <div class="form-group">
                 <label>Which Services are You Looking For? *</label>
-                <select required>
-                    <option value="" disabled selected>Select One</option>
-                    <option value="service1">Service 1</option>
-                    <option value="service2">Service 2</option>
-                    <option value="service3">Service 3</option>
-                </select>
+                <q-select
+                  v-model="service"
+                  :options="serviceOptions"
+                  outlined
+                  dense
+                  :rules="[validateRequired]"
+                  class="custom-select"
+                  emit-value
+                  map-options
+                  
+                />
             </div>
 
             <div class="form-group">
                 <label>Message *</label>
-                <textarea required></textarea>
+                <q-input type="textarea"
+                :rules="[validateRequired]"
+                v-model="message"
+                outlined />
             </div>
 
             <div class="form-group">
-                <q-img src="/images/captcha.png" height="50%" width="50%"/>
+                <q-img class="captha" src="/images/captcha.png" height="50%" width="50%"/>
             </div>
-            <q-btn label="SUBMIT" rounded unelevated color="primary" class="q-mt-md q-px-xl text-bold" style="max-width: 298px;" to="/about-ambest" />
-        </form>
+            <q-btn label="SUBMIT" rounded unelevated color="primary" class="q-mt-md q-px-xl text-bold" style="max-width: 298px;" type="submit"/>
+        </q-form>
     </div>
 
-    <div class="faq-container" style="width: 70%; margin: auto;">
+    <div class="faq-container">
       <h5 class="text-h5"><span class="text-weight-bold">Answers to Your Frequently Asked Questions...</span></h5>
       <q-list class="faq-list">
         <q-expansion-item
@@ -142,35 +165,131 @@
     </q-page-container>
   </q-page>
 </template>
-<script setup>
+<script>
 import { ref } from "vue";
-const team = ref([
-{ image: "/images/Chuck.png", name: "Chuck Ryan", position: "President / CEO" },
-        { image: "/images/tim.png", name: "Tim O'Brien", position: "Executive Vice President of Sales" },
-        { image: "/images/Bob.png", name: "Bob Craig", position: "Director of Information Technology" },
-        { image: "/images/Terri.png", name: "Terri Darroch", position: "Chief Financial Officer" },
-        { image: "/images/Gabe.png", name: "Gabe Kelley", position: "Sr. Director — East Region" },
-        { image: "/images/Sulser.png", name: "Joel Sulser", position: "Director of Service Centers" },
-        { image: "/images/Shane.png", name: "Shane Vasel", position: "VP of Marketing & Purchasing" }
-]);
+import { api } from "src/boot/axios";
+import { useQuasar } from "quasar";
+export default{
+  setup(){
 
+  const firstName = ref('');
+  const lastName = ref('');
+  const email = ref('');
+  const phone = ref('');
+  const service = ref('');
+  const message = ref('');
+  const q = useQuasar();
+  const team = ref([
+  { image: "/images/Chuck.png", name: "Chuck Ryan", position: "President / CEO" },
+          { image: "/images/tim.png", name: "Tim O'Brien", position: "Executive Vice President of Sales" },
+          { image: "/images/Bob.png", name: "Bob Craig", position: "Director of Information Technology" },
+          { image: "/images/Terri.png", name: "Terri Darroch", position: "Chief Financial Officer" },
+          { image: "/images/Gabe.png", name: "Gabe Kelley", position: "Sr. Director — East Region" },
+          { image: "/images/Sulser.png", name: "Joel Sulser", position: "Director of Service Centers" },
+          { image: "/images/Shane.png", name: "Shane Vasel", position: "VP of Marketing & Purchasing" }
+  ]);
+  const faqs = ref([
+          { question: "How do I become an AMBEST Member?", answer: "You can become a member by signing up on our website." },
+          { question: "What is AMBUCK$?", answer: "AMBUCK$ is our rewards program where you earn points on purchases." },
+          { question: "How do I earn AMBUCK$ points?", answer: "You earn points when you make qualifying purchases." },
+          { question: "Is there a fee to join AMBUCK$?", answer: "No, joining AMBUCK$ is completely free!" },
+          { question: "Can I use my AMBUCK$ points at any location?", answer: "Points can be redeemed at participating locations." },
+          { question: "I am not a truck stop owner. Can I still join AMBEST?", answer: "Yes, individuals can also join AMBEST." },
+          { question: "Can I track my AMBEST points?", answer: "Yes, you can track your points through our website." },
+          { question: "What is the AMBEST Fuel Card?", answer: "The AMBEST Fuel Card offers discounts on fuel purchases." },
+          { question: "How do I use the AMBEST Fuel Card?", answer: "Simply swipe your card at participating fuel stations." },
+          { question: "What are the benefits of using the AMBEST Fuel Card?", answer: "You can enjoy discounts, rewards, and more." }
+      ]);
+  const serviceOptions= ref([
+        { label: "Select One", value: "" },
+        { label: "Oil Change", value: "oil_change" },
+        { label: "Brake Repair", value: "brake_repair" },
+        { label: "Engine Diagnostics", value: "engine_diagnostics" },
+        { label: "Tire Replacement", value: "tire_replacement" },
+        { label: "Other Services", value: "other_services" }
+      ]);
+  const validateEmail =(val)=>{
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(val) || "Invalid email address";
+  }
+  const validatePhone =(val)=>{
+    const phonePattern = /^[0-9]{10}$/; // Accepts only 10-digit numbers
+      return phonePattern.test(val) || "Invalid phone number (must be 10 digits)";
+  }
+  const validateRequired =(val)=>{
+    return (val && val.trim() !== "") || "This field is required";
+  }
+    const handleContactSubmit = ()=>{
+      api.post(`contact-store`,{
+        'first_name':firstName.value,
+        'last_name':lastName.value,
+        'email':email.value,
+        'phone':phone.value,
+        'service':service.value,
+        'message':message.value,
+      })
+        .then((response)=>{
+          showSuccessNotification(response.data.message);
 
-const faqs = ref([
-        { question: "How do I become an AMBEST Member?", answer: "You can become a member by signing up on our website." },
-        { question: "What is AMBUCK$?", answer: "AMBUCK$ is our rewards program where you earn points on purchases." },
-        { question: "How do I earn AMBUCK$ points?", answer: "You earn points when you make qualifying purchases." },
-        { question: "Is there a fee to join AMBUCK$?", answer: "No, joining AMBUCK$ is completely free!" },
-        { question: "Can I use my AMBUCK$ points at any location?", answer: "Points can be redeemed at participating locations." },
-        { question: "I am not a truck stop owner. Can I still join AMBEST?", answer: "Yes, individuals can also join AMBEST." },
-        { question: "Can I track my AMBEST points?", answer: "Yes, you can track your points through our website." },
-        { question: "What is the AMBEST Fuel Card?", answer: "The AMBEST Fuel Card offers discounts on fuel purchases." },
-        { question: "How do I use the AMBEST Fuel Card?", answer: "Simply swipe your card at participating fuel stations." },
-        { question: "What are the benefits of using the AMBEST Fuel Card?", answer: "You can enjoy discounts, rewards, and more." }
-    ]);
+        }).catch((error)=>{
+          showErrorNotification(error.response.data.message || error.message);
+        })
+      // console.log(firstName.value);
+    }
+
+    const showSuccessNotification = (message) => {
+      q.notify({
+        color: "positive",
+        position: "top",
+        message: message,
+        icon: "check_circle",
+      });
+    };
+
+    const showErrorNotification = (message) => {
+      q.notify({
+        color: "negative",
+        position: "top",
+        message: message,
+        icon: "report_problem",
+      });
+   };
+    return {
+      team,
+      faqs,
+      handleContactSubmit,
+      serviceOptions,
+      validateRequired,
+      validateEmail,
+      validatePhone,
+      firstName,
+      lastName,
+      email,
+      phone,
+      service,
+      message,
+      q,
+      showSuccessNotification,
+      showErrorNotification
+    }
+  }}
 
 </script>
 
 <style>
+.q-field--outlined .q-field__control {
+  height: 44px;
+  border-radius: 8px;
+}
+.q-field__marginal{
+  height: 44px;
+}
+.q-textarea .q-field__control{
+  height: 120px;
+}
+.q-textarea .q-field__native{
+  resize: none;
+}
 .q-expansion-item__toggle-icon {
   display: none !important;
 }
@@ -207,13 +326,7 @@ const faqs = ref([
   border-radius: 20px;
   box-shadow: 0px 1px 3px 0px #0000004D;
   padding: 30px 95px;
-/* box-shadow: 0px 4px 8px 3px #00000026; */
-
 }
-/* .row {
-    display: flex;
-    gap: 10px;
-} */
 
 .form-field {
     flex: 1;
@@ -235,5 +348,80 @@ input, select, textarea {
 
 textarea {
     height: 80px;
+}
+
+.faq-container{
+  width: 70%;
+  margin: auto;
+}
+/* Mobile (up to 600px) */
+@media (max-width: 600px) {
+  .form-container{
+  width: 99%;
+}
+.banner-container{
+  width: 100%;
+}
+.banner-heading{
+ font-size: 1.5rem;
+}
+.banner-sub-heading{
+ font-size: 1rem;
+}
+.form-container{
+  padding: 20px 30px;
+}
+.captha{
+  width: 100% !important;
+}
+.faq-container{
+  width: 90%;
+  margin: auto;
+}
+}
+
+/* Mobile (up to 600px) */
+@media (max-width: 600px) {
+  .form-container{
+  width: 99%;
+}
+.banner-container{
+  width: 100%;
+}
+.banner-heading{
+ font-size: 1.5rem;
+}
+.banner-sub-heading{
+ font-size: 1rem;
+}
+.form-container{
+  padding: 20px 30px;
+}
+.captha{
+  width: 100% !important;
+}
+}
+/* Laptop (601px - 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .form-container{
+  width: 60%;
+}
+
+.banner-heading{
+ font-size: 2rem;
+}
+.banner-sub-heading{
+ font-size: 1.2rem;
+}
+.form-container{
+  padding: 20px 50px;
+}
+}
+
+/* Desktop (1025px - 1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .form-container{
+  width: 60%;
+}
 }
 </style>

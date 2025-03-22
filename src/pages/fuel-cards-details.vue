@@ -57,6 +57,7 @@
                    unelevated
                    color="primary"
                    class="col-12 col-md-4 q-mt-xs text-bold"
+                   to="/fuel-cards/fuel-card-form/aplication"
                    />
                   <q-btn
                     outline
@@ -129,6 +130,7 @@
                    unelevated
                    color="primary"
                    class="col-12 col-md-4 q-mt-xs text-bold"
+                   to="/fuel-cards/fuel-card-form/aplication"
                    />
                   <q-btn
                     outline
@@ -202,6 +204,7 @@
                    unelevated
                    color="primary"
                    class="col-12 col-md-4 q-mt-xs text-bold"
+                   to="/fuel-cards/fuel-card-form/aplication"
                    />
                   <q-btn
                     outline

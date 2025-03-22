@@ -63,6 +63,22 @@ const routes = [
     ]
   },
 
+  {
+    path: '/fuel-cards/fuel-card-form/aplication',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/fuel-card-form.vue') }
+    ]
+  },
+
+  {
+    path: '/fuel-cards/membership/aplication',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/membership-form.vue') }
+    ]
+  },
+
 
 
 
