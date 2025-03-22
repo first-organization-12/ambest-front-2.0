@@ -5,7 +5,7 @@
       <div class="hero-container relative-position" style="height: 300px;">
         <q-img src="/images/center-open-road-desert-landscape.png" class="absolute-full" style="z-index: -1; background-color: transparent;">
           <div class="absolute-center text-center text-white" style="background: transparent;">
-            <div class="text-h2 text-weight-bold">About AMBEST</div>
+            <div class="text-h2 text-weight-bold">About AMBEST s</div>
           </div>
         </q-img>
       </div>
