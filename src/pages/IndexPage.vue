@@ -17,10 +17,10 @@
     <div class="info-section">
     <!-- Heading Section -->
     <div class="text-justify q-pa-xl">
-      <h6 class="text-dark text-bold q-mb-sm q-mt-none">Your Partner in Service Excellence</h6>
-      <p class="text-small text-bold">
+      <h4 class="text-dark text-bold q-mb-sm q-mt-none">Your Partner in Service Excellence</h4>
+      <h6 class="text-small text-bold">
         From coast to coast, AMBEST Travel Centers and Service Centers are here to keep you moving.
-      </p>
+      </h6>
       <p class="text-small">
         We're more than just a network of truck stops—we're a trusted partner for drivers and fleets alike.
         From quality facilities and competitive fuel prices to AMBUCKS® rewards and reliable service centers,
@@ -38,14 +38,14 @@
     <!-- Features Section (Flex) -->
     <!-- <div class="features-container">
       <div v-for="(feature, index) in features" :key="index" class="feature-item">
-        <q-icon :name="feature.icon" color="primary" size="3rem" class="icon" />
+        <q-icon :name="feature.image" color="primary" size="3rem" class="icon" />
         <p class="text-weight-bold">{{ feature.label }}</p>
       </div>
     </div> -->
     <div class="row q-col-gutter-md">
       <div v-for="(feature, index) in features" :key="index" class="col-12 col-sm-4 col-md-4">
-        <q-card class="q-pa-md" style='box-shadow: none;'>
-          <q-icon :name="feature.icon" size="40px" class="icon" color="primary" />
+        <q-card class="q-pa-md feature-card" style='box-shadow: none;'>
+           <img :src="feature.image" alt="fetaure-image"  class="fetaure-image" />
           <div class="text-weight-bold q-mt-sm text-center">{{ feature.label }}</div>
         </q-card>
       </div>
@@ -85,7 +85,7 @@
     <!-- Features Grid -->
     <div class="row justify-center q-mt-lg">
       <div class="col-12 col-md-3 q-pa-md" v-for="(item, index) in advantages" :key="index">
-        <q-icon :name="item.icon" color="primary" size="lg" />
+        <img :src="item.image" alt="advantage-image" class="advantage-image" />
         <p class="text-bold q-mt-md ">{{ item.title }}</p>
         <q-btn :label="item.buttonText" outline color="primary" rounded unelevated class="q-mt-md text-bold" :to="item.route" />
       </div>
@@ -274,32 +274,32 @@ const chunkedTestimonials = computed(() => {
 });
 
 const features = ref([
-  { icon: "mdi-map-marker-radius", label: "Nationwide Coverage" },
-  { icon: "mdi-star-circle", label: "Top-Tier Amenities" },
-  { icon: "mdi-gas-station", label: "Competitive Fuel Prices" },
-  { icon: "mdi-wrench", label: "Expert Maintenance" },
-  { icon: "mdi-gift", label: "Loyalty Rewards Program" },
-  { icon: "mdi-headset", label: "Domestic Customer Service" },
-  { icon: "mdi-domain", label: "Industry Support" },
-  { icon: "mdi-cellphone", label: "Convenient Mobile App" },
-  { icon: "mdi-silverware-fork-knife", label: "Great Restaurants" }
+  { image: "/images/MapTrifold.png", label: "Nationwide Coverage" },
+  { image: "/images/Star.png", label: "Top-Tier Amenities" },
+  { image: "/images/GasPump2.png", label: "Competitive Fuel Prices" },
+  { image: "/images/Wrench.png", label: "Expert Maintenance" },
+  { image: "/images/MoneyWavy.png", label: "Loyalty Rewards Program" },
+  { image: "/images/UserCircleGear.png", label: "Domestic Customer Service" },
+  { image: "/images/Handshake.png", label: "Industry Support" },
+  { image: "/images/DeviceMobileCamera.png", label: "Convenient Mobile App" },
+  { image: "/images/ChefHat.png", label: "Great Restaurants" }
 ]);
 
 const advantages = ref([
       {
-        icon: "local_gas_station", // Fuel pump icon
+        image: "/images/GasPump1.png", // Fuel pump icon
         title: "Over 500 Fuel Locations Nationwide",
         buttonText: "FIND ONE NEAR YOU",
         route:"/travel-centres",
       },
       {
-        icon: "emoji_events", // Reward/trophy icon
+        image: "/images/HandsClapping.png", // Reward/trophy icon
         title: "Earn Rewards with Every Stop",
         buttonText: "JOIN AMBUCKS TODAY",
         route:"/ambucks",
       },
       {
-        icon: "credit_card", // Credit card icon
+        image: "/images/CreditCard.png", // Credit card icon
         title: "Fuel Cards Tailored to Your Needs",
         buttonText: "APPLY NOW",
         route:"/fuel-cards",
@@ -338,6 +338,15 @@ const advantages = ref([
 
 
 <style scoped>
+
+h6 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 2rem;
+    
+}
+
+
 /* Banner Container */
 .banner {
   position: relative;
@@ -428,6 +437,17 @@ const advantages = ref([
   width: 150px;
 }
 
+.fetaure-image{
+   color:rgb(255, 255, 255) !important;
+   font-size: 2rem !important;
+   background: #00659E;
+   border-radius: 50% !important;
+   padding: 11px;
+}
+.feature-card{
+  width:50%;
+}
+
 .icon{
       color:rgb(255, 255, 255) !important;
       font-size: 2rem !important;
@@ -486,10 +506,10 @@ const advantages = ref([
   font-size: 20px !important;
   font-weight: normal;
   color: #000; /* Black text */
-
+  margin-top:1% !important;
   justify-content: center;
   align-items: center;
-  max-width: 80%;
+  max-width: 90%;
   margin: auto;
 }
 
