@@ -92,7 +92,7 @@
             <p class="text-desc">AMBEST is a premier, Member-owned organization specializing in sales, marketing, and purchasing. Proudly representing some of the nation’s finest independently -owned truck stops and service centers, AMBEST is committed to helping Members  succeed. Our mission is simple: to enhance profitability and ensure the long-term success and sustainability of our Members.</p>
           </div>
             <div class="flex justify-center" style="gap: 5px;">
-            <q-btn label="BECOME A MEMBER" rounded unelevated color="primary" class="q-mt-md q-px-xl" />
+            <q-btn label="BECOME A MEMBER" rounded unelevated color="primary" class="q-mt-md q-px-xl" to="/fuel-cards/membership/aplication" />
             <q-btn label="MEMBERSHIP LOGIN" rounded unelevated color="primary" class="q-mt-md q-px-xl" />
           </div>
         </div>

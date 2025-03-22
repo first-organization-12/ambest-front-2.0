@@ -100,7 +100,7 @@
       </h6>
 
       <!-- Buttons -->
-      <div class="row q-gutter-md q-tex">
+      <div class="row q-gutter-md  flex flex-center">
         <q-btn v-for="(button, index) in buttons" :key="index"
           :label="button.label"
           color="primary"
@@ -182,22 +182,19 @@
 </div>
 
 <div class="text-center q-mb-md">
-      <h5 class="text-bold">WHAT OUR CUSTOMERS SAY:</h5>
-    </div>
+  <h5 class="text-bold">WHAT OUR CUSTOMERS SAY:</h5>
+</div>
 
-    <q-carousel
+<q-carousel
   v-model="slide"
   swipeable
   animated
   control-color="primary"
   infinite
   autoplay
-  autoplay-interval="500"
-
-
+  autoplay-interval="3000"
   transition-prev="slide-right"
   transition-next="slide-left"
-
 >
   <q-carousel-slide
     v-for="(chunk, index) in chunkedTestimonials"
@@ -205,15 +202,20 @@
     :name="index"
     class="q-pa-md"
   >
-    <div class="row justify-center q-gutter-xl">
+    <div class="row justify-center q-gutter-md q-gutter-lg-md">
       <q-card
         v-for="(testimonial, i) in chunk"
         :key="i"
-        class="testimonial-card col-12 col-sm-4 col-md-3 col-lg-2"
+        class="testimonial-card col-12 col-sm-6 col-md-4 col-lg-3"
+        style="max-height: 180px;"
       >
-        <q-card-section>
-          <p class="text-white q-mb-md">“{{ testimonial.message }}”</p>
-          <p class="text-white text-bold">{{ testimonial.author }}</p>
+        <q-card-section class="overflow-hidden" style="white-space: nowrap;overflow:hidden">
+          <p class="text-white q-mb-md ellipsis">
+            “{{ testimonial.message }}”
+          </p>
+          <p class="text-white text-bold">
+            {{ testimonial.author }}
+          </p>
         </q-card-section>
       </q-card>
     </div>
@@ -620,6 +622,67 @@ h6 {
 .testimonial-card p {
   text-align:justify;
   font-size: 1rem;
+}
+
+.q-panel.scroll {
+  overflow: hidden !important; /* Stop extra scrolling */
+}
+
+.q-carousel__slide {
+  overflow: hidden !important;
+  max-height: 20px;
+}
+
+
+/* ✅ Responsive Behavior */
+@media (max-width: 1280px) { /* Large screens */
+  .custom-col {
+    flex: 0 0 16.67%; /* Same as col-lg-2 */
+    max-width: 16.67%;
+  }
+}
+
+@media (max-width: 1024px) { /* Medium screens */
+  .custom-col {
+    flex: 0 0 25%; /* Same as col-md-3 */
+    max-width: 25%;
+  }
+  .content{
+    padding: 0;
+  }
+}
+
+@media (max-width: 768px) { /* Small screens */
+  .custom-col {
+    flex: 0 0 50%; /* Same as col-sm-6 */
+    max-width: 50%;
+  }
+
+  .banner-text {
+    font-size: 1rem; /* Reduce font size for mobile */
+    line-height: 1.7; /* Better readability */
+  }
+  .banner {
+    position: relative;
+    width: 100%;
+    height: 501px;
+    overflow: hidden;
+  }
+  .text-desc[data-v-2373a833] {
+    font-size: 1rem;
+  }
+
+  .q-carousel {
+    background-color: #fff;
+    height: 277px;
+  }
+}
+
+@media (max-width: 480px) { /* Extra small screens */
+  .custom-col {
+    flex: 0 0 100%; /* Full width */
+    max-width: 100%;
+  }
 }
 
 

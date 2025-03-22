@@ -66,7 +66,7 @@
   <div class="footer-content">
 
     <!-- Logo and Navigation -->
-    <div class="footer-top q-mb-xl">
+    <div class="footer-top q-mb-sm">
       <q-img src="/images/ambest-logo.png" class="footer-logo" />
       <div class="footer-nav row wrap justify-center">
         <q-btn flat label="ABOUT" class="footer-link" to="/about-ambest"/>
@@ -79,13 +79,13 @@
     </div>
 
     <!-- Social Media Icons -->
-    <div class="footer-social row justify-center q-mt-lg">
-      <q-icon name="mdi-facebook" size="32px" class="q-mx-lg" />
-      <q-icon name="mdi-instagram" size="32px" class="q-mx-lg" />
-      <q-icon name="mdi-twitter" size="32px" class="q-mx-lg" />
-      <q-icon name="mdi-linkedin" size="32px" class="q-mx-lg" />
-      <q-icon name="mdi-phone" size="32px" class="q-mx-lg" />
-    </div>
+    <div class="footer-social row justify-center q-mt-lg q-gutter-sm q-gutter-md-md">
+  <q-icon name="mdi-facebook" size="28px" class="q-mx-sm q-mx-md-md" />
+  <q-icon name="mdi-instagram" size="28px" class="q-mx-sm q-mx-md-md" />
+  <q-icon name="mdi-twitter" size="28px" class="q-mx-sm q-mx-md-md" />
+  <q-icon name="mdi-linkedin" size="28px" class="q-mx-sm q-mx-md-md" />
+  <q-icon name="mdi-phone" size="28px" class="q-mx-sm q-mx-md-md" />
+</div>
 
     <!-- Three-Column Layout for Mailing List, Office, and Contact -->
     <div class="footer-row row wrap justify-between q-mt-xl">
@@ -288,5 +288,17 @@ export default {
     font-size: 14px;
     padding: 8px 12px;
   }
+
+  .footer-nav {
+    display: flex;
+    justify-content: center;
+    gap:0px;
+    flex-wrap: wrap;
+}
+.footer-mailing{
+  text-align: center;
+}
+
+
 }
 </style>

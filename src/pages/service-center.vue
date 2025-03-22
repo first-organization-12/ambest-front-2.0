@@ -291,24 +291,27 @@
               Complete the form, and our team will get in touch with you!
             </p>
             <div class="">
-              <q-form class="contact-form">
+              <q-form class="contact-form" @submit="submitForm">
                 <div class="row q-col-gutter-md">
-                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="form.firstName" label="First Name" />
-                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="form.lastName" label="Last Name" />
-                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="form.email" label="Email" />
-                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="form.phone" label="Phone" />
+                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="firstName" :rules="[validateRequired]" label="First Name"/>
+                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="lastName" :rules="[validateRequired]" label="Last Name"/>
+                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="email" :rules="[validateRequired,validateEmail]" label="Email"/>
+                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="phone" :rules="[validateRequired,validatePhone]" label="Phone"/>
+                  <q-input class="col-12 input-area" bg-color="white"  outlined v-model="companyName" :rules="[validateRequired]" label="Company Name"/>
                   <q-select
                     class="col-12 input-area"
                     bg-color="white"
                     outlined
-                    v-model="form.contactPerson"
+                    v-model="service"
                     :options="contactOptions"
+                    :rules="[validateRequired]"
                     label="Who would you like to contact"
+
                   />
-                  <q-input class="col-12 " bg-color="white" outlined v-model="form.message" label="Message" type="textarea" />
+                  <q-input class="col-12 " bg-color="white" outlined v-model="message" :rules="[validateRequired]" label="Message" type="textarea"/>
                 </div>
                 <div class="flex flex-center q-mt-md">
-                  <q-btn unelevated rounded color="white" text-color="primary" label="SUBMIT" class="text-bold" @click="submitForm" />
+                  <q-btn rounded color="white" text-color="primary" label="SUBMIT" class="text-bold" type="submit"  />
                 </div>
               </q-form>
             </div>
@@ -324,15 +327,20 @@
 
 <script>
 import { defineComponent, ref } from 'vue';
-
+import { api } from "src/boot/axios";
+import { useQuasar } from "quasar";
 
 export default defineComponent({
-  components: {
-
-  },
   setup() {
+    const q = useQuasar();
     const search = ref('');
-
+    const firstName = ref('');
+    const lastName = ref('');
+    const email = ref('');
+    const phone = ref('');
+    const companyName = ref('');
+    const service = ref('');
+    const message = ref('');
     const perks = [
       { icon: "/images/ToiletPaper.png", title: "Clean Restrooms" },
       { icon: "/images/GasPump.png", title: "Quality Fuel" },
@@ -369,25 +377,78 @@ export default defineComponent({
         { icon: 'wifi_tethering', title: 'Mobile Service' },
         { icon: 'airport_shuttle', title: 'Towing Service' }
       ];
+    const slide= ref(1);
+    const contactOptions= ["Support", "Sales", "General Inquiry"];
+    const validateEmail =(val)=>{
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(val) || "Invalid email address";
+    }
+    const validatePhone =(val)=>{
+      const phonePattern = /^[0-9]{10}$/; // Accepts only 10-digit numbers
+        return phonePattern.test(val) || "Invalid phone number (must be 10 digits)";
+    }
+    const validateRequired =(val)=>{
+      return (val && val.trim() !== "") || "This field is required";
+    }
+    const submitForm =()=>{
+      api.post(`store-service-center-contact`,{
+        'first_name':firstName.value,
+        'last_name':lastName.value,
+        'email':email.value,
+        'phone':phone.value,
+        'company_name':companyName.value,
+        'service':service.value,
+        'message':message.value,
+      })
+        .then((response)=>{
+          showSuccessNotification(response.data.message);
 
+        }).catch((error)=>{
+          showErrorNotification(error.response.data.message || error.message);
+        })
+    }
+
+    const showSuccessNotification = (message) => {
+      q.notify({
+        color: "positive",
+        position: "top",
+        message: message,
+        icon: "check_circle",
+      });
+    };
+
+    const showErrorNotification = (message) => {
+      q.notify({
+        color: "negative",
+        position: "top",
+        message: message,
+        icon: "report_problem",
+      });
+    };
 
     return {
+      q,
       search,
       perks,
       searchQuery,
       legendItems,
       locations,
-      form: {
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        contactPerson: null,
-        message: "",
-      },
-      contactOptions: ["Support", "Sales", "General Inquiry"],
-      slide: ref(1),
-      services
+      contactOptions,
+      firstName,
+      lastName,
+      email,
+      phone,
+      companyName,
+      service,
+      message,
+      slide,
+      services,
+      validateRequired,
+      validateEmail,
+      validatePhone,
+      submitForm,
+      showSuccessNotification,
+      showErrorNotification
     };
   }
 });
@@ -401,6 +462,9 @@ export default defineComponent({
 }
 </style> -->
 <style scoped>
+.q-field__marginal{
+  height: 44px;
+}
 .services-container {
   border-radius: 12px;
 }
