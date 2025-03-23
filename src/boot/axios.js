@@ -15,8 +15,9 @@ const api = axios.create({ baseURL: "http://127.0.0.1:8000/api/" });
 function getAuthorizationToken() {
   // Implement your logic to retrieve the token from local storage, cookies, or other mechanisms
   // For example, you could use localStorage.getItem('accessToken')
+   return localStorage.getItem('accessToken');
   // return store.getters.getToken;
-  return '1|vWkartoHjg1mST8jNI6oLeSvAdrdsDXAXEFXZNDo78bc9aa1'; // Replace with actual token retrieval
+  // return '1|vWkartoHjg1mST8jNI6oLeSvAdrdsDXAXEFXZNDo78bc9aa1'; // Replace with actual token retrieval
 }
 
 export default boot(({ app, router }) => {
@@ -29,7 +30,7 @@ export default boot(({ app, router }) => {
   api.interceptors.request.use(
     (config) => {
       const token = getAuthorizationToken();
-      console.log(token);
+      // console.log(token);
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }

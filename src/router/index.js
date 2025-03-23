@@ -11,6 +11,10 @@ import routes from './routes'
  * with the Router instance.
  */
 
+function isAuthenticated() {
+  return localStorage.getItem('accessToken') !== null; // Example check
+}
+
 export default defineRouter(function (/* { store, ssrContext } */) {
   const createHistory = process.env.SERVER
     ? createMemoryHistory
@@ -25,6 +29,14 @@ export default defineRouter(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE)
   })
+
+  Router.beforeEach((to, from, next) => {
+    if (to.path.startsWith('/dashboard') && !isAuthenticated()) {
+      next('/login'); // Redirect to login if not authenticated
+    } else {
+      next(); // Allow access
+    }
+  });
 
   return Router
 })

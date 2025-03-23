@@ -23,7 +23,8 @@
           class="q-mt-xs text-bold"
           label="Apply for a card today"
           size="md"
-          
+          to="/fuel-cards/fuel-card-form/aplication"
+
         />
       </div>
 

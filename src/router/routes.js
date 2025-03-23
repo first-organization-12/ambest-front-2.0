@@ -79,6 +79,45 @@ const routes = [
     ]
   },
 
+  {
+    path: '/login',
+    // component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/login-page.vue') }
+    ]
+  },
+  {
+    path: '/dashboard',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/dashboard-page.vue') }
+    ]
+  },
+
+  {
+    path: '/dashboard/contact-info',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/contact-info.vue') }
+    ]
+  },
+
+  {
+    path: '/dashboard/service/messages',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/service-info.vue') }
+    ]
+  },
+
+  {
+    path: '/dashboard/fuel-card/application',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/fuel-card-appplication-info.vue') }
+    ]
+  },
+
 
 
 

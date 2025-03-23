@@ -94,22 +94,22 @@
             <div class="form-group row q-col-gutter-md">
                 <div class="form-field col-12 col-md-6">
                     <label>Name *</label>
-                    <q-input  type="text" />
+                    <q-input outlined  type="text" />
                 </div>
                 <div class="form-field col-12 col-md-6">
                     <label>Position *</label>
-                    <q-input  type="text" />
+                    <q-input outlined  type="text" />
                 </div>
             </div>
 
             <div class="form-group">
                 <label>Phone *</label>
-                <q-input  type="tel" />
+                <q-input outlined  type="tel" />
             </div>
 
             <div class="form-group">
                 <label>Email *</label>
-                <q-input  type="email" />
+                <q-input outlined  type="email" />
             </div>
 
 
@@ -118,45 +118,45 @@
             <div class="form-group row q-col-gutter-md">
                 <div class="form-field col-12 col-md-6">
                     <label>Name *</label>
-                    <q-input  type="text" />
+                    <q-input outlined  type="text" />
                 </div>
             </div>
 
             <div class="form-group">
                 <label>Location Address *</label>
-                <q-input  type="tel" />
+                <q-input outlined  type="tel" />
             </div>
 
             <div class="form-group row q-col-gutter-md">
                 <div class="form-field col-12 col-md-6">
                     <label>City *</label>
-                    <q-input  type="text" />
+                    <q-input outlined  type="text" />
                 </div>
                 <div class="form-field col-12 col-md-6">
                     <label>State/Province *</label>
-                    <q-input  type="text" />
+                    <q-input outlined  type="text" />
                 </div>
             </div>
 
             <div class="form-group row q-col-gutter-md">
                 <div class="form-field col-12 col-md-6">
                     <label>Zip/Postal Code </label>
-                    <q-input  type="text" />
+                    <q-input outlined  type="text" />
                 </div>
                 <div class="form-field col-12 col-md-6">
                     <label>Country *</label>
-                    <q-input  type="text" />
+                    <q-input outlined  type="text" />
                 </div>
             </div>
 
             <div class="form-group row q-col-gutter-md">
                 <div class="form-field col-12 col-md-6">
                     <label>Number of Drivers *</label>
-                    <q-input  type="text" />
+                    <q-input outlined  type="text" />
                 </div>
                 <div class="form-field col-12 col-md-6">
                     <label>Number of Trucks *</label>
-                    <q-input  type="text" />
+                    <q-input outlined  type="text" />
                 </div>
             </div>
 

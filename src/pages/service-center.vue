@@ -306,7 +306,8 @@
                     :options="contactOptions"
                     :rules="[validateRequired]"
                     label="Who would you like to contact"
-
+                    emit-value
+                    map-options
                   />
                   <q-input class="col-12 " bg-color="white" outlined v-model="message" :rules="[validateRequired]" label="Message" type="textarea"/>
                 </div>
@@ -378,7 +379,13 @@ export default defineComponent({
         { icon: 'airport_shuttle', title: 'Towing Service' }
       ];
     const slide= ref(1);
-    const contactOptions= ["Support", "Sales", "General Inquiry"];
+    const contactOptions= ref([
+    { label: "Oil Change", value: "oil_change" },
+    { label: "Brake Repair", value: "brake_repair" },
+    { label: "Engine Diagnostics", value: "engine_diagnostics" },
+    { label: "Tire Replacement", value: "tire_replacement" },
+    { label: "Other Services", value: "other_services" }
+    ]);
     const validateEmail =(val)=>{
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailPattern.test(val) || "Invalid email address";
