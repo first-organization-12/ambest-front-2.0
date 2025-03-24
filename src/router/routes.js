@@ -118,6 +118,22 @@ const routes = [
     ]
   },
 
+  {
+    path: '/dashboard/membership/application',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/membership-application.vue') }
+    ]
+  },
+
+  {
+    path: '/dashboard/fuel-card/inquery',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/fuel-card-inquery.vue') }
+    ]
+  },
+
 
 
 

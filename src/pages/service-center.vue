@@ -12,7 +12,7 @@
       </div>
 
       <div class="custom-banner text-center q-ma-xl">
-        <h5 class="text-h5 q-ma-md"><strong>Where America Stops for Service and Value</strong></h5>
+        <h5 class="text-h5 q-ma-md text-white"><strong>Where America Stops for Service and Value</strong></h5>
         <q-btn label="SEARCH SERVICE CENTERS" rounded unelevated color="primary"  to="/about-ambest" />
       </div>
 
@@ -271,57 +271,53 @@
     </div>
 
 
-    <div class="form-section row  bg-primary" style="margin: auto; border-radius: 20px;">
+      <div class="form-section row  bg-primary" style="margin: auto; border-radius: 20px;">
+        <!-- Right Side: Image -->
+        <div class="col-12 col-md-6 text-center">
+              <q-img
+                src="/images/headphone-girl.png"
+                class="rounded-borders form-section-image"
+                fit="cover"
+                height="100%"
+              />
+        </div>
 
-      <!-- Right Side: Image -->
-      <div class="col-12 col-md-6 text-center">
-            <q-img
-              src="/images/headphone-girl.png"
-              class="rounded-borders form-section-image"
-              fit="cover"
-              height="100%"
-            />
-          </div>
-
-        <!-- Left Side: Text Content -->
-        <div class="col-12  col-md-6 q-pa-xl">
-          <div class="content  q-px-xl q-py-lg">
-            <h5 class="text-white text-bold text-center q-mb-sm"><strong>Get In touch</strong></h5>
-            <p class="text-white text-center text-body2 text-desc">
-              Complete the form, and our team will get in touch with you!
-            </p>
-            <div class="">
-              <q-form class="contact-form" @submit="submitForm">
-                <div class="row q-col-gutter-md">
-                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="firstName" :rules="[validateRequired]" label="First Name"/>
-                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="lastName" :rules="[validateRequired]" label="Last Name"/>
-                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="email" :rules="[validateRequired,validateEmail]" label="Email"/>
-                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="phone" :rules="[validateRequired,validatePhone]" label="Phone"/>
-                  <q-input class="col-12 input-area" bg-color="white"  outlined v-model="companyName" :rules="[validateRequired]" label="Company Name"/>
-                  <q-select
-                    class="col-12 input-area"
-                    bg-color="white"
-                    outlined
-                    v-model="service"
-                    :options="contactOptions"
-                    :rules="[validateRequired]"
-                    label="Who would you like to contact"
-                    emit-value
-                    map-options
-                  />
-                  <q-input class="col-12 " bg-color="white" outlined v-model="message" :rules="[validateRequired]" label="Message" type="textarea"/>
-                </div>
-                <div class="flex flex-center q-mt-md">
-                  <q-btn rounded color="white" text-color="primary" label="SUBMIT" class="text-bold" type="submit"  />
-                </div>
-              </q-form>
+          <!-- Left Side: Text Content -->
+          <div class="col-12  col-md-6 q-px-xl">
+            <div class="content  q-px-xl">
+              <h5 class="text-white text-bold text-center q-mb-sm"><strong>Request More Information</strong></h5>
+              <p class="text-white text-center text-body2 text-desc">
+                Complete the form, and our team will get in touch with you!
+              </p>
+              <div class="">
+                <q-form class="contact-form" @submit="submitForm">
+                  <div class="row q-col-gutter-sm">
+                    <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="firstName" :rules="[validateRequired]" label="First Name"/>
+                    <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="lastName" :rules="[validateRequired]" label="Last Name"/>
+                    <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="email" :rules="[validateRequired,validateEmail]" label="Email"/>
+                    <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="phone" :rules="[validateRequired,validatePhone]" label="Phone"/>
+                    <q-input class="col-12 input-area" bg-color="white"  outlined v-model="companyName" :rules="[validateRequired]" label="Company Name"/>
+                    <q-select
+                      class="col-12 input-area"
+                      bg-color="white"
+                      outlined
+                      v-model="service"
+                      :options="contactOptions"
+                      :rules="[validateRequired]"
+                      label="Who would you like to contact"
+                      emit-value
+                      map-options
+                    />
+                    <q-input class="col-12 " bg-color="white" outlined v-model="message" :rules="[validateRequired]" label="Message" type="textarea"/>
+                  </div>
+                  <div class="flex flex-center q-my-sm">
+                    <q-btn rounded color="white" text-color="primary" label="SUBMIT" class="text-bold" type="submit"  />
+                  </div>
+                </q-form>
+              </div>
             </div>
           </div>
         </div>
-
-      </div>
-
-
     </q-page-container>
   </q-page>
 </template>
@@ -620,7 +616,7 @@ border-radius: 10px;
 
 /* form section */
 .form-section{
-  /* max-height: 700px; */
+  max-height: 700px;
   max-width: 90%;
   margin: auto;
   margin-left:10%;
@@ -654,7 +650,6 @@ border-radius: 10px;
    border-radius:100%;
     background-color: white;
 }
-
 /* ✅ Responsive Behavior */
 @media (max-width: 1280px) { /* Large screens */
   .custom-col {

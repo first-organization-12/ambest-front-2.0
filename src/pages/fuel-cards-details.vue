@@ -80,22 +80,44 @@
                     size="md"
                   />
               </div>
-              <div class="row justify-center">
-                <div class="col-12 col-md-6">
-                  <div class="">
-                    <q-responsive :ratio="9/6">
-                      <q-img src="images/fornt-truck.png" style="border-radius: 20px 0 0 20px;"/>
-                    </q-responsive>
+
+                <div class="form-section row  bg-primary" style="margin: auto; border-radius: 20px;">
+                  <!-- Right Side: Image -->
+                  <div class="col-12 col-md-6 text-center">
+                        <q-img
+                          src="/images/fornt-truck.png"
+                          class="rounded-borders form-section-image"
+                          fit="cover"
+                          height="100%"
+                          style="border-radius: 20px 0 0 20px;"
+                        />
                   </div>
-                </div>
-                <div class="col-12 col-md-6 bg-primary" style="border-radius: 0 20px 20px 0;">
-                    <h5 class="text-h5 text-white text-center" style="font-weight: 600; margin-bottom: 0%;">Want More Information?</h5>
-                    <p class="form-sub-heading">Complete the form, and our team will reach out! </p>
-                    <div class="q-pa-xl">
-                      <!-- here form  -->
+
+                    <!-- Left Side: Text Content -->
+                    <div class="col-12  col-md-6 q-px-xl">
+                      <div class="content">
+                        <h5 class="text-white text-bold text-center q-mb-sm"><strong>Want More Information?</strong></h5>
+                        <p class="text-white text-center text-body2 text-desc">
+                          Complete the form, and our team will reach out!
+                        </p>
+                        <div class="">
+                          <q-form class="contact-form" @submit="submitForm">
+                          <div class="row q-col-gutter-md">
+                            <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="firstName" :rules="[validateRequired]" label="First Name"/>
+                            <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="lastName" :rules="[validateRequired]" label="Last Name"/>
+                            <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="email" :rules="[validateRequired,validateEmail]" label="Email"/>
+                            <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="phone" :rules="[validateRequired,validatePhone]" label="Phone"/>
+                            <q-input class="col-12 input-area" bg-color="white"  outlined v-model="sortMessage" :rules="[validateRequired]" label="Subject"/>
+                            <q-input class="col-12 " bg-color="white" outlined v-model="message" :rules="[validateRequired]" label="Message" type="textarea"/>
+                          </div>
+                          <div class="flex flex-center q-ma-md">
+                            <q-btn rounded color="white" text-color="primary" label="SUBMIT" class="text-bold q-px-xl" type="submit"  />
+                          </div>
+                        </q-form>
+                        </div>
+                      </div>
                     </div>
-                </div>
-              </div>
+                  </div>
             </q-tab-panel>
 
             <q-tab-panel v-if="tab === 'section2'" name="section2">
@@ -153,22 +175,43 @@
                     size="md"
                   />
               </div>
-              <div class="row justify-center">
-                <div class="col-12 col-md-6">
-                  <div class="">
-                    <q-responsive :ratio="9/6">
-                      <q-img src="images/see-side-truck.png" style="border-radius: 20px 0 0 20px;"/>
-                    </q-responsive>
+              <div class="form-section row  bg-primary" style="margin: auto; border-radius: 20px;">
+                <!-- Right Side: Image -->
+                <div class="col-12 col-md-6 text-center">
+                      <q-img
+                        src="images/see-side-truck.png"
+                        class="rounded-borders form-section-image"
+                        fit="cover"
+                        height="100%"
+                        style="border-radius: 20px 0 0 20px;"
+                      />
+                    </div>
+
+                  <!-- Left Side: Text Content -->
+                  <div class="col-12  col-md-6 q-pa-xl">
+                    <div class="content">
+                      <h5 class="text-white text-bold text-center q-mb-sm"><strong>Get In touch</strong></h5>
+                      <p class="text-white text-center text-body2 text-desc">
+                        Complete the form, and our team will get in touch with you!
+                      </p>
+                      <div class="">
+                        <q-form class="contact-form" @submit="submitForm">
+                          <div class="row q-col-gutter-md">
+                            <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="firstName" :rules="[validateRequired]" label="First Name"/>
+                            <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="lastName" :rules="[validateRequired]" label="Last Name"/>
+                            <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="email" :rules="[validateRequired,validateEmail]" label="Email"/>
+                            <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="phone" :rules="[validateRequired,validatePhone]" label="Phone"/>
+                            <q-input class="col-12 input-area" bg-color="white"  outlined v-model="sortMessage" :rules="[validateRequired]" label="Subject"/>
+                            <q-input class="col-12 " bg-color="white" outlined v-model="message" :rules="[validateRequired]" label="Message" type="textarea"/>
+                          </div>
+                          <div class="flex flex-center q-mt-md">
+                            <q-btn rounded color="white" text-color="primary" label="SUBMIT" class="text-bold q-px-xl" type="submit"  />
+                          </div>
+                        </q-form>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="col-12 col-md-6 bg-primary" style="border-radius: 0 20px 20px 0;">
-                    <h5 class="text-h5 text-white text-center" style="font-weight: 600; margin-bottom: 0%;">Want More Information?</h5>
-                    <p class="form-sub-heading">Complete the form, and our team will reach out! </p>
-                    <div class="q-pa-xl">
-                      <!-- here form  -->
-                    </div>
-                </div>
-              </div>
             </q-tab-panel>
 
             <q-tab-panel v-if="tab === 'section3'" name="section3">
@@ -227,22 +270,43 @@
                     size="md"
                   />
               </div>
-              <div class="row justify-center">
-                <div class="col-12 col-md-6">
-                  <div class="">
-                    <q-responsive :ratio="9/6">
-                      <q-img src="images/road-and-sky.png" style="border-radius: 20px 0 0 20px;"/>
-                    </q-responsive>
+              <div class="form-section row  bg-primary" style="margin: auto; border-radius: 20px;">
+                <!-- Right Side: Image -->
+                <div class="col-12 col-md-6 text-center">
+                      <q-img
+                        src="images/road-and-sky.png"
+                        class="rounded-borders form-section-image"
+                        fit="cover"
+                        height="100%"
+                        style="border-radius: 20px 0 0 20px;"
+                      />
+                    </div>
+
+                  <!-- Left Side: Text Content -->
+                  <div class="col-12  col-md-6 q-pa-xl">
+                    <div class="content">
+                      <h5 class="text-white text-bold text-center q-mb-sm"><strong>Get In touch</strong></h5>
+                      <p class="text-white text-center text-body2 text-desc">
+                        Complete the form, and our team will get in touch with you!
+                      </p>
+                      <div class="">
+                        <q-form class="contact-form" @submit="submitForm">
+                          <div class="row q-col-gutter-md">
+                            <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="firstName" :rules="[validateRequired]" label="First Name"/>
+                            <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="lastName" :rules="[validateRequired]" label="Last Name"/>
+                            <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="email" :rules="[validateRequired,validateEmail]" label="Email"/>
+                            <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="phone" :rules="[validateRequired,validatePhone]" label="Phone"/>
+                            <q-input class="col-12 input-area" bg-color="white"  outlined v-model="sortMessage" :rules="[validateRequired]" label="Subject"/>
+                            <q-input class="col-12 " bg-color="white" outlined v-model="message" :rules="[validateRequired]" label="Message" type="textarea"/>
+                          </div>
+                          <div class="flex flex-center q-mt-md">
+                            <q-btn rounded color="white" text-color="primary" label="SUBMIT" class="text-bold q-px-xl" type="submit"  />
+                          </div>
+                        </q-form>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="col-12 col-md-6 bg-primary" style="border-radius: 0 20px 20px 0;">
-                    <h5 class="text-h5 text-white text-center" style="font-weight: 600; margin-bottom: 0%;">Want More Information?</h5>
-                    <p class="form-sub-heading">Complete the form, and our team will reach out! </p>
-                    <div class="q-pa-xl">
-                      <!-- here form  -->
-                    </div>
-                </div>
-              </div>
             </q-tab-panel>
           </q-tab-panels>
 
@@ -251,22 +315,85 @@
   </q-page>
 </template>
 <script>
-export default {
-  data() {
-    return {
-      tab: 'section1',
-    };
-  }
-};
+import { ref } from 'vue'
+import { api } from 'src/boot/axios';
+import { useQuasar } from 'quasar';
+  export default {
+    setup() {
+      const q = useQuasar();
+      const tab = ref('section1');
+      const firstName = ref('');
+      const lastName = ref('');
+      const email = ref('');
+      const phone = ref('');
+      const sortMessage = ref('I would like more information on the AMBEST Fuel Card.');
+      const message = ref('');
+
+      const validateEmail =(val)=>{
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      return emailPattern.test(val) || "Invalid email address";
+      }
+      const validatePhone =(val)=>{
+        const phonePattern = /^[0-9]{10}$/; // Accepts only 10-digit numbers
+          return phonePattern.test(val) || "Invalid phone number (must be 10 digits)";
+      }
+      const validateRequired =(val)=>{
+        return (val && val.trim() !== "") || "This field is required";
+      }
+      const submitForm =()=>{
+        api.post(`store-ambest-Fuel-card-inquery`,{
+          'first_name':firstName.value,
+          'last_name':lastName.value,
+          'email':email.value,
+          'phone':phone.value,
+          'sort_message':sortMessage.value,
+          'message':message.value,
+        })
+          .then((response)=>{
+            showSuccessNotification(response.data.message);
+
+          }).catch((error)=>{
+            showErrorNotification(error.response.data.message || error.message);
+          })
+      }
+
+      const showSuccessNotification = (message) => {
+        q.notify({
+          color: "positive",
+          position: "top",
+          message: message,
+          icon: "check_circle",
+        });
+      };
+
+      const showErrorNotification = (message) => {
+        q.notify({
+          color: "negative",
+          position: "top",
+          message: message,
+          icon: "report_problem",
+        });
+      };
+      return {q, tab, firstName, lastName, email, phone, sortMessage, message, validateEmail, validatePhone, validateRequired,showSuccessNotification, showErrorNotification, submitForm, }
+    }}
 </script>
 <style scoped>
+.q-field__marginal{
+  height: 44px;
+}
+.form-section{
+  /* max-height: 700px; */
+  max-width: 90%;
+  margin: auto;
+  /* margin-left:10%; */
+}
 /* tabs section  */
 .tab-container {
   display: flex;
   justify-content: center;
 }
 
-.custom-tabs >>> .q-btn {
+.custom-tabs :deep() .q-btn {
   padding: 10px 30px;
   font-weight: bold;
   border-radius: 50px;
@@ -323,6 +450,9 @@ export default {
   color: #fff;
   text-align: center;
 }
+/* .q-col-gutter-md{
+  padding-top: 5px;
+} */
 @media (max-width: 600px) {
     .q-btn-group{
       flex-direction: column !important;
@@ -334,4 +464,10 @@ export default {
     padding-inline: 0 !important;
   }
 }
+@media (max-width: 1024px) { /* Medium screens */
+  .content{
+    padding: 0;
+  }
+}
+
 </style>

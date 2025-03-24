@@ -34,6 +34,19 @@
               </q-item>
             </q-td>
           </template>
+
+          <template v-slot:body-cell-email="props">
+          <q-td :props="props" class="email-column">
+            <a href="mailto:{{ props.row.email }}">{{ props.row.email }}</a>
+          </q-td>
+          </template>
+
+          <template v-slot:body-cell-phone="props">
+            <q-td :props="props" class="phone-column">
+              <a href="tel:{{ props.row.phone }}">{{ props.row.phone }}</a>
+            </q-td>
+          </template>
+
         </q-table>
         <div class="q-mt-md flex justify-end">
           <q-pagination

@@ -94,22 +94,34 @@
             <div class="form-group row q-col-gutter-md">
                 <div class="form-field col-12 col-md-6">
                     <label>Name *</label>
-                    <q-input outlined  type="text" />
+                    <q-input
+                    :rules="[validateRequired]"
+                    v-model="conatctName"
+                    outlined  type="text" />
                 </div>
                 <div class="form-field col-12 col-md-6">
                     <label>Position *</label>
-                    <q-input outlined  type="text" />
+                    <q-input
+                    :rules="[validateRequired]"
+                    v-model="position"
+                    outlined  type="text" />
                 </div>
             </div>
 
             <div class="form-group">
                 <label>Phone *</label>
-                <q-input outlined  type="tel" />
+                <q-input
+                :rules="[validateRequired,validatePhone]"
+                v-model="phone"
+                outlined  type="tel" />
             </div>
 
             <div class="form-group">
                 <label>Email *</label>
-                <q-input outlined  type="email" />
+                <q-input
+                :rules="[validateRequired,validateEmail]"
+                v-model="email"
+                outlined  type="email" />
             </div>
 
 
@@ -118,45 +130,68 @@
             <div class="form-group row q-col-gutter-md">
                 <div class="form-field col-12 col-md-6">
                     <label>Name *</label>
-                    <q-input outlined  type="text" />
+                    <q-input
+                    :rules="[validateRequired]"
+                    v-model="locationName"
+                    outlined  type="text" />
                 </div>
             </div>
 
             <div class="form-group">
                 <label>Location Address *</label>
-                <q-input outlined  type="tel" />
+                <q-input
+                :rules="[validateRequired]"
+                v-model="locationAdd"
+                outlined  type="tel" />
             </div>
 
             <div class="form-group row q-col-gutter-md">
                 <div class="form-field col-12 col-md-6">
                     <label>City *</label>
-                    <q-input outlined  type="text" />
+                    <q-input
+                    :rules="[validateRequired]"
+                    v-model="city"
+                    outlined  type="text" />
                 </div>
                 <div class="form-field col-12 col-md-6">
                     <label>State/Province *</label>
-                    <q-input outlined  type="text" />
+                    <q-input
+                    v-model="state"
+                    outlined  type="text" />
                 </div>
             </div>
 
             <div class="form-group row q-col-gutter-md">
                 <div class="form-field col-12 col-md-6">
                     <label>Zip/Postal Code </label>
-                    <q-input outlined  type="text" />
+                    <q-input
+                    :rules="[validateRequired]"
+                    v-model="zip"
+                    outlined  type="text" />
                 </div>
                 <div class="form-field col-12 col-md-6">
                     <label>Country *</label>
-                    <q-input outlined  type="text" />
+                    <q-input
+                    :rules="[validateRequired]"
+                    v-model="country"
+                    outlined  type="text" />
                 </div>
             </div>
 
             <div class="form-group row q-col-gutter-md">
                 <div class="form-field col-12 col-md-6">
                     <label>Number of Drivers *</label>
-                    <q-input outlined  type="text" />
+                    <q-input
+                    :rules="[validateRequired,validateNumber]"
+                    v-model="numberOfDrivers"
+                    outlined  type="text" />
                 </div>
                 <div class="form-field col-12 col-md-6">
                     <label>Number of Trucks *</label>
-                    <q-input outlined  type="text" />
+                    <q-input
+                    :rules="[validateRequired,validateNumber]"
+                    v-model="numberOfTrucks"
+                    outlined  type="text" />
                 </div>
             </div>
 
@@ -171,14 +206,16 @@
 </template>
 
 <script>
+import { useQuasar } from 'quasar';
+import { api } from 'src/boot/axios';
 import { ref } from 'vue';
 export default{
   setup(){
-    const service = ref('');
-    const contactName =ref('');
-    const corporateName =ref('');
-    const email =ref('');
+    const conatctName =ref('');
+    const position =ref('');
     const phone =ref('');
+    const email =ref('');
+    const locationName =ref('');
     const locationAdd =ref('');
     const city =ref('');
     const state =ref('');
@@ -186,16 +223,71 @@ export default{
     const country =ref('');
     const numberOfDrivers =ref('');
     const numberOfTrucks =ref('');
-
-    const handlemembershipform=()=>{
-
+    const q = useQuasar();
+    const validateEmail =(val)=>{
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      return emailPattern.test(val) || "Invalid email address";
     }
+    const validatePhone =(val)=>{
+    const phonePattern = /^[0-9]{10}$/; // Accepts only 10-digit numbers
+      return phonePattern.test(val) || "Invalid phone number (must be 10 digits)";
+    }
+    const validateRequired =(val)=>{
+    return (val && val.trim() !== "") || "This field is required";
+    }
+    const validateNumber=(val)=> {
+        const regex = /^[0-9]+$/; // Allows only numbers (0-9)
+        return regex.test(val) || "Only number ";
+    }
+    const handlemembershipform=()=>{
+      api.post(`store-membership-application`,{
+        'name':conatctName.value,
+        'position':position.value,
+        'phone':phone.value,
+        'email':email.value,
+        'location_name':locationName.value,
+        'location_address':locationAdd.value,
+        'city':city.value,
+        'state':state.value,
+        'zip':zip.value,
+        'country':country.value,
+        'number_of_drivers' :numberOfDrivers.value,
+        'number_of_trucks' :numberOfTrucks.value,
+      })
+      .then((response)=>{
+        showSuccessNotification(response.data.message);
+        console.log(response.data);
+
+      })
+      .catch((error)=>{
+        showErrorNotification(error.response.data.message || error.message);
+      })
+    }
+
+
+    const showSuccessNotification = (message) => {
+      q.notify({
+        color: "positive",
+        position: "top",
+        message: message,
+        icon: "check_circle",
+      });
+    };
+
+    const showErrorNotification = (message) => {
+      q.notify({
+        color: "negative",
+        position: "top",
+        message: message,
+        icon: "report_problem",
+      });
+   };
     return {
-        service,
-        contactName,
-        corporateName,
+        conatctName,
+        position,
         email,
         phone,
+        locationName,
         locationAdd,
         city,
         state,
@@ -203,6 +295,12 @@ export default{
         country,
         numberOfDrivers,
         numberOfTrucks,
+        validateRequired,
+        validatePhone,
+        validateEmail,
+        validateNumber,
+        showErrorNotification,
+        showSuccessNotification,
         handlemembershipform,
     }
   }}

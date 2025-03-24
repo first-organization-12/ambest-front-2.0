@@ -35,6 +35,18 @@
             </q-td>
           </template>
 
+          <template v-slot:body-cell-email="props">
+            <q-td :props="props" class="email-column">
+              <a href="mailto:{{ props.row.email }}">{{ props.row.email }}</a>
+            </q-td>
+          </template>
+
+          <template v-slot:body-cell-phone="props">
+            <q-td :props="props" class="phone-column">
+              <a href="tel:{{ props.row.phone }}">{{ props.row.phone }}</a>
+            </q-td>
+          </template>
+
           <template v-slot:body-cell-actions="props">
             <q-td :props="props">
               <q-btn color="primary" flat icon="people" @click="openModal(props.row)" />
@@ -98,8 +110,8 @@ export default {
       { name: "card_type", label: "Card Type", align: "left", field: "card_type", sortable: true },
       { name: "contact_name", label: "Contact Name", align: "left", field: "contact_name", sortable: true },
       { name: "corporate_name", label: "Corporate Name", align: "left", field: "corporate_name", sortable: true },
-      { name: "location_phone", label: "Location Phone", align: "left", field: "phone", sortable: true },
-      { name: "company_email", label: "Company Email", align: "left", field: "email", sortable: true },
+      { name: "phone", label: "Location Phone", align: "left", field: "phone", sortable: true },
+      { name: "email", label: "Company Email", align: "left", field: "email", sortable: true },
       { name: "city", label: "City", align: "left", field: "city", sortable: true },
       { name: "country", label: "Country", align: "left", field: "country", sortable: true },
       { name: "created_at", label: "Date (MM/DD/YYYY)", align: "left", field: "created_at", sortable: true },

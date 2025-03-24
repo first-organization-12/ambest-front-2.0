@@ -81,7 +81,31 @@
           <q-item-section avatar>
             <q-icon name="local_gas_station" />
           </q-item-section>
-          <q-item-section>Fuel Card Application</q-item-section>
+          <q-item-section>Fuel Card Applications</q-item-section>
+        </q-item>
+
+        <q-item
+         clickable
+          v-ripple
+          to="/dashboard/membership/application"
+          exact-active-class="bg-cyan-2"
+          >
+          <q-item-section avatar>
+            <q-icon name="groups" />
+          </q-item-section>
+          <q-item-section>Membership Applications</q-item-section>
+        </q-item>
+
+        <q-item
+         clickable
+          v-ripple
+          to="/dashboard/fuel-card/inquery"
+          exact-active-class="bg-cyan-2"
+          >
+          <q-item-section avatar>
+            <q-icon name="mail" />
+          </q-item-section>
+          <q-item-section>Fuel Card Inquery</q-item-section>
         </q-item>
 
       </q-list>
