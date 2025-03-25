@@ -5,7 +5,7 @@
       <div class="hero-container relative-position" style="height: 300px;">
         <q-img src="/images/man-using-laptop-factory-with-red-light 1.png" class="absolute-full" style="z-index: -1; background-color: transparent;">
           <div class="absolute-center text-center text-white" style="background: transparent;">
-            <q-img src="/images/Ambest-service-centers.png" width="499px"/><div>
+            <q-img class="banner-text-img" src="/images/Ambest-service-centers.png" width="499px"/><div>
             </div>
           </div>
         </q-img>
@@ -18,40 +18,43 @@
 
       <div class="intro-section row items-center bg-light">
         <!-- Right Side: Image -->
-        <div class="col-12 col-md-6" style="border-radius: 20px;">
-          <q-carousel
-            v-model="slide"
-            transition-prev="slide-right"
-            transition-next="slide-left"
-            swipeable
-            animated
-            control-color="primary"
-            navigation
-            padding
-            class="custom-carousel"
-          >
+        <div class="col-12 col-md-6 slider" style="border-radius: 20px;">
+            <q-responsive :ratio="9/6">
+              <q-carousel
+                v-model="slide"
+                transition-prev="slide-right"
+                transition-next="slide-left"
+                swipeable
+                animated
+                control-color="primary"
+                navigation
+                padding
+                class="custom-carousel"
+              >
 
-      <q-carousel-slide :name="1" class="column no-wrap">
-          <div class="fit flex justify-center">
-            <q-img class="rounded-borders col-6 full-height" src="/images/full-shot-mechanic-checking-truck.png" style="border-radius: 20px; width: 550px;" />
-          </div>
-      </q-carousel-slide>
-      <q-carousel-slide :name="2" class="column no-wrap">
-        <div class="fit flex justify-center">
-          <q-img class="rounded-borders col-6 full-height" src="/images/full-shot-mechanic-checking-truck.png" style="border-radius: 20px; width: 550px;" />
-        </div>
-      </q-carousel-slide>
-      <q-carousel-slide :name="3" class="column no-wrap">
-        <div class="fit flex justify-center">
-          <q-img class="rounded-borders col-6 full-height" src="/images/full-shot-mechanic-checking-truck.png" style="border-radius: 20px; width: 550px;" />
-        </div>
-      </q-carousel-slide>
-      <q-carousel-slide :name="4" class="column no-wrap">
-        <div class="fit flex justify-center">
-          <q-img class="rounded-borders col-6 full-height" src="/images/full-shot-mechanic-checking-truck.png" style="border-radius: 20px; width: 550px;" />
-        </div>
-      </q-carousel-slide>
-    </q-carousel>
+          <q-carousel-slide :name="1" class="column no-wrap">
+              <div class="fit flex justify-center">
+                <q-img class="rounded-borders col-6 full-height" src="/images/full-shot-mechanic-checking-truck.png" style="border-radius: 20px; width: 550px;" />
+              </div>
+          </q-carousel-slide>
+          <q-carousel-slide :name="2" class="column no-wrap">
+            <div class="fit flex justify-center">
+              <q-img class="rounded-borders col-6 full-height" src="/images/full-shot-mechanic-checking-truck.png" style="border-radius: 20px; width: 550px;" />
+            </div>
+          </q-carousel-slide>
+          <q-carousel-slide :name="3" class="column no-wrap">
+            <div class="fit flex justify-center">
+              <q-img class="rounded-borders col-6 full-height" src="/images/full-shot-mechanic-checking-truck.png" style="border-radius: 20px; width: 550px;" />
+            </div>
+          </q-carousel-slide>
+          <q-carousel-slide :name="4" class="column no-wrap">
+            <div class="fit flex justify-center">
+              <q-img class="rounded-borders col-6 full-height" src="/images/full-shot-mechanic-checking-truck.png" style="border-radius: 20px; width: 550px;" />
+            </div>
+          </q-carousel-slide>
+        </q-carousel>
+
+    </q-responsive>
       </div>
         <!-- Left Side: Text Content -->
         <div class="col-12  col-md-6 "  >
@@ -72,7 +75,7 @@
       <div class="row justify-center ">
         <q-card v-for="(service, index) in services.slice(0,5)" :key="index" flat class="col-12 col-sm-6 col-md-2 col-lg-2 text-center bg-primary text-white">
           <q-card-section>
-            <q-icon :name="service.icon" class="service-icons" color="primary" size="lg" />
+            <q-icon :name="service.icon" class="service-icons" color="primary" size="sm" />
           </q-card-section>
           <q-card-section>
             <div class="text-subtitle1">{{ service.title }}</div>
@@ -82,7 +85,7 @@
       <div class="row justify-center ">
         <q-card v-for="(service, index) in services.slice(5,10)" :key="index" flat class="col-12 col-sm-6 col-md-2 col-lg-2 text-center bg-primary text-white">
           <q-card-section>
-            <q-icon :name="service.icon" class="service-icons" color="primary" size="lg"></q-icon>
+            <q-icon :name="service.icon" class="service-icons" color="primary" size="sm"></q-icon>
           </q-card-section>
           <q-card-section>
             <div class="text-subtitle1">{{ service.title }}</div>
@@ -96,7 +99,7 @@
       <div class="intro-section row items-center bg-light">
 
         <!-- Left Side: Text Content -->
-        <div class="col-12  col-md-6 "  >
+        <div class="col-12  col-md-6 ">
           <div class="content q-pa-xl">
             <q-img src="/images/service-connection-logo.png"
             class="rounded-borders"
@@ -128,39 +131,40 @@
 
       <div class="intro-section row items-center bg-light">
         <!-- Right Side: Image -->
-        <div class="col-12 col-md-6 text-center q-pa-xl">
-          <q-carousel
-      v-model="slide"
-      transition-prev="slide-right"
-      transition-next="slide-left"
-      swipeable
-      animated
-      control-color="primary"
-      navigation
-      padding
-    >
-
-      <q-carousel-slide :name="1" class="column no-wrap">
-          <div class="fit flex justify-center">
-            <q-img class="rounded-borders col-6 full-height" src="/images/forest.png" style="border-radius: 20px; width: 550px;" />
-          </div>
-      </q-carousel-slide>
-      <q-carousel-slide :name="2" class="column no-wrap">
-        <div class="fit flex justify-center">
-          <q-img class="rounded-borders col-6 full-height" src="/images/forest.png" style="border-radius: 20px; width: 550px;" />
-        </div>
-      </q-carousel-slide>
-      <q-carousel-slide :name="3" class="column no-wrap">
-        <div class="fit flex justify-center">
-          <q-img class="rounded-borders col-6 full-height" src="/images/forest.png"  style="border-radius: 20px; width: 550px;"/>
-        </div>
-      </q-carousel-slide>
-      <q-carousel-slide :name="4" class="column no-wrap">
-        <div class="fit flex justify-center">
-          <q-img class="rounded-borders col-6 full-height" src="/images/forest.png"  style="border-radius: 20px; width: 550px;"/>
-        </div>
-      </q-carousel-slide>
-    </q-carousel>
+        <div class="col-12 col-md-6 text-center slider q-pa-xl">
+          <q-responsive :ratio="9/6">
+                <q-carousel
+                  v-model="slide"
+                  transition-prev="slide-right"
+                  transition-next="slide-left"
+                  swipeable
+                  animated
+                  control-color="primary"
+                  navigation
+                  padding
+                  >
+                <q-carousel-slide :name="1" class="column no-wrap">
+                    <div class="fit flex justify-center">
+                      <q-img class="rounded-borders col-6 full-height" src="/images/forest.png" style="border-radius: 20px; width: 550px;" />
+                    </div>
+                </q-carousel-slide>
+                <q-carousel-slide :name="2" class="column no-wrap">
+                  <div class="fit flex justify-center">
+                    <q-img class="rounded-borders col-6 full-height" src="/images/forest.png" style="border-radius: 20px; width: 550px;" />
+                  </div>
+                </q-carousel-slide>
+                <q-carousel-slide :name="3" class="column no-wrap">
+                  <div class="fit flex justify-center">
+                    <q-img class="rounded-borders col-6 full-height" src="/images/forest.png"  style="border-radius: 20px; width: 550px;"/>
+                  </div>
+                </q-carousel-slide>
+                <q-carousel-slide :name="4" class="column no-wrap">
+                  <div class="fit flex justify-center">
+                    <q-img class="rounded-borders col-6 full-height" src="/images/forest.png"  style="border-radius: 20px; width: 550px;"/>
+                  </div>
+                </q-carousel-slide>
+              </q-carousel>
+          </q-responsive>
       </div>
         <!-- Left Side: Text Content -->
         <div class="col-12  col-md-6 "  >
@@ -183,7 +187,7 @@
         <!-- Left Side: Text Content -->
         <div class="col-12  col-md-6 "  >
 
-          <div class="col-12 col-md-3 q-pa-md row" style="flex-direction: column;">
+          <div class="col-12 col-md-3 q-pa-md row warranty" style="flex-direction: column;">
               <q-img
               src="/images/freedom-warranty-logo.png"
               class="rounded-borders"
@@ -198,7 +202,7 @@
         </div>
 
         <!-- Right Side: Image -->
-        <div class="col-12 col-md-6 text-center q-pa-xl" style="max-width: 600px; margin-inline: auto;">
+        <div class="col-12 col-md-6 text-center warranty-side-image q-pa-xl" style="max-width: 600px;">
           <q-responsive :ratio="9/6"  style="border-radius: 20px;">
             <q-img
             src="/images/car-reparing.png"
@@ -616,7 +620,7 @@ border-radius: 10px;
 
 /* form section */
 .form-section{
-  max-height: 700px;
+  /* max-height: 700px; */
   max-width: 90%;
   margin: auto;
   margin-left:10%;
@@ -650,12 +654,20 @@ border-radius: 10px;
    border-radius:100%;
     background-color: white;
 }
+
+.q-card__section--vert{
+  padding: 10px 0%;
+}
 /* ✅ Responsive Behavior */
 @media (max-width: 1280px) { /* Large screens */
   .custom-col {
     flex: 0 0 16.67%; /* Same as col-lg-2 */
     max-width: 16.67%;
   }
+  .intro-section .slider{
+    padding: 0%;
+  }
+
 }
 
 @media (max-width: 1024px) { /* Medium screens */
@@ -665,6 +677,9 @@ border-radius: 10px;
   }
   .content{
     padding: 0;
+  }
+  .intro-section .slider{
+    padding-right: 48px;
   }
 }
 
@@ -696,7 +711,19 @@ border-radius: 10px;
     padding: 0;
   }
   .form-section-image{
-  border-radius:  20px 20px 0 0 ;
+  border-radius:  20px;
+  }
+  .warranty{
+    align-items: center;
+  }
+  .warranty-side-image{
+    padding: 0%;
+  }
+  .intro-section .slider{
+    padding-right: 0%;
+  }
+  .banner-text-img{
+    width: 100%;
   }
 }
 

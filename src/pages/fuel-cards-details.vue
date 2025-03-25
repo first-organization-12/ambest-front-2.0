@@ -283,8 +283,8 @@
                     </div>
 
                   <!-- Left Side: Text Content -->
-                  <div class="col-12  col-md-6 q-pa-xl">
-                    <div class="content">
+                  <div class="col-12  col-md-6 q-px-xl">
+                    <div class="content q-px-xl">
                       <h5 class="text-white text-bold text-center q-mb-sm"><strong>Get In touch</strong></h5>
                       <p class="text-white text-center text-body2 text-desc">
                         Complete the form, and our team will get in touch with you!
@@ -385,7 +385,7 @@ import { useQuasar } from 'quasar';
   /* max-height: 700px; */
   max-width: 90%;
   margin: auto;
-  /* margin-left:10%; */
+  margin-left:10%;
 }
 /* tabs section  */
 .tab-container {
@@ -462,6 +462,10 @@ import { useQuasar } from 'quasar';
   }
   .panel-container, .panel-sub-container{
     padding-inline: 0 !important;
+  }
+
+  .form-section-image{
+  border-radius:  20px;
   }
 }
 @media (max-width: 1024px) { /* Medium screens */

@@ -5,7 +5,7 @@
       <div class="hero-container relative-position" style="height: 300px;">
         <q-img src="/images/center-open-road-desert-landscape.png" class="absolute-full" style="z-index: -1; background-color: transparent;">
           <div class="absolute-center text-center text-white" style="background: transparent;">
-            <div class="text-h2 text-weight-bold">About AMBEST s</div>
+            <div class="text-h2 text-weight-bold">About AMBEST</div>
           </div>
         </q-img>
       </div>
@@ -114,22 +114,26 @@
             <div class="">
               <q-form class="contact-form">
                 <div class="row q-col-gutter-md">
-                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="form.firstName" label="First Name"/>
-                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="form.lastName" label="Last Name" />
-                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="form.email" label="Email" />
-                  <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="form.phone" label="Phone" />
+                  <q-input class="col-12 col-md-6 input-area" bg-color="white" :rules="[validateRequired]"  outlined v-model="firstName" label="First Name"/>
+                  <q-input class="col-12 col-md-6 input-area" bg-color="white" :rules="[validateRequired]"  outlined v-model="lastName" label="Last Name" />
+                  <q-input class="col-12 col-md-6 input-area" bg-color="white" :rules="[validateRequired,validateEmail]"  outlined v-model="email" label="Email" />
+                  <q-input class="col-12 col-md-6 input-area" bg-color="white" :rules="[validateRequired,validatePhone]"  outlined v-model="phone" label="Phone" />
+                  <q-input class="col-12 input-area" bg-color="white"  outlined v-model="companyName" :rules="[validateRequired]" label="Company Name"/>
                   <q-select
-                    class="col-12 input-area"
-                    bg-color="white"
-                    outlined
-                    v-model="form.contactPerson"
-                    :options="contactOptions"
-                    label="Who would you like to contact"
-                  />
-                  <q-input class="col-12 " bg-color="white" outlined v-model="form.message" label="Message" type="textarea" />
+                      class="col-12 input-area"
+                      bg-color="white"
+                      outlined
+                      v-model="service"
+                      :options="contactOptions"
+                      :rules="[validateRequired]"
+                      label="Who would you like to contact"
+                      emit-value
+                      map-options
+                    />
+                  <q-input class="col-12 " bg-color="white" outlined v-model="message" label="Message" type="textarea" />
                 </div>
                 <div class="flex flex-center q-mt-md">
-                  <q-btn unelevated rounded color="white" text-color="primary" label="SUBMIT" class="text-bold" @click="submitForm" />
+                  <q-btn unelevated rounded color="white" text-color="primary" label="SUBMIT" class="text-bold q-px-lg" @click="submitForm" />
                 </div>
               </q-form>
             </div>
@@ -149,33 +153,106 @@
     </q-page-container>
   </q-page>
 </template>
+
 <script>
-export default {
-  data() {
-    return {
-      form: {
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        contactPerson: null,
-        message: "",
-      },
-      contactOptions: ["Support", "Sales", "General Inquiry"],
-      items: [
-        { icon: 'mdi-steering', title: 'Travel Centers', buttonLabel: 'EXPLORE' },
-        { icon: 'mdi-wrench', title: 'Service Centers', buttonLabel: 'LOCATE' },
-        { icon: 'mdi-credit-card-outline', title: 'Fuel Cards', buttonLabel: 'APPLY' },
-        { icon: 'mdi-piggy-bank-outline', title: 'AMBUCKS', buttonLabel: 'JOIN' },
-      ],
+import { defineComponent, ref } from 'vue';
+import { api } from "src/boot/axios";
+import { useQuasar } from "quasar";
+
+export default defineComponent({
+  setup() {
+    const q = useQuasar();
+    const search = ref('');
+    const firstName = ref('');
+    const lastName = ref('');
+    const email = ref('');
+    const phone = ref('');
+    const companyName = ref('');
+    const service = ref('');
+    const message = ref('');
+
+    const validateEmail =(val)=>{
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(val) || "Invalid email address";
+    }
+    const validatePhone =(val)=>{
+      const phonePattern = /^[0-9]{10}$/; // Accepts only 10-digit numbers
+        return phonePattern.test(val) || "Invalid phone number (must be 10 digits)";
+    }
+    const validateRequired =(val)=>{
+      return (val && val.trim() !== "") || "This field is required";
+    }
+    const contactOptions= ref([
+    { label: "Oil Change", value: "oil_change" },
+    { label: "Brake Repair", value: "brake_repair" },
+    { label: "Engine Diagnostics", value: "engine_diagnostics" },
+    { label: "Tire Replacement", value: "tire_replacement" },
+    { label: "Other Services", value: "other_services" }
+    ]);
+    const submitForm =()=>{
+      console.log({'first_name':firstName.value,
+        'last_name':lastName.value,
+        'email':email.value,
+        'phone':phone.value,
+        'company_name':companyName.value,
+        'service':service.value,
+        'message':message.value,});
+
+      api.post(`store-service-center-contact`,{
+        'first_name':firstName.value,
+        'last_name':lastName.value,
+        'email':email.value,
+        'phone':phone.value,
+        'company_name':companyName.value,
+        'service':service.value,
+        'message':message.value,
+      })
+        .then((response)=>{
+          showSuccessNotification(response.data.message);
+
+        }).catch((error)=>{
+          showErrorNotification(error.response.data.message || error.message);
+        })
+    }
+
+    const showSuccessNotification = (message) => {
+      q.notify({
+        color: "positive",
+        position: "top",
+        message: message,
+        icon: "check_circle",
+      });
     };
-  },
-  methods: {
-    submitForm() {
-      console.log("Form submitted:", this.form);
-    },
-  },
-};
+
+    const showErrorNotification = (message) => {
+      q.notify({
+        color: "negative",
+        position: "top",
+        message: message,
+        icon: "report_problem",
+      });
+    };
+
+    return {
+      q,
+      search,
+      firstName,
+      lastName,
+      email,
+      phone,
+      companyName,
+      service,
+      message,
+      contactOptions,
+      validateRequired,
+      validateEmail,
+      validatePhone,
+      submitForm,
+      showSuccessNotification,
+      showErrorNotification
+    };
+  }
+});
 </script>
 <style scoped>
 

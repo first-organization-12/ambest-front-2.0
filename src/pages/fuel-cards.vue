@@ -398,6 +398,12 @@ export default {
     flex: 0 0 16.67%; /* Same as col-lg-2 */
     max-width: 16.67%;
   }
+  .second-card {
+    transform: rotate(10deg);
+    top: -122px;
+    left: 127px;
+    z-index: 29;
+   }
 }
 
 @media (max-width: 1024px) { /* Medium screens */
