@@ -294,7 +294,7 @@
                 Complete the form, and our team will get in touch with you!
               </p>
               <div class="">
-                <q-form class="contact-form" @submit="submitForm">
+                <q-form class="contact-form" @submit="submitForm" ref="serviceForm">
                   <div class="row q-col-gutter-sm">
                     <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="firstName" :rules="[validateRequired]" label="First Name"/>
                     <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="lastName" :rules="[validateRequired]" label="Last Name"/>
@@ -335,6 +335,7 @@ export default defineComponent({
   setup() {
     const q = useQuasar();
     const search = ref('');
+    const serviceForm = ref(null);
     const firstName = ref('');
     const lastName = ref('');
     const email = ref('');
@@ -409,7 +410,14 @@ export default defineComponent({
       })
         .then((response)=>{
           showSuccessNotification(response.data.message);
-
+          firstName.value = '';
+          lastName.value = '';
+          email.value = '';
+          phone.value = '';
+          companyName.value = '';
+          service.value = '';
+          message.value = '';
+          serviceForm.value?.reset();
         }).catch((error)=>{
           showErrorNotification(error.response.data.message || error.message);
         })
@@ -437,6 +445,7 @@ export default defineComponent({
       q,
       search,
       perks,
+      serviceForm,
       searchQuery,
       legendItems,
       locations,
@@ -626,10 +635,10 @@ border-radius: 10px;
   margin-left:10%;
 }
 
-.input-area .q-field__control{
+/* .input-area .q-field__control{
   height: 44px !important;
   min-height: 44px !important;
-}
+} */
 .q-field--outlined .q-field__control{
   border-radius: 8px;
 }

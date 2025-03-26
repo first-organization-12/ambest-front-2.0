@@ -3,7 +3,7 @@
     <q-header class="bg-white text-dark row items-center" style="height: 69px;" height-hint="98">
       <q-toolbar class="q-px-md">
 
-      <q-item href="/">
+      <q-item to="/">
         <q-avatar square class="q-mr-md q-mx-auto responsive-logo" >
           <q-img src="/images/ambest-logo.png" fit="contain" />
         </q-avatar>
@@ -23,7 +23,7 @@
 
         <!-- ICONS -->
         <q-btn flat round dense icon="person_outline" class="q-mr-md" />
-        <q-btn flat round dense icon="local_gas_station" />
+        <q-btn flat round dense icon="local_gas_station" to="/fuel-price"/>
 
         <!-- MENU BUTTON - Show Only on Mobile -->
         <q-btn

@@ -112,13 +112,12 @@
               Complete the form, and our team will get in touch with you!
             </p>
             <div class="">
-              <q-form class="contact-form">
+              <q-form class="contact-form" ref="aboutForm">
                 <div class="row q-col-gutter-md">
                   <q-input class="col-12 col-md-6 input-area" bg-color="white" :rules="[validateRequired]"  outlined v-model="firstName" label="First Name"/>
                   <q-input class="col-12 col-md-6 input-area" bg-color="white" :rules="[validateRequired]"  outlined v-model="lastName" label="Last Name" />
                   <q-input class="col-12 col-md-6 input-area" bg-color="white" :rules="[validateRequired,validateEmail]"  outlined v-model="email" label="Email" />
                   <q-input class="col-12 col-md-6 input-area" bg-color="white" :rules="[validateRequired,validatePhone]"  outlined v-model="phone" label="Phone" />
-                  <q-input class="col-12 input-area" bg-color="white"  outlined v-model="companyName" :rules="[validateRequired]" label="Company Name"/>
                   <q-select
                       class="col-12 input-area"
                       bg-color="white"
@@ -167,10 +166,9 @@ export default defineComponent({
     const lastName = ref('');
     const email = ref('');
     const phone = ref('');
-    const companyName = ref('');
     const service = ref('');
     const message = ref('');
-
+    const aboutForm =ref(null);
     const validateEmail =(val)=>{
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailPattern.test(val) || "Invalid email address";
@@ -190,26 +188,23 @@ export default defineComponent({
     { label: "Other Services", value: "other_services" }
     ]);
     const submitForm =()=>{
-      console.log({'first_name':firstName.value,
-        'last_name':lastName.value,
-        'email':email.value,
-        'phone':phone.value,
-        'company_name':companyName.value,
-        'service':service.value,
-        'message':message.value,});
-
-      api.post(`store-service-center-contact`,{
+      api.post(`store-about-ambest-contact`,{
         'first_name':firstName.value,
         'last_name':lastName.value,
         'email':email.value,
         'phone':phone.value,
-        'company_name':companyName.value,
         'service':service.value,
         'message':message.value,
       })
         .then((response)=>{
           showSuccessNotification(response.data.message);
-
+          firstName.value = '';
+          lastName.value = '';
+          email.value = '';
+          phone.value = '';
+          service.value = '';
+          message.value = '';
+          aboutForm.value?.reset();
         }).catch((error)=>{
           showErrorNotification(error.response.data.message || error.message);
         })
@@ -235,12 +230,12 @@ export default defineComponent({
 
     return {
       q,
+      aboutForm,
       search,
       firstName,
       lastName,
       email,
       phone,
-      companyName,
       service,
       message,
       contactOptions,

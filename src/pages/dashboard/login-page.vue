@@ -5,8 +5,12 @@
       <div class="text-center">
         <q-img src="/images/ambest-logo.png" width="150px" class="q-mb-md" />
       </div>
+      <!-- Error Message -->
+      <q-banner v-if="errorMessage" class="bg-red-2 text-negative q-my-lg">
+        {{ errorMessage }}
+      </q-banner>
 
-      <q-form @submit="login" class="q-gutter-md">
+      <q-form @submit="login" class="q-gutter-md" ref="loginForm">
         <!-- Email -->
         <q-input
           v-model="email"
@@ -37,11 +41,6 @@
            :loading="loading"
            />
         </div>
-
-        <!-- Error Message -->
-        <q-banner v-if="errorMessage" class="bg-red-2 text-negative q-mt-md">
-          {{ errorMessage }}
-        </q-banner>
       </q-form>
 
       <!-- Register Link -->
@@ -53,7 +52,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted} from "vue";
 import { useRouter } from "vue-router";
 import { api } from "src/boot/axios";
 import { useQuasar } from "quasar";
@@ -65,7 +64,7 @@ export default {
     const loading = ref(false);
     const errorMessage = ref("");
     const router = useRouter();
-
+    const loginForm = ref(null);
     const showSuccessNotification = (message) => {
       q.notify({
         color: "positive",
@@ -107,11 +106,14 @@ export default {
           console.log(error.response.data.message);
           showErrorNotification(error.response.data.message);
           errorMessage.value = "Invalid email or password";
+          email.value = '';
+          password.value ='';
+          loginForm.value?.reset();
         })
         loading.value = false;
     };
     onMounted(isLogin);
-    return {isLogin, email, password, login, loading, errorMessage,q, showSuccessNotification, showErrorNotification };
+    return {isLogin, email, password, login, loading, errorMessage,q, showSuccessNotification, showErrorNotification,loginForm };
   }
 };
 </script>

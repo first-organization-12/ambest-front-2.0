@@ -345,7 +345,7 @@ h6 {
     font-size: 1.25rem;
     font-weight: 500;
     line-height: 2rem;
-    
+
 }
 
 
@@ -353,7 +353,8 @@ h6 {
 .banner {
   position: relative;
   width: 100%;
-  height: 1000px; /* Adjust height as needed */
+  /* height: 1000px; Adjust height as needed */
+  height: 100vh; /* Adjust height as needed */
   overflow: hidden;
 }
 

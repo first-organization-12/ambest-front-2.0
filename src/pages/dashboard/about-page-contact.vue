@@ -75,7 +75,7 @@ export default {
         { name: "lname", label: "Last Name", align: "left", field: "last_name", sortable: true },
         { name: "email", label: "Email", align: "left", field: "email", sortable: true },
         { name: "phone", label: "Phone", align: "left", field: "phone", sortable: true },
-        { name: "sort_message", label: "Subject", align: "left", field: "sort_message" },
+        { name: "service", label: "Service Name", align: "left", field: "service_name", sortable: true },
         { name: "message", label: "Message", align: "left", field: "message" },
         { name: "date", label: "Date", align: "left", field: "created_at", sortable: true }
     ];
@@ -87,7 +87,7 @@ export default {
 
     // Fetch data from API
     const fetchData = () => {
-      api.get('get-ambest-Fuel-card-inquery')
+      api.get('get-about-ambest-contact')
       .then((response)=>{
         rows.value = response.data.data;
         // this.rows = response.data.data;
@@ -114,3 +114,4 @@ export default {
   display: none;
 }
 </style>
+

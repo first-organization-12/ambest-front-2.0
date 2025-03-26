@@ -80,6 +80,14 @@ const routes = [
   },
 
   {
+    path: '/fuel-price',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/fuel-price.vue') }
+    ]
+  },
+
+  {
     path: '/login',
     // component: () => import('layouts/MainLayout.vue'),
     children: [
@@ -131,6 +139,14 @@ const routes = [
     component: () => import('layouts/DashboardLayout.vue'),
     children: [
       { path: '', component: () => import('pages/dashboard/fuel-card-inquery.vue') }
+    ]
+  },
+
+  {
+    path: '/dashboard/about/contacts',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/about-page-contact.vue')}
     ]
   },
 

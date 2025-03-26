@@ -88,7 +88,7 @@
       <div class="form-container" style="margin-top: 4rem;">
         <h5 class="heading">Become an <strong>AMBEST Member!</strong></h5>
 
-        <q-form @submit="handlemembershipform">
+        <q-form @submit="handlemembershipform" ref="memberShipForm">
 
           <h5 class="form-section-first-heading"><strong>Contact Information</strong></h5>
             <div class="form-group row q-col-gutter-md">
@@ -211,6 +211,7 @@ import { api } from 'src/boot/axios';
 import { ref } from 'vue';
 export default{
   setup(){
+    const memberShipForm =ref(null);
     const conatctName =ref('');
     const position =ref('');
     const phone =ref('');
@@ -256,8 +257,19 @@ export default{
       })
       .then((response)=>{
         showSuccessNotification(response.data.message);
-        console.log(response.data);
-
+        conatctName.value = '';
+        position.value='';
+        phone.value = '';
+        email.value = '';
+        locationName.value = '';
+        locationAdd.value = '';
+        city.value = '';
+        state.value = '';
+        zip.value = '';
+        country.value = '';
+        numberOfDrivers.value = '';
+        numberOfTrucks.value = '';
+        memberShipForm.value?.reset();
       })
       .catch((error)=>{
         showErrorNotification(error.response.data.message || error.message);
@@ -283,6 +295,7 @@ export default{
       });
    };
     return {
+        memberShipForm,
         conatctName,
         position,
         email,

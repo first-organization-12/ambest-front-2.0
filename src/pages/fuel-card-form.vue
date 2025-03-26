@@ -18,7 +18,7 @@
         <h5 class="second-heading"><strong>start your application process! </strong></h5>
 
 
-        <q-form @submit="handlemembershipform">
+        <q-form @submit="handlemembershipform" ref="fuelCardForm">
 
           <h5 class="form-section-first-heading"><strong>choose your card type</strong></h5>
           <div class="form-group">
@@ -87,11 +87,11 @@
             <div class="form-group row q-col-gutter-md">
                 <div class="form-field col-12 col-md-6">
                     <label>Number of Drivers *</label>
-                    <q-input v-model="numberOfDrivers" :rules="[validateRequired]" outlined type="text" />
+                    <q-input v-model="numberOfDrivers" :rules="[validateRequired,validateNumber]" outlined type="text" />
                 </div>
                 <div class="form-field col-12 col-md-6">
                     <label>Number of Trucks *</label>
-                    <q-input v-model="numberOfTrucks" :rules="[validateRequired]" outlined type="text" />
+                    <q-input v-model="numberOfTrucks" :rules="[validateRequired,validateNumber]" outlined type="text" />
                 </div>
             </div>
 
@@ -112,6 +112,7 @@ export default{
   setup(){
     const q = useQuasar();
     const service = ref('');
+    const fuelCardForm = ref(null);
     const contactName =ref('');
     const corporateName =ref('');
     const email =ref('');
@@ -140,6 +141,10 @@ export default{
     const validateRequired =(val)=>{
       return (val && val.trim() !== "") || "This field is required";
     }
+    const validateNumber=(val)=> {
+        const regex = /^[0-9]+$/; // Allows only numbers (0-9)
+        return regex.test(val) || "Only number ";
+    }
     const showSuccessNotification = (message) => {
       q.notify({
         color: "positive",
@@ -166,7 +171,7 @@ export default{
         'company_email':email.value,
         'location_phone':phone.value,
         'location_address':locationAdd.value,
-        'city':state.value,
+        'city':city.value,
         'zip':zip.value,
         'state':state.value,
         'country':country.value,
@@ -175,17 +180,28 @@ export default{
       })
       .then((response)=>{
         showSuccessNotification(response.data.message);
-        console.log(response);
+        service.value = '';
+        contactName.value = '';
+        corporateName.value = '';
+        email.value = '';
+        phone.value = '';
+        locationAdd.value = '';
+        city.value = '';
+        zip.value = '';
+        state.value = '';
+        country.value = '';
+        numberOfDrivers.value = '';
+        numberOfTrucks.value = '';
+        fuelCardForm.value?.reset();
 
       }).catch((error)=>{
         showErrorNotification(error.response.data.message || error.message);
-        console.log(error);
-
       })
     }
     return {
         q,
         service,
+        fuelCardForm,
         contactName,
         corporateName,
         email,
@@ -201,6 +217,7 @@ export default{
         validateRequired,
         validatePhone,
         validateEmail,
+        validateNumber,
         cardOptions,
         showErrorNotification,
         showSuccessNotification,

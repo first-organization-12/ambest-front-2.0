@@ -108,6 +108,18 @@
           <q-item-section>Fuel Card Inquery</q-item-section>
         </q-item>
 
+        <q-item
+         clickable
+          v-ripple
+          to="/dashboard/about/contacts"
+          exact-active-class="bg-cyan-2"
+          >
+          <q-item-section avatar>
+            <q-icon name="people" />
+          </q-item-section>
+          <q-item-section>About section contact</q-item-section>
+        </q-item>
+
       </q-list>
     </q-drawer>
 

@@ -67,7 +67,7 @@
         <div class="form-container" style="margin-top: 8rem;">
         <h5 class="" style="margin: 25px 0 !important;">Have questions? <strong>Fill out the form and our team will get back to you within 24 hours.</strong></h5>
 
-        <q-form @submit="handleContactSubmit">
+        <q-form @submit="handleContactSubmit" ref="contactForm">
             <div class="form-group row q-col-gutter-md">
                    <!-- <q-form class="row q-col-gutter-md"> -->
 
@@ -115,7 +115,7 @@
                   class="custom-select"
                   emit-value
                   map-options
-                  
+
                 />
             </div>
 
@@ -178,6 +178,7 @@ export default{
   const phone = ref('');
   const service = ref('');
   const message = ref('');
+  const contactForm =ref(null);
   const q = useQuasar();
   const team = ref([
   { image: "/images/Chuck.png", name: "Chuck Ryan", position: "President / CEO" },
@@ -230,6 +231,13 @@ export default{
       })
         .then((response)=>{
           showSuccessNotification(response.data.message);
+          firstName.value ='';
+          lastName.value ='';
+          email.value ='';
+          phone.value ='';
+          service.value ='';
+          message.value ='';
+          contactForm.value?.reset();
 
         }).catch((error)=>{
           showErrorNotification(error.response.data.message || error.message);
@@ -257,6 +265,7 @@ export default{
     return {
       team,
       faqs,
+      contactForm,
       handleContactSubmit,
       serviceOptions,
       validateRequired,
