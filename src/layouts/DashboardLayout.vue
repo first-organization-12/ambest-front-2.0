@@ -120,6 +120,18 @@
           <q-item-section>About section contact</q-item-section>
         </q-item>
 
+        <q-item
+         clickable
+          v-ripple
+          to="/dashboard/map-and-locations"
+          exact-active-class="bg-cyan-2"
+          >
+          <q-item-section avatar>
+            <q-icon name="map"/>
+          </q-item-section>
+          <q-item-section>Map and Locations</q-item-section>
+        </q-item>
+
       </q-list>
     </q-drawer>
 
@@ -175,6 +187,8 @@ export default{
         console.log(error.message);
         this.showErrorNotification(error.data.message);
       })
+      localStorage.removeItem('accessToken');
+      router.push("/");
     }
 
     return { showSuccessNotification, showErrorNotification, handleLogOut,toggleLeftDrawer, leftDrawerOpen}

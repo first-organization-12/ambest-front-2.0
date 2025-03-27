@@ -150,6 +150,14 @@ const routes = [
     ]
   },
 
+  {
+    path: '/dashboard/map-and-locations',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/map-and-locations.vue')}
+    ]
+  },
+
 
 
 
