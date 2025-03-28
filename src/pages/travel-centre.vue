@@ -58,7 +58,7 @@
               <!-- Left Side: Image -->
               <div class="col-12 col-md-6 text-center">
                 <q-img
-                  src="/images/mask_group.png"
+                  src="/images/Mask_group_9.png"
                   class="rounded-borders"
                   fit="cover"
                 />

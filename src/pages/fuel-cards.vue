@@ -433,6 +433,10 @@ export default {
     left: 106px;
     z-index: 29;
    }
+
+   .text-desc[data-v-9cbf88a2] {
+      font-size: 1rem;
+    }
 }
 
 @media (max-width: 480px) { /* Extra small screens */

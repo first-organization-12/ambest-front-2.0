@@ -677,6 +677,22 @@ h6 {
     background-color: #fff;
     height: 277px;
   }
+
+  .q-btn{
+    font-size: 13px;
+  }
+
+  .q-card > img {
+    display: block;
+    width: 50%;
+    max-width: 100%;
+    border: 0;
+}
+
+.col-12.col-sm-4.col-md-4 {
+  text-align: -webkit-center;
+}
+
 }
 
 @media (max-width: 480px) { /* Extra small screens */

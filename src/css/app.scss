@@ -1,6 +1,9 @@
 body {
     font-family: 'Inter', sans-serif;
-  }  
+    zoom: 0.8; /* 80% zoom */
+  } 
+ 
+  
 // app global css in SCSS form
 @media (min-width: 1024px) {  /* Hides on tablets & larger screens */
     .custom-hide-menu {

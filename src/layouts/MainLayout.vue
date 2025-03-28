@@ -32,7 +32,7 @@
           round
           icon="menu"
           class=" custom-hide-menu hidden-xl-and-up"
-          style="border: 1px solid red;"
+          
           @click="toggleLeftDrawer"
         />
       </q-toolbar>
@@ -40,16 +40,16 @@
 
     <q-drawer v-model="leftDrawerOpen" side="left" overlay>
       <q-list>
-        <q-item clickable v-ripple>
-          <q-item-section>Travel Centers</q-item-section>
+        <q-item clickable v-ripple to="/travel-centres" >
+          <q-item-section >Travel Centers</q-item-section>
         </q-item>
-        <q-item clickable v-ripple>
+        <q-item clickable v-ripple to="/service-centers">
           <q-item-section>Service Centers</q-item-section>
         </q-item>
-        <q-item clickable v-ripple>
+        <q-item clickable v-ripple  to="/fuel-cards">
           <q-item-section>Fuel Cards</q-item-section>
         </q-item>
-        <q-item clickable v-ripple>
+        <q-item clickable v-ripple to="/ambucks">
           <q-item-section>Ambucks</q-item-section>
         </q-item>
       </q-list>
