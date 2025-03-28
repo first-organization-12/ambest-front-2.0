@@ -13,45 +13,35 @@
     </div>
 
 
-
-    <div class="info-section">
-    <!-- Heading Section -->
-    <div class="text-justify q-pa-xl">
-      <h4 class="text-dark text-bold q-mb-sm q-mt-none">Your Partner in Service Excellence</h4>
-      <h6 class="text-small text-bold">
-        From coast to coast, AMBEST Travel Centers and Service Centers are here to keep you moving.
-      </h6>
-      <p class="text-small">
-        We're more than just a network of truck stops—we're a trusted partner for drivers and fleets alike.
-        From quality facilities and competitive fuel prices to AMBUCKS® rewards and reliable service centers,
-        we provide everything to keep you moving.
-      </p>
-      <!-- Buttons -->
-    <div class="btn-container">
-      <q-btn color="primary text-bold" rounded unelevated label="EXPLORE TRAVEL CENTERS" />
-      <q-btn color="primary text-bold" rounded unelevated label="EXPLORE SERVICE CENTERS" />
-    </div>
-    </div>
-
-
-
-    <!-- Features Section (Flex) -->
-    <!-- <div class="features-container">
-      <div v-for="(feature, index) in features" :key="index" class="feature-item">
-        <q-icon :name="feature.image" color="primary" size="3rem" class="icon" />
-        <p class="text-weight-bold">{{ feature.label }}</p>
+    <div class="info-section row col-12" style="width: 90%; margin: auto;">
+      <div class="col-12 col-md-6">
+        <div class="text-justify q-pa-xl">
+          <h4 class="text-dark text-bold q-mb-sm q-mt-none">Your Partner in Service Excellence</h4>
+          <h6 class="text-small text-bold">
+            From coast to coast, AMBEST Travel Centers and Service Centers are here to keep you moving.
+          </h6>
+          <p class="text-desc">
+            We're more than just a network of truck stops—we're a trusted partner for drivers and fleets alike.
+            From quality facilities and competitive fuel prices to AMBUCKS® rewards and reliable service centers,
+            we provide everything to keep you moving.
+          </p>
+        <div class="btn-container">
+          <q-btn color="primary text-bold" rounded unelevated label="EXPLORE TRAVEL CENTERS" />
+          <q-btn color="primary text-bold" rounded unelevated label="EXPLORE SERVICE CENTERS" />
+        </div>
+        </div>
       </div>
-    </div> -->
-    <div class="row q-col-gutter-md">
-      <div v-for="(feature, index) in features" :key="index" class="col-12 col-sm-4 col-md-4">
-        <q-card class="q-pa-md feature-card" style='box-shadow: none;'>
-           <img :src="feature.image" alt="fetaure-image"  class="fetaure-image" />
-          <div class="text-weight-bold q-mt-sm text-center">{{ feature.label }}</div>
-        </q-card>
+      <div class="col-12 col-md-6">
+        <div class="row q-col-gutter-md">
+          <div v-for="(feature, index) in features" :key="index" class="col-12 col-sm-4 col-md-4">
+            <q-card class="q-pa-md feature-card" style='box-shadow: none;'>
+              <img :src="feature.image" alt="fetaure-image"  class="fetaure-image" />
+              <div class="text-weight-bold q-mt-sm text-center">{{ feature.label }}</div>
+            </q-card>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-
 
   <div class="about-section row items-center" style="max-width: 80%;">
     <!-- Left Side: Image -->
@@ -64,7 +54,7 @@
     </div>
 
     <!-- Right Side: Text Content -->
-    <div class="col-12 col-md-5 q-pa-md">
+    <div class="col-12 col-md-6 q-pa-md">
       <div class="content">
         <h6 class=" text-dark q-mb-xs">ABOUT <strong class="text-dark">AMBEST</strong></h6>
         <p class="text-body2 text-dark q-mt-none  text-desc">
@@ -115,7 +105,7 @@
 
 
   <div class="services-section q-pa-md w-100 flex flex-center">
-    <div class="row q-gutter-md">
+    <div class="row q-gutter-md justify-evenly" style="width: 100%;">
       <q-card v-for="(service, index) in services" :key="index" class="service-card">
         <q-img :src="service.image" class="service-img" />
         <div class="service-content">
@@ -129,30 +119,6 @@
       </q-card>
     </div>
   </div>
-
-  <!-- <div class="news-section q-pa-md">
-  <div class="row bg-light q-pa-lg justify-center">
-    Text Content
-    <div class="col-12 col-md-5 q-pa-xl  q-mr-xl">
-      <h5 class="text-dark text-bold q-mb-sm">AMBEST <strong>NEWS</strong></h5>
-      <p class="text-body2 text-desc">
-        Exciting things are happening at AMBEST! We've recently expanded our network with new locations in key
-        regions, providing even more convenience for drivers and fleets.
-      </p>
-      <p class="text-body2 text-desc">
-        Members can now enjoy enhanced rewards through our updated loyalty program, and our partnership with
-        leading service providers ensures top-tier maintenance and support. Stay tuned for upcoming events
-        and exclusive offers designed to keep you moving forward with confidence.
-      </p>
-    </div>
-
-    Image Section
-    <div class="col-12 col-md-6 d-flex justify-center align-center q-ml-xl">
-      <q-img src="/images/truck.png" class="news-img" style="width: 80%; max-width: 100%;" fit="cover" />
-    </div>
-  </div>
-</div> -->
-
 
 <div class="news-section row items-center bg-light" style="max-width: 80%;">
   <!-- Left Side: Text Content -->
@@ -462,12 +428,12 @@ h6 {
 /* Responsive Design */
 @media (max-width: 1024px) {
   .info-section {
-    flex-direction: column; /* Stack items on smaller screens */
+    /* flex-direction: column; Stack items on smaller screens */
     padding: 30px 5%;
   }
 
   .btn-container {
-    flex-direction: column; /* Stack buttons */
+    /* flex-direction: column; Stack buttons */
     align-items: center;
   }
 
@@ -537,7 +503,7 @@ h6 {
 
 .join-section {
   max-width: 95%;
-
+  margin: auto;
 
 }
 
@@ -550,7 +516,7 @@ h6 {
   height: 380px;
   border-radius: 10px;
   overflow: hidden;
-  margin: 50px;
+  margin: 15px;
 }
 .service-img {
   height: 220px;
@@ -641,6 +607,9 @@ h6 {
     flex: 0 0 16.67%; /* Same as col-lg-2 */
     max-width: 16.67%;
   }
+  .q-carousel{
+    height: 280px;
+  }
 }
 
 @media (max-width: 1024px) { /* Medium screens */
@@ -650,6 +619,9 @@ h6 {
   }
   .content{
     padding: 0;
+  }
+  .q-carousel{
+    height: 280px;
   }
 }
 

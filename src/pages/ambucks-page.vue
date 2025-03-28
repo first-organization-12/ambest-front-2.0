@@ -9,41 +9,6 @@
           </div>
         </q-img>
       </div>
-      <!-- <div class="news-section row items-center bg-light q-ma-xl">
-        <div class="col-12 col-md-6 text-center">
-          <q-img
-            src="/images/ambucks-logo-1.png"
-            class="rounded-borders"
-            fit="cover"
-            style=" border-radius: 20px;"
-            width="70%"
-          />
-        </div> -->
-        <!-- right Side: Text Content -->
-        <!-- <div class="col-12  col-md-6 q-px-xl">
-          <div class="content q-pa-xl">
-            <h5 class="text-h5"><span class="text-weight-bold">About AMBUCKS Rewards Program</span></h5>
-            <p class="text-desc">AMBEST launched AMBUCKS, a professional driver loyalty
-              program, in 1994. Professional drivers carn point(s) for every
-              gallon purchased and can redeem these points at any
-              AMBEST location nationwide. In addition to points, AMBUCK$
-              cardholders earn one FREE shower credit for every 75+ diesel
-              gallon purchase. Additional points can be earned through
-              participating AMBEST Service Centers, 20 / 20 Bus Program
-              Participants, and location specific offerings.</p>
-              <p class="text-desc">
-              Since the program's inception, our locations have issued billions
-              of AMBUCK$ points and [XXX] showers to professional drivers.
-              In addition, AMBEST has given away millions of points, cash and
-              various other prizes through AMBUCK$ promotions. Subscribe
-              here to sign up to receive our latest promotions.
-              diesel
-              </p>
-              <q-btn label="Subscribe for AMBUCKS Rewards" rounded unelevated color="primary" class="q-mt-md text-bold" to="/about-ambest" />
-          </div>
-        </div>
-      </div> -->
-
       <div class="news-section row items-center bg-light">
         <!-- Right Side: Image -->
         <div class="col-12 col-md-6 text-center">
@@ -75,75 +40,42 @@
               various other prizes through AMBUCK$ promotions. Subscribe
               here to sign up to receive our latest promotions.
             </p>
-            <q-btn label="Subscribe for AMBUCKS Rewards" rounded unelevated color="primary" class="q-mt-md text-bold" to="/about-ambest" />
+            <q-btn label="Download the app" rounded unelevated color="primary" class="q-mt-md text-bold" to="/about-ambest" />
           </div>
         </div>
       </div>
-
-      <!-- <q-container class="q-mt-md  q-rt-lg q-ma-xl">
-            <div class="news-section q-pa-xl">
-              <div class="row items-center q-gutter-md">
-              Image Section
-              <div class="col-12 col-md-6 text-left q-pa-xl  q-gutter-md">
-                  <q-img src="/images/ambucks-logo-1.png" contain style=" max-width:700px; height: auto;" />
-                </div>
-                Text Section
-                <div class="col-12 col-md-5 text-left">
-                  <h5 class="text-h5" style="font-size: 32px;"><span class="text-weight-bold">About AMBUCK$ Rewards Program</span></h5>
-                  <p class="text-desc">AMBEST launched AMBUCKS, a professional driver loyalty
-                    program, in 1994. Professional drivers carn point(s) for every
-                    gallon purchased and can redeem these points at any
-                    AMBEST location nationwide. In addition to points, AMBUCK$
-                    cardholders earn one FREE shower credit for every 75+ diesel
-                    gallon purchase. Additional points can be earned through
-                    participating AMBEST Service Centers, 20 / 20 Bus Program
-                    Participants, and location specific offerings.</p>
-                    <p class="text-desc">
-                    Since the program's inception, our locations have issued billions
-                    of AMBUCK$ points and [XXX] showers to professional drivers.
-                    In addition, AMBEST has given away millions of points, cash and
-                    various other prizes through AMBUCK$ promotions. Subscribe
-                    here to sign up to receive our latest promotions.
-                    diesel
-                    </p>
-                    <q-btn label="Subscribe for AMBUCKS Rewards" rounded unelevated color="primary" class="q-mt-md text-bold" to="/about-ambest" />
-                </div>
-
-              </div>
-        </div>
-      </q-container> -->
-
-      <div class="q-ma-xl rounded-borders" style="">
-        <div class="row justify-center text-center q-pb-lg" style="background-color: #f5f9fc !important;border-radius: 20px;">
-          <div class="col-12">
-            <h5 class="text-h5 q-mb-md">
-              <span class="text-weight-bold">Rewarding Every Gallon</span> — Earn Ambuck$ for Your Purchase at AMBEST Locations.
-            </h5>
-            <q-btn color="primary" label="Get the AMBEST App" rounded class="q-py-sm text-white q-px-xl" />
-          </div>
-        </div>
-      </div>
-
 
 
       <div class="news-section row items-center bg-light" style="margin: 30px auto;">
         <!-- Right Side: Image -->
-        <div class="col-12 col-md-6 text-center">
-          <q-img
-            src="/images/Mask_group.png"
-            class="rounded-borders"
-            fit="cover"
-            width="80%"
-          />
+        <div class="col-12 col-md-6">
+          <div class="content q-pb-xl">
+            <h5 class="text-h5" style="font-size: 32px; margin-bottom: 0 !important;"><span class="text-weight-bold">The More You Fuel, The More You Earn</span></h5>
+            <p class="text-desc text-bold" style="font-size: 22px;">Achieve tier status each month and enjoy the benefit of the tier the following month.</p>
+            <ul class="text-desc">
+              <li>Earn points per gallon purchased</li>
+              <li>Redeem points for merchandise and services</li>
+              <li>Free shower with 75+ gallons fuel purchase</li>
+              <li>Tiers program awards up to 4x points on every gallon</li>
+              <li>App users get exclusive access to in-store specials</li>
+            </ul>
+            <q-btn label="Get More Details" rounded unelevated color="primary" class="q-mt-md text-bold q-px-xl" />
+          </div>
         </div>
         <!-- Left Side: Text Content -->
-        <div class="col-12  col-md-6 q-pa-xl">
-          <div class="content q-py-xl">
-            <h5 class="text-h5" style="font-size: 32px; margin-bottom: 0 !important;"><span class="text-weight-bold">How it Works</span></h5>
-            <p class="text-desc" style="font-size: 22px;">
-                <span>Register, swipe and start earning points, free showers and prizes!</span>
-            </p>
-            <q-btn label="Get More Details" rounded unelevated color="primary" class="q-mt-md text-bold q-px-xl" />
+        <div class="col-12  col-md-6 q-pa-md">
+          <div class="plan_card bronze_card">
+            <div class="plan_card_title"> <h5 class="text-h5 text-bold" style="margin: 0%;">Bronze</h5></div>
+            <div class="plan_card_sub_text q-pr-lg"><p class="text-desc text-bold">500 - 999 Gallons 2x points per gal. </p></div>
+          </div>
+          <div class="plan_card silver_card">
+            <div class="plan_card_title"><h5 class="text-h5 text-bold" style="margin: 0%;">Sliver</h5></div>
+            <div class="plan_card_sub_text q-pr-lg"><p class="text-desc text-bold">1000 - 1,499 Gallons 3x points per gal. </p></div>
+          </div>
+          <div class="plan_card gold_card">
+            <div class="plan_card_title"><h5 class="text-h5 text-bold" style="margin: 0%;">Gold</h5></div>
+            <div class="plan_card_sub_text q-pr-lg"><p class="text-desc text-bold">> 1500 Gallons
+              4x points per gal. </p></div>
           </div>
         </div>
       </div>
@@ -181,10 +113,11 @@
         <!-- Right Side: Image -->
         <div class="col-12 col-md-6 text-center">
           <q-img
-            src="/images/Mask_group_30.png"
+            src="/images/ambest_app.png"
             class="rounded-borders"
             fit="cover"
-             width="80%"
+            width="80%"
+            style="border-radius: 20px;"
           />
         </div>
       </div>
@@ -242,5 +175,46 @@ export default {
   color: white; /* Text color */
 
   line-height: 2.8; /* Better readability */
+}
+
+.plan_card{
+  height: 100px;
+  margin: 10px;
+  max-width: 553px;
+  border-radius: 20px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.plan_card div{
+  width: 50%;
+  text-align: center;
+}
+.plan_card_title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+.bronze_card{
+  background-color: #A77343;
+}
+.silver_card{
+  background-color: #9B9B9B;
+}
+.gold_card{
+  background-color: #A79B55;
+}
+@media (max-width: 480px) { /* Extra small screens */
+  .plan_card{
+    width: 100%;
+    display: block;
+    padding: 10px;
+    height: auto;
+  }
+  .plan_card div{
+    width: 100%;
+  }
 }
 </style>

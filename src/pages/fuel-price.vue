@@ -75,7 +75,6 @@ export default {
     const modelPagination =ref({page:1, rowsPerPage:15})
     let map;
     let markersLayer;
-
     const fetchLocations = async () => {
       try {
         const response = await api.get('get-user-locations-and-fuel-price');
@@ -157,7 +156,6 @@ export default {
         { field: "Main Phone", value: selectedLocation.value.main_phone },
         { field: "Hours of Operation", value: selectedLocation.value.hours_of_operation },
         { field: "Retail Diesel", value: selectedLocation.value.retail_diesel },
-        // { field: "All Amenities", value: selectedLocation.value.all_amenities },
         { field: "Feedback Mail", value: selectedLocation.value.feedback_mail },
         { field: "City", value: selectedLocation.value.city },
         { field: "State", value: selectedLocation.value.state },
@@ -173,18 +171,6 @@ export default {
 </script>
 
 <style>
-/* .map-container {
-  width: 100%;
-  height: 500px;
-} */
-/* .suggestions-list {
-  max-height: 200px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 10px;
-} */
  /* Bigger Location Card */
 .location-card {
   text-align: left;

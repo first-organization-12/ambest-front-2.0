@@ -14,7 +14,6 @@
             :options="[
               { label: 'Direct fuel Card', value: 'section1' },
               { label: 'Preferred fuel Card', value: 'section2' },
-              { label: 'Crossroads fuel Card', value: 'section3' }
             ]"
             class="custom-tabs"
           />
@@ -190,101 +189,6 @@
                   <!-- Left Side: Text Content -->
                   <div class="col-12  col-md-6 q-pa-xl">
                     <div class="content">
-                      <h5 class="text-white text-bold text-center q-mb-sm"><strong>Get In touch</strong></h5>
-                      <p class="text-white text-center text-body2 text-desc">
-                        Complete the form, and our team will get in touch with you!
-                      </p>
-                      <div class="">
-                        <q-form class="contact-form" @submit="submitForm">
-                          <div class="row q-col-gutter-md">
-                            <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="firstName" :rules="[validateRequired]" label="First Name"/>
-                            <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="lastName" :rules="[validateRequired]" label="Last Name"/>
-                            <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="email" :rules="[validateRequired,validateEmail]" label="Email"/>
-                            <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="phone" :rules="[validateRequired,validatePhone]" label="Phone"/>
-                            <q-input class="col-12 input-area" bg-color="white"  outlined v-model="sortMessage" :rules="[validateRequired]" label="Subject"/>
-                            <q-input class="col-12 " bg-color="white" outlined v-model="message" :rules="[validateRequired]" label="Message" type="textarea"/>
-                          </div>
-                          <div class="flex flex-center q-mt-md">
-                            <q-btn rounded color="white" text-color="primary" label="SUBMIT" class="text-bold q-px-xl" type="submit"  />
-                          </div>
-                        </q-form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </q-tab-panel>
-
-            <q-tab-panel v-if="tab === 'section3'" name="section3">
-              <div class="text-center">
-                <h4 class="panel-section-heading q-mb-xs"><span>AMBEST EFS <strong>Crossroads Fuel Card</strong></span></h4>
-                <p class="panel-section-sub-heading text-bold">FOR USE ON GAS AND DIESEL</p>
-              </div>
-              <div class="panel-container row items-start q-mt-xl q-px-xl">
-                <div class="col-12 col-md-6">
-                  <div class="panel-card-name">The <strong>UMA Crossroads</strong> Fuel Card</div>
-                  <p class="panel-card-sub-text">A Card Exclusively Designed for Fleets</p>
-                  <p>AMBEST is proud to offer the Crossroads Fuel Card, a joint venture with EFS, an industry leader in third-party billing. This card is exclusively designed for fleets! Some of the features of the  Crossroads Fuel Card include:</p>
-                  <ul class="panel-lists">
-                    <li>Users save an average of $0.35 to $0.45 cents per gallon at all AMBEST Truck Stops!</li>
-                    <li>Accepted at any location for Gas or Diesel fuel.</li>
-                    <li>No monthly account maintenance fee. </li>
-                    <li>Big discounts on diesel island purchases.</li>
-                    <li>Earn 2X, 3X, & 4X AMBUCK$ points by fueling at AMBUCK$ locations.</li>
-                  </ul>
-                </div>
-                <div class="col-12 col-md-6 q-px-xl">
-                  <div class="" style="max-width: 500px;">
-                    <q-responsive :ratio="9/6">
-                      <q-img src="images/crossroads-card.png" style="border-radius: 1.25rem;"/>
-                    </q-responsive>
-                  </div>
-                </div>
-              </div>
-              <div class="panel-btn-section q-my-xl">
-                  <q-btn
-                   label="Apply Today"
-                   rounded
-                   unelevated
-                   color="primary"
-                   class="col-12 col-md-4 q-mt-xs text-bold"
-                   to="/fuel-cards/fuel-card-form/aplication"
-                   />
-                  <q-btn
-                    outline
-                    color="primary"
-                    style="background-color: white !important;"
-                    rounded
-                    unelevated
-                    class="col-12 col-md-4 q-mt-xs text-bold"
-                    label="Download Brochure"
-                    size="md"
-                  />
-                  <q-btn
-                    outline
-                    color="primary"
-                    style="background-color: white !important;"
-                    rounded
-                    unelevated
-                    class="col-12 col-md-4 q-mt-xs text-bold"
-                    label="Descargar Folleto En Espaňol"
-                    size="md"
-                  />
-              </div>
-              <div class="form-section row  bg-primary" style="margin: auto; border-radius: 20px;">
-                <!-- Right Side: Image -->
-                <div class="col-12 col-md-6 text-center">
-                      <q-img
-                        src="images/road-and-sky.png"
-                        class="rounded-borders form-section-image"
-                        fit="cover"
-                        height="100%"
-                        style="border-radius: 20px 0 0 20px;"
-                      />
-                    </div>
-
-                  <!-- Left Side: Text Content -->
-                  <div class="col-12  col-md-6 q-px-xl">
-                    <div class="content q-px-xl">
                       <h5 class="text-white text-bold text-center q-mb-sm"><strong>Get In touch</strong></h5>
                       <p class="text-white text-center text-body2 text-desc">
                         Complete the form, and our team will get in touch with you!

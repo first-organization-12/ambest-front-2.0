@@ -5,14 +5,14 @@
       <div class="hero-container relative-position" style="height: 300px;">
         <q-img src="/images/man-using-laptop-factory-with-red-light 1.png" class="absolute-full" style="z-index: -1; background-color: transparent;">
           <div class="absolute-center text-center text-white" style="background: transparent;">
-            <q-img class="banner-text-img" src="/images/Ambest-service-centers.png" width="499px"/><div>
+            <q-img class="banner-text-img" src="/images/Ambest-service-centers.png"/><div>
             </div>
           </div>
         </q-img>
       </div>
 
       <div class="custom-banner text-center q-ma-xl">
-        <h5 class="text-h5 q-ma-md text-white"><strong>Where America Stops for Service and Value</strong></h5>
+        <h5 class="text-h5 q-ma-md"><strong>Where America Stops for Service and Value</strong></h5>
         <q-btn label="SEARCH SERVICE CENTERS" rounded unelevated color="primary"  to="/about-ambest" />
       </div>
 
@@ -34,12 +34,12 @@
 
           <q-carousel-slide :name="1" class="column no-wrap">
               <div class="fit flex justify-center">
-                <q-img class="rounded-borders col-6 full-height" src="/images/full-shot-mechanic-checking-truck.png" style="border-radius: 20px; width: 550px;" />
+                <q-img class="rounded-borders col-6 full-height" src="/images/conversation.png" style="border-radius: 20px; width: 550px;" />
               </div>
           </q-carousel-slide>
           <q-carousel-slide :name="2" class="column no-wrap">
             <div class="fit flex justify-center">
-              <q-img class="rounded-borders col-6 full-height" src="/images/full-shot-mechanic-checking-truck.png" style="border-radius: 20px; width: 550px;" />
+              <q-img class="rounded-borders col-6 full-height" src="/images/conversation.png" style="border-radius: 20px; width: 550px;" />
             </div>
           </q-carousel-slide>
           <q-carousel-slide :name="3" class="column no-wrap">
@@ -49,7 +49,7 @@
           </q-carousel-slide>
           <q-carousel-slide :name="4" class="column no-wrap">
             <div class="fit flex justify-center">
-              <q-img class="rounded-borders col-6 full-height" src="/images/full-shot-mechanic-checking-truck.png" style="border-radius: 20px; width: 550px;" />
+              <q-img class="rounded-borders col-6 full-height" src="/images/conversation.png" style="border-radius: 20px; width: 550px;" />
             </div>
           </q-carousel-slide>
         </q-carousel>
@@ -225,19 +225,28 @@
 
     <!-- Search Bar -->
     <div class="row justify-center q-gutter-sm q-mb-md">
-      <q-input
+      <!-- <q-input
         v-model="searchQuery"
         outlined
         dense
         placeholder="Enter City, State, or ZIP"
         class="search-input"
-      />
-      <q-btn color="primary" rounded label="SEARCH" class="search-btn" />
+      /> -->
+      <div class="search-section">
+        <q-input class="" v-model="searchQuery" label="Search location or select state" outlined dense @update:model-value="filterSuggestions" />
+        <q-list v-if="suggestions.length" class="suggestions-list">
+          <q-item v-for="(item, index) in suggestions" :key="index" clickable @click="selectLocation(item)">
+            <q-item-section>{{ item.city }}, {{ item.state }} - {{ item.zip }}</q-item-section>
+          </q-item>
+        </q-list>
+      </div>
+      <q-btn color="primary" rounded label="SEARCH" class="search-btn" style="height: 48px;" />
     </div>
 
     <!-- Map -->
     <div class="row justify-center">
-      <q-img src="/images/map.png" alt="AMBEST Locations" class="map-image" />
+      <!-- <q-img src="/images/map.png" alt="AMBEST Locations" class="map-image" /> -->
+       <div id="map" class="map-section" style=""></div>
     </div>
 
     <!-- Legend (Below & Left-Aligned) -->
@@ -255,14 +264,15 @@
 
     <!-- Locations Grid -->
     <div class="row justify-center q-gutter-xl q-mb-lg">
-      <div v-for="(location, index) in locations" :key="index" class="col-12 col-md-3 location-card">
+      <div v-if="isActive" class="col-12 col-md-3 location-card">
         <div class="row items-baseline">
           <!-- Circle Dot beside heading -->
           <q-badge color="blue" rounded class="location-dot q-mr-md" />
           <div>
-            <p class="text-bold text-primary text-h6 q-mb-xs">{{ location.name }}</p>
-            <p class="text-body1 q-mb-none">{{ location.address }}</p>
-            <p class="text-body1">{{ location.phone }}</p>
+            <p class="text-bold text-primary text-h6 q-mb-xs">{{ selectedLocation.name }}</p>
+            <p class="text-body1 q-mb-none">{{ selectedLocation.directory_address }}</p>
+            <p class="text-body1 q-mb-none">{{ selectedLocation.city  }}, {{ selectedLocation.state  }}, zip:{{ selectedLocation.zip  }}.</p>
+            <p class="text-body1">{{ selectedLocation.main_phone }}</p>
           </div>
         </div>
       </div>
@@ -327,14 +337,15 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref,nextTick,onMounted } from 'vue';
 import { api } from "src/boot/axios";
 import { useQuasar } from "quasar";
-
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 export default defineComponent({
   setup() {
     const q = useQuasar();
-    const search = ref('');
+    const searchQuery = ref('');
     const serviceForm = ref(null);
     const firstName = ref('');
     const lastName = ref('');
@@ -343,6 +354,14 @@ export default defineComponent({
     const companyName = ref('');
     const service = ref('');
     const message = ref('');
+    // map vals
+    const locations = ref([]);
+    let map;
+    let markersLayer;
+    const isActive =ref(false);
+    const suggestions = ref([]);
+    const selectedLocation = ref([]);
+    // const modelPagination =ref({page:1, rowsPerPage:15})
     const perks = [
       { icon: "/images/ToiletPaper.png", title: "Clean Restrooms" },
       { icon: "/images/GasPump.png", title: "Quality Fuel" },
@@ -351,7 +370,6 @@ export default defineComponent({
       { icon: "/images/TruckTrailer.png", title: "Truck Parking" },
       { icon: "/images/WashingMachine.png", title: "Showers & Laundry" },
     ];
-    const searchQuery = ref("");
 
     const legendItems = [
       { color: "#007bff", label: "AMBEST Travel/Service Center" },
@@ -361,7 +379,7 @@ export default defineComponent({
       { color: "#89CFF0", label: "AMBEST Service Center/Mobile Locations" },
     ];
 
-    const locations = ref([
+    const locationsResult = ref([
       { name: "Name of AMBEST Location", address: "HWY, Exit 123\nCity Name, ST 12345", phone: "123-456-7890" },
       { name: "Name of AMBEST Location", address: "HWY, Exit 123\nCity Name, ST 12345", phone: "123-456-7890" },
       { name: "Name of AMBEST Location", address: "HWY, Exit 123\nCity Name, ST 12345", phone: "123-456-7890" },
@@ -441,14 +459,81 @@ export default defineComponent({
       });
     };
 
+    //maps
+    const fetchLocations = async () => {
+      try {
+        const response = await api.get('get-user-locations-and-fuel-price');
+        locations.value = response.data.data;
+        await nextTick();
+        initMap();
+      } catch (error) {
+        console.error('Error fetching locations:', error);
+      }
+    };
+
+    const initMap = () => {
+      if (map) {
+        map.remove();
+      }
+      map = L.map('map').setView([37.0902, -95.7129], 4);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+
+      markersLayer = L.layerGroup().addTo(map);
+      locations.value.forEach(location => {
+        addMarker(location);
+      });
+    };
+
+    const addMarker = (location) => {
+      const starIcon = L.divIcon({
+        className: '',
+        html: `
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="${location.star_color || 'gold'}" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="12,2 15,10 23,10 17,15 19,22 12,18 5,22 7,15 1,10 9,10" stroke="black" stroke-width="1"/>
+          </svg>
+        `,
+        iconSize: [30, 30],
+        iconAnchor: [15, 15]
+      });
+
+      L.marker([location.lat, location.long], { icon: starIcon })
+        .bindPopup(`${location.city}, ${location.state} - ${location.zip}`)
+        .addTo(markersLayer);
+    };
+
+    const filterSuggestions = () => {
+      if (!searchQuery.value) {
+        suggestions.value = [];
+        return;
+      }
+      suggestions.value = locations.value.filter(loc =>
+        loc.city.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+        loc.state.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+        loc.zip.includes(searchQuery.value)
+      );
+    };
+
+    const selectLocation = (location) => {
+      searchQuery.value = `${location.city}, ${location.state} - ${location.zip}`;
+      suggestions.value = [];
+      selectedLocation.value = location;
+      map.setView([location.lat, location.long], 10, { animate: true });
+
+      isActive.value=true;
+    };
+
+    onMounted(fetchLocations);
     return {
       q,
-      search,
       perks,
       serviceForm,
       searchQuery,
       legendItems,
       locations,
+      locationsResult,
       contactOptions,
       firstName,
       lastName,
@@ -464,7 +549,14 @@ export default defineComponent({
       validatePhone,
       submitForm,
       showSuccessNotification,
-      showErrorNotification
+      showErrorNotification,
+      fetchLocations,
+      filterSuggestions,
+      selectLocation,
+      isActive,
+      suggestions,
+      selectedLocation,
+
     };
   }
 });
@@ -667,6 +759,20 @@ border-radius: 10px;
 .q-card__section--vert{
   padding: 10px 0%;
 }
+
+/* map section  */
+.map-section{
+  height: 50vh;
+  width: 50%;
+}
+.search-section{
+  width: 30%;
+}
+
+.banner-text-img{
+    width: 499px;
+  }
+
 /* ✅ Responsive Behavior */
 @media (max-width: 1280px) { /* Large screens */
   .custom-col {
@@ -732,8 +838,16 @@ border-radius: 10px;
     padding-right: 0%;
   }
   .banner-text-img{
-    width: 100%;
+    width: 499px;
   }
+
+.map-section{
+  height: 50vh;
+  width: 100%;
+}
+.search-section{
+  width: 100%;
+}
 }
 
 @media (max-width: 480px) { /* Extra small screens */
@@ -741,6 +855,8 @@ border-radius: 10px;
     flex: 0 0 100%; /* Full width */
     max-width: 100%;
   }
+  .banner-text-img{
+    width: 350px;
+  }
 }
-
 </style>

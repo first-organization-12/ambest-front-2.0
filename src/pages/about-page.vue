@@ -47,7 +47,7 @@
             <!-- Right Side: Image -->
             <div class="col-12 col-md-6 text-center">
               <q-img
-              src="/images/our-story.png"
+              src="/images/our_story.png"
               class="rounded-borders dynamic-width"
               fit="cover"
               />
@@ -77,9 +77,10 @@
 
       <div class="news-section row justify-center " style="margin: 25px auto;">
       <div class="col-12 col-md-3 q-pa-md row justify-center items-center text-center" style="flex-direction: column;" v-for="(item, index) in items" :key="index">
-        <q-icon :name="item.icon" color="primary" size="55px" />
+        <!-- <q-icon :name="item.icon" color="primary" size="55px" /> -->
+         <q-img :src="item.icon" style="width: 55px; height: 55px;"/>
         <h5 class="text-h5 text-bold q-mt-md q-mb-none">{{ item.title }}</h5>
-        <q-btn :label="item.buttonLabel" outline color="primary" rounded unelevated class="q-mt-md text-bold"/>
+        <q-btn :label="item.buttonLabel" outline color="primary" rounded unelevated class="q-mt-md text-bold" :to="item.link"/>
       </div>
     </div>
 
@@ -169,8 +170,14 @@ export default defineComponent({
     const service = ref('');
     const message = ref('');
     const aboutForm =ref(null);
+    const items = ref([
+      {title:"Travel Center",icon:"/images/SteeringWheel.png",buttonLabel:"explore",link:"/travel-centres"},
+      {title:"Service Center",icon:"/images/Vector.png",buttonLabel:"locate",link:"/service-centers"},
+      {title:"Fuel Card",icon:"/images/GasPump1.png",buttonLabel:"apply",link:"/fuel-cards"},
+      {title:"Ambuck$",icon:"/images/PiggyBank.png",buttonLabel:"join",link:"/ambucks"}
+    ])
     const validateEmail =(val)=>{
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailPattern.test(val) || "Invalid email address";
     }
     const validatePhone =(val)=>{
@@ -244,7 +251,8 @@ export default defineComponent({
       validatePhone,
       submitForm,
       showSuccessNotification,
-      showErrorNotification
+      showErrorNotification,
+      items,
     };
   }
 });
