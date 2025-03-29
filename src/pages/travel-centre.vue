@@ -285,7 +285,7 @@ export default defineComponent({
         className: '',
         html: `
           <svg width="30" height="30" viewBox="0 0 24 24" fill="${location.star_color || 'gold'}" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="12,2 15,10 23,10 17,15 19,22 12,18 5,22 7,15 1,10 9,10" stroke="black" stroke-width="1"/>
+           <circle cx="12" cy="12" r="10" stroke="black" stroke-width="1"/>
           </svg>
         `,
         iconSize: [30, 30],

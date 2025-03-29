@@ -1,10 +1,14 @@
 <template>
   <q-page class="">
-    <!-- Banner Section -->
-    <div class="banner">
-      <q-img src="/images/banner.png" class="banner-image" fit="cover" />
-      <div class="banner-overlay">
-        <h1 class="banner-title ">Where America Stops for Service and Value</h1>
+  <div class="banner relative-position" style="overflow: hidden;">
+      <video autoplay loop muted playsinline class="absolute-full" style="z-index: -1; object-fit: cover; width:100%;">
+        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="banner-overlay absolute-center text-center">
+        <h1 class="banner-title text-white text-h4 text-weight-bold">
+          Where America Stops for Service and Value
+        </h1>
       </div>
     </div>
 
