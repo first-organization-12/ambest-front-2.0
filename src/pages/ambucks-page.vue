@@ -22,7 +22,7 @@
         <!-- Left Side: Text Content -->
         <div class="col-12  col-md-6 " :class="dynamicPadding">
           <div class="content">
-            <h5 class="text-h5" style="margin-block: 5px;"><span class="text-weight-bold">About AMBUCKS Rewards Program</span></h5>
+            <h5 class="text-h5" style="margin-block: 5px;"><span class="text-weight-bold">About AMBUCK$ Rewards Program</span></h5>
             <p class="text-desc" style="line-height: normal;">
               AMBEST launched AMBUCK$, a professional driver loyalty
               program, in 1994. Professional drivers earn point(s) for every

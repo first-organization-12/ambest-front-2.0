@@ -271,38 +271,6 @@
         </tr>
       </table>
     </div>
-
-
-      <div class="text-center">
-        <h5 class="text-h5 "><span class="text-weight-bold">Exclusive</span>Offerings</h5>
-      </div>
-      <div class="news-section row items-center bg-light">
-        <!-- Left Side: Text Content -->
-        <div class="col-12  col-md-6 q-px-xl">
-          <div class="content q-pa-xl">
-            <h5 class="text-h5 "><span class="text-weight-bold">EFS UMA Crossroads </span>Fuel Card</h5>
-            <p class="text-weight-bold text-desc">A Card Exclusively Designed for UMA Fleets</p>
-            <p class="text-desc">The Crossroads fuel card offers significant fuel savings and nationwide acceptance.
-                Enjoy an average discount of $0.35 to $0.45 per gallon at AMBEST Truck Stops.
-                No monthly account fees.
-                Convenience of purchasing gas or diesel anywhere EFS is accepted.
-                A flat $1.50 transaction fee applies per purchase, making it a cost-effective solution for fleet fueling.
-            </p>
-          </div>
-        </div>
-        <!-- Right Side: Image -->
-        <div class="col-12 col-md-6 text-center">
-          <q-img
-            src="/images/crossroads-card.png"
-            class="rounded-borders"
-            fit="cover"
-            width="70%"
-          />
-        </div>
-      </div>
-      <div class="text-center">
-        <q-btn label="SEE ALL BENEFITS" rounded unelevated color="primary" class="q-mt-md text-bold" to="/about-ambest" />
-      </div>
     </q-page-container>
   </q-page>
 </template>

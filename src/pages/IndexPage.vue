@@ -19,14 +19,14 @@
 
     <div class="info-section row col-12" style="width: 90%; margin: auto;">
       <div class="col-12 col-md-6">
-        <div class="text-justify q-pa-xl">
+        <div class="info-section-text-container q-pa-xl">
           <h4 class="text-dark text-bold q-mb-sm q-mt-none">Your Partner in Service Excellence</h4>
           <h6 class="text-small text-bold">
             From coast to coast, AMBEST Travel Centers and Service Centers are here to keep you moving.
           </h6>
           <p class="text-desc">
             We're more than just a network of truck stops—we're a trusted partner for drivers and fleets alike.
-            From quality facilities and competitive fuel prices to AMBUCKS® rewards and reliable service centers,
+            From quality facilities and competitive fuel prices to AMBUCK$® rewards and reliable service centers,
             we provide everything to keep you moving.
           </p>
         <div class="btn-container">
@@ -143,7 +143,7 @@
     <!-- Right Side: Image -->
     <div class="col-12 col-md-6 text-center">
       <q-img
-        src="/images/truck.png"
+        src="/images/top-view-fuel-station.png"
         class="rounded-borders"
         fit="cover"
       />
@@ -267,7 +267,7 @@ const advantages = ref([
       {
         image: "/images/HandsClapping.png", // Reward/trophy icon
         title: "Earn Rewards with Every Stop",
-        buttonText: "JOIN AMBUCKS TODAY",
+        buttonText: "JOIN AMBUCK$ TODAY",
         route:"/ambucks",
       },
       {
@@ -293,7 +293,7 @@ const advantages = ref([
       {
         title: "Locate Service Centers",
         subtitle: "Find Expert Maintenance",
-        image: "/images/Mask_group_2.png",
+        image: "/images/Hoyt-4.png",
         route:"travel-centres"
       },
       {
@@ -603,7 +603,14 @@ h6 {
   overflow: hidden !important;
   max-height: 20px;
 }
+/* info-section-text-container */
+.info-section-text-container{
+  text-align: justify;
+}
 
+.q-carousel{
+    height: 280px;
+  }
 
 /* ✅ Responsive Behavior */
 @media (max-width: 1280px) { /* Large screens */
@@ -613,6 +620,9 @@ h6 {
   }
   .q-carousel{
     height: 280px;
+  }
+  .info-section-text-container{
+    text-align: start;
   }
 }
 

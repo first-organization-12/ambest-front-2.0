@@ -318,7 +318,7 @@
                       v-model="service"
                       :options="contactOptions"
                       :rules="[validateRequired]"
-                      label="Who would you like to contact"
+                      label="Service"
                       emit-value
                       map-options
                     />
