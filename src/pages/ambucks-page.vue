@@ -59,7 +59,6 @@
               <li>Tiers program awards up to 4x points on every gallon</li>
               <li>App users get exclusive access to in-store specials</li>
             </ul>
-            <q-btn label="Get More Details" rounded unelevated color="primary" class="q-mt-md text-bold q-px-xl" />
           </div>
         </div>
         <!-- Left Side: Text Content -->
@@ -215,6 +214,12 @@ export default {
   }
   .plan_card div{
     width: 100%;
+  }
+  .q-pa-xl {
+    padding: 48px 0px;
+  }
+  .custom-banner{
+    padding: 25px 25px !important;
   }
 }
 </style>

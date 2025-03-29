@@ -73,7 +73,7 @@
     </q-container>
 
       <div class="row justify-center q-my-xl">
-      <div class="col-md-10 col-12">
+      <div class="col-md-10 col-12 q-pa-xl">
         <h5 class="text-h5 text-center" style="margin-block: 5px;"><span class="text-weight-bold">Find the Right AMBEST Fuel Card for You</span></h5>
         <p class="text-desc_1_1 text-center ">
           <strong>AMBEST offers two fuel card options to fit the unique needs of drivers <br> and fleets. Compare below to see which one is the best fit for your business.</strong>
@@ -454,5 +454,12 @@ td{
 }
 .q-pa-xl {
     padding: 48px 0px !important;
+}
+.q-pa-xl[data-v-9cbf88a2] {
+    padding: 48px 25px !important;
+}
+.q-px-xl {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 </style>

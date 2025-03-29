@@ -27,10 +27,10 @@
               </div>
               <div class="panel-container row items-start q-mt-xl q-px-xl">
                 <div class="panel-sub-container col-12 col-md-6 q-px-xl">
-                  <div class="panel-card-name">The <strong>Direct</strong> Fuel Card</div>
-                  <p class="panel-card-sub-text">Ideal for businesses with multiple vehicles, looking for customizable controls and detailed reporting. </p>
-                  <p>AMBEST is proud to offer the AMBEST Fleet Card, a joint venture with EFS, an industry leader in third-party billing. Unlike any other fleet card on the market, this new tool has some outstanding features that will help fleets of all sizes control expenditures and make informed buying decisions. Some of the features of the AMBEST Fleet Card include:</p>
-                  <ul class="panel-lists">
+                  <div class="panel-card-name text-h5">The <strong>Direct</strong> Fuel Card</div>
+                  <p class="panel-card-sub-text text-desc">Ideal for businesses with multiple vehicles, looking for customizable controls and detailed reporting. </p>
+                  <p class="text-desc">AMBEST is proud to offer the AMBEST Fleet Card, a joint venture with EFS, an industry leader in third-party billing. Unlike any other fleet card on the market, this new tool has some outstanding features that will help fleets of all sizes control expenditures and make informed buying decisions. Some of the features of the AMBEST Fleet Card include:</p>
+                  <ul class="panel-lists text-desc">
                     <li>A "One-Card" fuel card with acceptance anywhere EFS is accepted, including most major chains and many independents nationwide</li>
                     <li>Custom designed POS fuel discounts at the truck stops your fleet visits most</li>
                     <li>Valuable management information at the point of sale</li>
@@ -46,6 +46,15 @@
                     <q-responsive :ratio="9/6">
                       <q-img src="images/EFS-Direct-Card-Web.png"/>
                     </q-responsive>
+                    <q-btn
+                      label="VIEW ACCEPTING LOCATIONS"
+                      rounded
+                      unelevated
+                      color="primary"
+                      class="col-12 col-md-4 q-mt-xs q-px-lg text-bold"
+                      to="/fuel-cards/fuel-card-form/aplication"
+                      style="height: 50px;"
+                      />
                   </div>
                 </div>
               </div>
@@ -127,10 +136,10 @@
               <div class="panel-container row items-start q-mt-xl q-px-xl">
                 <div class="col-12 col-md-6">
                   <div class="panel-card-name">The <strong>Preferred</strong> Fuel Card</div>
-                  <p class="panel-card-sub-text">The Preferred card designed specifically for carriers with small to mid-sized fleets.</p>
-                  <p>AMBEST is proud to offer the AMBEST Preferred Fleet Card, a
+                  <p class="panel-card-sub-text text-desc">The Preferred card designed specifically for carriers with small to mid-sized fleets.</p>
+                  <p class="text-desc">AMBEST is proud to offer the AMBEST Preferred Fleet Card, a
                     joint venture with EFS, an industry leader in third-party billing. EFS can extend you the credit you need to get on the road, all you have to do is complete the online application process. Once your account is setup, fleet customers experience both transaction fee savings and fuel discounts when purchasing at over 500 AMBEST locations nationwide.</p>
-                  <ul class="panel-lists">
+                  <ul class="panel-lists text-desc">
                     <li>DEEP fuel discounts at AMBEST locations</li>
                     <li>$1.50 fuel transaction fee makes this card competitive for small fleets!</li>
                     <li>Earn 2X, 3X, & 4X AMBUCK$ points by fueling at AMBUCK$ locations.</li>
@@ -141,6 +150,15 @@
                     <q-responsive :ratio="9/6">
                       <q-img src="images/card.png"/>
                     </q-responsive>
+                      <q-btn
+                      label="VIEW ACCEPTING LOCATIONS"
+                      rounded
+                      unelevated
+                      color="primary"
+                      class="col-12 col-md-4 q-mt-xs q-px-lg text-bold"
+                      to="/fuel-cards/fuel-card-form/aplication"
+                      style="height: 50px;"
+                      />
                   </div>
                 </div>
               </div>
@@ -213,7 +231,17 @@
                 </div>
             </q-tab-panel>
           </q-tab-panels>
-
+          <div v-if="tab === 'section2'" class="float-apply-button">
+            <q-btn
+              label="Apply Now"
+              rounded
+              unelevated
+              color="primary"
+              class="col-12 col-md-4 q-mt-xs text-bold"
+              to="/fuel-cards/fuel-card-form/aplication"
+              style="height: 50px; width: 200px;"
+              />
+          </div>
       </q-section>
     </q-container>
   </q-page>
@@ -282,6 +310,10 @@ import { useQuasar } from 'quasar';
     }}
 </script>
 <style scoped>
+.text-desc{
+  font-size: 1.2rem;
+}
+
 .q-field__marginal{
   height: 44px;
 }
@@ -357,6 +389,15 @@ import { useQuasar } from 'quasar';
 /* .q-col-gutter-md{
   padding-top: 5px;
 } */
+
+/* button scroll follows */
+.float-apply-button{
+  position: fixed;
+  bottom: 100px;
+  right: 100px;
+  z-index: 10000;
+  transition: opacity 0.3s ease-in-out;
+}
 @media (max-width: 600px) {
     .q-btn-group{
       flex-direction: column !important;

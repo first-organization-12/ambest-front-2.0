@@ -18,8 +18,8 @@
 
       <div class="intro-section row items-center bg-light">
         <!-- Right Side: Image -->
-        <div class="col-12 col-md-6 slider" style="border-radius: 20px;">
-            <q-responsive :ratio="9/6">
+        <div class="col-12 col-md-6 slider" style="border-radius: 20px; display: flex; justify-content: flex-start;">
+            <!-- <q-responsive :ratio="9/6"> -->
               <q-carousel
                 v-model="slide"
                 transition-prev="slide-right"
@@ -54,7 +54,7 @@
           </q-carousel-slide>
         </q-carousel>
 
-    </q-responsive>
+    <!-- </q-responsive> -->
       </div>
         <!-- Left Side: Text Content -->
         <div class="col-12  col-md-6 "  >
@@ -115,24 +115,24 @@
         </div>
 
         <!-- Right Side: Image -->
-        <div class="col-12 col-md-6 text-center q-pa-xl" style="max-width: 600px;">
-          <q-responsive :ratio="9/6">
-            <q-img
-            src="/images/men-in-call.png"
-            class="rounded-borders"
-            fit="cover"
-            width="100%"
-            style="border-radius: 20px;"
-            />
-          </q-responsive>
+        <div class="col-12 col-md-6 q-pa-xl" style="max-width: 600px; margin: auto;">
+            <q-responsive :ratio="9/6">
+              <q-img
+              src="/images/men-in-call.png"
+              class="rounded-borders"
+              fit="cover"
+              width="100%"
+              style="border-radius: 20px;"
+              />
+            </q-responsive>
         </div>
       </div>
 
 
       <div class="intro-section row items-center bg-light">
         <!-- Right Side: Image -->
-        <div class="col-12 col-md-6 text-center slider q-pa-xl">
-          <q-responsive :ratio="9/6">
+        <div class="col-12 col-md-6 text-center slider q-pa-xl" style="display: flex; justify-content: flex-start;">
+          <!-- <q-responsive :ratio="9/6"> -->
                 <q-carousel
                   v-model="slide"
                   transition-prev="slide-right"
@@ -164,7 +164,7 @@
                   </div>
                 </q-carousel-slide>
               </q-carousel>
-          </q-responsive>
+          <!-- </q-responsive> -->
       </div>
         <!-- Left Side: Text Content -->
         <div class="col-12  col-md-6 "  >
@@ -196,13 +196,24 @@
               />
             <h5 class=" text-bold q-mt-md q-mb-none" style="font-size: 22px;">Peace of Mind in Every Repair. </h5>
             <div class="">
-              <q-btn label="learn more" outline color="primary" rounded unelevated class="q-mt-md text-bold"/>
+              <!-- <q-btn label="learn more" outline color="primary" rounded unelevated class="q-mt-md text-bold"/> -->
+              <div class="">
+                <q-btn :label="isTextVisible ? 'Learn Less' : 'Learn More'" outline color="primary" rounded unelevated @click="toggleText" ref="buttonRef" />
+
+                <transition name="slide-fade">
+                  <q-card v-if="isTextVisible" class="q-mt-md q-pa-md text-box" ref="textRef">
+                    <p class="text-desc"> Coverage may, at the discretion of the installing location, be extended to other installed parts. It is the responsibility of the customer to insure, in writing on the original repair order, the specific intention of the repair location. This warranty neither replaces, amends, nor supersedes any warranty provision of the manufacturer. All judgments of the manufacturer are final and binding.</p>
+                    <p class="text-desc">AMBEST Service Center locations warrant repairs and service to be free from defect in material and workmanship for the 90-day warranty period, starting from the date of the original repair order.</p>
+                    <p class="text-desc"> Individual product warranties may exceed warranty period stated here; see original repair center for details. You may have other rights that may vary from state to state. Consult with the original repair location.</p>
+                  </q-card>
+                </transition>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Right Side: Image -->
-        <div class="col-12 col-md-6 text-center warranty-side-image q-pa-xl" style="max-width: 600px;">
+        <div class="col-12 col-md-6 text-center warranty-side-image q-pa-xl" style="max-width: 600px; margin: auto;">
           <q-responsive :ratio="9/6"  style="border-radius: 20px;">
             <q-img
             src="/images/car-reparing.png"
@@ -337,7 +348,7 @@
 </template>
 
 <script>
-import { defineComponent, ref,nextTick,onMounted } from 'vue';
+import { defineComponent, ref,nextTick,onMounted,onUnmounted } from 'vue';
 import { api } from "src/boot/axios";
 import { useQuasar } from "quasar";
 import L from 'leaflet';
@@ -362,6 +373,36 @@ export default defineComponent({
     const suggestions = ref([]);
     const selectedLocation = ref([]);
     // const modelPagination =ref({page:1, rowsPerPage:15})
+
+    // warranty btn code
+    const isTextVisible = ref(false);
+    const textRef = ref(null);
+    const buttonRef = ref(null);
+
+    const toggleText = () => {
+      isTextVisible.value = !isTextVisible.value;
+    };
+
+    const handleClickOutside = (event) => {
+      if (
+        textRef.value &&
+        !textRef.value.contains(event.target) &&
+        buttonRef.value &&
+        !buttonRef.value.$el.contains(event.target)
+      ) {
+        isTextVisible.value = false;
+      }
+    };
+
+    // Attach event listener on mount
+    onMounted(() => {
+      document.addEventListener('click', handleClickOutside);
+    });
+
+    // Remove event listener on unmount
+    onUnmounted(() => {
+      document.removeEventListener('click', handleClickOutside);
+    });
     const perks = [
       { icon: "/images/ToiletPaper.png", title: "Clean Restrooms" },
       { icon: "/images/GasPump.png", title: "Quality Fuel" },
@@ -556,7 +597,11 @@ export default defineComponent({
       isActive,
       suggestions,
       selectedLocation,
-
+      toggleText,
+      handleClickOutside,
+      isTextVisible,
+      textRef,
+      buttonRef,
     };
   }
 });

@@ -124,7 +124,7 @@
     </div>
   </div>
 
-<div class="news-section row items-center bg-light" style="max-width: 80%;">
+<div class="news-section row items-center bg-light" style="max-width: 80%; border-radius: 20px;">
   <!-- Left Side: Text Content -->
   <div class="col-12  col-md-6 q-px-xl">
     <div class="content q-pa-xl">
@@ -611,6 +611,10 @@ h6 {
 .q-carousel{
     height: 280px;
   }
+
+.rounded-borders{
+  border-radius: 20px;
+}
 
 /* ✅ Responsive Behavior */
 @media (max-width: 1280px) { /* Large screens */

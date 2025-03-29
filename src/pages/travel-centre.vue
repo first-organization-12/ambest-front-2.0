@@ -20,16 +20,16 @@
                 <p class="text-h5 q-mb-md">
                   <span class="text-weight-bold">Your Home Away from Home</span> — Find an AMBEST Travel Center near you.
                 </p>
-                <q-btn color="primary" rounded unelevated style="text-transform:unset;" label="Locate a Travel Center" class="q-py-sm text-white text-bold  text-none" />
+                <q-btn color="primary" rounded unelevated style="text-transform:unset;" label="Locate a Travel Center" class="q-py-sm text-white text-bold" />
               </div>
             </div>
           </div>
         </div>
         <q-container class="q-mt-md q-mb-lg q-rt-lg">
             <div class="info-section q-pa-xl">
-              <div class="row items-center q-gutter-md">
+              <div class="row items-center">
                 <!-- Text Section -->
-                <div class="col-12 col-md-5 text-justify">
+                <div class="col-12 col-md-6 info-section-text-container">
                   <h5 class="text-dark q-mb-sm q-mt-none">
                     A Network Built on <strong>Trust</strong> and <strong>Tradition</strong>
                   </h5>
@@ -53,9 +53,10 @@
               </div>
             </div>
           </q-container>
-          <q-container class="q-mt-xl q-pa-md q-pa-xl-lg">
+
+          <!-- <q-container class="q-mt-xl q-pa-md q-pa-xl-lg">
             <div class="about-section row items-center " style="max-width: 80%;">
-              <!-- Left Side: Image -->
+              Left Side: Image
               <div class="col-12 col-md-6 text-center">
                 <q-img
                   src="/images/Mask_group_9.png"
@@ -64,7 +65,7 @@
                 />
               </div>
 
-              <!-- Right Side: Text Content -->
+              Right Side: Text Content
               <div class="col-12 col-md-6 q-pa-xl">
                 <div class="content q-pa-xl">
                   <h4 class=" text-dark q-mb-xs">Everything You Need,
@@ -76,7 +77,29 @@
                 </div>
               </div>
             </div>
-          </q-container>
+          </q-container> -->
+          <div class="about-section row" style="margin: 20px auto; border-radius: 20px; width: 80%;">
+            <!-- Right Side: Image -->
+            <div class="col-12 col-md-6 text-center">
+                  <q-img
+                    src="/images/Mask_group_9.png"
+                    class="rounded-borders"
+                    fit="cover"
+                    height="100%"
+                  />
+            </div>
+            <!-- Left Side: Text Content -->
+            <div class="col-12  col-md-6 q-px-xl flex  items-center">
+              <div class="content  q-px-xl ">
+                <h4 class=" text-dark q-mb-xs">Everything You Need,
+                  <br><strong class="text-dark">All in One Place </strong></h4>
+                  <p class="text-body2 text-desc_1_1 text-dark q-mt-lg">
+                  <b>Fuel up with confidence </b> with Diesel, DEF, and Gasoline at your convenience. <b>Unwind</b> with clean showers, comfortable lounges, and delicious dining options—everything you need to recharge for the road ahead.
+                  </p>
+                  <q-btn label="SEARCH TRAVEL CENTERS " rounded  color="primary" style="text-transform:unset;" class="q-mt-md text-bold" to="/about-ambest" />
+              </div>
+            </div>
+          </div>
 
           <q-container class="q-pa-md q-pa-lg-lg">
             <!-- Heading -->
@@ -172,9 +195,9 @@
   </div>
 
 
-      <div class="about-section row items-center q-mt-xxl" style="max-width: 80%; margin: auto;">
+      <!-- <div class="about-section row items-center q-mt-xxl" style="max-width: 80%; margin: auto;">
 
-        <!-- Left Side: Text Content -->
+        Left Side: Text Content
         <div class="col-12 col-md-6 q-pa-xl">
           <div class="content q-pa-xl">
             <h4 class="text-dark q-mb-xs">
@@ -195,14 +218,44 @@
           </div>
         </div>
 
-        <!-- Right Side: Image -->
+        Right Side: Image
         <div class="col-12 col-md-6 text-center">
           <q-img src="/images/mask_group_6.png" class="rounded-borders" fit="cover" />
         </div>
 
+      </div> -->
+
+      <div class="about-section row" style="margin: 20px auto; border-radius: 20px; width: 80%;">
+        <!-- Left Side: Text Content -->
+        <div class="col-12  col-md-6 q-px-xl flex  items-center">
+          <div class="content  q-px-xl ">
+            <h4 class="text-dark q-mb-xs">
+              The <strong>Best Stops</strong> Aren’t on Every Corner —
+              <strong>They’re on the Right Route!</strong>
+            </h4>
+
+            <p class="text-body2 text-desc_1_1 text-dark q-mt-lg">
+              At AMBEST, our mission isn’t to be on every corner—it’s to be exactly where you need us most.
+              We carefully select top-quality locations along the nation’s busiest routes, ensuring you always have
+              access to exceptional service, clean facilities, and great deals on the essentials.
+            </p>
+
+            <p class="text-body2 text-desc_1_1 text-dark q-mt-lg">
+              No matter where you stop, you can count on a warm welcome and a commitment to excellence.
+              Because as our customer, you deserve the best—and that's America's Best.
+            </p>
+          </div>
+        </div>
+        <!-- Right Side: Image -->
+        <div class="col-12 col-md-6 text-center">
+              <q-img
+                src="/images/mask_group_6.png"
+                class="rounded-borders"
+                fit="cover"
+                height="100%"
+              />
+        </div>
       </div>
-
-
 
 
 
@@ -474,7 +527,12 @@ border-radius: 10px;
 .search-section{
   width: 30%;
 }
-
+.info-section-text-container{
+  text-align: justify;
+}
+.rounded-borders{
+  border-radius: 20px 20px;
+}
 /* ✅ Responsive Behavior */
 @media (max-width: 1280px) { /* Large screens */
   .custom-col {
@@ -488,6 +546,9 @@ border-radius: 10px;
     flex: 0 0 25%; /* Same as col-md-3 */
     max-width: 25%;
   }
+  .info-section-text-container{
+  text-align: start;
+}
 }
 
 @media (max-width: 768px) { /* Small screens */
@@ -526,6 +587,10 @@ border-radius: 10px;
 }
 .search-section{
   width: 100%;
+}
+.q-px-xl{
+  padding-left: 10px;
+  padding-right: 10px;
 }
 }
 

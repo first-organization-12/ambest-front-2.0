@@ -32,24 +32,29 @@
           round
           icon="menu"
           class=" custom-hide-menu hidden-xl-and-up"
-          
+
           @click="toggleLeftDrawer"
         />
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" side="left" overlay>
+    <q-drawer v-model="leftDrawerOpen" side="right" overlay>
       <q-list>
-        <q-item clickable v-ripple to="/travel-centres" >
+        <q-item to="/">
+          <q-avatar square class="q-mr-md q-mx-auto responsive-logo" >
+            <q-img src="/images/ambest-logo.png" fit="contain" />
+          </q-avatar>
+        </q-item>
+        <q-item clickable v-ripple to="/travel-centres" exact-active-class="bg-cyan-2" >
           <q-item-section >Travel Centers</q-item-section>
         </q-item>
-        <q-item clickable v-ripple to="/service-centers">
+        <q-item clickable v-ripple to="/service-centers" exact-active-class="bg-cyan-2" >
           <q-item-section>Service Centers</q-item-section>
         </q-item>
-        <q-item clickable v-ripple  to="/fuel-cards">
+        <q-item clickable v-ripple  to="/fuel-cards" exact-active-class="bg-cyan-2" >
           <q-item-section>Fuel Cards</q-item-section>
         </q-item>
-        <q-item clickable v-ripple to="/ambucks">
+        <q-item clickable v-ripple to="/ambucks" exact-active-class="bg-cyan-2" >
           <q-item-section>Ambucks</q-item-section>
         </q-item>
       </q-list>
@@ -298,7 +303,6 @@ export default {
 .footer-mailing{
   text-align: center;
 }
-
 
 }
 </style>
