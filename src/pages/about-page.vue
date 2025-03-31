@@ -88,9 +88,8 @@
       <div class="form-section q-ma-xl q-px-xl" style="background: #f5f9fc; margin-inline: auto;">
         <div class="text-center q-py-xl">
           <div class="section-container" style="margin: auto;">
-            <h5 class="text-h5" style="margin-block: 5px;"><span class="text-weight-bold">Why Join </span>AMBEST ? </h5>
-            <p class="text-desc">Gain access to exclusive rewards, top-tier facilities, and an unparalleled network of service providers.</p>
-            <p class="text-desc">AMBEST is a premier, Member-owned organization specializing in sales, marketing, and purchasing. Proudly representing some of the nation’s finest independently -owned truck stops and service centers, AMBEST is committed to helping Members  succeed. Our mission is simple: to enhance profitability and ensure the long-term success and sustainability of our Members.</p>
+            <h5 class="text-h5" style="margin-block: 5px;"><span class="text-weight-bold">Why Join </span>AMBEST? </h5>
+            <p class="text-desc">AMBEST is a premier, Member-owned organization specializing in sales, marketing, and purchasing. Proudly representing some of the nation’s finest independently-owned truck stops and service centers, AMBEST is committed to helping Members succeed. Our mission is simple: to enhance profitability and ensure the long-term success and sustainability of our Members.</p>
           </div>
             <div class="flex justify-center" style="gap: 5px;">
             <q-btn label="BECOME A MEMBER" rounded unelevated color="primary" class="q-mt-md q-px-xl" to="/fuel-cards/membership/aplication" />

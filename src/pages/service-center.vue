@@ -61,7 +61,7 @@
           <div class="content q-px-xl">
             <h5 class="text-h5" style="margin-block: 5px;">From <strong>Routine Maintenance </strong> to <strong>Complex Repairs</strong>, We’ve Got You Covered.</h5>
             <p class="text-desc_1_1" style="line-height: normal;">
-              Our expert technicians are equipped to handle everything from regular tune-ups to advanced diagnostics and repairs. With state-of-the-art facilities and a commitment to quality service, we ensure your vehicle is in top condition so you can keep moving forward with confidence.
+              Our expert technicians are equipped to handle everything from basic preventative maintenance to advanced diagnostics and repair. Offering In-Shop and Mobile repair along with many locations that offer Towing & Recovery. We ensure your vehicle is in top condition so you can keep moving forward with Confidence.
             </p>
           </div>
         </div>
@@ -108,7 +108,7 @@
              <div class="q-pr-xl">
                <h5 class="text-h5" style="margin-block: 5px;"><strong>Connecting You to Quality Care. </strong></h5>
                <p class="text-desc_1_1" style="line-height: normal;">
-                 AMBEST Service Centers are dedicated to keeping you moving. We’re always innovating to find more efficient ways to keep you on the road, doing what you do best. That’s why we’ve introduced Service Connection—a new program designed to simplify your experience and make your journey smoother than ever.
+                  AMBEST Service Centers are committed to keep you rolling. We are constantly innovating to find more efficient means to keep you on the road doing what you do best! Service Connection is made to designed to provide Ease, peace of mind and make your experience exceptional.
                 </p>
               </div>
           </div>
@@ -173,11 +173,11 @@
             class="rounded-borders"
             fit="cover"
              width="50%"/>
-             <div class="q-pr-xl">
-               <h5 class="text-h5" style="margin-block: 5px;"><strong>Connecting You to Quality Care. </strong></h5>
+             <div class="">
+               <h5 class="text-h5" style="margin-block: 5px;"><strong>Your Freight Issues, AMBEST Cargo Solutions.</strong></h5>
                <p class="text-desc_1_1" style="line-height: normal;">
-                 AMBEST Service Centers are dedicated to keeping you moving. We’re always innovating to find more efficient ways to keep you on the road, doing what you do best. That’s why we’ve introduced Service Connection—a new program designed to simplify your experience and make your journey smoother than ever.
-                </p>
+                  AMBEST Cargo Solutions offers Load Shift, Banding, Cross-docking, load Transfer, Fork Lift Service and more. We help Carriers reduce cost, optimize logistics and keep cargo moving Safely and efficiently.
+                  </p>
               </div>
           </div>
         </div>

@@ -52,8 +52,8 @@
       <div class="panel-container row items-start q-my-xl q-px-xl">
         <div class="col-12 col-md-6">
           <div class="panel-card-name">AMBEST is a <strong>Member-Owned, Sales, Marketing,</strong> and <strong>Purchasing</strong> Organization. </div>
-          <p>We are a trusted network of the finest independently owned and operated truck stops and service centers nationwide. Our mission is to drive profitability and support the long-term success of our Members by providing exclusive benefits, industry insights, and growth opportunities. As a Member, you’ll gain access to valuable advantages, including:</p>
-          <ul class="panel-lists">
+          <p class="text-desc">We are a trusted network of the finest independently owned and operated truck stops and service centers nationwide. Our mission is to drive profitability and support the long-term success of our Members by providing exclusive benefits, industry insights, and growth opportunities. As a Member, you’ll gain access to valuable advantages, including:</p>
+          <ul class="panel-lists text-desc">
             <li>An alliance with a solid industry brand.</li>
             <li>A nationwide sales force dedicated to fostering relationships with more than 6,500 fleets nationwide.</li>
             <li>Robust purchasing programs that allow you to enjoy the economies of scale by providing access to network pricing on thousands of items you and your customers buy most.</li>
@@ -320,7 +320,9 @@ export default{
 </script>
 
 <style>
-
+label{
+  font-size: 20px !important;
+}
 .q-field--outlined .q-field__control {
   height: 44px;
   border-radius: 8px;

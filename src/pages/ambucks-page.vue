@@ -89,7 +89,7 @@
         <div class="btn">
           <div class="row justify-center" style="gap: 0.3rem;">
             <q-btn outline color="primary" style="background-color: white !important;" rounded unelevated class="q-mt-md text-bold q-px-xl" label="Check Your AMBUCK$ Balance" />
-            <q-btn outline color="primary" style="background-color: white !important;" rounded unelevated class="q-mt-md text-bold q-px-xl" label="Locations Directory" />
+            <q-btn outline color="primary" style="background-color: white !important;" rounded unelevated class="q-mt-md text-bold q-px-xl" label="Locations" />
           </div>
         </div>
       </div>
@@ -98,8 +98,8 @@
       <div class="news-section row items-center bg-light">
         <!-- Left Side: Text Content -->
         <div class="col-12  col-md-6 q-pa-xl">
-          <div class="content q-py-xl">
-            <h5 class="text-h5 "><span class="text-weight-bold">This Month's AMBUCK$ <br>
+          <div class="content q-py-sm">
+            <h5 class="text-h5 " style="margin: 10px 0%;"><span class="text-weight-bold">This Month's AMBUCK$ <br>
               Promotions-</span>Don't Miss Out!</h5>
             <p class="text-desc">
               Check out current and previous promotions from AMBUCK$.

@@ -10,8 +10,8 @@
         </q-img>
       </div>
 
-      <div class="custom-banner text-h3">
-        <div class="flex flex-center q-mb-none">
+      <div class="custom-banner text-h3" style="height: 200px; margin-top: 50px;">
+        <div class="flex flex-center" style="margin: 0%;">
           <h4 class="q-mb-xs"><span style="color: white;">Fuel Savings, Simplified — <strong>Introducing AMBEST Fuel Cards</strong></span></h4>
         </div>
         <q-btn
@@ -21,7 +21,7 @@
           rounded
           unelevated
           class="q-mt-xs text-bold"
-          label="Apply for a card today"
+          label="Apply for Approval"
           size="md"
           to="/fuel-cards/fuel-card-form/aplication"
 
@@ -30,21 +30,20 @@
 
       <div class="q-pa-md row   justify-center  info-section q-col-gutter-md">
       <!-- Left Section (Text) -->
-      <div class="col-md-6 col-12 q-pr-md">
-        <h5 class="q-pa-none">About AMBEST <strong>Fuel Cards</strong> Provide:</h5>
+      <div class="col-md-7 col-12 q-pr-md">
+        <h4 class="q-pa-none">AMBEST <strong>Fuel Cards</strong> Provide:</h4>
         <ul class="text-desc text-list">
           <li>Exclusive fuel discounts for professional drivers and fleet operators</li>
+          <li>Earn AMBUCK$ points</li>
           <li>Flexible payment options to fit your needs</li>
           <li>Expense tracking for better financial management</li>
-          <li>Accepted at over 1,000 AMBEST locations nationwide</li>
-          <li>Ideal for both fleet managers and solo drivers</li>
-          <li>Save money while keeping operations efficient and hassle-free</li>
-          <li>Access to AMBUCK$ points</li>
+          <li>Access to over 15,000 locations in the U.S. and Canada</li>
+          <li>Access to AMBUCK$ reward points</li>
         </ul>
       </div>
 
       <!-- Right Section (Images) -->
-      <div class="col-md-6 col-6 text-right q-pl-none relative-position">
+      <div class="col-md-5 col-6 text-start q-pl-none relative-position">
         <q-img src="/images/EFS-Direct-Card-Web.png" class="overlapping-card" />
         <q-img src="/images/card.png" class="overlapping-card second-card" />
       </div>
@@ -65,7 +64,7 @@
         <!-- right Side: Text Content -->
         <div class="col-12  col-md-6 q-px-xl q-mb-xl">
           <div class="content q-pa-md q-mb-none">
-            <h4><strong>Why </strong> Choose AMBEST <strong>Fuel Cards </strong>?</h4>
+            <h4 class="q-pa-none"><strong>Why </strong> Choose AMBEST <strong>Fuel Cards?</strong></h4>
             <p class="text-desc">Enjoy exclusive discounts at over 1,000 locally owned and independent locations nationwide, plus flexible options designed to meet the needs of both fleets and individual drivers. Support local businesses while saving more and keeping your journey running smoothly!</p>
           </div>
         </div>

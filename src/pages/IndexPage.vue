@@ -1,27 +1,27 @@
 <template>
   <q-page class="">
   <div class="banner relative-position" style="overflow: hidden;">
-      <video autoplay loop muted playsinline class="absolute-full" style="z-index: -1; object-fit: cover; width:100%;">
-        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <div class="banner-overlay absolute-center text-center">
-        <h1 class="banner-title text-white text-h4 text-weight-bold">
-          Where America Stops for Service and Value
-        </h1>
-      </div>
+    <video autoplay loop muted playsinline class="absolute-full" style="z-index: -1; object-fit: cover; width:100%;">
+      <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="banner-overlay absolute-center text-center">
+      <h1 class="banner-title text-white text-h4 text-weight-bold">
+        Where America Stops for Service and Value
+      </h1>
     </div>
+  </div>
 
-    <div class="custom-banner text-h3">
+    <div class="custom-banner text-h3" style="margin:60px auto;">
       <h5><span>Where <strong>Drivers, Fleets, and Members</strong> Thrive on the Road!</span></h5>
     </div>
 
 
-    <div class="info-section row col-12" style="width: 90%; margin: auto;">
-      <div class="col-12 col-md-6">
-        <div class="info-section-text-container q-pa-xl">
+    <div class="info-section row col-12" style="width: 100%; margin:60px auto;">
+      <div class="col-12 col-md-7">
+        <div class="info-section-text-container">
           <h4 class="text-dark text-bold q-mb-sm q-mt-none">Your Partner in Service Excellence</h4>
-          <h6 class="text-small text-bold">
+          <h6 class="text-small text-bold q-my-lg">
             From coast to coast, AMBEST Travel Centers and Service Centers are here to keep you moving.
           </h6>
           <p class="text-desc">
@@ -35,10 +35,10 @@
         </div>
         </div>
       </div>
-      <div class="col-12 col-md-6">
+      <div class="col-12 col-md-5">
         <div class="row q-col-gutter-md">
           <div v-for="(feature, index) in features" :key="index" class="col-12 col-sm-4 col-md-4">
-            <q-card class="q-pa-md feature-card" style='box-shadow: none;'>
+            <q-card class="q-pa-md feature-card row flex-center" style='box-shadow: none;'>
               <img :src="feature.image" alt="fetaure-image"  class="fetaure-image" />
               <div class="text-weight-bold q-mt-sm text-center">{{ feature.label }}</div>
             </q-card>
@@ -47,7 +47,7 @@
       </div>
     </div>
 
-  <div class="about-section row items-center" style="max-width: 80%;">
+  <div class="about-section row items-center" style="max-width: 80%; margin:60px auto;">
     <!-- Left Side: Image -->
     <div class="col-12 col-md-6 text-center">
       <q-img
@@ -72,7 +72,7 @@
     </div>
   </div>
 
-  <div class="advantage-section text-center q-pa-md">
+  <div class="advantage-section text-center q-pa-md" style="margin:60px auto;">
     <!-- Heading -->
     <h5 class="text-dark">Experience the <strong class="text-dark">AMBEST Advantage</strong></h5>
 
@@ -86,11 +86,11 @@
     </div>
   </div>
 
-  <div class="join-section q-pa-md">
+  <div class="join-section q-pa-md" style="margin:60px auto;">
     <div class="q-pa-md bg-blue-grey-1 flex column items-center rounded-borders">
       <!-- Heading -->
       <h6 class="text-dark q-mb-md q-mt-none">
-        Join <strong class="text-dark">AMBEST</strong> Today!
+        Become an <strong class="text-dark">AMBEST</strong> Location!
       </h6>
 
       <!-- Buttons -->
@@ -108,7 +108,7 @@
   </div>
 
 
-  <div class="services-section q-pa-md w-100 flex flex-center">
+  <div class="services-section q-pa-md w-100 flex flex-center" style="margin:60px auto;">
     <div class="row q-gutter-md justify-evenly" style="width: 100%;">
       <q-card v-for="(service, index) in services" :key="index" class="service-card">
         <q-img :src="service.image" class="service-img" />
@@ -124,7 +124,7 @@
     </div>
   </div>
 
-<div class="news-section row items-center bg-light" style="max-width: 80%; border-radius: 20px;">
+<div class="news-section row items-center bg-light" style="max-width: 90%; border-radius: 20px; margin:60px auto;">
   <!-- Left Side: Text Content -->
   <div class="col-12  col-md-6 q-px-xl">
     <div class="content q-pa-xl">
@@ -151,7 +151,7 @@
 
 </div>
 
-<div class="text-center q-mb-md">
+<div class="text-center q-mb-md" style="margin:60px auto;">
   <h5 class="text-bold">WHAT OUR CUSTOMERS SAY:</h5>
 </div>
 
@@ -165,6 +165,7 @@
   autoplay-interval="3000"
   transition-prev="slide-right"
   transition-next="slide-left"
+  style="margin:60px auto;"
 >
   <q-carousel-slide
     v-for="(chunk, index) in chunkedTestimonials"
@@ -311,6 +312,43 @@ const advantages = ref([
 
 <style scoped>
 
+.testimonial-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  max-width: 900px; /* Adjust width to show 3 cards */
+  margin: auto;
+  overflow: hidden;
+}
+
+.testimonial-wrapper {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  width: 100%;
+}
+
+.testimonial-slider {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+}
+
+.testimonial-card {
+  flex: 0 0 calc(33.333% - 20px); /* Show exactly 3 testimonials */
+  width: 280px;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+/* Hide scrollbar */
+.testimonial-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+
 h6 {
     font-size: 1.25rem;
     font-weight: 500;
@@ -411,6 +449,8 @@ h6 {
 }
 
 .fetaure-image{
+   height: 79px;
+   width: 79px;
    color:rgb(255, 255, 255) !important;
    font-size: 2rem !important;
    background: #00659E;
@@ -418,7 +458,8 @@ h6 {
    padding: 11px;
 }
 .feature-card{
-  width:50%;
+  flex-direction: column;
+  width:100%;
 }
 
 .icon{
@@ -506,7 +547,7 @@ h6 {
 
 
 .join-section {
-  max-width: 95%;
+  max-width: 90%;
   margin: auto;
 
 }
@@ -606,6 +647,7 @@ h6 {
 /* info-section-text-container */
 .info-section-text-container{
   text-align: justify;
+  padding: 48px 48px;
 }
 
 .q-carousel{

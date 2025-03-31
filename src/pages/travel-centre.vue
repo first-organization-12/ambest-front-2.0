@@ -12,7 +12,7 @@
       </div>
 
       <!-- Main Content -->
-      <div class="q-pa-md">
+      <div class="q-pa-md" >
           <!-- Find Travel Center Section -->
           <div class="bg-grey-2 q-pa-lg q-my-lg rounded-borders">
             <div class="row justify-center text-center">
@@ -29,7 +29,7 @@
             <div class="info-section q-pa-xl">
               <div class="row items-center">
                 <!-- Text Section -->
-                <div class="col-12 col-md-6 info-section-text-container">
+                <div class="col-12 col-md-7 info-section-text-container">
                   <h5 class="text-dark q-mb-sm q-mt-none">
                     A Network Built on <strong>Trust</strong> and <strong>Tradition</strong>
                   </h5>
@@ -47,7 +47,7 @@
                   </div>
                 </div>
                 <!-- Image Section -->
-                <div class="col-12 col-md-6 text-left q-pa-xl  q-gutter-md">
+                <div class="col-12 col-md-5 text-left q-pa-xl  q-gutter-md">
                   <q-img src="/images/ambest-logo3.png" contain style=" max-width:700px; height: auto;" />
                 </div>
               </div>
