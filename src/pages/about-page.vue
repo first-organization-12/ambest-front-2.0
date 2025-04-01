@@ -173,7 +173,7 @@ export default defineComponent({
       {title:"Travel Center",icon:"/images/SteeringWheel.png",buttonLabel:"explore",link:"/travel-centres"},
       {title:"Service Center",icon:"/images/Vector.png",buttonLabel:"locate",link:"/service-centers"},
       {title:"Fuel Card",icon:"/images/GasPump1.png",buttonLabel:"apply",link:"/fuel-cards"},
-      {title:"Ambuck$",icon:"/images/PiggyBank.png",buttonLabel:"join",link:"/ambucks"}
+      {title:"Ambuck$",icon:"/images/PiggyBank.png",buttonLabel:"join",link:"/ambuck$"}
     ])
     const validateEmail =(val)=>{
       const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;

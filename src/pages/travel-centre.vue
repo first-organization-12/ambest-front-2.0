@@ -20,7 +20,7 @@
                 <h4 class=" q-ma-md">
                   <strong>Your Home Away from Home</strong> — Find an AMBEST Travel Center near you.
                 </h4>
-                <q-btn color="primary" rounded unelevated style="text-transform:unset;" label="Locate a Travel Center" class="q-py-sm text-white text-bold" href="#/travel-centres/#map" />
+                <q-btn color="primary" rounded unelevated style="text-transform:unset;" label="Locate a Travel Center" class="q-py-sm text-white text-bold" @click="scrollToElement('map-break')" />
               </div>
             </div>
           </div>
@@ -96,7 +96,7 @@
                   <p class="text-body2 text-desc_1_1 text-dark q-mt-lg">
                   <b>Fuel up with confidence </b> with Diesel, DEF, and Gasoline at your convenience. <b>Unwind</b> with clean showers, comfortable lounges, and delicious dining options—everything you need to recharge for the road ahead.
                   </p>
-                  <q-btn label="SEARCH TRAVEL CENTERS " rounded  color="primary" style="text-transform:unset;" class="q-mt-md text-bold" to="/travel-centres" />
+                  <q-btn label="SEARCH TRAVEL CENTERS " rounded  color="primary" style="text-transform:unset;" class="q-mt-md text-bold" @click="scrollToElement('map-break')" />
               </div>
             </div>
           </div>
@@ -104,9 +104,9 @@
           <q-container class="q-pa-md q-pa-lg-lg">
             <!-- Heading -->
             <div class="text-center q-mb-md">
-              <h5 class="text-h5">
+              <h4 class="">
                 <strong>Top Perks</strong> at AMBEST Locations
-              </h5>
+              </h4>
             </div>
 
             <!-- Perks Grid -->
@@ -120,7 +120,7 @@
             </div>
           </q-container>
 
-          <div class="q-pa-md">
+          <div class="q-pa-md" id="map-break">
             <div class="bg-primary banner-container flex flex-center">
               <p class="banner-text text-desc" style="font-size: 28px; font-weight: 400; margin: 0%;">
               Find the Best Fuel Prices at AMBEST Locations — <strong> Save More on Every Mile! </strong>
@@ -416,6 +416,12 @@ export default defineComponent({
       });
     };
 
+    const scrollToElement = (id) => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
     onMounted(fetchLocations);
     return {
       perks,
@@ -432,6 +438,7 @@ export default defineComponent({
       selectedLocations,
       calculateDistance,
       addNearestLocations,
+      scrollToElement,
     };
   }
 });

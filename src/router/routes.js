@@ -40,7 +40,7 @@ const routes = [
   },
 
   {
-    path: '/ambucks',
+    path: '/ambuck$',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/ambucks-page.vue') }

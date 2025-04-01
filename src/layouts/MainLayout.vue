@@ -16,7 +16,7 @@
           <q-btn flat label="TRAVEL CENTERS" class="text-dark" to="/travel-centres" />
           <q-btn flat label="SERVICE CENTERS" class="text-dark" to="/service-centers" />
           <q-btn flat label="FUEL CARDS" class="text-dark" to="/fuel-cards"/>
-          <q-btn flat label="AMBUCK$" class="text-dark" to="/ambucks"/>
+          <q-btn flat label="AMBUCK$" class="text-dark" to="/ambuck$"/>
         </div>
 
         <q-space />
@@ -56,7 +56,7 @@
         <q-item clickable v-ripple  to="/fuel-cards" exact-active-class="bg-cyan-2" >
           <q-item-section>Fuel Cards</q-item-section>
         </q-item>
-        <q-item clickable v-ripple to="/ambucks" exact-active-class="bg-cyan-2" >
+        <q-item clickable v-ripple to="/ambuck$" exact-active-class="bg-cyan-2" >
           <q-item-section>Ambuck$</q-item-section>
         </q-item>
       </q-list>
@@ -80,7 +80,7 @@
         <q-btn flat label="TRAVEL CENTERS" class="footer-link" to="/travel-centres"/>
         <q-btn flat label="SERVICE CENTERS" class="footer-link" to="/service-centers"/>
         <q-btn flat label="FUEL CARDS" class="footer-link" to="/fuel-cards"/>
-        <q-btn flat label="AMBUCK$" class="footer-link" to="/ambucks"/>
+        <q-btn flat label="AMBUCK$" class="footer-link" to="/ambuck$"/>
         <q-btn flat label="CONTACT" class="footer-link" to="/contacts"/>
       </div>
     </div>

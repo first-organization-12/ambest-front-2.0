@@ -13,7 +13,7 @@
 
       <div class="custom-banner text-center q-ma-xl">
         <h4 class=" q-ma-md"><strong>Where America Stops for Service and Value</strong></h4>
-        <q-btn label="SEARCH SERVICE CENTERS" rounded unelevated color="primary"  to="/about-ambest" />
+        <q-btn label="SEARCH SERVICE CENTERS" rounded unelevated color="primary"  @click="scrollToElement('map-break')" />
       </div>
 
       <div class="intro-section row items-center bg-light">
@@ -219,7 +219,7 @@
 
 
 
-    <div class="q-pa-md">
+    <div class="q-pa-md"  id="map-break">
     <!-- Title -->
     <h4 class="text-center text-bold q-mb-md">Find an AMBEST Location Near You!</h4>
 
@@ -601,7 +601,12 @@ export default defineComponent({
           .bindPopup(`<strong>${location.city}, ${location.state} - ${location.zip}</strong>`);
       });
     };
-
+    const scrollToElement = (id) => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
     onMounted(fetchLocations);
     return {
       q,
@@ -640,7 +645,8 @@ export default defineComponent({
       textRef,
       buttonRef,
       addNearestLocations,
-      calculateDistance
+      calculateDistance,
+      scrollToElement,
     };
   }
 });

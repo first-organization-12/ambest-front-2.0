@@ -30,8 +30,8 @@
             we provide everything to keep you moving.
           </p>
         <div class="btn-container">
-          <q-btn color="primary text-bold" rounded unelevated label="EXPLORE TRAVEL CENTERS" />
-          <q-btn color="primary text-bold" rounded unelevated label="EXPLORE SERVICE CENTERS" />
+          <q-btn color="primary text-bold" rounded unelevated label="EXPLORE TRAVEL CENTERS" to="/travel-centres"/>
+          <q-btn color="primary text-bold" rounded unelevated label="EXPLORE SERVICE CENTERS" to="/service-centers" />
         </div>
         </div>
       </div>
@@ -130,6 +130,17 @@
             <div style="width: 100%;">
               <h5 class="text-white text-bold q-mb-none">{{ service.title }}</h5>
               <p class="text-white text-caption q-text-md">{{ service.subtitle }} →</p>
+            </div>
+          </q-item>
+        </div>
+      </q-card>
+      <q-card  class="service-card">
+        <q-img src="/images/Mask_group_3.png" class="service-img" />
+        <div class="service-content">
+          <q-item target="_blank" href="https://qr.link/HeDWv6">
+            <div style="width: 100%;">
+              <h5 class="text-white text-bold q-mb-none">Download the App</h5>
+              <p class="text-white text-caption q-text-md">Stay Connected →</p>
             </div>
           </q-item>
         </div>
@@ -281,7 +292,7 @@ const advantages = ref([
         image: "/images/HandsClapping.png", // Reward/trophy icon
         title: "Earn Rewards with Every Stop",
         buttonText: "JOIN AMBUCK$ TODAY",
-        route:"/ambucks",
+        route:"/ambuck$",
       },
       {
         image: "/images/CreditCard.png", // Credit card icon
@@ -297,7 +308,7 @@ const advantages = ref([
         title: "Check Fuel Prices",
         subtitle: "Save on Fuel",
         image: "/images/Mask_group_1.png",
-        route:""
+        route:"/fuel-price"
       },
       {
         title: "Locate Service Centers",
@@ -305,12 +316,12 @@ const advantages = ref([
         image: "/images/Hoyt-4.png",
         route:"/service-centers"
       },
-      {
-        title: "Download the App",
-        subtitle: "Stay Connected",
-        image: "/images/Mask_group_3.png",
+      // {
+      //   title: "Download the App",
+      //   subtitle: "Stay Connected",
+      //   image: "/images/Mask_group_3.png",
 
-      }
+      // }
     ]);
 
 
