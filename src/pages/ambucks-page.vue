@@ -22,7 +22,7 @@
         <!-- Left Side: Text Content -->
         <div class="col-12  col-md-6 " :class="dynamicPadding">
           <div class="content">
-            <h5 class="text-h5" style="margin-block: 5px;"><span class="text-weight-bold">About AMBUCK$ Rewards Program</span></h5>
+            <h4 class="" style="margin-block: 5px;"><span class="text-weight-bold">About AMBUCK$ Rewards Program</span></h4>
             <p class="text-desc" style="line-height: normal;">
               AMBEST launched AMBUCK$, a professional driver loyalty
               program, in 1994. Professional drivers earn point(s) for every
@@ -40,7 +40,7 @@
               various other prizes through AMBUCK$ promotions. Subscribe
               here to sign up to receive our latest promotions.
             </p>
-            <q-btn label="Download the app" rounded unelevated color="primary" class="q-mt-md text-bold" to="/about-ambest" />
+            <q-btn label="Download the app" rounded unelevated color="primary" class="q-mt-md text-bold" target="_blank" href=" https://qr.link/HeDWv6" />
           </div>
         </div>
       </div>
@@ -49,9 +49,9 @@
       <div class="news-section row items-center bg-light" style="margin: 30px auto;">
         <!-- Right Side: Image -->
         <div class="col-12 col-md-6">
-          <div class="content q-pb-xl">
-            <h5 class="text-h5" style="font-size: 32px; margin-bottom: 0 !important;"><span class="text-weight-bold">The More You Fuel, The More You Earn</span></h5>
-            <p class="text-desc text-bold" style="font-size: 22px;">Achieve tier status each month and enjoy the benefit of the tier the following month.</p>
+          <div class="content lists q-pb-xl">
+            <h4 class="" style=" margin-bottom: 0 !important; font-weight: 800;"><span class="text-weight-bold">The More You Fuel, The More You Earn</span></h4>
+            <p class="text-desc text-bold">Achieve tier status each month and enjoy the benefit of the tier the following month.</p>
             <ul class="text-desc">
               <li>Earn points per gallon purchased</li>
               <li>Redeem points for merchandise and services</li>
@@ -80,7 +80,7 @@
       </div>
 
 
-      <div class="custom-banner" style="padding: 25px 0;">
+      <div class="custom-banner" style="padding: 25px 0; width: 90%; margin-inline:auto ;">
         <div class="text">
           <h4 style="margin: 0 !important;color: white;">
               <strong>Log In</strong> or <strong>Explore</strong> AMBEST Location Near You
@@ -88,8 +88,8 @@
         </div>
         <div class="btn">
           <div class="row justify-center" style="gap: 0.3rem;">
-            <q-btn outline color="primary" style="background-color: white !important;" rounded unelevated class="q-mt-md text-bold q-px-xl" label="Check Your AMBUCK$ Balance" />
-            <q-btn outline color="primary" style="background-color: white !important;" rounded unelevated class="q-mt-md text-bold q-px-xl" label="Locations" />
+            <q-btn outline color="primary" style="background-color: white !important;" rounded unelevated class="q-mt-md text-bold q-px-xl" label="Check Your AMBUCK$ Balance" href="https://register.am-best.com/" target="_blank" />
+            <q-btn outline color="primary" style="background-color: white !important;" rounded unelevated class="q-mt-md text-bold q-px-xl" label="Locations" to="/travel-centres" />
           </div>
         </div>
       </div>
@@ -99,14 +99,14 @@
         <!-- Left Side: Text Content -->
         <div class="col-12  col-md-6 q-pa-xl">
           <div class="content q-py-sm">
-            <h5 class="text-h5 " style="margin: 10px 0%;"><span class="text-weight-bold">This Month's AMBUCK$ <br>
-              Promotions-</span>Don't Miss Out!</h5>
+            <h4 class="" style="margin: 10px 0%;"><span class="text-weight-bold">This Month's AMBUCK$ <br>
+              Promotions-</span>Don't Miss Out!</h4>
             <p class="text-desc">
               Check out current and previous promotions from AMBUCK$.
               Don't forget to download our app to find specific location
               offerings so you always get the best AMBUCK$ values.
             </p>
-            <q-btn label="EXPLORE SPECIALS" rounded unelevated color="primary" class="q-mt-md text-bold q-px-xl" />
+            <q-btn label="EXPLORE SPECIALS" rounded unelevated color="primary" class="q-mt-md text-bold q-px-xl" target="_blank" href="https://mylync.lyncoproducts.com/customer/flyers/ambest/index.html" />
           </div>
         </div>
         <!-- Right Side: Image -->
@@ -179,6 +179,7 @@ export default {
 .plan_card{
   height: 100px;
   margin: 10px;
+  width: 553px;
   max-width: 553px;
   border-radius: 20px;
   color: white;
@@ -204,6 +205,16 @@ export default {
 }
 .gold_card{
   background-color: #A79B55;
+}
+/* Responsive Design */
+@media (max-width: 1024px) {
+.plan_card{
+  width: 500px;
+  max-width: 500px;
+}
+.news-section .lists{
+  padding-inline: 20px;
+}
 }
 @media (max-width: 480px) { /* Extra small screens */
   .plan_card{

@@ -10,9 +10,9 @@
         </q-img>
       </div>
 
-      <div class="custom-banner text-h3" style="height: 200px; margin-top: 50px;">
+      <div class="custom-banner q-py-xl" style=" margin-top: 50px; padding: 40px;">
         <div class="flex flex-center" style="margin: 0%;">
-          <h4 class="q-mb-xs"><span style="color: white;">Fuel Savings, Simplified — <strong>Introducing AMBEST Fuel Cards</strong></span></h4>
+          <h4 class="q-ma-xs"><span style="color: white;">Drive Further, <strong>Spend Less</strong>—Your Fuel Savings Start Here!</span></h4>
         </div>
         <q-btn
           outline
@@ -63,9 +63,9 @@
         </div>
         <!-- right Side: Text Content -->
         <div class="col-12  col-md-6 q-px-xl q-mb-xl">
-          <div class="content q-pa-md q-mb-none">
+          <div class="content q-py-md q-mb-none">
             <h4 class="q-pa-none"><strong>Why </strong> Choose AMBEST <strong>Fuel Cards?</strong></h4>
-            <p class="text-desc">Enjoy exclusive discounts at over 1,000 locally owned and independent locations nationwide, plus flexible options designed to meet the needs of both fleets and individual drivers. Support local businesses while saving more and keeping your journey running smoothly!</p>
+            <p class="text-desc" style="font-size: 20px; font-weight: 400;">Enjoy exclusive discounts at over 1,000 locally owned and independent locations nationwide, plus flexible options designed to meet the needs of both fleets and individual drivers. Support local businesses while saving more and keeping your journey running smoothly!</p>
           </div>
         </div>
       </div>
@@ -73,12 +73,9 @@
 
       <div class="row justify-center q-my-xl">
       <div class="col-md-10 col-12 q-pa-xl">
-        <h5 class="text-h5 text-center" style="margin-block: 5px;"><span class="text-weight-bold">Find the Right AMBEST Fuel Card for You</span></h5>
-        <p class="text-desc_1_1 text-center ">
+        <h4 class=" text-center" style="margin-block: 5px;"><span class="text-weight-bold">Find the Right AMBEST Fuel Card for You</span></h4>
+        <p class="text-desc_1_1 text-center " style="font-size: 20px; font-weight: 400;">
           <strong>AMBEST offers two fuel card options to fit the unique needs of drivers <br> and fleets. Compare below to see which one is the best fit for your business.</strong>
-        </p>
-        <p class="text-center text-desc_1_1">
-          Fuel Cards are accepted at all EFS-approved locations across the U.S. and Canada.
         </p>
       </div>
     </div>
@@ -213,21 +210,21 @@
         <tr>
           <td class="" style="width: 5%;">
           </td>
-          <td class="border-left" style="width: 20%;">
+          <td class="border-left q-pl-lg" style="width: 20%;">
             <q-img src="/images/EFS-Direct-Card-Web.png" class="card-image" fit="cover"
               width="50%"  />
             <q-card-section>
-              <div class="text-h6 text-primary text-weight-bold">EFS Direct Card</div>
+              <p class="chart-title text-primary" style="font-weight: 800; margin:10px 0%;">EFS Direct Card</p>
               <p class="text-subtitle2 text-desc">
                 Ideal for businesses with multiple vehicles looking for customizable controls and detailed reporting.
               </p>
             </q-card-section>
           </td>
-          <td class="border-left text-desc" style="width: 20%;">
+          <td class="border-left text-desc q-pl-lg" style="width: 20%;">
             <q-img src="/images/card.png" class="card-image" fit="cover"
               width="50%"  />
             <q-card-section>
-              <div class="text-h6 text-primary text-weight-bold">EFS Preferred Card</div>
+              <p class="chart-title  text-primary" style="font-weight: 800; margin:10px 0%;">EFS Preferred Card</p>
               <p class="text-subtitle2 text-desc">
                 Perfect for individual drivers or small fleets seeking straightforward savings, flexibility, and convenience with easy management.
               </p>
@@ -336,7 +333,7 @@ export default {
 
   justify-content: center;
   align-items: center;
-  max-width: 95%;
+  max-width: 90%;
   margin: 1rem auto;
 }
 .news-section {
@@ -398,6 +395,9 @@ export default {
     left: 127px;
     z-index: 29;
    }
+   .chart-title{
+    font-size: 32px;
+   }
 }
 
 @media (max-width: 1024px) { /* Medium screens */
@@ -405,6 +405,9 @@ export default {
     flex: 0 0 25%; /* Same as col-md-3 */
     max-width: 25%;
   }
+  .chart-title{
+    font-size: 28px;
+   }
 }
 
 @media (max-width: 768px) { /* Small screens */

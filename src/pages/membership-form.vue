@@ -22,7 +22,8 @@
                    unelevated
                    color="primary"
                    class="col-12 col-md-4 q-mt-xs text-bold"
-                   to="/fuel-cards/fuel-card-form/aplication"
+                   target="_blank"
+                   href="https://ambest.powerappsportals.com/home/"
                    />
             </div>
             <div class="col-12 col-md-6 border-line">
@@ -33,7 +34,7 @@
                    unelevated
                    color="primary"
                    class="col-12 col-md-4 q-mt-xs text-bold"
-                   to="/fuel-cards/fuel-card-form/aplication"
+                   to="/fuel-cards/membership/aplication"
                    />
             </div>
           </div>
@@ -76,8 +77,8 @@
 
     <q-section>
       <div class="qa-section text-center">
-          <h5 class="text-h5 text-bold">How Do I Become an AMBEST Member?</h5>
-          <p class="text-desc text-bold">If you own or operate a Travel or Service center and you're
+          <h4 class="" style="font-weight: 800;">How Do I Become an AMBEST Member?</h4>
+          <p class="text-desc" style="font-size: 26px; font-weight: 500;">If you own or operate a Travel or Service center and you're
             interested in becoming an AMBEST Member, fill out the form
             below and we'll contact you as soon as possible!
           </p>
@@ -86,7 +87,7 @@
 
     <q-section>
       <div class="form-container" style="margin-top: 4rem;">
-        <h5 class="heading">Become an <strong>AMBEST Member!</strong></h5>
+        <h5 class="heading"><strong>Become an</strong> AMBEST Member!</h5>
 
         <q-form @submit="handlemembershipform" ref="memberShipForm">
 
@@ -345,7 +346,8 @@ label{
   border-radius: 20px;
 }
 .banner-heading{
- font-size: 2.5rem;
+ font-size: 32px !important;
+ font-weight: 800 !important;
 }
 .banner-sub-heading{
  font-size: 1.6rem;
@@ -375,6 +377,8 @@ label{
 .form-container .heading{
   margin-top: 25px  ;
   margin-bottom: 0;
+  font-size: 32px;
+  font-weight: 800;
 }
 .form-container  .second-heading{
   margin-top: 0 !important;
@@ -441,11 +445,12 @@ textarea {
   text-transform: uppercase;
 }
 .panel-card-name{
-  font-size: 25px;
+  font-size: 32px !important;
+  font-weight: 400 !important;
 }
 .panel-card-sub-text{
-  /* font-size: 16px; */
-  font-weight: 600;
+  font-size: 20px !important;
+  font-weight: 400 !important;
 }
 .panel-lists li{
   margin-bottom: .5rem !important;
@@ -454,7 +459,7 @@ textarea {
 /* Mobile (up to 600px) */
 @media (max-width: 600px) {
   .form-container{
-  width: 99%;
+  width: 95%;
 }
 .banner-container{
   width: 100%;

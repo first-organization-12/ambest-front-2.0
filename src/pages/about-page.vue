@@ -10,10 +10,10 @@
         </q-img>
       </div>
       <q-section>
-        <div class="q-my-xl text-center">
-          <h5 class="text-h5" style="margin-block: 5px;"><span class="text-weight-bold">Since 1988, AMBEST has been a trusted name for professional fleets across the U.S. </span></h5>
-          <p class="text-desc text-weight-bold">Committed to exceptional service, convenience, and community support.</p>
-          <q-btn label="DISCOVER OUR STORY" rounded unelevated color="primary" class="q-mt-md text-bold q-px-lg"/>
+        <div class="q-my-xl text-center" style="width: 90%; margin-inline: auto;">
+          <h4 class="" style="margin-block: 5px; font-weight: 700;">Since 1988, AMBEST has been a trusted name for professional fleets across the U.S. </h4>
+          <p class="" style="font-size: 26px; font-weight: 500;">Committed to exceptional service, convenience, and community support.</p>
+          <q-btn label="DISCOVER OUR STORY" rounded unelevated color="primary" class="q-mt-md text-bold q-px-lg" target="_blank" href="https://drive.google.com/file/d/1chetvHcPhzAaR16AbkXEbu77rSoALcWT/view?usp=sharing"/>
         </div>
       </q-section>
 
@@ -22,17 +22,17 @@
           <!-- Left Side: Text Content -->
           <div class="col-12 col-md-6">
             <div class="content q-pa-xl">
-              <h5 class="text-h5 " style="margin: 20px 0;">Our <span class="text-weight-bold">Mission</span></h5>
-              <p class="text-desc">
+              <h4 class="" style="margin: 20px 0; font-weight: 400;">Our <span class="text-weight-bold">Mission</span></h4>
+              <p class="" style="font-size: 20px; font-weight: 400;">
                 At AMBEST, we're dedicated to being <strong>Where America Stops for Service and Value®.</strong>
               </p>
-              <p class="text-desc">
+              <p class="text-desc" style="font-size: 20px; font-weight: 400;">
                 We’ve grown since 1988, from a network of trusted truck stops to a reliable partner for drivers, fleets, and members. With quality facilities, competitive fuel prices, and exclusive rewards, we provide everything you need to keep moving forward, no matter where the road takes you.
               </p>
             </div>
           </div>
           <!-- Right Side: Image -->
-          <div class="col-12 col-md-6 text-center">
+          <div class="col-12 col-md-6 text-right">
             <q-img
               src="/images/img-one.png"
               class="rounded-borders dynamic-width"
@@ -45,7 +45,7 @@
       <q-section>
           <div class="news-section row items-center bg-light" style="margin: 20px auto;">
             <!-- Right Side: Image -->
-            <div class="col-12 col-md-6 text-center">
+            <div class="col-12 col-md-6 text-center q-px-xl">
               <q-img
               src="/images/our_story.png"
               class="rounded-borders dynamic-width"
@@ -55,11 +55,11 @@
             <!-- Left Side: Text Content -->
             <div class="col-12 col-md-6">
               <div class="content q-py-xl q-px-lg">
-                <h5 class="text-h5 " style="margin: 20px 0;">Our <span class="text-weight-bold">Story</span></h5>
-                <p class="text-desc">
+                <h4 class="" style="margin: 20px 0; font-weight: 400;">Our <span class="text-weight-bold">Story</span></h4>
+                <p class="text-desc" style="font-size: 20px; font-weight: 400;">
                   Founded in 1988, AMBEST is a Member-owned, nationwide network of independent truck stops and service centers. Unlike large corporations or chains, most AMBEST locations are family owned businesses where you're likely to find the owner with his or her sleeves rolled up ready to take care of you anyway they can.
                 </p>
-                <p class="text-desc">
+                <p class="text-desc" style="font-size: 20px; font-weight: 400;">
                   Our goal at AMBEST is not to have a location on every corner. Rather, we take pride in finding the finest locations along the most popular routes so you'll always have a quality AMBEST location where and when you need us. Regardless of where you stop at AMBEST, you can rely on a friendly face, clean facilities and terrific values on the things you need most. As our customer, you deserve our best. And that's America's Best.
                 </p>
               </div>
@@ -68,9 +68,9 @@
       </q-section>
 
       <q-section>
-        <div class="q-my-xl text-center">
-          <h5 class="text-h5" style="margin-block: 5px;"><span class="text-weight-bold">Driven by Service, Focused on You</span></h5>
-          <p class="text-desc">Discover how our commitment to quality and innovation has shaped AMBEST into <br>
+        <div class="q-my-xl text-center" style="width: 90%; margin-inline:auto;">
+          <h4 class="" style="margin-block: 5px; font-weight: 400;"><span class="text-weight-bold">Driven by Service, Focused on You</span></h4>
+          <p class="text-desc" style="font-size: 20px; font-weight: 500;">Discover how our commitment to quality and innovation has shaped AMBEST into <br>
             a trusted partner for drivers, fleets, and members across the nation.</p>
         </div>
       </q-section>
@@ -85,22 +85,22 @@
     </div>
 
     <q-section>
-      <div class="form-section q-ma-xl q-px-xl" style="background: #f5f9fc; margin-inline: auto;">
+      <div class="form-section q-ma-xl" style="background: #f5f9fc; margin-inline: auto; border-radius: 20px;">
         <div class="text-center q-py-xl">
           <div class="section-container" style="margin: auto;">
-            <h5 class="text-h5" style="margin-block: 5px;"><span class="text-weight-bold">Why Join </span>AMBEST? </h5>
-            <p class="text-desc">AMBEST is a premier, Member-owned organization specializing in sales, marketing, and purchasing. Proudly representing some of the nation’s finest independently-owned truck stops and service centers, AMBEST is committed to helping Members succeed. Our mission is simple: to enhance profitability and ensure the long-term success and sustainability of our Members.</p>
+            <h4 class="" style="margin-block: 5px;"><span style="font-weight: 800;">Why Join </span>AMBEST? </h4>
+            <p class="text-desc" style="font-size: 20px; font-weight: 400;">AMBEST is a premier, Member-owned organization specializing in sales, marketing, and purchasing. Proudly representing some of the nation’s finest independently-owned truck stops and service centers, AMBEST is committed to helping Members succeed. Our mission is simple: to enhance profitability and ensure the long-term success and sustainability of our Members.</p>
           </div>
             <div class="flex justify-center" style="gap: 5px;">
             <q-btn label="BECOME A MEMBER" rounded unelevated color="primary" class="q-mt-md q-px-xl" to="/fuel-cards/membership/aplication" />
-            <q-btn label="MEMBERSHIP LOGIN" rounded unelevated color="primary" class="q-mt-md q-px-xl" />
+            <q-btn label="MEMBERSHIP LOGIN" rounded unelevated color="primary" class="q-mt-md q-px-xl" target="_blank" href="https://ambest.powerappsportals.com/home/" />
           </div>
         </div>
       </div>
     </q-section>
       <q-section>
         <div class="q-my-xl text-center">
-          <h5 class="text-h5" style="margin-block: 5px;"><span class="text-weight-bold">Exceptional Service, Endless Convenience, Stronger Communities</span></h5>
+          <h5 class="" style="margin-block: 5px; font-size: 28px; font-weight: 800;">Exceptional Service, Endless Convenience, Stronger Communities</h5>
         </div>
       </q-section>
 
@@ -263,9 +263,9 @@ export default defineComponent({
   line-height: normal;
 }
 .news-section {
-  max-width: 80%;
+  max-width: 90%;
   margin: auto;
-  margin-left:10%;
+  /* margin-left:10%; */
 }
 .about-section {
 
@@ -299,6 +299,9 @@ padding: 20px;
   .content{
     padding: 0;
   }
+  .dynamic-width{
+  width: 100%;
+}
 }
 
 /* Adjust size for large screens */
@@ -307,7 +310,7 @@ padding: 20px;
   width: 60%;
   }
   .dynamic-width{
-  width: 70%;
+  width: 553px;
 }
 }
 

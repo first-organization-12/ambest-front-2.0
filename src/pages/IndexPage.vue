@@ -2,7 +2,7 @@
   <q-page class="">
   <div class="banner relative-position" style="overflow: hidden;">
     <video autoplay loop muted playsinline class="absolute-full" style="z-index: -1; object-fit: cover; width:100%;">
-      <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+      <source src="/images/ambest-intro-video.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
     <div class="banner-overlay absolute-center text-center">
@@ -12,8 +12,8 @@
     </div>
   </div>
 
-    <div class="custom-banner text-h3" style="margin:60px auto;">
-      <h5><span>Where <strong>Drivers, Fleets, and Members</strong> Thrive on the Road!</span></h5>
+    <div class="custom-banner" style="margin:30px auto 60px;">
+      <h4><span>Where <strong>Drivers, Fleets, and Members</strong> Thrive on the Road!</span></h4>
     </div>
 
 
@@ -21,7 +21,7 @@
       <div class="col-12 col-md-7">
         <div class="info-section-text-container">
           <h4 class="text-dark text-bold q-mb-sm q-mt-none">Your Partner in Service Excellence</h4>
-          <h6 class="text-small text-bold q-my-lg">
+          <h6 class="q-my-lg" style="font-weight: 600;">
             From coast to coast, AMBEST Travel Centers and Service Centers are here to keep you moving.
           </h6>
           <p class="text-desc">
@@ -47,7 +47,7 @@
       </div>
     </div>
 
-  <div class="about-section row items-center" style="max-width: 80%; margin:60px auto;">
+  <div class="about-section row items-center" style="max-width: 90%; margin:60px auto;">
     <!-- Left Side: Image -->
     <div class="col-12 col-md-6 text-center">
       <q-img
@@ -60,7 +60,7 @@
     <!-- Right Side: Text Content -->
     <div class="col-12 col-md-6 q-pa-md">
       <div class="content">
-        <h6 class=" text-dark q-mb-xs">ABOUT <strong class="text-dark">AMBEST</strong></h6>
+        <h4 class=" text-dark q-mb-xs">ABOUT <strong class="text-dark">AMBEST</strong></h4>
         <p class="text-body2 text-dark q-mt-none  text-desc">
           Founded in 1988, AMBEST is a Member-owned, nationwide network of independent truck stops
           and service centers. Unlike big Wall Street companies, AMBEST locations are family-owned
@@ -74,35 +74,48 @@
 
   <div class="advantage-section text-center q-pa-md" style="margin:60px auto;">
     <!-- Heading -->
-    <h5 class="text-dark">Experience the <strong class="text-dark">AMBEST Advantage</strong></h5>
+    <h5 class="text-dark" style="font-size: 32px;">Experience the <strong class="text-dark">AMBEST Advantage</strong></h5>
 
     <!-- Features Grid -->
     <div class="row justify-center q-mt-lg">
-      <div class="col-12 col-md-3 q-pa-md" v-for="(item, index) in advantages" :key="index">
-        <img :src="item.image" alt="advantage-image" class="advantage-image" />
-        <p class="text-bold q-mt-md ">{{ item.title }}</p>
-        <q-btn :label="item.buttonText" outline color="primary" rounded unelevated class="q-mt-md text-bold" :to="item.route" />
+      <div class="col-12 col-md-3 advantage-cards" v-for="(item, index) in advantages" :key="index" style="margin: auto;">
+        <div class="" style="width: 350px; margin: auto;">
+          <img :src="item.image" alt="advantage-image" class="advantage-image" />
+          <p class="q-mt-md " style="font-size: 26px; font-weight: 800;">{{ item.title }}</p>
+          <q-btn :label="item.buttonText" outline color="primary" rounded unelevated class="q-mt-md text-bold" :to="item.route" />
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="join-section q-pa-md" style="margin:60px auto;">
-    <div class="q-pa-md bg-blue-grey-1 flex column items-center rounded-borders">
+  <div class="join-section" style="margin:60px auto;">
+    <div class="q-pa-lg bg-blue-grey-1 flex column items-center rounded-borders">
       <!-- Heading -->
-      <h6 class="text-dark q-mb-md q-mt-none">
+      <h4 class="text-dark q-mb-md q-mt-none">
         Become an <strong class="text-dark">AMBEST</strong> Location!
-      </h6>
+      </h4>
 
       <!-- Buttons -->
       <div class="row q-gutter-md  flex flex-center">
-        <q-btn v-for="(button, index) in buttons" :key="index"
-          :label="button.label"
+        <q-btn
+          label="MEMBERSHIP APPLICATION"
           color="primary"
           text-color="white"
           class="q-px-md text-bold"
           rounded
           unelevated
+          to="/fuel-cards/membership/aplication"
         />
+        <a href="https://ambest.powerappsportals.com/" target="_blank" style="color: black;">
+          <q-btn
+            label="EXISTING MEMBER LOGIN"
+            color="primary"
+            text-color="white"
+            class="q-px-md text-bold"
+            rounded
+            unelevated
+          />
+        </a>
       </div>
     </div>
   </div>
@@ -128,7 +141,7 @@
   <!-- Left Side: Text Content -->
   <div class="col-12  col-md-6 q-px-xl">
     <div class="content q-pa-xl">
-      <h5 class="text-dark text-bold q-mb-sm">AMBEST <strong>NEWS</strong></h5>
+      <h4 class="text-dark q-mb-sm">AMBEST <strong>NEWS</strong></h4>
       <p class="text-body2 text-desc">
         Exciting things are happening at AMBEST! We've recently expanded our network with new locations in key
         regions, providing even more convenience for drivers and fleets.
@@ -152,7 +165,7 @@
 </div>
 
 <div class="text-center q-mb-md" style="margin:60px auto;">
-  <h5 class="text-bold">WHAT OUR CUSTOMERS SAY:</h5>
+  <h5 class="" style="font-size: 28px; font-weight: 600;">WHAT OUR CUSTOMERS SAY:</h5>
 </div>
 
 <q-carousel
@@ -165,7 +178,6 @@
   autoplay-interval="3000"
   transition-prev="slide-right"
   transition-next="slide-left"
-  style="margin:60px auto;"
 >
   <q-carousel-slide
     v-for="(chunk, index) in chunkedTestimonials"
@@ -279,10 +291,6 @@ const advantages = ref([
       },
     ]);
 
-    const buttons = ref([
-      { label: "MEMBERSHIP APPLICATION" },
-      { label: "EXISTING MEMBER LOGIN" }
-    ]);
 
     const services = ref([
       {
@@ -295,13 +303,13 @@ const advantages = ref([
         title: "Locate Service Centers",
         subtitle: "Find Expert Maintenance",
         image: "/images/Hoyt-4.png",
-        route:"travel-centres"
+        route:"/service-centers"
       },
       {
         title: "Download the App",
         subtitle: "Stay Connected",
         image: "/images/Mask_group_3.png",
-        route:""
+
       }
     ]);
 
@@ -311,42 +319,6 @@ const advantages = ref([
 
 
 <style scoped>
-
-.testimonial-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  max-width: 900px; /* Adjust width to show 3 cards */
-  margin: auto;
-  overflow: hidden;
-}
-
-.testimonial-wrapper {
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  width: 100%;
-}
-
-.testimonial-slider {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 20px;
-}
-
-.testimonial-card {
-  flex: 0 0 calc(33.333% - 20px); /* Show exactly 3 testimonials */
-  width: 280px;
-}
-
-.rotate-180 {
-  transform: rotate(180deg);
-}
-
-/* Hide scrollbar */
-.testimonial-wrapper::-webkit-scrollbar {
-  display: none;
-}
 
 
 h6 {
@@ -509,6 +481,13 @@ h6 {
   .feature-item {
     width: 100%;
   }
+  .feature-card{
+  flex-direction: column;
+  width:50%;
+  }
+  .custom-banner{
+    margin-top: 1% !important;
+  }
 }
 
 
@@ -518,9 +497,9 @@ h6 {
   border-radius: 20px; /* Rounded edges */
   text-align: center;
   font-size: 20px !important;
-  font-weight: normal;
+  font-weight: 400px;
   color: #000; /* Black text */
-  margin-top:1% !important;
+  /* margin-top:1% !important; */
   justify-content: center;
   align-items: center;
   max-width: 90%;
@@ -535,12 +514,12 @@ h6 {
   /* padding: 20px; */
 }
 .content {
-  padding: 20px;
+  padding: 80px;
 }
 
 
 .advantage-section {
-  max-width: 100%;
+  max-width: 90%;
   margin: auto;
 }
 
@@ -670,6 +649,9 @@ h6 {
   .info-section-text-container{
     text-align: start;
   }
+  .content{
+    padding: 80px;
+  }
 }
 
 @media (max-width: 1024px) { /* Medium screens */
@@ -682,6 +664,10 @@ h6 {
   }
   .q-carousel{
     height: 280px;
+  }
+  .service-card{
+    width: 330px;
+    height: 330px;
   }
 }
 
@@ -698,7 +684,7 @@ h6 {
   .banner {
     position: relative;
     width: 100%;
-    height: 501px;
+    height: 300px;
     overflow: hidden;
   }
   .text-desc[data-v-2373a833] {
@@ -731,6 +717,12 @@ h6 {
   .custom-col {
     flex: 0 0 100%; /* Full width */
     max-width: 100%;
+  }
+  .join-section .rounded-borders{
+    text-align: center;
+  }
+  .advantage-cards{
+    margin-block: 20px !important;
   }
 }
 

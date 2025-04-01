@@ -12,13 +12,13 @@
       </div>
 
       <div class="custom-banner text-center q-ma-xl">
-        <h5 class="text-h5 q-ma-md"><strong>Where America Stops for Service and Value</strong></h5>
+        <h4 class=" q-ma-md"><strong>Where America Stops for Service and Value</strong></h4>
         <q-btn label="SEARCH SERVICE CENTERS" rounded unelevated color="primary"  to="/about-ambest" />
       </div>
 
       <div class="intro-section row items-center bg-light">
         <!-- Right Side: Image -->
-        <div class="col-12 col-md-6 slider" style="border-radius: 20px; display: flex; justify-content: flex-start;">
+        <div class="col-12 col-md-5 slider" style="border-radius: 20px; display: flex; justify-content: flex-start;">
             <!-- <q-responsive :ratio="9/6"> -->
               <q-carousel
                 v-model="slide"
@@ -44,7 +44,7 @@
           </q-carousel-slide>
           <q-carousel-slide :name="3" class="column no-wrap">
             <div class="fit flex justify-center">
-              <q-img class="rounded-borders col-6 full-height" src="/images/full-shot-mechanic-checking-truck.png" style="border-radius: 20px; width: 550px;" />
+              <q-img class="rounded-borders col-6 full-height" src="/images/conversation.png" style="border-radius: 20px; width: 550px;" />
             </div>
           </q-carousel-slide>
           <q-carousel-slide :name="4" class="column no-wrap">
@@ -57,9 +57,9 @@
     <!-- </q-responsive> -->
       </div>
         <!-- Left Side: Text Content -->
-        <div class="col-12  col-md-6 "  >
+        <div class="col-12  col-md-7 "  >
           <div class="content q-px-xl">
-            <h5 class="text-h5" style="margin-block: 5px;">From <strong>Routine Maintenance </strong> to <strong>Complex Repairs</strong>, We’ve Got You Covered.</h5>
+            <h4 class="" style="margin-block: 5px;">From <strong>Routine Maintenance </strong> to <strong>Complex Repairs</strong>, We’ve Got You Covered.</h4>
             <p class="text-desc_1_1" style="line-height: normal;">
               Our expert technicians are equipped to handle everything from basic preventative maintenance to advanced diagnostics and repair. Offering In-Shop and Mobile repair along with many locations that offer Towing & Recovery. We ensure your vehicle is in top condition so you can keep moving forward with Confidence.
             </p>
@@ -70,7 +70,7 @@
 
   <q-container class=" q-pa-md">
     <q-card class="bg-primary service-section text-white q-pa-lg">
-      <div class="text-center text-h5">Key <span class="text-bold">Services</span></div>
+      <h4 class="text-center" style="margin: 10px 0px;">Key <span class="text-bold">Services</span></h4>
       <div class="q-pa-xl">
       <div class="row justify-center ">
         <q-card v-for="(service, index) in services.slice(0,5)" :key="index" flat class="col-12 col-sm-6 col-md-2 col-lg-2 text-center bg-primary text-white">
@@ -106,7 +106,7 @@
             fit="cover"
              width="80%"/>
              <div class="q-pr-xl">
-               <h5 class="text-h5" style="margin-block: 5px;"><strong>Connecting You to Quality Care. </strong></h5>
+               <h5 class="text-h5" style="margin-block: 5px;"><strong>Connecting You to Quality Care.</strong></h5>
                <p class="text-desc_1_1" style="line-height: normal;">
                   AMBEST Service Centers are committed to keep you rolling. We are constantly innovating to find more efficient means to keep you on the road doing what you do best! Service Connection is made to designed to provide Ease, peace of mind and make your experience exceptional.
                 </p>
@@ -174,7 +174,7 @@
             fit="cover"
              width="50%"/>
              <div class="">
-               <h5 class="text-h5" style="margin-block: 5px;"><strong>Your Freight Issues, AMBEST Cargo Solutions.</strong></h5>
+               <h5 class="text-h5" style="margin-block: 5px;"><strong>Your Freight Issues, AMBEST Cargo Solutions</strong></h5>
                <p class="text-desc_1_1" style="line-height: normal;">
                   AMBEST Cargo Solutions offers Load Shift, Banding, Cross-docking, load Transfer, Fork Lift Service and more. We help Carriers reduce cost, optimize logistics and keep cargo moving Safely and efficiently.
                   </p>
@@ -196,18 +196,7 @@
               />
             <h5 class=" text-bold q-mt-md q-mb-none" style="font-size: 22px;">Peace of Mind in Every Repair. </h5>
             <div class="">
-              <!-- <q-btn label="learn more" outline color="primary" rounded unelevated class="q-mt-md text-bold"/> -->
-              <div class="">
-                <q-btn :label="isTextVisible ? 'Learn Less' : 'Learn More'" outline color="primary" rounded unelevated @click="toggleText" ref="buttonRef" />
-
-                <transition name="slide-fade">
-                  <q-card v-if="isTextVisible" class="q-mt-md q-pa-md text-box" ref="textRef">
-                    <p class="text-desc"> Coverage may, at the discretion of the installing location, be extended to other installed parts. It is the responsibility of the customer to insure, in writing on the original repair order, the specific intention of the repair location. This warranty neither replaces, amends, nor supersedes any warranty provision of the manufacturer. All judgments of the manufacturer are final and binding.</p>
-                    <p class="text-desc">AMBEST Service Center locations warrant repairs and service to be free from defect in material and workmanship for the 90-day warranty period, starting from the date of the original repair order.</p>
-                    <p class="text-desc"> Individual product warranties may exceed warranty period stated here; see original repair center for details. You may have other rights that may vary from state to state. Consult with the original repair location.</p>
-                  </q-card>
-                </transition>
-              </div>
+              <q-btn label="learn more" outline color="primary" rounded unelevated class="q-mt-md text-bold" to="/service-centers/freedom-warranty"/>
             </div>
           </div>
         </div>
@@ -275,28 +264,27 @@
 
     <!-- Locations Grid -->
     <div class="row justify-center q-gutter-xl q-mb-lg">
-      <div v-if="isActive" class="col-12 col-md-3 location-card">
-        <div class="row items-baseline">
-          <!-- Circle Dot beside heading -->
-          <q-badge color="blue" rounded class="location-dot q-mr-md" />
-          <div>
-            <p class="text-bold text-primary text-h6 q-mb-xs">{{ selectedLocation.name }}</p>
-            <p class="text-body1 q-mb-none">{{ selectedLocation.directory_address }}</p>
-            <p class="text-body1 q-mb-none">{{ selectedLocation.city  }}, {{ selectedLocation.state  }}, zip:{{ selectedLocation.zip  }}.</p>
-            <p class="text-body1">{{ selectedLocation.main_phone }}</p>
-          </div>
+    <div v-for="(location, index) in selectedLocations" :key="index" class="col-12 col-md-3 location-card">
+      <div class="row items-baseline">
+        <!-- Circle Dot beside heading -->
+        <q-badge color="blue" rounded class="location-dot q-mr-md" />
+        <div>
+          <p class="text-bold text-primary text-h6 q-mb-xs">{{ location.name }}</p>
+          <p class="text-body1 q-mb-none">{{ selectedLocation.city  }}, {{ selectedLocation.state  }}, zip:{{ selectedLocation.zip  }}.</p>
+          <p class="text-body1">{{ selectedLocation.main_phone }}</p>
         </div>
       </div>
     </div>
+  </div>
 
     <!-- View More Button -->
     <div class="row justify-center q-mb-xl">
-      <q-btn color="primary" label="VIEW MORE" class="view-more-btn" />
+      <q-btn color="primary" label="VIEW MORE" class="view-more-btn" to="/all-locations" />
     </div>
     </div>
 
 
-      <div class="form-section row  bg-primary" style="margin: auto; border-radius: 20px;">
+      <div class="form-section row" style="margin-inline: auto; border-radius: 20px;">
         <!-- Right Side: Image -->
         <div class="col-12 col-md-6 text-center">
               <q-img
@@ -308,7 +296,7 @@
         </div>
 
           <!-- Left Side: Text Content -->
-          <div class="col-12  col-md-6 q-px-xl">
+          <div class="col-12  col-md-6 q-px-xl bg-primary" style="border-radius: 0 20px 20px 0;">
             <div class="content  q-px-xl">
               <h5 class="text-white text-bold text-center q-mb-sm"><strong>Request More Information</strong></h5>
               <p class="text-white text-center text-body2 text-desc">
@@ -371,7 +359,8 @@ export default defineComponent({
     let markersLayer;
     const isActive =ref(false);
     const suggestions = ref([]);
-    const selectedLocation = ref([]);
+    const selectedLocation = ref(null);
+    const selectedLocations = ref([]); //selected nearest locations
     // const modelPagination =ref({page:1, rowsPerPage:15})
 
     // warranty btn code
@@ -532,7 +521,7 @@ export default defineComponent({
       const starIcon = L.divIcon({
         className: '',
         html: `
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="${location.star_color || 'gold'}" xmlns="http://www.w3.org/2000/svg">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="${location.star_color || 'gold'}" xmlns="http://www.w3.org/2000/svg">
             <polygon points="12,2 15,10 23,10 17,15 19,22 12,18 5,22 7,15 1,10 9,10" stroke="black" stroke-width="1"/>
           </svg>
         `,
@@ -541,7 +530,7 @@ export default defineComponent({
       });
 
       L.marker([location.lat, location.long], { icon: starIcon })
-        .bindPopup(`${location.city}, ${location.state} - ${location.zip}`)
+        .bindPopup(`${location.name}, ${location.city}, ${location.state} - ${location.zip}`)
         .addTo(markersLayer);
     };
 
@@ -561,9 +550,56 @@ export default defineComponent({
       searchQuery.value = `${location.city}, ${location.state} - ${location.zip}`;
       suggestions.value = [];
       selectedLocation.value = location;
+
+
+      // Set the map view to the selected location
       map.setView([location.lat, location.long], 10, { animate: true });
 
-      isActive.value=true;
+      // Remove previous marker if it exists
+      if (selectedLocation.value.marker) {
+        map.removeLayer(selectedLocation.value.marker);
+      }
+
+      // Add a new marker at the selected location
+      const marker = L.marker([location.lat, location.long]).addTo(map)
+        .bindPopup(`<strong>${location.name}, ${location.city}, ${location.state} - ${location.zip}</strong>`)
+        .openPopup(); // Automatically open the popup
+
+      // Store the marker in selectedLocation
+      selectedLocation.value.marker = marker;
+
+      isActive.value = true;
+      addNearestLocations(location);
+    };
+
+    const calculateDistance = (lat1, lon1, lat2, lon2) => {
+      const R = 6371; // Radius of the Earth in km
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const distance = R * c; // Distance in km
+      return distance;
+    };
+
+    const addNearestLocations = (selected) => {
+      const distances = locations.value.map(location => {
+        const distance = calculateDistance(selected.lat, selected.long, location.lat, location.long);
+        return { ...location, distance };
+      });
+
+      // Sort by distance and get the two nearest locations
+      const nearestLocations = distances.sort((a, b) => a.distance - b.distance).slice(1, 3);
+
+      // Add nearest locations to the map and store them
+      selectedLocations.value = [selected, ...nearestLocations];  // Store selected + 2 nearest
+
+      selectedLocations.value.forEach(location => {
+        L.marker([location.lat, location.long]).addTo(map.value)
+          .bindPopup(`<strong>${location.city}, ${location.state} - ${location.zip}</strong>`);
+      });
     };
 
     onMounted(fetchLocations);
@@ -597,11 +633,14 @@ export default defineComponent({
       isActive,
       suggestions,
       selectedLocation,
+      selectedLocations,
       toggleText,
       handleClickOutside,
       isTextVisible,
       textRef,
       buttonRef,
+      addNearestLocations,
+      calculateDistance
     };
   }
 });
@@ -902,6 +941,9 @@ border-radius: 10px;
   }
   .banner-text-img{
     width: 350px;
+  }
+  .form-section .bg-primary{
+    border-radius: 0 0 20px 20px !important;
   }
 }
 </style>

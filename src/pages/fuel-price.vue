@@ -106,7 +106,7 @@ export default {
       const starIcon = L.divIcon({
         className: '',
         html: `
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="${location.star_color || 'gold'}" xmlns="http://www.w3.org/2000/svg">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="${location.star_color || 'gold'}" xmlns="http://www.w3.org/2000/svg">
             <polygon points="12,2 15,10 23,10 17,15 19,22 12,18 5,22 7,15 1,10 9,10" stroke="black" stroke-width="1"/>
           </svg>
         `,
@@ -135,10 +135,25 @@ export default {
       searchQuery.value = `${location.city}, ${location.state} - ${location.zip}`;
       suggestions.value = [];
       selectedLocation.value = location;
-      console.log(selectedLocation.value);
+
+
+      // Set the map view to the selected location
       map.setView([location.lat, location.long], 10, { animate: true });
 
-      isActive.value=true;
+      // Remove previous marker if it exists
+      if (selectedLocation.value.marker) {
+        map.removeLayer(selectedLocation.value.marker);
+      }
+
+      // Add a new marker at the selected location
+      const marker = L.marker([location.lat, location.long]).addTo(map)
+        .bindPopup(`<strong>${location.name}, ${location.city}, ${location.state} - ${location.zip}</strong>`)
+        .openPopup(); // Automatically open the popup
+
+      // Store the marker in selectedLocation
+      selectedLocation.value.marker = marker;
+
+      isActive.value = true;
     };
 
     const modalColumns = [

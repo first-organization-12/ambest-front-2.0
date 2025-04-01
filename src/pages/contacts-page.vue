@@ -26,21 +26,21 @@
         />
       </div>
       <div class="text-center">
-        <h5><span style="">Our<strong> Leadership</strong></span></h5>
+        <h4><span style="">Our<strong> Leadership</strong></span></h4>
       </div>
 
-      <div class="row justify-center q-col-gutter-md" style="display: flex;gap: 10px;">
+      <div class="learders-card row justify-center q-col-gutter-md" style="display: flex;gap: 10px;">
         <div v-for="member in team.slice(0,3)" :key="member.name" class="col-lg-2">
           <div class="text-center">
             <q-img :src="member.image" class="profile-image" style="height: 215px; width: 215px;" />
             <div class="">
-              <div class="name"><strong>{{ member.name }}</strong></div>
-              <div class="position">{{ member.position }}</div>
+              <div class="name" style="font-size: 20px; font-weight: 800;"><strong>{{ member.name }}</strong></div>
+              <div class="position" style="font-size: 16px; font-weight: 400;">{{ member.position }}</div>
             </div>
           </div>
         </div>
       </div>
-      <div class="row justify-center q-col-gutter-md q-mt-xl" style="display: flex;gap: 10px;">
+      <div class="learders-card row justify-center q-col-gutter-md q-mt-xl" style="display: flex;gap: 10px;">
         <div v-for="member in team.slice(3,7)" :key="member.name" class="col-lg-2">
           <div class="text-center">
             <q-img :src="member.image" class="profile-image" style="height: 215px; width: 215px;" />
@@ -65,7 +65,7 @@
         <!-- <div>contacts page</div> -->
 
         <div class="form-container" style="margin-top: 8rem;">
-        <h5 class="" style="margin: 25px 0 !important;">Have questions? <strong>Fill out the form and our team will get back to you within 24 hours.</strong></h5>
+        <h4 class="" style="margin: 25px 0 !important; font-weight: 400;">Have questions? <strong>Fill out the form and our team will get back to you within 24 hours.</strong></h4>
 
         <q-form @submit="handleContactSubmit" ref="contactForm">
             <div class="form-group row q-col-gutter-md">
@@ -135,7 +135,7 @@
     </div>
 
     <div class="faq-container">
-      <h5 class="text-h5"><span class="text-weight-bold">Answers to Your Frequently Asked Questions...</span></h5>
+      <h4 class=""><span class="" style="font-weight: 800;">Answers to Your Frequently Asked Questions...</span></h4>
       <q-list class="faq-list">
         <q-expansion-item
           v-for="(item, index) in faqs"
@@ -145,14 +145,14 @@
           header-class="faq-item"
         >
           <template v-slot:header>
-            <q-item-section class="text-desc" style="margin-bottom: .5rem;"><strong>{{ item.question }}</strong></q-item-section>
+            <q-item-section class="text-desc" style="margin-bottom: .5rem; font-size: 22px; width: 500;"><strong>{{ item.question }}</strong></q-item-section>
             <q-item-section side>
               <q-icon color="primary" name="add"  />
             </q-item-section>
           </template>
           <q-card>
             <q-card-section>
-              <p class="text-desc">{{ item.answer }}</p>
+              <p class="text-desc" style="font-size: 20px; width: 500;">{{ item.answer }}</p>
             </q-card-section>
           </q-card>
         </q-expansion-item>
@@ -342,10 +342,10 @@ export default{
 }
 
 label {
-    font-size: 14px;
+    font-size: 20px;
     display: block;
     margin-bottom: 5px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 input, select, textarea {
@@ -391,8 +391,8 @@ textarea {
 
 /* Mobile (up to 600px) */
 @media (max-width: 600px) {
-  .form-container{
-  width: 99%;
+.form-container{
+  width: 95%;
 }
 .banner-container{
   width: 100%;
@@ -408,6 +408,9 @@ textarea {
 }
 .captha{
   width: 100% !important;
+}
+.learders-card{
+  display: block !important;
 }
 }
 /* Laptop (601px - 1024px) */

@@ -24,6 +24,14 @@ const routes = [
   },
 
   {
+    path: '/service-centers/freedom-warranty',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/freedom-warranty.vue') }
+    ]
+  },
+
+  {
     path: '/fuel-cards',
     component: () => import('layouts/MainLayout.vue'),
     children: [
@@ -84,6 +92,14 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/fuel-price.vue') }
+    ]
+  },
+
+  {
+    path: '/all-locations',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/all-locations.vue') }
     ]
   },
 

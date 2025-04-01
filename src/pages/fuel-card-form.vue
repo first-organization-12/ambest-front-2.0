@@ -14,8 +14,8 @@
     </q-section>
     <q-section>
       <div class="form-container" style="margin-top: 8rem;">
-        <h5 class="heading">Fill out the form today to </h5>
-        <h5 class="second-heading"><strong>start your application process! </strong></h5>
+        <h4 class="heading">Fill out the form today to </h4>
+        <h4 class="second-heading"><strong>start your application process! </strong></h4>
 
 
         <q-form @submit="handlemembershipform" ref="fuelCardForm">
@@ -291,10 +291,10 @@ export default{
 } */
 
 label {
-    font-size: 14px;
+    font-size: 20px;
     display: block;
     margin-bottom: 5px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 input, select, textarea {

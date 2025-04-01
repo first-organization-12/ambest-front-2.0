@@ -16,13 +16,15 @@
           <q-btn flat label="TRAVEL CENTERS" class="text-dark" to="/travel-centres" />
           <q-btn flat label="SERVICE CENTERS" class="text-dark" to="/service-centers" />
           <q-btn flat label="FUEL CARDS" class="text-dark" to="/fuel-cards"/>
-          <q-btn flat label="AMBUCKS" class="text-dark" to="/ambucks"/>
+          <q-btn flat label="AMBUCK$" class="text-dark" to="/ambucks"/>
         </div>
 
         <q-space />
 
         <!-- ICONS -->
-        <q-btn flat round dense icon="person_outline" class="q-mr-md" />
+         <a target="_blank" style="color: #000;" href="https://ambest.powerappsportals.com/home/">
+           <q-btn flat round dense icon="person_outline" class="q-mr-md"/>
+        </a>
         <q-btn flat round dense icon="local_gas_station" to="/fuel-price"/>
 
         <!-- MENU BUTTON - Show Only on Mobile -->
@@ -55,7 +57,7 @@
           <q-item-section>Fuel Cards</q-item-section>
         </q-item>
         <q-item clickable v-ripple to="/ambucks" exact-active-class="bg-cyan-2" >
-          <q-item-section>Ambucks</q-item-section>
+          <q-item-section>Ambuck$</q-item-section>
         </q-item>
       </q-list>
     </q-drawer>
@@ -78,19 +80,29 @@
         <q-btn flat label="TRAVEL CENTERS" class="footer-link" to="/travel-centres"/>
         <q-btn flat label="SERVICE CENTERS" class="footer-link" to="/service-centers"/>
         <q-btn flat label="FUEL CARDS" class="footer-link" to="/fuel-cards"/>
-        <q-btn flat label="AMBUCKS" class="footer-link" to="/ambucks"/>
+        <q-btn flat label="AMBUCK$" class="footer-link" to="/ambucks"/>
         <q-btn flat label="CONTACT" class="footer-link" to="/contacts"/>
       </div>
     </div>
 
     <!-- Social Media Icons -->
     <div class="footer-social row justify-center q-mt-lg q-gutter-sm q-gutter-md-md">
-  <q-icon name="mdi-facebook" size="28px" class="q-mx-sm q-mx-md-md" />
-  <q-icon name="mdi-instagram" size="28px" class="q-mx-sm q-mx-md-md" />
-  <q-icon name="mdi-twitter" size="28px" class="q-mx-sm q-mx-md-md" />
-  <q-icon name="mdi-linkedin" size="28px" class="q-mx-sm q-mx-md-md" />
-  <q-icon name="mdi-phone" size="28px" class="q-mx-sm q-mx-md-md" />
-</div>
+      <a href="https://www.facebook.com/AMBESTofficial/" target="_blank" style="color: #000;">
+        <q-icon name="mdi-facebook" size="28px" class="q-mx-sm q-mx-md-md" />
+      </a>
+      <a href="https://www.instagram.com/ambestofficial/" target="_blank" style="color: #000;">
+        <q-icon name="mdi-instagram" size="28px" class="q-mx-sm q-mx-md-md" />
+      </a>
+      <a href="https://x.com/i/flow/login?redirect_after_login=%2FAMBESTofficial" target="_blank" style="color: #000;">
+        <q-icon name="mdi-twitter" size="28px" class="q-mx-sm q-mx-md-md" />
+      </a>
+      <a href="https://www.linkedin.com/company/ambestofficial/" target="_blank" style="color: #000;">
+        <q-icon name="mdi-linkedin" size="28px" class="q-mx-sm q-mx-md-md" />
+      </a>
+      <a href="tel:+(800) 910-7220" style="color: #000;">
+        <q-icon name="mdi-phone" size="28px" class="q-mx-sm q-mx-md-md" />
+      </a>
+    </div>
 
     <!-- Three-Column Layout for Mailing List, Office, and Contact -->
     <div class="footer-row row wrap justify-between q-mt-xl">

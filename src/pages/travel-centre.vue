@@ -12,28 +12,28 @@
       </div>
 
       <!-- Main Content -->
-      <div class="q-pa-md" >
+      <div class="" style="width: 90%; margin-inline: auto;">
           <!-- Find Travel Center Section -->
           <div class="bg-grey-2 q-pa-lg q-my-lg rounded-borders">
             <div class="row justify-center text-center">
               <div class="col-12">
-                <p class="text-h5 q-mb-md">
-                  <span class="text-weight-bold">Your Home Away from Home</span> — Find an AMBEST Travel Center near you.
-                </p>
-                <q-btn color="primary" rounded unelevated style="text-transform:unset;" label="Locate a Travel Center" class="q-py-sm text-white text-bold" />
+                <h4 class=" q-ma-md">
+                  <strong>Your Home Away from Home</strong> — Find an AMBEST Travel Center near you.
+                </h4>
+                <q-btn color="primary" rounded unelevated style="text-transform:unset;" label="Locate a Travel Center" class="q-py-sm text-white text-bold" href="#/travel-centres/#map" />
               </div>
             </div>
           </div>
-        </div>
+      </div>
         <q-container class="q-mt-md q-mb-lg q-rt-lg">
             <div class="info-section q-pa-xl">
               <div class="row items-center">
                 <!-- Text Section -->
                 <div class="col-12 col-md-7 info-section-text-container">
-                  <h5 class="text-dark q-mb-sm q-mt-none">
+                  <h4 class="text-dark q-mb-sm q-mt-none">
                     A Network Built on <strong>Trust</strong> and <strong>Tradition</strong>
-                  </h5>
-                  <p class="text-desc">
+                  </h4>
+                  <p class="text-desc" style="font-size: 20px; font-weight: 400;">
                     Since 1988, AMBEST has been America’s Best Travel Centers—a member-owned network of
                     independent truck stops and service centers. Unlike corporate-owned chains, AMBEST locations
                     are family-run businesses where owners are hands-on, ready to provide personalized care and
@@ -78,7 +78,7 @@
               </div>
             </div>
           </q-container> -->
-          <div class="about-section row" style="margin: 20px auto; border-radius: 20px; width: 80%;">
+          <div class="about-section row" style="margin: 20px auto; border-radius: 20px; width: 90%;">
             <!-- Right Side: Image -->
             <div class="col-12 col-md-6 text-center">
                   <q-img
@@ -96,7 +96,7 @@
                   <p class="text-body2 text-desc_1_1 text-dark q-mt-lg">
                   <b>Fuel up with confidence </b> with Diesel, DEF, and Gasoline at your convenience. <b>Unwind</b> with clean showers, comfortable lounges, and delicious dining options—everything you need to recharge for the road ahead.
                   </p>
-                  <q-btn label="SEARCH TRAVEL CENTERS " rounded  color="primary" style="text-transform:unset;" class="q-mt-md text-bold" to="/about-ambest" />
+                  <q-btn label="SEARCH TRAVEL CENTERS " rounded  color="primary" style="text-transform:unset;" class="q-mt-md text-bold" to="/travel-centres" />
               </div>
             </div>
           </div>
@@ -122,17 +122,15 @@
 
           <div class="q-pa-md">
             <div class="bg-primary banner-container flex flex-center">
-              <p class="banner-text text-desc">
+              <p class="banner-text text-desc" style="font-size: 28px; font-weight: 400; margin: 0%;">
               Find the Best Fuel Prices at AMBEST Locations — <strong> Save More on Every Mile! </strong>
-
               </p>
             </div>
           </div>
 
           <div class="q-pa-md">
     <!-- Title -->
-    <h4 class="text-center text-bold q-mb-md">Find an AMBEST Location Near You!</h4>
-
+    <h4 class="text-center text-bold">Find an AMBEST Location Near You!</h4>
     <!-- Search Bar -->
     <div class="row justify-center q-gutter-sm q-mb-md">
       <!-- <q-input
@@ -174,13 +172,12 @@
 
     <!-- Locations Grid -->
     <div class="row justify-center q-gutter-xl q-mb-lg">
-      <div v-if="isActive" class="col-12 col-md-3 location-card">
+      <div v-for="(location, index) in selectedLocations" :key="index" class="col-12 col-md-3 location-card">
         <div class="row items-baseline">
           <!-- Circle Dot beside heading -->
           <q-badge color="blue" rounded class="location-dot q-mr-md" />
           <div>
-            <p class="text-bold text-primary text-h6 q-mb-xs">{{ selectedLocation.name }}</p>
-            <p class="text-body1 q-mb-none">{{ selectedLocation.directory_address }}</p>
+            <p class="text-bold text-primary text-h6 q-mb-xs">{{ location.name }}</p>
             <p class="text-body1 q-mb-none">{{ selectedLocation.city  }}, {{ selectedLocation.state  }}, zip:{{ selectedLocation.zip  }}.</p>
             <p class="text-body1">{{ selectedLocation.main_phone }}</p>
           </div>
@@ -190,7 +187,7 @@
 
     <!-- View More Button -->
     <div class="row justify-center q-mb-xl">
-      <q-btn color="primary" label="VIEW MORE" class="view-more-btn" />
+      <q-btn color="primary" label="VIEW MORE" class="view-more-btn" to="/all-locations" />
     </div>
   </div>
 
@@ -225,7 +222,7 @@
 
       </div> -->
 
-      <div class="about-section row" style="margin: 20px auto; border-radius: 20px; width: 80%;">
+      <div class="about-section row" style="margin: 20px auto; border-radius: 20px; width: 90%;">
         <!-- Left Side: Text Content -->
         <div class="col-12  col-md-6 q-px-xl flex  items-center">
           <div class="content  q-px-xl ">
@@ -281,7 +278,8 @@ export default defineComponent({
     let markersLayer;
     const isActive =ref(false);
     const suggestions = ref([]);
-    const selectedLocation = ref([]);
+    const selectedLocation = ref(null);
+    const selectedLocations = ref([]); //selected nearest locations
     const perks = [
       { icon: "/images/ToiletPaper.png", title: "Clean Restrooms" },
       { icon: "/images/GasPump.png", title: "Quality Fuel" },
@@ -337,7 +335,7 @@ export default defineComponent({
       const starIcon = L.divIcon({
         className: '',
         html: `
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="${location.star_color || 'gold'}" xmlns="http://www.w3.org/2000/svg">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="${location.star_color || 'gold'}" xmlns="http://www.w3.org/2000/svg">
            <circle cx="12" cy="12" r="10" stroke="black" stroke-width="1"/>
           </svg>
         `,
@@ -346,7 +344,7 @@ export default defineComponent({
       });
 
       L.marker([location.lat, location.long], { icon: starIcon })
-        .bindPopup(`${location.city}, ${location.state} - ${location.zip}`)
+        .bindPopup(`${location.name}, ${location.city}, ${location.state} - ${location.zip}`)
         .addTo(markersLayer);
     };
 
@@ -366,9 +364,56 @@ export default defineComponent({
       searchQuery.value = `${location.city}, ${location.state} - ${location.zip}`;
       suggestions.value = [];
       selectedLocation.value = location;
+
+
+      // Set the map view to the selected location
       map.setView([location.lat, location.long], 10, { animate: true });
 
-      isActive.value=true;
+      // Remove previous marker if it exists
+      if (selectedLocation.value.marker) {
+        map.removeLayer(selectedLocation.value.marker);
+      }
+
+      // Add a new marker at the selected location
+      const marker = L.marker([location.lat, location.long]).addTo(map)
+        .bindPopup(`<strong>${location.name}, ${location.city}, ${location.state} - ${location.zip}</strong>`)
+        .openPopup(); // Automatically open the popup
+
+      // Store the marker in selectedLocation
+      selectedLocation.value.marker = marker;
+
+      isActive.value = true;
+      addNearestLocations(location);
+    };
+
+    const calculateDistance = (lat1, lon1, lat2, lon2) => {
+      const R = 6371; // Radius of the Earth in km
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const distance = R * c; // Distance in km
+      return distance;
+    };
+
+    const addNearestLocations = (selected) => {
+      const distances = locations.value.map(location => {
+        const distance = calculateDistance(selected.lat, selected.long, location.lat, location.long);
+        return { ...location, distance };
+      });
+
+      // Sort by distance and get the two nearest locations
+      const nearestLocations = distances.sort((a, b) => a.distance - b.distance).slice(1, 3);
+
+      // Add nearest locations to the map and store them
+      selectedLocations.value = [selected, ...nearestLocations];  // Store selected + 2 nearest
+
+      selectedLocations.value.forEach(location => {
+        L.marker([location.lat, location.long]).addTo(map.value)
+          .bindPopup(`<strong>${location.city}, ${location.state} - ${location.zip}</strong>`);
+      });
     };
 
     onMounted(fetchLocations);
@@ -384,6 +429,9 @@ export default defineComponent({
       isActive,
       suggestions,
       selectedLocation,
+      selectedLocations,
+      calculateDistance,
+      addNearestLocations,
     };
   }
 });
@@ -444,12 +492,12 @@ border-radius: 10px;
 
 .banner-container {
   background-color: #0066a1; /* Blue background */
-  border-radius: 10px; /* Rounded corners */
+  border-radius: 20px; /* Rounded corners */
   padding: 16px; /* Adjust padding */
   text-align: center; /* Center align text horizontally */
-  width: 100%; /* Full width */
-  max-width: 1650px; /* Limit width on larger screens */
-  height: 80px; /* Set height */
+  width: 90%; /* Full width */
+  /* max-width: 1650px; Limit width on larger screens */
+  /* height: 131px; Set height */
   display: flex; /* Flexbox for centering */
   align-items: center; /* Center vertically */
   justify-content: center; /* Center horizontally */
