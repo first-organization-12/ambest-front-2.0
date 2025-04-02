@@ -106,7 +106,7 @@ export default {
       const starIcon = L.divIcon({
         className: '',
         html: `
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="${location.star_color || 'gold'}" xmlns="http://www.w3.org/2000/svg">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="${location.star_color==='blue' ? "#027dffff" : location.star_color==='red' ? '#ff0000ff' : location.star_color==='green' ? '#008000ff' : location.star_color==='yellow' ? '#ffa500ff' : location.star_color==='white' ? '#89cff0ff' : 'gold'}" xmlns="http://www.w3.org/2000/svg">
             <polygon points="12,2 15,10 23,10 17,15 19,22 12,18 5,22 7,15 1,10 9,10" stroke="black" stroke-width="1"/>
           </svg>
         `,

@@ -71,21 +71,21 @@
   <q-container class=" q-pa-md">
     <q-card class="bg-primary service-section text-white q-pa-lg">
       <h4 class="text-center" style="margin: 10px 0px;">Key <span class="text-bold">Services</span></h4>
-      <div class="q-pa-xl">
-      <div class="row justify-center ">
-        <q-card v-for="(service, index) in services.slice(0,5)" :key="index" flat class="col-12 col-sm-6 col-md-2 col-lg-2 text-center bg-primary text-white">
-          <q-card-section>
-            <q-icon :name="service.icon" class="service-icons" color="primary" size="sm" />
+      <div class="q-pa-lg">
+      <div class="row justify-center">
+        <q-card v-for="(service, index) in services.slice(0,5)" :key="index" flat class="col-12 col-sm-6 col-md-2 col-lg-2 text-center bg-primary text-white q-pa-md" style="display: flex; flex-direction: column; align-items: center;">
+          <q-card-section class="service-icons flex flex-center" style="height: 90px; width: 90px; border-radius: 100%;">
+            <q-img :src="service.icon" class="" color="primary" width="45px" height="45px" style=" padding: 20px;" />
           </q-card-section>
           <q-card-section>
             <div class="text-subtitle1">{{ service.title }}</div>
           </q-card-section>
         </q-card>
       </div>
-      <div class="row justify-center ">
-        <q-card v-for="(service, index) in services.slice(5,10)" :key="index" flat class="col-12 col-sm-6 col-md-2 col-lg-2 text-center bg-primary text-white">
-          <q-card-section>
-            <q-icon :name="service.icon" class="service-icons" color="primary" size="sm"></q-icon>
+      <div class="row justify-center">
+        <q-card v-for="(service, index) in services.slice(5,10)" :key="index" flat class="col-12 col-sm-6 col-md-2 col-lg-2 text-center bg-primary text-white q-pa-md" style="display: flex; flex-direction: column; align-items: center;">
+          <q-card-section class="service-icons flex flex-center" style="height: 90px; width: 90px; border-radius: 100%;">
+            <q-img :src="service.icon" class="" color="primary" width="45px" height="45px" style=" padding: 20px;" />
           </q-card-section>
           <q-card-section>
             <div class="text-subtitle1">{{ service.title }}</div>
@@ -416,16 +416,16 @@ export default defineComponent({
     ]);
 
     const services = [
-      { icon: 'build', title: 'Preventative Maintenance & Repairs' },
-        { icon: 'directions_car', title: 'Tire and Brake Repairs' },
-        { icon: 'settings', title: 'Engine Diagnostics' },
-        { icon: 'invert_colors', title: 'Oil Changes & Fluid Checks' },
-        { icon: 'flash_on', title: 'Electrical Repairs' },
-        { icon: 'local_shipping', title: 'Trailer Maintenance' },
-        { icon: 'warning', title: 'Vehicle Recovery' },
-        { icon: 'local_taxi', title: 'Box Truck Maintenance' },
-        { icon: 'wifi_tethering', title: 'Mobile Service' },
-        { icon: 'airport_shuttle', title: 'Towing Service' }
+        { icon: '/images/Vector.png', title: 'Preventative Maintenance & Repairs' },
+        { icon: '/images/Tire.png', title: 'Tire and Brake Repairs' },
+        { icon: '/images/Laptop.png', title: 'Engine Diagnostics' },
+        { icon: '/images/Drop.png', title: 'Oil Changes & Fluid Checks' },
+        { icon: '/images/Lightning.png', title: 'Electrical Repairs' },
+        { icon: '/images/TruckTrailer.png', title: 'Trailer Maintenance' },
+        { icon: '/images/TrafficCone.png', title: 'Vehicle Recovery' },
+        { icon: '/images/Truck.png', title: 'Truck Maintenance' },
+        { icon: '/images/RoadHorizon.png', title: 'Mobile Service' },
+        { icon: '/images/Clip.png', title: 'Towing Service' }
       ];
     const slide= ref(1);
     const contactOptions= ref([
@@ -493,7 +493,8 @@ export default defineComponent({
     const fetchLocations = async () => {
       try {
         const response = await api.get('get-user-locations-and-fuel-price');
-        locations.value = response.data.data;
+        let serviceLocations = response.data.data;
+        locations.value = serviceLocations.filter(star => ["blue", "white"].includes(star.star_color));
         await nextTick();
         initMap();
       } catch (error) {
@@ -521,8 +522,8 @@ export default defineComponent({
       const starIcon = L.divIcon({
         className: '',
         html: `
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="${location.star_color || 'gold'}" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="12,2 15,10 23,10 17,15 19,22 12,18 5,22 7,15 1,10 9,10" stroke="black" stroke-width="1"/>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="${location.star_color==='blue' ? "#027dffff" : location.star_color==='red' ? '#ff0000ff' : location.star_color==='green' ? '#008000ff' : location.star_color==='yellow' ? '#ffa500ff' : location.star_color==='white' ? '#89cff0ff' : 'gold'}" xmlns="http://www.w3.org/2000/svg">
+           <circle cx="12" cy="12" r="10" stroke="black" stroke-width="1"/>
           </svg>
         `,
         iconSize: [30, 30],
@@ -842,8 +843,8 @@ border-radius: 10px;
 }
 .service-icons{
   padding: 20px;
-   border-radius:100%;
-    background-color: white;
+  border-radius:100%;
+  background-color: white;
 }
 
 .q-card__section--vert{

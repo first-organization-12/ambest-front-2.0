@@ -25,7 +25,7 @@
          <a target="_blank" style="color: #000;" href="https://ambest.powerappsportals.com/home/">
            <q-btn flat round dense icon="person_outline" class="q-mr-md"/>
         </a>
-        <q-btn flat round dense icon="local_gas_station" to="/fuel-price"/>
+        <!-- <q-btn flat round dense icon="local_gas_station" to="/fuel-price"/> -->
 
         <!-- MENU BUTTON - Show Only on Mobile -->
         <q-btn

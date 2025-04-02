@@ -23,9 +23,10 @@
           class="q-mt-xs text-bold"
           label="SEND US A MESSAGE"
           size="md"
+          @click="scrollToElement('form-break')"
         />
       </div>
-      <div class="text-center">
+      <!-- <div class="text-center">
         <h4><span style="">Our<strong> Leadership</strong></span></h4>
       </div>
 
@@ -50,7 +51,10 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
+
+
+      
 <!--
       <div class="grid-container">
       <q-card v-for="(leader, index) in team" :key="index" class="leader-card">
@@ -64,7 +68,7 @@
 
         <!-- <div>contacts page</div> -->
 
-        <div class="form-container" style="margin-top: 8rem;">
+        <div class="form-container" id="form-break" style="margin-top: 8rem;">
         <h4 class="" style="margin: 25px 0 !important; font-weight: 400;">Have questions? <strong>Fill out the form and our team will get back to you within 24 hours.</strong></h4>
 
         <q-form @submit="handleContactSubmit" ref="contactForm">
@@ -104,7 +108,7 @@
                 outlined />
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label>Which Services are You Looking For? *</label>
                 <q-select
                   v-model="service"
@@ -117,7 +121,7 @@
                   map-options
 
                 />
-            </div>
+            </div> -->
 
             <div class="form-group">
                 <label>Message *</label>
@@ -262,7 +266,14 @@ export default{
         icon: "report_problem",
       });
    };
+   const scrollToElement = (id) => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
     return {
+      scrollToElement,
       team,
       faqs,
       contactForm,

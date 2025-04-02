@@ -13,7 +13,7 @@
   </div>
 
     <div class="custom-banner" style="margin:30px auto 60px;">
-      <h4><span>Where <strong>Drivers, Fleets, and Members</strong> Thrive on the Road!</span></h4>
+      <h4><span>Where Drivers and Fleets Thrive on the Road!</span></h4>
     </div>
 
 

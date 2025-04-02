@@ -335,7 +335,7 @@ export default defineComponent({
       const starIcon = L.divIcon({
         className: '',
         html: `
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="${location.star_color || 'gold'}" xmlns="http://www.w3.org/2000/svg">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="${location.star_color==='blue' ? "#027dffff" : location.star_color==='red' ? '#ff0000ff' : location.star_color==='green' ? '#008000ff' : location.star_color==='yellow' ? '#ffa500ff' : location.star_color==='white' ? '#89cff0ff' : 'gold'}" xmlns="http://www.w3.org/2000/svg">
            <circle cx="12" cy="12" r="10" stroke="black" stroke-width="1"/>
           </svg>
         `,

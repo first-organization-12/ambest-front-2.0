@@ -65,17 +65,17 @@
         <div class="col-12  col-md-6 q-px-xl q-mb-xl">
           <div class="content q-py-md q-mb-none">
             <h4 class="q-pa-none"><strong>Why </strong> Choose AMBEST <strong>Fuel Cards?</strong></h4>
-            <p class="text-desc" style="font-size: 20px; font-weight: 400;">Enjoy exclusive discounts at over 1,000 locally owned and independent locations nationwide, plus flexible options designed to meet the needs of both fleets and individual drivers. Support local businesses while saving more and keeping your journey running smoothly!</p>
+            <p class="text-desc" style="font-size: 20px; font-weight: 400;">Enjoy exclusive discounts at over 500 locally owned and independent locations nationwide, plus flexible options designed to meet the needs of both fleets and individual drivers. Support local businesses while saving more and keeping your journey running smoothly!</p>
           </div>
         </div>
       </div>
     </q-container>
 
-      <div class="row justify-center q-my-xl">
+    <div class="row justify-center q-my-xl">
       <div class="col-md-10 col-12 q-pa-xl">
         <h4 class=" text-center" style="margin-block: 5px;"><span class="text-weight-bold">Find the Right AMBEST Fuel Card for You</span></h4>
         <p class="text-desc_1_1 text-center " style="font-size: 20px; font-weight: 400;">
-          <strong>AMBEST offers two fuel card options to fit the unique needs of drivers <br> and fleets. Compare below to see which one is the best fit for your business.</strong>
+          <strong>AMBEST offers two fuel card options to fit the unique needs of drivers  <br> and fleets. Compare below to see which one is the best fit for your business.</strong>
         </p>
       </div>
     </div>
@@ -381,7 +381,9 @@ export default {
   width: 70%;
   margin: auto;
 }
-
+.chart-title{
+    font-size: 32px;
+}
 
 /* ✅ Responsive Behavior */
 @media (max-width: 1280px) { /* Large screens */
@@ -440,6 +442,19 @@ export default {
   .custom-col {
     flex: 0 0 100%; /* Full width */
     max-width: 100%;
+  }
+  .q-pa-xl[data-v-9cbf88a2][data-v-9cbf88a2] {
+    width: 90%;
+    padding: 48px !important;
+    background-color: #F2F7FA;
+    border-radius: 20px;
+    margin-inline: auto;
+  }
+  .text-desc_1_1{
+    text-align: justify;
+  }
+  .cards-section{
+    width: 100%;
   }
 }
 table{

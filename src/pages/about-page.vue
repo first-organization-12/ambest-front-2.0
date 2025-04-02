@@ -13,7 +13,7 @@
         <div class="q-my-xl text-center" style="width: 90%; margin-inline: auto;">
           <h4 class="" style="margin-block: 5px; font-weight: 700;">Since 1988, AMBEST has been a trusted name for professional fleets across the U.S. </h4>
           <p class="" style="font-size: 26px; font-weight: 500;">Committed to exceptional service, convenience, and community support.</p>
-          <q-btn label="DISCOVER OUR STORY" rounded unelevated color="primary" class="q-mt-md text-bold q-px-lg" target="_blank" href="https://drive.google.com/file/d/1chetvHcPhzAaR16AbkXEbu77rSoALcWT/view?usp=sharing"/>
+          <q-btn label="DISCOVER OUR STORY" rounded unelevated color="primary" class="q-mt-md text-bold q-px-lg" target="_blank" href="https://youtu.be/JBtntZFLfoo"/>
         </div>
       </q-section>
 
