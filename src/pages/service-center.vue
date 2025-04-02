@@ -18,8 +18,18 @@
 
       <div class="intro-section row items-center bg-light">
         <!-- Right Side: Image -->
-        <div class="col-12 col-md-5 slider" style="border-radius: 20px; display: flex; justify-content: flex-start;">
-            <!-- <q-responsive :ratio="9/6"> -->
+        <div class="col-12 col-md-5 q-pa-xl" style="max-width: 600px; margin: auto;">
+            <q-responsive :ratio="9/6">
+              <q-img
+              src="/images/conversation.png"
+              class="rounded-borders"
+              fit="cover"
+              width="100%"
+              style="border-radius: 20px;"
+              />
+            </q-responsive>
+        </div>
+        <!-- <div class="col-12 col-md-5 slider" style="border-radius: 20px; display: flex; justify-content: flex-start;">
               <q-carousel
                 v-model="slide"
                 transition-prev="slide-right"
@@ -54,8 +64,7 @@
           </q-carousel-slide>
         </q-carousel>
 
-    <!-- </q-responsive> -->
-      </div>
+      </div> -->
         <!-- Left Side: Text Content -->
         <div class="col-12  col-md-7 "  >
           <div class="content q-px-xl">
@@ -129,10 +138,9 @@
       </div>
 
 
-      <div class="intro-section row items-center bg-light">
-        <!-- Right Side: Image -->
-        <div class="col-12 col-md-6 text-center slider q-pa-xl" style="display: flex; justify-content: flex-start;">
-          <!-- <q-responsive :ratio="9/6"> -->
+      <div class="intro-section row items-center justify-between bg-light">
+
+        <!-- <div class="col-12 col-md-6 text-center slider q-pa-xl" style="display: flex; justify-content: flex-start;">
                 <q-carousel
                   v-model="slide"
                   transition-prev="slide-right"
@@ -164,8 +172,19 @@
                   </div>
                 </q-carousel-slide>
               </q-carousel>
-          <!-- </q-responsive> -->
-      </div>
+      </div> -->
+        <!-- Right Side: Image -->
+        <div class="col-12 col-md-6 q-pa-xl" style="max-width: 600px;">
+            <q-responsive :ratio="9/6">
+              <q-img
+              src="/images/forest.png"
+              class="rounded-borders"
+              fit="cover"
+              width="100%"
+              style="border-radius: 20px;"
+              />
+            </q-responsive>
+        </div>
         <!-- Left Side: Text Content -->
         <div class="col-12  col-md-6 "  >
           <div class="content q-pa-xl">
@@ -182,7 +201,6 @@
           </div>
         </div>
       </div>
-
       <div class="intro-section row items-center bg-light">
         <!-- Left Side: Text Content -->
         <div class="col-12  col-md-6 "  >

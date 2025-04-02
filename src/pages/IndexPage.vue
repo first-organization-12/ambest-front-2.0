@@ -2,7 +2,7 @@
   <q-page class="">
   <div class="banner relative-position" style="overflow: hidden;">
     <video autoplay loop muted playsinline class="absolute-full" style="z-index: -1; object-fit: cover; width:100%;">
-      <source src="/images/ambest-intro-video.mp4" type="video/mp4">
+      <source src="/videos/new-intro.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
     <div class="banner-overlay absolute-center text-center">
