@@ -80,132 +80,8 @@
       </div>
     </div>
 
-    <!-- <div class="row justify-center q-mt-lg">
-      <div class="col-md-5 col-12">
-        <q-card class="fuel-card text-center">
-          <q-img src="/images/card1.png" class="card-image" />
-          <q-card-section>
-            <h5 class="text-primary">EFS Direct Card</h5>
-            <p>Ideal for businesses with multiple vehicles looking for customizable controls and detailed reporting.</p>
-          </q-card-section>
-          <q-separator />
-          <q-card-section>
-            <q-list dense>
-              <q-item>
-                <q-item-section><strong>Best For:</strong> Businesses managing multiple vehicles</q-item-section>
-              </q-item>
-              <q-item>
-                <q-item-section><strong>Discounts:</strong> Aggressive discounts at AMBEST locations</q-item-section>
-              </q-item>
-              <q-item>
-                <q-item-section><strong>Fuel Controls:</strong> Customizable spending limits and controls</q-item-section>
-              </q-item>
-              <q-item>
-                <q-item-section><strong>Accepted At:</strong> Nationwide fuel and maintenance locations</q-item-section>
-              </q-item>
-              <q-item>
-                <q-item-section><strong>Reporting:</strong> Detailed Reports for tracking expenses</q-item-section>
-              </q-item>
-            </q-list>
-          </q-card-section>
-          <q-card-actions align="center">
-            <q-btn color="primary" label="SEE ALL BENEFITS" />
-          </q-card-actions>
-        </q-card>
-      </div>
-
-      <div class="col-md-5 col-12">
-        <q-card class="fuel-card text-center">
-          <q-img src="/images/card2.png" class="card-image second-card" />
-          <q-card-section>
-            <h5 class="text-primary">EFS Preferred Card</h5>
-            <p>Perfect for individual drivers or small fleets seeking straightforward savings, flexibility, and convenience with easy management.</p>
-          </q-card-section>
-          <q-separator />
-          <q-card-section>
-            <q-list dense>
-              <q-item>
-                <q-item-section><strong>Best For:</strong> Individual drivers and small fleets</q-item-section>
-              </q-item>
-              <q-item>
-                <q-item-section><strong>Discounts:</strong> Competitive discounts at AMBEST locations & affiliates</q-item-section>
-              </q-item>
-              <q-item>
-                <q-item-section><strong>Fuel Controls:</strong> Simple, hassle-free purchasing</q-item-section>
-              </q-item>
-              <q-item>
-                <q-item-section><strong>Accepted At:</strong> AMBEST locations only</q-item-section>
-              </q-item>
-              <q-item>
-                <q-item-section><strong>Reporting:</strong> Detailed Reports for tracking expenses</q-item-section>
-              </q-item>
-            </q-list>
-          </q-card-section>
-          <q-card-actions align="center">
-            <q-btn color="primary" label="SEE ALL BENEFITS" />
-          </q-card-actions>
-        </q-card>
-      </div>
-    </div> -->
-
-    <!-- <q-container >
-      <div class="row justify-center" style="width: 80%; margin: auto;">
-          <div class="col-4"></div>
-          <div class="col-4 q-pl-lg" style="border-left: 1px solid #00659E;">
-            <q-img src="/images/EFS-Direct-Card-Web.png" class="card-image" fit="cover"
-              width="50%"  />
-            <q-card-section>
-              <div class="text-h6 text-primary text-weight-bold">EFS Preferred Card</div>
-              <p class="text-subtitle2">
-                Perfect for individual drivers or small fleets seeking straightforward savings, flexibility, and convenience.
-              </p>
-            </q-card-section>
-          </div>
-          <div class="col-4 q-pl-lg" style="border-left: 1px solid #00659E;">
-            <q-img src="/images/EFS-Direct-Card-Web.png" class="card-image" fit="cover"
-              width="50%" />
-            <q-card-section>
-              <div class="text-h6 text-primary text-weight-bold">EFS Preferred Card</div>
-              <p class="text-subtitle2">
-                Perfect for individual drivers or small fleets seeking straightforward savings, flexibility, and convenience.
-              </p>
-            </q-card-section>
-          </div>
-          rows
-          <div class="col-12 row" v-for="(item, index) in rows" :key="index">
-              <div class="col-2"></div>
-             <div class="col-2"><q-item-section class=" text-desc text-primary"><strong>{{item.category}}</strong></q-item-section></div>
-             <div class="col-4">
-               <q-item-section><sapn class="text-desc q-pl-lg" style="border-left: 1px solid #00659E;"> {{item.businesses}}</sapn></q-item-section>
-              </div>
-              <div class="col-4">
-                <q-item-section><sapn class="text-desc q-pl-lg" style="border-left: 1px solid #00659E;">{{item.individuals}}</sapn></q-item-section>
-              </div>
-          </div>
-          <div class="col-12 row">
-            <div class="col-2"></div>
-            <div class="col-2"></div>
-            <div class="col-4" style="border-left: 1px solid #00659E;"></div>
-            <div class="col-4">
-              <q-item-section><sapn class="text-desc q-pl-lg" style="border-left: 1px solid #00659E;">AMBUCK$ Tiers: Direct and Preferred Memberships</sapn></q-item-section>
-            </div>
-          </div>
-          <div class="col-12 row">
-            <div class="col-2"></div>
-            <div class="col-2"></div>
-            <div class="col-4 flex q-pl-lg" style="flex-direction: column;">
-              <q-btn label="SEE ALL BENEFITS" rounded unelevated color="primary" class="q-mt-md text-bold" to="/fuel-cards/details" style="width: 255px;" />
-              <q-btn label="VIEW ACCEPTING LOCATIONS" rounded unelevated color="primary" class="q-mt-md text-bold" to="/about-ambest" style="width: 255px;" />
-            </div>
-            <div class="col-4 flex q-pl-lg" style="flex-direction: column;">
-              <q-btn label="SEE ALL BENEFITS" rounded unelevated color="primary" class="q-mt-md text-bold" to="/fuel-cards/details" style="width: 255px;" />
-              <q-btn label="VIEW ACCEPTING LOCATIONS" rounded unelevated color="primary" class="q-mt-md text-bold" to="/about-ambest" style="width: 255px;" />
-            </div>
-          </div>
-      </div>
-    </q-container> -->
-
-    <div v-if="isClient" class="cards-section">
+    <!-- big table for bg screens -->
+    <div v-if="isClient" id="big-table" class="cards-section">
       <table width="100%">
         <tr>
           <td class="" style="width: 5%;">
@@ -267,6 +143,98 @@
         </tr>
       </table>
     </div>
+
+    <div id="small-table" style="width: 90%; margin-inline: auto;">
+      <!-- EFS Direct Card -->
+      <table>
+        <thead>
+          <tr>
+            <td colspan="2">
+              <q-img src="/images/EFS-Direct-Card-Web.png" class="card-image" fit="cover"
+              width="100%"  />
+              <q-card-section>
+                <p class="chart-title text-primary" style="font-weight: 800; margin:10px 0%;">EFS Direct Card</p>
+                <p class="text-subtitle2 text-desc">
+                  Ideal for businesses with multiple vehicles looking for customizable controls and detailed reporting.
+                </p>
+              </q-card-section>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-row-bg">
+            <td class="text-desc text-primary text-bold q-pl-lg">Best For</td>
+            <td class="border-left text-desc q-pl-lg">Businesses managing multiple vehicles</td>
+          </tr>
+          <tr>
+            <td class="text-desc text-primary text-bold q-pl-lg">Discounts</td>
+            <td class="border-left text-desc q-pl-lg">Aggressive discounts at AMBEST locations</td>
+          </tr>
+          <tr class="table-row-bg">
+            <td class="text-desc text-primary text-bold q-pl-lg">Fuel Controls</td>
+            <td class="border-left text-desc q-pl-lg">Customizable spending limits and controls</td>
+          </tr>
+          <tr>
+            <td class="text-desc text-primary text-bold q-pl-lg">Accepted At</td>
+            <td class="border-left text-desc q-pl-lg">Nationwide fuel and maintenance locations</td>
+          </tr>
+          <tr class="table-row-bg">
+            <td class="text-desc text-primary text-bold q-pl-lg">Reporting</td>
+            <td class="border-left text-desc q-pl-lg">Detailed Reports for tracking expenses</td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-desc text-center q-pl-lg">
+            <q-btn label="SEE ALL BENEFITS" rounded unelevated color="primary" class="q-mt-md text-bold" to="/fuel-cards/details"/>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- EFS Preferred Card -->
+      <table class="q-my-xl">
+        <thead>
+          <tr>
+            <td colspan="2">
+              <q-img src="/images/card.png" class="card-image" fit="cover"
+              width="100%"  />
+              <q-card-section>
+                <p class="chart-title  text-primary" style="font-weight: 800; margin:10px 0%;">EFS Preferred Card</p>
+                <p class="text-subtitle2 text-desc">
+                  Perfect for individual drivers or small fleets seeking straightforward savings, flexibility, and convenience with easy management.
+                </p>
+              </q-card-section>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+           <tr class="table-row-bg">
+            <td class="text-desc text-primary text-bold q-pl-lg">Best For</td>
+            <td class="border-left text-desc q-pa-lg">Individual drivers and small fleets</td>
+          </tr>
+          <tr>
+            <td class="text-desc text-primary text-bold q-pl-lg">Discounts</td>
+            <td class="border-left text-desc q-pa-lg">Competitive discounts at AMBEST locations & affiliates</td>
+          </tr>
+          <tr class="table-row-bg">
+            <td class="text-desc text-primary text-bold q-pl-lg">Fuel Controls</td>
+            <td class="border-left text-desc q-pa-lg">Simple, hassle-free purchasing</td>
+          </tr>
+          <tr>
+            <td class="text-desc text-primary text-bold q-pl-lg">Accepted At</td>
+            <td class="border-left text-desc q-pa-lg">Nationwide fuel and maintenance locations</td>
+          </tr>
+          <tr class="table-row-bg">
+            <td class="text-desc text-primary text-bold q-pl-lg">Reporting</td>
+            <td class="border-left text-desc q-pa-lg">Detailed Reports for tracking expenses</td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-desc text-center q-pl-lg">
+            <q-btn label="SEE ALL BENEFITS" rounded unelevated color="primary" class="q-mt-md text-bold" to="/fuel-cards/details"/>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     </q-page-container>
   </q-page>
 </template>
@@ -280,18 +248,6 @@ export default {
     });
     return {
       isClient,
-      columns: [
-        { name: "category", label: "", align: "left", field: "category" },
-        { name: "businesses", label: "Businesses Managing Multiple Vehicles", align: "left", field: "businesses" },
-        { name: "individuals", label: "Individual Drivers & Small Fleets", align: "left", field: "individuals" }
-      ],
-      rows: [
-        { category: "Best For", businesses: "Businesses managing multiple vehicles", individuals: "Individual drivers and small fleets" },
-        { category: "Discounts", businesses: "Aggressive discounts at AMBEST locations", individuals: "Competitive discounts at AMBEST locations & affiliates" },
-        { category: "Fuel Controls", businesses: "Customizable spending limits and controls", individuals: "Simple, hassle-free purchasing" },
-        { category: "Accepted At", businesses: "Nationwide fuel and maintenance locations", individuals: "AMBEST locations only" },
-        { category: "Reporting", businesses: "Detailed Reports for tracking expenses", individuals: "Detailed Reports for tracking expenses" }
-      ]
     };
   }
 };
@@ -384,6 +340,9 @@ export default {
 .chart-title{
     font-size: 32px;
 }
+#small-table{
+  display: none;
+}
 
 /* ✅ Responsive Behavior */
 @media (max-width: 1280px) { /* Large screens */
@@ -435,6 +394,12 @@ export default {
 
    .text-desc[data-v-9cbf88a2] {
       font-size: 1rem;
+    }
+    #big-table{
+      display: none;
+    }
+    #small-table{
+      display: block;
     }
 }
 

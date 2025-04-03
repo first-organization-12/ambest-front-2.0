@@ -34,7 +34,7 @@
                    unelevated
                    color="primary"
                    class="col-12 col-md-4 q-mt-xs text-bold"
-                   to="/fuel-cards/membership/aplication"
+                   @click="scrollToElement('form-break')"
                    />
             </div>
           </div>
@@ -76,7 +76,7 @@
     </q-section>
 
     <q-section>
-      <div class="qa-section text-center">
+      <div class="qa-section text-center" id="form-break">
           <h4 class="" style="font-weight: 800;">How Do I Become an AMBEST Member?</h4>
           <p class="text-desc" style="font-size: 26px; font-weight: 500;">If you own or operate a Travel or Service center and you're
             interested in becoming an AMBEST Member, fill out the form
@@ -295,6 +295,12 @@ export default{
         icon: "report_problem",
       });
    };
+   const scrollToElement = (id) => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
     return {
         memberShipForm,
         conatctName,
@@ -316,6 +322,7 @@ export default{
         showErrorNotification,
         showSuccessNotification,
         handlemembershipform,
+        scrollToElement,
     }
   }}
 </script>

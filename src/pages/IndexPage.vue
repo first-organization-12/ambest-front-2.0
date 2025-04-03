@@ -1,10 +1,22 @@
 <template>
   <q-page class="">
   <div class="banner relative-position" style="overflow: hidden;">
-    <video autoplay loop muted playsinline class="absolute-full" style="z-index: -1; object-fit: cover; width:100%;">
-      <source src="/videos/new-intro.mp4" type="video/mp4">
+    <video
+      autoplay
+      muted
+      playsinline
+      ref="bannerVideo"
+      class="banner-video"
+      :src="videoSources[currentVideoIndex]"
+      style="z-index: -1; width:100%;"
+      @ended="playNextVideo"
+      >
       Your browser does not support the video tag.
     </video>
+    <!-- <video autoplay loop muted playsinline class="absolute-full" style="z-index: -1; width:100%;">
+      <source src="/videos/new-intro.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video> -->
     <div class="banner-overlay absolute-center text-center">
       <h1 class="banner-title text-white text-h4 text-weight-bold">
         Where America Stops for Service and Value
@@ -37,9 +49,17 @@
       </div>
       <div class="col-12 col-md-5">
         <div class="row q-col-gutter-md">
-          <div v-for="(feature, index) in features" :key="index" class="col-12 col-sm-4 col-md-4">
+          <!-- <div v-for="(feature, index) in features" :key="index" class="col-12 col-sm-4 col-md-4">
             <q-card class="q-pa-md feature-card row flex-center" style='box-shadow: none;'>
               <img :src="feature.image" alt="fetaure-image"  class="fetaure-image" />
+              <div class="text-weight-bold q-mt-sm text-center">{{ feature.label }}</div>
+            </q-card>
+          </div> -->
+          <div v-for="(feature, index) in features" :key="index" class="col-12 col-sm-4 col-md-4">
+            <q-card class="q-pa-md feature-card row flex-center" style='box-shadow: none;'>
+              <div class="flex flex-center" style="height: 79px; width: 79px; background-color: #00659E; border-radius: 50%;">
+                <img :src="feature.image" alt="fetaure-image" height="48px"  width="47px" />
+              </div>
               <div class="text-weight-bold q-mt-sm text-center">{{ feature.label }}</div>
             </q-card>
           </div>
@@ -51,7 +71,7 @@
     <!-- Left Side: Image -->
     <div class="col-12 col-md-6 text-center">
       <q-img
-        src="/images/mask_img.png"
+        src="/images/image.png"
         class="rounded-borders"
         fit="cover"
       />
@@ -324,7 +344,19 @@ const advantages = ref([
       // }
     ]);
 
+    const videoSources = ref([
+      "/videos/ambest-intro-video.mp4",
+      "/videos/new-intro.mp4", // Replace with your actual video URLs
+    ]);
 
+    const currentVideoIndex = ref(0);
+    const bannerVideo = ref(null);
+
+    const playNextVideo = () => {
+      currentVideoIndex.value = (currentVideoIndex.value + 1) % videoSources.value.length;
+      bannerVideo.value.src = videoSources.value[currentVideoIndex.value];
+      bannerVideo.value.play();
+    };
 
 </script>
 
@@ -434,7 +466,7 @@ h6 {
 .fetaure-image{
    height: 79px;
    width: 79px;
-   color:rgb(255, 255, 255) !important;
+   color:#ffffff !important;
    font-size: 2rem !important;
    background: #00659E;
    border-radius: 50% !important;

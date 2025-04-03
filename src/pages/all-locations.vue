@@ -47,7 +47,7 @@
                 <q-badge :color="location.star_color" rounded class="location-dot q-mr-md" />
                 <div>
                   <p class="text-bold text-primary text-h6 q-mb-xs">{{ location.name }}</p>
-                  <p class="text-body1 q-mb-none">{{ location.city  }}, {{ location.state  }}, zip:{{ location.zip  }}.</p>
+                  <p class="text-body1 q-mb-none">{{ location.city  }}, {{ location.state  }},{{ location.zip  }}.</p>
                   <p class="text-body1">{{ location.main_phone }}</p>
                 </div>
               </div>

@@ -41,7 +41,7 @@
                     <li>Earn 2X, 3X, & 4X AMBUCK$ points by fueling at AMBUCK$ locations.</li>
                   </ul>
                 </div>
-                <div class="col-12 col-md-6 q-px-xl">
+                <div class="col-12 image-section col-md-6 q-px-xl">
                   <div class="" style="max-width: 500px;">
                     <q-responsive :ratio="9/6">
                       <q-img src="images/EFS-Direct-Card-Web.png"/>
@@ -53,7 +53,6 @@
                       color="primary"
                       class="col-12 col-md-4 q-mt-xs q-px-lg text-bold"
                       to="/fuel-cards/fuel-card-form/aplication"
-                      style="height: 50px;"
                       />
                   </div>
                 </div>
@@ -76,6 +75,7 @@
                     class="col-12 col-md-4 q-mt-xs text-bold"
                     label="Download Brochure"
                     size="md"
+                    @click="downloadFile"
                   />
                   <q-btn
                     outline
@@ -145,7 +145,7 @@
                     <li>Earn 2X, 3X, & 4X AMBUCK$ points by fueling at AMBUCK$ locations.</li>
                   </ul>
                 </div>
-                <div class="col-12 col-md-6 q-px-xl">
+                <div class="col-12 image-section col-md-6 q-px-xl">
                   <div class="" style="max-width: 500px;">
                     <q-responsive :ratio="9/6">
                       <q-img src="images/card.png"/>
@@ -157,7 +157,6 @@
                       color="primary"
                       class="col-12 col-md-4 q-mt-xs q-px-lg text-bold"
                       to="/fuel-cards/fuel-card-form/aplication"
-                      style="height: 50px;"
                       />
                   </div>
                 </div>
@@ -180,6 +179,7 @@
                     class="col-12 col-md-4 q-mt-xs text-bold"
                     label="Download Brochure"
                     size="md"
+                    @click="downloadFile"
                   />
                   <q-btn
                     outline
@@ -306,7 +306,16 @@ import { useQuasar } from 'quasar';
           icon: "report_problem",
         });
       };
-      return {q, tab, firstName, lastName, email, phone, sortMessage, message, validateEmail, validatePhone, validateRequired,showSuccessNotification, showErrorNotification, submitForm, }
+      const downloadFile = () => {
+      const filePath = "/files/DirectFuelCard.pdf"; // Change this to your file path inside the "public" folder
+      const link = document.createElement("a");
+      link.href = filePath;
+      link.download = "brochure.pdf"; // Name of the file when downloaded
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+      return {q, tab, firstName, lastName, email, phone, sortMessage, message, validateEmail, validatePhone, validateRequired,showSuccessNotification, showErrorNotification, submitForm,downloadFile, }
     }}
 </script>
 <style scoped>
@@ -409,6 +418,9 @@ import { useQuasar } from 'quasar';
     padding-inline: 0 !important;
   }
 
+  .panel-container .image-section{
+    padding-inline: 0 !important;
+  }
   .form-section-image{
   border-radius:  20px;
   }

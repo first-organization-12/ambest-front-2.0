@@ -13,6 +13,7 @@
 
         <!-- NAVIGATION - Hide on Mobile -->
         <div class="row items-center hidden-lg custom-hide-nav  q-mt-sm">
+          <q-btn flat label="ABOUT" class="text-dark" to="/about-ambest" />
           <q-btn flat label="TRAVEL CENTERS" class="text-dark" to="/travel-centres" />
           <q-btn flat label="SERVICE CENTERS" class="text-dark" to="/service-centers" />
           <q-btn flat label="FUEL CARDS" class="text-dark" to="/fuel-cards"/>
@@ -47,17 +48,20 @@
             <q-img src="/images/ambest-logo.png" fit="contain" />
           </q-avatar>
         </q-item>
+        <q-item clickable v-ripple to="/about-ambest" exact-active-class="bg-cyan-2" >
+          <q-item-section>ABOUT</q-item-section>
+        </q-item>
         <q-item clickable v-ripple to="/travel-centres" exact-active-class="bg-cyan-2" >
-          <q-item-section >Travel Centers</q-item-section>
+          <q-item-section >TRAVEL CENTERS</q-item-section>
         </q-item>
         <q-item clickable v-ripple to="/service-centers" exact-active-class="bg-cyan-2" >
-          <q-item-section>Service Centers</q-item-section>
+          <q-item-section>SERVICE CENTERS</q-item-section>
         </q-item>
         <q-item clickable v-ripple  to="/fuel-cards" exact-active-class="bg-cyan-2" >
-          <q-item-section>Fuel Cards</q-item-section>
+          <q-item-section>FUEL CARDS</q-item-section>
         </q-item>
         <q-item clickable v-ripple to="/ambuck$" exact-active-class="bg-cyan-2" >
-          <q-item-section>Ambuck$</q-item-section>
+          <q-item-section>AMBUCK$</q-item-section>
         </q-item>
       </q-list>
     </q-drawer>

@@ -11,7 +11,7 @@
         </q-img>
       </div>
 
-      <div class="custom-banner text-center q-ma-xl">
+      <div class=" text-center q-ma-xl">
         <h4 class=" q-ma-md"><strong>Where America Stops for Service and Value</strong></h4>
         <q-btn label="SEARCH SERVICE CENTERS" rounded unelevated color="primary"  @click="scrollToElement('map-break')" />
       </div>
@@ -288,7 +288,7 @@
         <q-badge color="blue" rounded class="location-dot q-mr-md" />
         <div>
           <p class="text-bold text-primary text-h6 q-mb-xs">{{ location.name }}</p>
-          <p class="text-body1 q-mb-none">{{ selectedLocation.city  }}, {{ selectedLocation.state  }}, zip:{{ selectedLocation.zip  }}.</p>
+          <p class="text-body1 q-mb-none">{{ selectedLocation.city  }}, {{ selectedLocation.state  }},{{ selectedLocation.zip  }}.</p>
           <p class="text-body1">{{ selectedLocation.main_phone }}</p>
         </div>
       </div>

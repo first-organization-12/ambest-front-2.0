@@ -42,8 +42,8 @@
 
                   <!-- Buttons -->
                   <div class="row" style="gap: 5px;">
-                    <q-btn color="primary" rounded unelevated label="Download Location List" class="q-mr-sm text-bold" />
-                    <q-btn color="primary" outline rounded unelevated label="Print location list" class=" text-bold" />
+                    <q-btn color="primary" rounded unelevated label="Download Location List" class="q-mr-sm text-bold" @click="downloadExcel" />
+                    <q-btn color="primary" outline rounded unelevated label="Print location list" class=" text-bold" @click="printLocations" />
                   </div>
                 </div>
                 <!-- Image Section -->
@@ -178,7 +178,7 @@
           <q-badge color="blue" rounded class="location-dot q-mr-md" />
           <div>
             <p class="text-bold text-primary text-h6 q-mb-xs">{{ location.name }}</p>
-            <p class="text-body1 q-mb-none">{{ selectedLocation.city  }}, {{ selectedLocation.state  }}, zip:{{ selectedLocation.zip  }}.</p>
+            <p class="text-body1 q-mb-none">{{ selectedLocation.city  }}, {{ selectedLocation.state  }},{{ selectedLocation.zip  }}.</p>
             <p class="text-body1">{{ selectedLocation.main_phone }}</p>
           </div>
         </div>
@@ -264,6 +264,7 @@
 import { defineComponent, ref,nextTick,onMounted } from 'vue';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import * as XLSX from 'xlsx';
 import { api } from 'src/boot/axios';
 
 export default defineComponent({
@@ -422,6 +423,99 @@ export default defineComponent({
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     };
+
+    const downloadExcel = () => {
+      try {
+
+        let downloadLocations ;
+        // if (!locations || locations.length === 0) {
+        //   alert("No data available to download.");
+        //   return;
+        // }
+
+        // Remove 'id' field from each object
+        downloadLocations = locations.value;
+
+        // Convert data to worksheet
+        const worksheet = XLSX.utils.json_to_sheet(downloadLocations);
+
+        // Create workbook and append worksheet
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Locations");
+
+        // Create and download Excel file
+        XLSX.writeFile(workbook, "locations.xlsx");
+      } catch (error) {
+        console.error("Error downloading location list:", error);
+      }
+    };
+    const printLocations = () => {
+      try {
+          if (!locations.value || locations.value.length === 0) {
+            alert("No data available to print.");
+            return;
+          }
+
+          // Clone locations and remove 'id' field
+          let printLocations = locations.value;
+
+          if (printLocations.length === 0) {
+            alert("No valid data available to print.");
+            return;
+          }
+
+          let tableRows = printLocations.map(row => {
+            let rowData = Object.values(row).map(value => `<td>${value}</td>`).join('');
+            return `<tr>${rowData}</tr>`;
+          }).join('');
+
+          let tableHeaders = Object.keys(printLocations[0])
+            .map(key => `<th>${key.toUpperCase()}</th>`)
+            .join('');
+
+          // Correctly formatted template literal
+          let printContent = `
+            <div id="printSection">
+              <h2>Location List</h2>
+              <table>
+                <thead>
+                  <tr>${tableHeaders}</tr>
+                </thead>
+                <tbody>
+                  ${tableRows}
+                </tbody>
+              </table>
+            </div>
+            <style>
+              #printSection { font-family: Arial, sans-serif; }
+              table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+              th, td { border: 1px solid #000; padding: 8px; text-align: left; word-wrap: break-word; }
+              th { background-color: #f2f2f2; }
+
+              @media print {
+                body * { visibility: hidden; }
+                #printSection, #printSection * { visibility: visible; }
+                #printSection { position: absolute; top: 0; left: 0; width: 100%; }
+              }
+            </style>
+          `;
+
+           // Add the print section to the page
+          let printDiv = document.createElement("div");
+          printDiv.innerHTML = printContent;
+          document.body.appendChild(printDiv);
+
+          // Print without opening a new page
+          window.print();
+
+          // Remove print section after printing
+          window.onafterprint = function () {
+            document.body.removeChild(printDiv);
+          };
+        } catch (error) {
+          console.error("Error printing location list:", error);
+        }
+    };
     onMounted(fetchLocations);
     return {
       perks,
@@ -439,6 +533,8 @@ export default defineComponent({
       calculateDistance,
       addNearestLocations,
       scrollToElement,
+      downloadExcel,
+      printLocations,
     };
   }
 });
