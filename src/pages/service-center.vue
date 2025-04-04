@@ -328,7 +328,7 @@
                     <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="email" :rules="[validateRequired,validateEmail]" label="Email"/>
                     <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="phone" :rules="[validateRequired,validatePhone]" label="Phone"/>
                     <q-input class="col-12 input-area" bg-color="white"  outlined v-model="companyName" :rules="[validateRequired]" label="Company Name"/>
-                    <q-select
+                    <!-- <q-select
                       class="col-12 input-area"
                       bg-color="white"
                       outlined
@@ -338,7 +338,7 @@
                       label="Service"
                       emit-value
                       map-options
-                    />
+                    /> -->
                     <q-input class="col-12 " bg-color="white" outlined v-model="message" :rules="[validateRequired]" label="Message" type="textarea"/>
                   </div>
                   <div class="flex flex-center q-my-sm">
@@ -369,7 +369,7 @@ export default defineComponent({
     const email = ref('');
     const phone = ref('');
     const companyName = ref('');
-    const service = ref('');
+    // const service = ref('');
     const message = ref('');
     // map vals
     const locations = ref([]);
@@ -441,7 +441,7 @@ export default defineComponent({
         { icon: '/images/Lightning.png', title: 'Electrical Repairs' },
         { icon: '/images/TruckTrailer.png', title: 'Trailer Maintenance' },
         { icon: '/images/TrafficCone.png', title: 'Vehicle Recovery' },
-        { icon: '/images/truck.png', title: 'Truck Maintenance' },
+        { icon: '/images/Truck.png', title: 'Truck Maintenance' },
         { icon: '/images/RoadHorizon.png', title: 'Mobile Service' },
         { icon: '/images/Clip.png', title: 'Towing Service' }
       ];
@@ -471,7 +471,7 @@ export default defineComponent({
         'email':email.value,
         'phone':phone.value,
         'company_name':companyName.value,
-        'service':service.value,
+        // 'service':service.value,
         'message':message.value,
       })
         .then((response)=>{
@@ -481,7 +481,7 @@ export default defineComponent({
           email.value = '';
           phone.value = '';
           companyName.value = '';
-          service.value = '';
+          // service.value = '';
           message.value = '';
           serviceForm.value?.reset();
         }).catch((error)=>{
@@ -641,7 +641,7 @@ export default defineComponent({
       email,
       phone,
       companyName,
-      service,
+      // service,
       message,
       slide,
       services,

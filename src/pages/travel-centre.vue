@@ -424,9 +424,9 @@ export default defineComponent({
       }
     };
 
-    const downloadExcel = () => {
+    const downloadExcel = async () => {
       try {
-
+        let response =  await api.get('get-downloadable-locations')
         let downloadLocations ;
         // if (!locations || locations.length === 0) {
         //   alert("No data available to download.");
@@ -434,7 +434,7 @@ export default defineComponent({
         // }
 
         // Remove 'id' field from each object
-        downloadLocations = locations.value;
+        downloadLocations = response.data.data;
 
         // Convert data to worksheet
         const worksheet = XLSX.utils.json_to_sheet(downloadLocations);

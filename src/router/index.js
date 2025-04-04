@@ -21,14 +21,32 @@ export default defineRouter(function (/* { store, ssrContext } */) {
     : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory)
 
   const Router = createRouter({
-    scrollBehavior: () => ({ left: 0, top: 0 }),
-    routes,
+    scrollBehavior(to) {
+      if (to.hash) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve({
+              el: to.hash,
+              behavior: 'smooth'
+            });
+          }, 300); // delay scroll to give the page time to render
+        });
+      }
 
-    // Leave this as is and make changes in quasar.conf.js instead!
-    // quasar.conf.js -> build -> vueRouterMode
-    // quasar.conf.js -> build -> publicPath
+      return { left: 0, top: 0 };
+    },
+    routes,
     history: createHistory(process.env.VUE_ROUTER_BASE)
   })
+  // const Router = createRouter({
+  //   scrollBehavior: () => ({ left: 0, top: 0 }),
+  //   routes,
+
+  //   // Leave this as is and make changes in quasar.conf.js instead!
+  //   // quasar.conf.js -> build -> vueRouterMode
+  //   // quasar.conf.js -> build -> publicPath
+  //   history: createHistory(process.env.VUE_ROUTER_BASE)
+  // })
 
   Router.beforeEach((to, from, next) => {
     if (to.path.startsWith('/dashboard') && !isAuthenticated()) {

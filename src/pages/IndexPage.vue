@@ -1,7 +1,7 @@
 <template>
   <q-page class="">
   <div class="banner relative-position" style="overflow: hidden;">
-   
+
     <video autoplay loop muted playsinline class="absolute-full" style="z-index: -1; width:100%;">
       <source src="/videos/new-intro.mp4" type="video/mp4">
       Your browser does not support the video tag.
@@ -317,7 +317,7 @@ const advantages = ref([
         title: "Find a Truck Stop",
         subtitle: "Location Map",
         image: "/images/Mask_group_1.png",
-        route:"/travel-centers"
+        route:"/travel-centers#map-break"
       },
       {
         title: "Locate Service Centers",

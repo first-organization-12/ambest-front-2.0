@@ -118,7 +118,7 @@
                   <q-input class="col-12 col-md-6 input-area" bg-color="white" :rules="[validateRequired]"  outlined v-model="lastName" label="Last Name" />
                   <q-input class="col-12 col-md-6 input-area" bg-color="white" :rules="[validateRequired,validateEmail]"  outlined v-model="email" label="Email" />
                   <q-input class="col-12 col-md-6 input-area" bg-color="white" :rules="[validateRequired,validatePhone]"  outlined v-model="phone" label="Phone" />
-                  <q-select
+                  <!-- <q-select
                       class="col-12 input-area"
                       bg-color="white"
                       outlined
@@ -128,10 +128,10 @@
                       label="Who would you like to contact"
                       emit-value
                       map-options
-                    />
-                  <q-input class="col-12 " bg-color="white" outlined v-model="message" label="Message" type="textarea" />
+                    /> -->
+                  <q-input class="col-12" bg-color="white" outlined v-model="message" :rules="[validateRequired]"  label="Message" type="textarea" style="height: 125px !important;" />
                 </div>
-                <div class="flex flex-center q-mt-md">
+                <div class="flex flex-center q-mt-xl">
                   <q-btn unelevated rounded color="white" text-color="primary" label="SUBMIT" class="text-bold q-px-lg" @click="submitForm" />
                 </div>
               </q-form>
@@ -166,7 +166,7 @@ export default defineComponent({
     const lastName = ref('');
     const email = ref('');
     const phone = ref('');
-    const service = ref('');
+    // const service = ref('');
     const message = ref('');
     const aboutForm =ref(null);
     const items = ref([
@@ -199,7 +199,7 @@ export default defineComponent({
         'last_name':lastName.value,
         'email':email.value,
         'phone':phone.value,
-        'service':service.value,
+        // 'service':service.value,
         'message':message.value,
       })
         .then((response)=>{
@@ -208,7 +208,7 @@ export default defineComponent({
           lastName.value = '';
           email.value = '';
           phone.value = '';
-          service.value = '';
+          // service.value = '';
           message.value = '';
           aboutForm.value?.reset();
         }).catch((error)=>{
@@ -242,7 +242,7 @@ export default defineComponent({
       lastName,
       email,
       phone,
-      service,
+      // service,
       message,
       contactOptions,
       validateRequired,

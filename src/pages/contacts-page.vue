@@ -54,7 +54,7 @@
       </div> -->
 
 
-      
+
 <!--
       <div class="grid-container">
       <q-card v-for="(leader, index) in team" :key="index" class="leader-card">
@@ -132,8 +132,11 @@
             </div>
 
             <div class="form-group">
-                <q-img class="captha" src="/images/captcha.png" height="50%" width="50%"/>
+              <div id="recaptcha-container" style="height: 50%; width: 50%;"></div>
             </div>
+            <!-- <div class="form-group">
+                <q-img class="captha" src="/images/captcha.png" height="50%" width="50%"/>
+            </div> -->
             <q-btn label="SUBMIT" rounded unelevated color="primary" class="q-mt-md q-px-xl text-bold" style="max-width: 298px;" type="submit"/>
         </q-form>
     </div>
@@ -170,12 +173,15 @@
   </q-page>
 </template>
 <script>
-import { ref } from "vue";
+import { ref,onMounted } from "vue";
 import { api } from "src/boot/axios";
 import { useQuasar } from "quasar";
 export default{
   setup(){
-
+  const captchaSuccess= ref(false);
+  const recaptchaWidgetId = ref(null);
+  const recaptchaSiteKey = '6LfBUAkrAAAAAKh4Enzz4ANdzfbf4exJLGe9Nbal'
+  const recaptchaResponse = ref('')
   const firstName = ref('');
   const lastName = ref('');
   const email = ref('');
@@ -225,6 +231,10 @@ export default{
     return (val && val.trim() !== "") || "This field is required";
   }
     const handleContactSubmit = ()=>{
+      if (!captchaSuccess.value) {
+        showErrorNotification('Please complete the reCAPTCHA.');
+        return;
+      }
       api.post(`contact-store`,{
         'first_name':firstName.value,
         'last_name':lastName.value,
@@ -246,7 +256,10 @@ export default{
         }).catch((error)=>{
           showErrorNotification(error.response.data.message || error.message);
         })
-      // console.log(firstName.value);
+      // Optional: reset widget
+      window.grecaptcha.reset(recaptchaWidgetId.value);
+      captchaSuccess.value = false;
+      recaptchaResponse.value = '';
     }
 
     const showSuccessNotification = (message) => {
@@ -272,7 +285,41 @@ export default{
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     };
+    onMounted(() => {
+      window.onCaptchaVerified = (token) => {
+        recaptchaResponse.value = token
+      }
+    })
+    const loadCaptcha = () =>{
+      if (window.grecaptcha) {
+        recaptchaWidgetId.value = window.grecaptcha.render('recaptcha-container',{
+          sitekey: recaptchaSiteKey,
+          callback: (token)=>{
+            captchaSuccess.value = true;
+            recaptchaResponse.value = token;
+            console.log(recaptchaResponse);
+          },
+          'expired-callback': () => {
+            captchaSuccess.value = false;
+            recaptchaResponse.value = '';
+
+          }
+        });
+      } else {
+        setTimeout(loadCaptcha, 500); // Retry until grecaptcha is loaded
+      }
+    }
+    onMounted(()=>{
+      loadCaptcha();
+    })
+
+
     return {
+      captchaSuccess,
+      recaptchaWidgetId,
+      loadCaptcha,
+      recaptchaResponse,
+      recaptchaSiteKey,
       scrollToElement,
       team,
       faqs,
@@ -295,7 +342,6 @@ export default{
   }}
 
 </script>
-
 <style>
 .q-field--outlined .q-field__control {
   height: 44px;

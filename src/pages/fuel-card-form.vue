@@ -95,9 +95,10 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div id="recaptcha-container"></div>
+            <!-- <div class="form-group">
                 <q-img class="captha" src="/images/captcha.png" height="50%" width="50%"/>
-            </div>
+            </div> -->
             <q-btn label="SUBMIT" rounded unelevated color="primary" class="q-mt-md q-px-xl text-bold" style="max-width: 298px;" type="submit"/>
         </q-form>
     </div>
@@ -105,11 +106,17 @@
   </q-page>
 </template>
 <script>
-import { ref } from 'vue';
+import { ref,onMounted } from 'vue';
 import { api } from "src/boot/axios";
 import { useQuasar } from "quasar";
 export default{
   setup(){
+    const captchaSuccess= ref(false);
+    const recaptchaWidgetId = ref(null);
+    const recaptchaSiteKey = '6LfBUAkrAAAAAKh4Enzz4ANdzfbf4exJLGe9Nbal'
+    const recaptchaResponse = ref('')
+
+
     const q = useQuasar();
     const service = ref('');
     const fuelCardForm = ref(null);
@@ -164,6 +171,10 @@ export default{
    };
 
     const handlemembershipform=()=>{
+      if (!captchaSuccess.value) {
+        showErrorNotification('Please complete the reCAPTCHA.');
+        return;
+      }
       api.post(`store-ambest-Fuel-card-application`,{
         'card_type':service.value,
         'contact_name':contactName.value,
@@ -197,8 +208,47 @@ export default{
       }).catch((error)=>{
         showErrorNotification(error.response.data.message || error.message);
       })
+
+      // Optional: reset widget
+      window.grecaptcha.reset(recaptchaWidgetId.value);
+      captchaSuccess.value = false;
+      recaptchaResponse.value = '';
     }
+
+    onMounted(() => {
+      window.onCaptchaVerified = (token) => {
+        recaptchaResponse.value = token
+      }
+    })
+    const loadCaptcha = () =>{
+      if (window.grecaptcha) {
+        recaptchaWidgetId.value = window.grecaptcha.render('recaptcha-container',{
+          sitekey: recaptchaSiteKey,
+          callback: (token)=>{
+            captchaSuccess.value = true;
+            recaptchaResponse.value = token;
+            console.log(recaptchaResponse);
+          },
+          'expired-callback': () => {
+            captchaSuccess.value = false;
+            recaptchaResponse.value = '';
+
+          }
+        });
+      } else {
+        setTimeout(loadCaptcha, 500); // Retry until grecaptcha is loaded
+      }
+    }
+    onMounted(()=>{
+      loadCaptcha();
+    })
+
     return {
+
+        recaptchaResponse,
+        recaptchaSiteKey,
+        recaptchaWidgetId,
+        captchaSuccess,
         q,
         service,
         fuelCardForm,

@@ -197,8 +197,11 @@
             </div>
 
             <div class="form-group">
-                <q-img class="captha" src="/images/captcha.png" height="50%" width="50%"/>
+              <div id="recaptcha-container" style="height: 50%; width: 50%;"></div>
             </div>
+            <!-- <div class="form-group">
+                <q-img class="captha" src="/images/captcha.png" height="50%" width="50%"/>
+            </div> -->
             <q-btn label="SUBMIT" rounded unelevated color="primary" class="q-mt-md q-px-xl text-bold" style="max-width: 298px;" type="submit" />
         </q-form>
     </div>
@@ -209,9 +212,16 @@
 <script>
 import { useQuasar } from 'quasar';
 import { api } from 'src/boot/axios';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 export default{
   setup(){
+
+    const captchaSuccess= ref(false);
+    const recaptchaWidgetId = ref(null);
+    const recaptchaSiteKey = '6LfBUAkrAAAAAKh4Enzz4ANdzfbf4exJLGe9Nbal';
+    const recaptchaResponse = ref('');
+
+
     const memberShipForm =ref(null);
     const conatctName =ref('');
     const position =ref('');
@@ -242,6 +252,11 @@ export default{
         return regex.test(val) || "Only number ";
     }
     const handlemembershipform=()=>{
+      if (!captchaSuccess.value) {
+        showErrorNotification('Please complete the reCAPTCHA.');
+        return;
+      }
+
       api.post(`store-membership-application`,{
         'name':conatctName.value,
         'position':position.value,
@@ -275,6 +290,10 @@ export default{
       .catch((error)=>{
         showErrorNotification(error.response.data.message || error.message);
       })
+      // Optional: reset widget
+      window.grecaptcha.reset(recaptchaWidgetId.value);
+      captchaSuccess.value = false;
+      recaptchaResponse.value = '';
     }
 
 
@@ -301,7 +320,38 @@ export default{
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     };
+      onMounted(() => {
+        window.onCaptchaVerified = (token) => {
+          recaptchaResponse.value = token
+        }
+      })
+      const loadCaptcha = () =>{
+        if (window.grecaptcha) {
+          recaptchaWidgetId.value = window.grecaptcha.render('recaptcha-container',{
+            sitekey: recaptchaSiteKey,
+            callback: (token)=>{
+              captchaSuccess.value = true;
+              recaptchaResponse.value = token;
+              console.log(recaptchaResponse);
+            },
+            'expired-callback': () => {
+              captchaSuccess.value = false;
+              recaptchaResponse.value = '';
+
+            }
+          });
+        } else {
+          setTimeout(loadCaptcha, 500); // Retry until grecaptcha is loaded
+        }
+      }
+      onMounted(()=>{
+        loadCaptcha();
+      })
     return {
+        recaptchaResponse,
+        recaptchaSiteKey,
+        recaptchaWidgetId,
+        captchaSuccess,
         memberShipForm,
         conatctName,
         position,
