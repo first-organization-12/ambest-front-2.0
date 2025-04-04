@@ -264,7 +264,7 @@
 import { defineComponent, ref,nextTick,onMounted } from 'vue';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import * as XLSX from 'xlsx';
+{/* import * as XLSX from 'xlsx'; */}
 import { api } from 'src/boot/axios';
 
 export default defineComponent({
@@ -424,31 +424,43 @@ export default defineComponent({
       }
     };
 
-    const downloadExcel = async () => {
-      try {
-        let response =  await api.get('get-downloadable-locations')
-        let downloadLocations ;
-        // if (!locations || locations.length === 0) {
-        //   alert("No data available to download.");
-        //   return;
-        // }
 
-        // Remove 'id' field from each object
-        downloadLocations = response.data.data;
 
-        // Convert data to worksheet
-        const worksheet = XLSX.utils.json_to_sheet(downloadLocations);
-
-        // Create workbook and append worksheet
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Locations");
-
-        // Create and download Excel file
-        XLSX.writeFile(workbook, "locations.xlsx");
-      } catch (error) {
-        console.error("Error downloading location list:", error);
-      }
+    const downloadExcel = () => {
+      const filePath = "/files/AMBESTTruckStops.csv"; // Change this to your file path inside the "public" folder
+      const link = document.createElement("a");
+      link.href = filePath;
+      link.download = "AMBESTTruckStops.csv"; // Name of the file when downloaded
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     };
+
+    // const downloadExcel = async () => {
+    //   try {
+    //     let response =  await api.get('get-downloadable-locations')
+    //     let downloadLocations ;
+    //     // if (!locations || locations.length === 0) {
+    //     //   alert("No data available to download.");
+    //     //   return;
+    //     // }
+
+    //     // Remove 'id' field from each object
+    //     downloadLocations = response.data.data;
+
+    //     // Convert data to worksheet
+    //     const worksheet = XLSX.utils.json_to_sheet(downloadLocations);
+
+    //     // Create workbook and append worksheet
+    //     const workbook = XLSX.utils.book_new();
+    //     XLSX.utils.book_append_sheet(workbook, worksheet, "Locations");
+
+    //     // Create and download Excel file
+    //     XLSX.writeFile(workbook, "locations.xlsx");
+    //   } catch (error) {
+    //     console.error("Error downloading location list:", error);
+    //   }
+    // };
     const printLocations = () => {
       try {
           if (!locations.value || locations.value.length === 0) {

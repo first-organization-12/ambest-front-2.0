@@ -142,7 +142,7 @@
   <div class="footer-wrapper">
     <div class="footer-bottom">
       <span>Copyright 2025, AMBEST</span>
-      <span>Created by Social Link</span>
+      <span>Created by <a href="https://www.sociallink.com/" target="_blank">Social Link</a></span>
     </div>
   </div>
 </q-footer>

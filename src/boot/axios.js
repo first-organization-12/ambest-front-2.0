@@ -8,7 +8,7 @@ import axios from "axios";
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
-const api = axios.create({ baseURL: "https://phplaravel-1437478-5373304.cloudwaysapps.com/ambest-backend/public/api/" });
+const api = axios.create({ baseURL: "https://am-best.com/ambest-backend/public/api/" });
 // const api = axios.create({ baseURL: "http://localhost/api/" });
 
 // Function to retrieve the authorization token (replace with your logic)

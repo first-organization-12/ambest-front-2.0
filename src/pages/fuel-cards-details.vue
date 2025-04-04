@@ -44,7 +44,7 @@
                 <div class="col-12 image-section col-md-6 q-px-xl">
                   <div class="" style="max-width: 500px;">
                     <q-responsive :ratio="9/6">
-                      <q-img src="images/EFS-Direct-Card-Web.png"/>
+                      <q-img src="/images/EFS-Direct-Card-Web.png"/>
                     </q-responsive>
                     <q-btn
                       label="VIEW ACCEPTING LOCATIONS"
@@ -149,7 +149,7 @@
                 <div class="col-12 image-section col-md-6 q-px-xl">
                   <div class="" style="max-width: 500px;">
                     <q-responsive :ratio="9/6">
-                      <q-img src="images/card.png"/>
+                      <q-img src="/images/card.png"/>
                     </q-responsive>
                       <q-btn
                       label="VIEW ACCEPTING LOCATIONS"
@@ -198,7 +198,7 @@
                 <!-- Right Side: Image -->
                 <div class="col-12 col-md-6 text-center">
                       <q-img
-                        src="images/see-side-truck.png"
+                        src="/images/see-side-truck.png"
                         class="rounded-borders form-section-image"
                         fit="cover"
                         height="100%"
@@ -233,17 +233,7 @@
                 </div>
             </q-tab-panel>
           </q-tab-panels>
-          <div v-if="tab === 'section2'" class="float-apply-button">
-            <q-btn
-              label="Apply Now"
-              rounded
-              unelevated
-              color="primary"
-              class="col-12 col-md-4 q-mt-xs text-bold"
-              to="/fuel-cards/fuel-card-form/aplication"
-              style="height: 50px; width: 200px;"
-              />
-          </div>
+         
       </q-section>
     </q-container>
   </q-page>

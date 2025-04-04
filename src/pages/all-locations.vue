@@ -41,10 +41,10 @@
         </div> -->
 
         <div class="row justify-center q-gutter-xl q-mb-lg">
-            <div v-for="(location, index) in selectedLocation" :key="index" class="col-12 col-md-3 location-card">
+            <div v-for="(location, index) in selectedLocation" :key="index" class="col-10 col-md-3 location-card">
               <div class="row items-baseline">
                 <!-- Circle Dot beside heading -->
-                <q-badge :color="location.star_color" rounded class="location-dot q-mr-md" />
+                <q-badge :color="location.star_color ==='white' ? '#89cff0ff' : location.star_color"  rounded class="location-dot q-mr-md" />
                 <div>
                   <p class="text-bold text-primary text-h6 q-mb-xs">{{ location.name }}</p>
                   <p class="text-body1 q-mb-none">{{ location.city  }}, {{ location.state  }},{{ location.zip  }}.</p>
@@ -154,5 +154,9 @@ export default{
 }
 .address-card:hover {
   transform: scale(1.05);
+}
+
+.text-h6 {
+    font-size: 1rem;
 }
 </style>
