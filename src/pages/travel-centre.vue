@@ -43,7 +43,7 @@
                   <!-- Buttons -->
                   <div class="row" style="gap: 5px;">
                     <q-btn color="primary" rounded unelevated label="Download Location List" class="q-mr-sm text-bold" @click="downloadExcel" />
-                    <q-btn color="primary" outline rounded unelevated label="Print location list" class=" text-bold" @click="printLocations" />
+                    <!-- <q-btn color="primary" outline rounded unelevated label="Print location list" class=" text-bold" @click="printLocations" /> -->
                   </div>
                 </div>
                 <!-- Image Section -->

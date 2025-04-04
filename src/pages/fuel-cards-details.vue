@@ -75,7 +75,7 @@
                     class="col-12 col-md-4 q-mt-xs text-bold"
                     label="Download Brochure"
                     size="md"
-                    @click="downloadFile"
+                    @click="downloadFileDirect"
                   />
                   <q-btn
                     outline
@@ -86,6 +86,7 @@
                     class="col-12 col-md-4 q-mt-xs text-bold"
                     label="Descargar Folleto En Espaňol"
                     size="md"
+                    @click="downloadFileDirectEsp"
                   />
               </div>
 
@@ -190,6 +191,7 @@
                     class="col-12 col-md-4 q-mt-xs text-bold"
                     label="Descargar Folleto En Espaňol"
                     size="md"
+                    @click="downloadFileBoucherESP"
                   />
               </div>
               <div class="form-section row  bg-primary" style="margin: auto; border-radius: 20px;">
@@ -307,15 +309,52 @@ import { useQuasar } from 'quasar';
         });
       };
       const downloadFile = () => {
-      const filePath = "/files/DirectFuelCard.pdf"; // Change this to your file path inside the "public" folder
+      const filePath = "/files/PreferredFuelCard.pdf"; // Change this to your file path inside the "public" folder
       const link = document.createElement("a");
       link.href = filePath;
-      link.download = "brochure.pdf"; // Name of the file when downloaded
+      link.download = "PreferredFuelCard.pdf"; // Name of the file when downloaded
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     };
-      return {q, tab, firstName, lastName, email, phone, sortMessage, message, validateEmail, validatePhone, validateRequired,showSuccessNotification, showErrorNotification, submitForm,downloadFile, }
+
+    const downloadFileDirect = () => {
+      const filePath = "/files/DirectFuelCard.pdf"; // Change this to your file path inside the "public" folder
+      const link = document.createElement("a");
+      link.href = filePath;
+      link.download = "DirectFuelCard.pdf"; // Name of the file when downloaded
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
+    const downloadFileDirectEsp = () => {
+      const filePath = "/files/DirectESPANOL.pdf"; // Change this to your file path inside the "public" folder
+      const link = document.createElement("a");
+      link.href = filePath;
+      link.download = "DirectESPANOL.pdf"; // Name of the file when downloaded
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
+    const downloadFileBoucherESP = () => {
+      const filePath = "/files/PreferredESPANOL.pdf"; // Change this to your file path inside the "public" folder
+      const link = document.createElement("a");
+      link.href = filePath;
+      link.download = "PreferredESPANOL.pdf"; // Name of the file when downloaded
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
+
+    
+
+    
+
+    
+      return {q, tab,downloadFileBoucherESP, downloadFileDirectEsp, firstName,downloadFileDirect, lastName, email, phone, sortMessage, message, validateEmail, validatePhone, validateRequired,showSuccessNotification, showErrorNotification, submitForm,downloadFile, }
     }}
 </script>
 <style scoped>

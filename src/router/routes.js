@@ -8,7 +8,7 @@ const routes = [
   },
 
   {
-    path: '/travel-centres',
+    path: '/travel-centers',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/travel-centre.vue') }

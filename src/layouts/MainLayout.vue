@@ -14,7 +14,7 @@
         <!-- NAVIGATION - Hide on Mobile -->
         <div class="row items-center hidden-lg custom-hide-nav  q-mt-sm">
           <q-btn flat label="ABOUT" class="text-dark" to="/about-ambest" />
-          <q-btn flat label="TRAVEL CENTERS" class="text-dark" to="/travel-centres" />
+          <q-btn flat label="TRAVEL CENTERS" class="text-dark" to="/travel-centers" />
           <q-btn flat label="SERVICE CENTERS" class="text-dark" to="/service-centers" />
           <q-btn flat label="FUEL CARDS" class="text-dark" to="/fuel-cards"/>
           <q-btn flat label="AMBUCK$" class="text-dark" to="/ambuck$"/>
@@ -51,7 +51,7 @@
         <q-item clickable v-ripple to="/about-ambest" exact-active-class="bg-cyan-2" >
           <q-item-section>ABOUT</q-item-section>
         </q-item>
-        <q-item clickable v-ripple to="/travel-centres" exact-active-class="bg-cyan-2" >
+        <q-item clickable v-ripple to="/travel-centers" exact-active-class="bg-cyan-2" >
           <q-item-section >TRAVEL CENTERS</q-item-section>
         </q-item>
         <q-item clickable v-ripple to="/service-centers" exact-active-class="bg-cyan-2" >
@@ -81,7 +81,7 @@
       <q-img src="/images/ambest-logo.png" class="footer-logo" />
       <div class="footer-nav row wrap justify-center">
         <q-btn flat label="ABOUT" class="footer-link" to="/about-ambest"/>
-        <q-btn flat label="TRAVEL CENTERS" class="footer-link" to="/travel-centres"/>
+        <q-btn flat label="TRAVEL CENTERS" class="footer-link" to="/travel-centers"/>
         <q-btn flat label="SERVICE CENTERS" class="footer-link" to="/service-centers"/>
         <q-btn flat label="FUEL CARDS" class="footer-link" to="/fuel-cards"/>
         <q-btn flat label="AMBUCK$" class="footer-link" to="/ambuck$"/>

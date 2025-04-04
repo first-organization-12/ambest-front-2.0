@@ -1,22 +1,11 @@
 <template>
   <q-page class="">
   <div class="banner relative-position" style="overflow: hidden;">
-    <video
-      autoplay
-      muted
-      playsinline
-      ref="bannerVideo"
-      class="banner-video"
-      :src="videoSources[currentVideoIndex]"
-      style="z-index: -1; width:100%;"
-      @ended="playNextVideo"
-      >
-      Your browser does not support the video tag.
-    </video>
-    <!-- <video autoplay loop muted playsinline class="absolute-full" style="z-index: -1; width:100%;">
+   
+    <video autoplay loop muted playsinline class="absolute-full" style="z-index: -1; width:100%;">
       <source src="/videos/new-intro.mp4" type="video/mp4">
       Your browser does not support the video tag.
-    </video> -->
+    </video>
     <div class="banner-overlay absolute-center text-center">
       <h1 class="banner-title text-white text-h4 text-weight-bold">
         Where America Stops for Service and Value
@@ -42,7 +31,7 @@
             we provide everything to keep you moving.
           </p>
         <div class="btn-container">
-          <q-btn color="primary text-bold" rounded unelevated label="EXPLORE TRAVEL CENTERS" to="/travel-centres"/>
+          <q-btn color="primary text-bold" rounded unelevated label="EXPLORE TRAVEL CENTERS" to="/travel-centers"/>
           <q-btn color="primary text-bold" rounded unelevated label="EXPLORE SERVICE CENTERS" to="/service-centers" />
         </div>
         </div>
@@ -306,7 +295,7 @@ const advantages = ref([
         image: "/images/GasPump1.png", // Fuel pump icon
         title: "Over 500 Fuel Locations Nationwide",
         buttonText: "FIND ONE NEAR YOU",
-        route:"/travel-centres",
+        route:"/travel-centers",
       },
       {
         image: "/images/HandsClapping.png", // Reward/trophy icon
@@ -325,10 +314,10 @@ const advantages = ref([
 
     const services = ref([
       {
-        title: "Check Fuel Prices",
-        subtitle: "Save on Fuel",
+        title: "Find a Truck Stop",
+        subtitle: "Location Map",
         image: "/images/Mask_group_1.png",
-        route:"/fuel-price"
+        route:"/travel-centers"
       },
       {
         title: "Locate Service Centers",
@@ -344,19 +333,19 @@ const advantages = ref([
       // }
     ]);
 
-    const videoSources = ref([
-      "/videos/ambest-intro-video.mp4",
-      "/videos/new-intro.mp4", // Replace with your actual video URLs
-    ]);
+    // const videoSources = ref([
+    //   "/videos/ambest-intro-video.mp4",
+    //   "/videos/new-intro.mp4", // Replace with your actual video URLs
+    // ]);
 
-    const currentVideoIndex = ref(0);
-    const bannerVideo = ref(null);
+    // const currentVideoIndex = ref(0);
+    // const bannerVideo = ref(null);
 
-    const playNextVideo = () => {
-      currentVideoIndex.value = (currentVideoIndex.value + 1) % videoSources.value.length;
-      bannerVideo.value.src = videoSources.value[currentVideoIndex.value];
-      bannerVideo.value.play();
-    };
+    // const playNextVideo = () => {
+    //   currentVideoIndex.value = (currentVideoIndex.value + 1) % videoSources.value.length;
+    //   bannerVideo.value.src = videoSources.value[currentVideoIndex.value];
+    //   bannerVideo.value.play();
+    // };
 
 </script>
 

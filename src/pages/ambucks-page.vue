@@ -35,7 +35,7 @@
             </p>
             <p class="text-desc" style="line-height: normal;">
               Since the program's inception, our locations have issued billions
-              of AMBUCK$ points and [XXX] showers to professional drivers.
+              of AMBUCK$ points and Thousands of showers to professional drivers.
               In addition, AMBEST has given away millions of points, cash and
               various other prizes through AMBUCK$ promotions. Subscribe
               here to sign up to receive our latest promotions.
@@ -89,7 +89,7 @@
         <div class="btn">
           <div class="row justify-center" style="gap: 0.3rem;">
             <q-btn outline color="primary" style="background-color: white !important;" rounded unelevated class="q-mt-md text-bold q-px-xl" label="Check Your AMBUCK$ Balance" href="https://register.am-best.com/" target="_blank" />
-            <q-btn outline color="primary" style="background-color: white !important;" rounded unelevated class="q-mt-md text-bold q-px-xl" label="Locations" to="/travel-centres" />
+            <q-btn outline color="primary" style="background-color: white !important;" rounded unelevated class="q-mt-md text-bold q-px-xl" label="Locations" to="/travel-centers" />
           </div>
         </div>
       </div>

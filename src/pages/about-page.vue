@@ -170,7 +170,7 @@ export default defineComponent({
     const message = ref('');
     const aboutForm =ref(null);
     const items = ref([
-      {title:"Travel Center",icon:"/images/SteeringWheel.png",buttonLabel:"explore",link:"/travel-centres"},
+      {title:"Travel Center",icon:"/images/SteeringWheel.png",buttonLabel:"explore",link:"/travel-centers"},
       {title:"Service Center",icon:"/images/Vector.png",buttonLabel:"locate",link:"/service-centers"},
       {title:"Fuel Card",icon:"/images/GasPump1.png",buttonLabel:"apply",link:"/fuel-cards"},
       {title:"AMBUCK$",icon:"/images/PiggyBank.png",buttonLabel:"join",link:"/ambuck$"}
