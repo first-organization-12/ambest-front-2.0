@@ -68,7 +68,7 @@
             <div class="plan_card_sub_text q-pr-lg"><p class="text-desc text-bold">500 - 999 Gallons 2x points per gal. </p></div>
           </div>
           <div class="plan_card silver_card">
-            <div class="plan_card_title"><h5 class="text-h5 text-bold" style="margin: 0%;">Sliver</h5></div>
+            <div class="plan_card_title"><h5 class="text-h5 text-bold" style="margin: 0%;">Silver</h5></div>
             <div class="plan_card_sub_text q-pr-lg"><p class="text-desc text-bold">1000 - 1,499 Gallons 3x points per gal. </p></div>
           </div>
           <div class="plan_card gold_card">
