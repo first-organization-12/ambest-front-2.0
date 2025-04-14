@@ -278,7 +278,7 @@ export default{
         message: message,
         icon: "report_problem",
       });
-   };
+    };
    const scrollToElement = (id) => {
       const element = document.getElementById(id);
       if (element) {

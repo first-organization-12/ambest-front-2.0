@@ -52,7 +52,7 @@
                       unelevated
                       color="primary"
                       class="col-12 col-md-4 q-mt-xs q-px-lg text-bold"
-                      to="/fuel-cards/fuel-card-form/aplication"
+                      to="/fuel-cards/fuel-card-form/application"
                       />
                   </div>
                 </div>
@@ -64,7 +64,7 @@
                    unelevated
                    color="primary"
                    class="col-12 col-md-4 q-mt-xs text-bold"
-                   to="/fuel-cards/fuel-card-form/aplication"
+                   to="/fuel-cards/fuel-card-form/application"
                    />
                   <q-btn
                     outline
@@ -157,7 +157,7 @@
                       unelevated
                       color="primary"
                       class="col-12 col-md-4 q-mt-xs q-px-lg text-bold"
-                      to="/fuel-cards/fuel-card-form/aplication"
+                      to="/fuel-cards/fuel-card-form/application"
                       />
                   </div>
                 </div>
@@ -169,7 +169,7 @@
                    unelevated
                    color="primary"
                    class="col-12 col-md-4 q-mt-xs text-bold"
-                   to="/fuel-cards/fuel-card-form/aplication"
+                   to="/fuel-cards/fuel-card-form/application"
                    />
                   <q-btn
                     outline
@@ -233,7 +233,7 @@
                 </div>
             </q-tab-panel>
           </q-tab-panels>
-         
+
       </q-section>
     </q-container>
   </q-page>
@@ -339,11 +339,11 @@ import { useQuasar } from 'quasar';
     };
 
 
-    
 
-    
 
-    
+
+
+
       return {q, tab,downloadFileBoucherESP, downloadFileDirectEsp, firstName,downloadFileDirect, lastName, email, phone, sortMessage, message, validateEmail, validatePhone, validateRequired,showSuccessNotification, showErrorNotification, submitForm,downloadFile, }
     }}
 </script>

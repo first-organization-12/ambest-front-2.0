@@ -441,7 +441,7 @@ export default defineComponent({
         { icon: '/images/Lightning.png', title: 'Electrical Repairs' },
         { icon: '/images/TruckTrailer.png', title: 'Trailer Maintenance' },
         { icon: '/images/TrafficCone.png', title: 'Vehicle Recovery' },
-        { icon: '/images/truck.png', title: 'Truck Maintenance' },
+        { icon: '/images/Truck.png', title: 'Truck Maintenance' },
         { icon: '/images/RoadHorizon.png', title: 'Mobile Service' },
         { icon: '/images/Clip.png', title: 'Towing Service' }
       ];

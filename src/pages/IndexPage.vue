@@ -21,14 +21,19 @@
     <div class="info-section row col-12" style="width: 100%; margin:60px auto;">
       <div class="col-12 col-md-7">
         <div class="info-section-text-container">
-          <h4 class="text-dark text-bold q-mb-sm q-mt-none">Your Partner in Service Excellence</h4>
+          <h4 class="text-dark text-bold q-mb-sm q-mt-none">
+            {{ iconsTitle }}
+            <!-- Your Partner in Service Excellence -->
+          </h4>
           <h6 class="q-my-lg" style="font-weight: 600;">
-            From coast to coast, AMBEST Travel Centers and Service Centers are here to keep you moving.
+            {{ iconsSubTitle }}
+            <!-- From coast to coast, AMBEST Travel Centers and Service Centers are here to keep you moving. -->
           </h6>
           <p class="text-desc">
-            We're more than just a network of truck stops—we're a trusted partner for drivers and fleets alike.
+            {{ iconsDesc }}
+            <!-- We're more than just a network of truck stops—we're a trusted partner for drivers and fleets alike.
             From quality facilities and competitive fuel prices to AMBUCK$® rewards and reliable service centers,
-            we provide everything to keep you moving.
+            we provide everything to keep you moving. -->
           </p>
         <div class="btn-container">
           <q-btn color="primary text-bold" rounded unelevated label="EXPLORE TRAVEL CENTERS" to="/travel-centers"/>
@@ -58,7 +63,14 @@
 
   <div class="about-section row items-center" style="max-width: 90%; margin:60px auto;">
     <!-- Left Side: Image -->
-    <div class="col-12 col-md-6 text-center">
+    <div v-if="aboutimage" class="col-12 col-md-6 text-center">
+      <q-img
+        :src="aboutimage"
+        class="rounded-borders"
+        fit="cover"
+      />
+    </div>
+    <div v-else class="col-12 col-md-6 text-center">
       <q-img
         src="/images/image.png"
         class="rounded-borders"
@@ -71,9 +83,10 @@
       <div class="content">
         <h4 class=" text-dark q-mb-xs">ABOUT <strong class="text-dark">AMBEST</strong></h4>
         <p class="text-body2 text-dark q-mt-none  text-desc">
-          Founded in 1988, AMBEST is a Member-owned, nationwide network of independent truck stops
+          {{ aboutText }}
+          <!-- Founded in 1988, AMBEST is a Member-owned, nationwide network of independent truck stops
           and service centers. Unlike big Wall Street companies, AMBEST locations are family-owned
-          businesses where you're likely to find the owner with their sleeves rolled up, ready to take care of you.
+          businesses where you're likely to find the owner with their sleeves rolled up, ready to take care of you. -->
 
         </p>
         <q-btn label="READ MORE" rounded unelevated color="primary" class="q-mt-md text-bold" to="/about-ambest" />
@@ -113,7 +126,7 @@
           class="q-px-md text-bold"
           rounded
           unelevated
-          to="/fuel-cards/membership/aplication"
+          to="/fuel-cards/membership/application"
         />
         <a href="https://ambest.powerappsportals.com/" target="_blank" style="color: black;">
           <q-btn
@@ -163,18 +176,26 @@
     <div class="content q-pa-xl">
       <h4 class="text-dark q-mb-sm">AMBEST <strong>NEWS</strong></h4>
       <p class="text-body2 text-desc">
-        Exciting things are happening at AMBEST! We've recently expanded our network with new locations in key
-        regions, providing even more convenience for drivers and fleets.
+        {{ newsText }}
+        <!-- Exciting things are happening at AMBEST! We've recently expanded our network with new locations in key
+        regions, providing even more convenience for drivers and fleets. -->
       </p>
-      <p class="text-body2 text-desc">
+      <!-- <p class="text-body2 text-desc">
         Members can now enjoy enhanced rewards through our updated loyalty program, and our partnership with
         leading service providers ensures top-tier maintenance and support. Stay tuned for upcoming events
         and exclusive offers designed to keep you moving forward with confidence.
-      </p>
+      </p> -->
     </div>
   </div>
     <!-- Right Side: Image -->
-    <div class="col-12 col-md-6 text-center">
+    <div v-if="newsImage" class="col-12 col-md-6 text-center">
+      <q-img
+        :src="newsImage"
+        class="rounded-borders"
+        fit="cover"
+      />
+    </div>
+    <div v-else class="col-12 col-md-6 text-center">
       <q-img
         src="/images/top-view-fuel-station.png"
         class="rounded-borders"
@@ -229,7 +250,8 @@
 </template>
 
 <script setup>
-import { ref, computed  } from "vue";
+import { api, storage_url } from "src/boot/axios";
+import { ref, computed,onMounted  } from "vue";
 
 
 const slide = ref(0);
@@ -346,7 +368,34 @@ const advantages = ref([
     //   bannerVideo.value.src = videoSources.value[currentVideoIndex.value];
     //   bannerVideo.value.play();
     // };
-
+      const aboutText = ref('');
+      const aboutimage = ref('');
+      const newsImage = ref('');
+      const newsText = ref('');
+      const iconsTitle = ref('');
+      const iconsSubTitle = ref('');
+      const iconsDesc = ref('');
+      // const aboutimage = ref('');
+      const getHomePageDetails=()=>{
+        api.get('get-front-home-page-details')
+        .then((response)=>{
+          console.log(response);
+          let val = response.data.data;
+          aboutText.value = val.about_section.description;
+          aboutimage.value = storage_url(val.about_section.img_url);
+          newsImage.value = storage_url(val.news_section.img_url);
+          newsText.value = val.news_section.description;
+          iconsTitle.value = val.icons_section.title;
+          iconsSubTitle.value = val.icons_section.sub_title;
+          iconsDesc.value = val.icons_section.description;
+        })
+        .catch((error)=>{
+          console.log(error);
+        })
+      }
+      onMounted(()=>{
+        getHomePageDetails();
+      })
 </script>
 
 

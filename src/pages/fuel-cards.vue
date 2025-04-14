@@ -23,7 +23,7 @@
           class="q-mt-xs text-bold"
           label="Apply for Approval"
           size="md"
-          to="/fuel-cards/fuel-card-form/aplication"
+          to="/fuel-cards/fuel-card-form/application"
 
         />
       </div>

@@ -132,6 +132,131 @@
           <q-item-section>Map and Locations</q-item-section>
         </q-item>
 
+        <q-item>
+          <q-item-section><h6 style="margin: 0%;color: #1976D2; font-weight: 700;">Content Management</h6></q-item-section>
+        </q-item>
+
+
+        <q-item
+         clickable
+          v-ripple
+          to="/dashboard/site-content-management"
+          exact-active-class="bg-cyan-2"
+          >
+          <q-item-section avatar>
+            <q-icon name="map"/>
+          </q-item-section>
+          <q-item-section>Site</q-item-section>
+        </q-item>
+
+        <q-item
+         clickable
+          v-ripple
+          to="/dashboard/home-page-content-management"
+          exact-active-class="bg-cyan-2"
+          >
+          <q-item-section avatar>
+            <q-icon name="map"/>
+          </q-item-section>
+          <q-item-section>Home</q-item-section>
+        </q-item>
+
+        <q-item
+         clickable
+          v-ripple
+          to="/dashboard/about-content-management"
+          exact-active-class="bg-cyan-2"
+          >
+          <q-item-section avatar>
+            <q-icon name="map"/>
+          </q-item-section>
+          <q-item-section>About</q-item-section>
+        </q-item>
+
+        <q-item
+         clickable
+          v-ripple
+          to="/dashboard/travel-center-content-management"
+          exact-active-class="bg-cyan-2"
+          >
+          <q-item-section avatar>
+            <q-icon name="map"/>
+          </q-item-section>
+          <q-item-section>Teavel Center</q-item-section>
+        </q-item>
+
+        <q-item
+         clickable
+          v-ripple
+          to="/dashboard/service-center-content-management"
+          exact-active-class="bg-cyan-2"
+          >
+          <q-item-section avatar>
+            <q-icon name="map"/>
+          </q-item-section>
+          <q-item-section>Service Center</q-item-section>
+        </q-item>
+
+        <q-item
+         clickable
+          v-ripple
+          to="/dashboard/fuel-card-content-management"
+          exact-active-class="bg-cyan-2"
+          >
+          <q-item-section avatar>
+            <q-icon name="map"/>
+          </q-item-section>
+          <q-item-section>Fuel Card</q-item-section>
+        </q-item>
+
+        <q-item
+         clickable
+          v-ripple
+          to="/dashboard/fuel-card-details-content-management"
+          exact-active-class="bg-cyan-2"
+          >
+          <q-item-section avatar>
+            <q-icon name="map"/>
+          </q-item-section>
+          <q-item-section>Fuel Card Details</q-item-section>
+        </q-item>
+
+        <q-item
+         clickable
+          v-ripple
+          to="/dashboard/ambuck$-content-management"
+          exact-active-class="bg-cyan-2"
+          >
+          <q-item-section avatar>
+            <q-icon name="map"/>
+          </q-item-section>
+          <q-item-section>AMBUCK$</q-item-section>
+        </q-item>
+
+        <q-item
+         clickable
+          v-ripple
+          to="/dashboard/contacts-content-management"
+          exact-active-class="bg-cyan-2"
+          >
+          <q-item-section avatar>
+            <q-icon name="map"/>
+          </q-item-section>
+          <q-item-section>Contacts</q-item-section>
+        </q-item>
+
+        <q-item
+         clickable
+          v-ripple
+          to="/dashboard/membership-content-management"
+          exact-active-class="bg-cyan-2"
+          >
+          <q-item-section avatar>
+            <q-icon name="map"/>
+          </q-item-section>
+          <q-item-section>Membership</q-item-section>
+        </q-item>
+
       </q-list>
     </q-drawer>
 

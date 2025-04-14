@@ -29,8 +29,9 @@
             <div class="info-section q-pa-xl">
               <div class="row items-center">
                 <!-- Text Section -->
-                <div class="col-12 col-md-7 info-section-text-container">
-                  <h4 class="text-dark q-mb-sm q-mt-none">
+                <div class="col-12 col-md-7 info-section-text-container" >
+                  <span v-html="sectionOneText"></span>
+                  <!-- <h4 class="text-dark q-mb-sm q-mt-none">
                     A Network Built on <strong>Trust</strong> and <strong>Tradition</strong>
                   </h4>
                   <p class="text-desc" style="font-size: 20px; font-weight: 400;">
@@ -38,7 +39,7 @@
                     independent truck stops and service centers. Unlike corporate-owned chains, AMBEST locations
                     are family-run businesses where owners are hands-on, ready to provide personalized care and
                     exceptional service. Here, you’re not just another traveler—you’re part of the family.
-                  </p>
+                  </p> -->
 
                   <!-- Buttons -->
                   <div class="row" style="gap: 5px;">
@@ -48,7 +49,7 @@
                 </div>
                 <!-- Image Section -->
                 <div class="col-12 col-md-5 text-left q-pa-xl  q-gutter-md">
-                  <q-img src="/images/ambest-logo3.png" contain style=" max-width:700px; height: auto;" />
+                  <q-img :src="sectionOneImg" contain style=" max-width:700px; height: auto;" />
                 </div>
               </div>
             </div>
@@ -82,7 +83,7 @@
             <!-- Right Side: Image -->
             <div class="col-12 col-md-6 text-center">
                   <q-img
-                    src="/images/Mask_group_9.png"
+                    :src="sectionTwoImg"
                     class="rounded-borders"
                     fit="cover"
                     height="100%"
@@ -91,11 +92,12 @@
             <!-- Left Side: Text Content -->
             <div class="col-12  col-md-6 q-px-xl flex  items-center">
               <div class="content  q-px-xl ">
-                <h4 class=" text-dark q-mb-xs">Everything You Need,
+                <span v-html="sectionTwoText"></span>
+                <!-- <h4 class=" text-dark q-mb-xs">Everything You Need,
                   <br><strong class="text-dark">All in One Place </strong></h4>
                   <p class="text-body2 text-desc_1_1 text-dark q-mt-lg">
                   <b>Fuel up with confidence </b> with Diesel, DEF, and Gasoline at your convenience. <b>Unwind</b> with clean showers, comfortable lounges, and delicious dining options—everything you need to recharge for the road ahead.
-                  </p>
+                  </p> -->
                   <q-btn label="SEARCH TRAVEL CENTERS " rounded  color="primary" style="text-transform:unset;" class="q-mt-md text-bold" @click="scrollToElement('map-break')" />
               </div>
             </div>
@@ -226,7 +228,8 @@
         <!-- Left Side: Text Content -->
         <div class="col-12  col-md-6 q-px-xl flex  items-center">
           <div class="content  q-px-xl ">
-            <h4 class="text-dark q-mb-xs">
+            <span v-html="sectionThreeText"></span>
+            <!-- <h4 class="text-dark q-mb-xs">
               The <strong>Best Stops</strong> Aren’t on Every Corner —
               <strong>They’re on the Right Route!</strong>
             </h4>
@@ -240,13 +243,13 @@
             <p class="text-body2 text-desc_1_1 text-dark q-mt-lg">
               No matter where you stop, you can count on a warm welcome and a commitment to excellence.
               Because as our customer, you deserve the best—and that's America's Best.
-            </p>
+            </p> -->
           </div>
         </div>
         <!-- Right Side: Image -->
         <div class="col-12 col-md-6 text-center">
               <q-img
-                src="/images/mask_group_6.png"
+                :src="sectionThreeImg"
                 class="rounded-borders"
                 fit="cover"
                 height="100%"
@@ -265,7 +268,7 @@ import { defineComponent, ref,nextTick,onMounted } from 'vue';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 {/* import * as XLSX from 'xlsx'; */}
-import { api } from 'src/boot/axios';
+import { api, storage_url } from 'src/boot/axios';
 
 export default defineComponent({
   components: {
@@ -528,7 +531,35 @@ export default defineComponent({
           console.error("Error printing location list:", error);
         }
     };
-    onMounted(fetchLocations);
+
+    const sectionOneImg = ref('');
+    const sectionOneText = ref('');
+
+    const sectionTwoImg = ref('');
+    const sectionTwoText = ref('');
+
+    const sectionThreeImg = ref('');
+    const sectionThreeText = ref('');
+    const getTravelCenterDetails =()=>{
+      api.get('get-front-travel-page-details')
+      .then((response)=>{
+        console.log(response);
+        let val = response.data.data;
+        sectionOneImg.value = storage_url(val.top_section.img_url);
+        sectionOneText.value = val.top_section.description;
+
+        sectionTwoImg.value = storage_url(val.second_section.img_url);
+        sectionTwoText.value = val.second_section.description;
+
+        sectionThreeImg.value = storage_url(val.third_section.img_url);
+        sectionThreeText.value = val.third_section.description;
+      })
+    }
+
+    onMounted(()=>{
+      fetchLocations()
+      getTravelCenterDetails()
+    });
     return {
       perks,
       searchQuery,
@@ -547,6 +578,15 @@ export default defineComponent({
       scrollToElement,
       downloadExcel,
       printLocations,
+
+      sectionOneImg,
+      sectionOneText,
+
+      sectionTwoImg,
+      sectionTwoText,
+
+      sectionThreeImg,
+      sectionThreeText,
     };
   }
 });

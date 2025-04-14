@@ -13,7 +13,7 @@
         <!-- Right Side: Image -->
         <div class="col-12 col-md-6 text-center">
           <q-img
-            src="/images/ambucks-logo-1.png"
+            :src="sectionOneImg"
             class="rounded-borders"
             fit="cover"
              width="80%"
@@ -22,7 +22,8 @@
         <!-- Left Side: Text Content -->
         <div class="col-12  col-md-6 " :class="dynamicPadding">
           <div class="content">
-            <h4 class="" style="margin-block: 5px;"><span class="text-weight-bold">About AMBUCK$ Rewards Program</span></h4>
+            <span v-html="sectionOneText"></span>
+            <!-- <h4 class="" style="margin-block: 5px;"><span class="text-weight-bold">About AMBUCK$ Rewards Program</span></h4>
             <p class="text-desc" style="line-height: normal;">
               AMBEST launched AMBUCK$, a professional driver loyalty
               program, in 1994. Professional drivers earn point(s) for every
@@ -39,7 +40,7 @@
               In addition, AMBEST has given away millions of points, cash and
               various other prizes through AMBUCK$ promotions. Subscribe
               here to sign up to receive our latest promotions.
-            </p>
+            </p> -->
             <q-btn label="Download the app" rounded unelevated color="primary" class="q-mt-md text-bold" target="_blank" href=" https://qr.link/HeDWv6" />
           </div>
         </div>
@@ -50,7 +51,8 @@
         <!-- Right Side: Image -->
         <div class="col-12 col-md-6">
           <div class="content lists q-pb-xl">
-            <h4 class="" style=" margin-bottom: 0 !important; font-weight: 800;"><span class="text-weight-bold">The More You Fuel, The More You Earn</span></h4>
+            <span  v-html="sectionTwoText"></span>
+            <!-- <h4 class="" style=" margin-bottom: 0 !important; font-weight: 800;"><span class="text-weight-bold">The More You Fuel, The More You Earn</span></h4>
             <p class="text-desc text-bold">Achieve tier status each month and enjoy the benefit of the tier the following month.</p>
             <ul class="text-desc">
               <li>Earn points per gallon purchased</li>
@@ -58,7 +60,7 @@
               <li>Free shower with 75+ gallons fuel purchase</li>
               <li>Tiers program awards up to 4x points on every gallon</li>
               <li>App users get exclusive access to in-store specials</li>
-            </ul>
+            </ul> -->
           </div>
         </div>
         <!-- Left Side: Text Content -->
@@ -99,20 +101,21 @@
         <!-- Left Side: Text Content -->
         <div class="col-12  col-md-6 q-pa-xl">
           <div class="content q-py-sm">
-            <h4 class="" style="margin: 10px 0%;"><span class="text-weight-bold">This Month's AMBUCK$ <br>
+            <span  v-html="sectionThreeText"></span>
+            <!-- <h4 class="" style="margin: 10px 0%;"><span class="text-weight-bold">This Month's AMBUCK$ <br>
               Promotions-</span>Don't Miss Out!</h4>
             <p class="text-desc">
               Check out current and previous promotions from AMBUCK$.
               Don't forget to download our app to find specific location
               offerings so you always get the best AMBUCK$ values.
-            </p>
+            </p> -->
             <q-btn label="EXPLORE SPECIALS" rounded unelevated color="primary" class="q-mt-md text-bold q-px-xl" target="_blank" href="https://mylync.lyncoproducts.com/customer/flyers/ambest/index.html" />
           </div>
         </div>
         <!-- Right Side: Image -->
         <div class="col-12 col-md-6 text-center">
           <q-img
-            src="/images/ambest_app.png"
+            :src="sectionThreeImg"
             class="rounded-borders"
             fit="cover"
             width="80%"
@@ -124,13 +127,54 @@
   </q-page>
 </template>
 <script>
+import { api, storage_url } from 'src/boot/axios';
+import { onMounted, ref } from 'vue';
+
+
 export default {
   computed: {
     dynamicPadding() {
       return this.$q.screen.xl ? "q-pa-xl" : "q-py-xl";
     },
   },
+  setup(){
+    const sectionOneImg = ref('');
+    const sectionOneText = ref('');
+
+    const sectionTwoText = ref('');
+
+    const sectionThreeImg = ref('');
+    const sectionThreeText = ref('');
+    const getAmbucksCenterDetails =()=>{
+      api.get('get-front-ambucks-page-details')
+      .then((response)=>{
+        console.log(response);
+        let val = response.data.data;
+        sectionOneImg.value = storage_url(val.top_section.img_url);
+        sectionOneText.value = val.top_section.description;
+
+        sectionTwoText.value = val.second_section.description;
+
+        sectionThreeImg.value = storage_url(val.third_section.img_url);
+        sectionThreeText.value = val.third_section.description;
+      })
+    }
+
+    onMounted(()=>{
+      getAmbucksCenterDetails()
+    });
+    return {
+      sectionOneImg,
+      sectionOneText,
+
+      sectionTwoText ,
+      sectionThreeImg,
+
+      sectionThreeText,
+    }
+  }
 };
+
 </script>
 
 <style scoped>

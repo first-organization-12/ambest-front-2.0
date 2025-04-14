@@ -72,7 +72,7 @@ const routes = [
   },
 
   {
-    path: '/fuel-cards/fuel-card-form/aplication',
+    path: '/fuel-cards/fuel-card-form/application',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/fuel-card-form.vue') }
@@ -80,7 +80,7 @@ const routes = [
   },
 
   {
-    path: '/fuel-cards/membership/aplication',
+    path: '/fuel-cards/membership/application',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/membership-form.vue') }
@@ -171,6 +171,86 @@ const routes = [
     component: () => import('layouts/DashboardLayout.vue'),
     children: [
       { path: '', component: () => import('pages/dashboard/map-and-locations.vue')}
+    ]
+  },
+
+  {
+    path: '/dashboard/site-content-management',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/cms/site-info.vue')}
+    ]
+  },
+
+  {
+    path: '/dashboard/home-page-content-management',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/cms/home-page.vue')}
+    ]
+  },
+
+  {
+    path: '/dashboard/about-content-management',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/cms/about-page.vue')}
+    ]
+  },
+
+  {
+    path: '/dashboard/travel-center-content-management',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/cms/travel-center.vue')}
+    ]
+  },
+
+  {
+    path: '/dashboard/service-center-content-management',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/cms/service-center.vue')}
+    ]
+  },
+
+  {
+    path: '/dashboard/fuel-card-content-management',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/cms/fuel-card.vue')}
+    ]
+  },
+
+  {
+    path: '/dashboard/fuel-card-details-content-management',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/cms/fuel-card-details.vue')}
+    ]
+  },
+
+  {
+    path: '/dashboard/ambuck$-content-management',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/cms/ambuck$-page.vue')}
+    ]
+  },
+
+  {
+    path: '/dashboard/contacts-content-management',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/cms/contacts-page.vue')}
+    ]
+  },
+
+  {
+    path: '/dashboard/membership-content-management',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/cms/membership-page.vue')}
     ]
   },
 

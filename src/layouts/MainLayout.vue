@@ -5,7 +5,8 @@
 
       <q-item to="/">
         <q-avatar square class="q-mr-md q-mx-auto responsive-logo" >
-          <q-img src="/images/ambest-logo.png" fit="contain" />
+          <q-img :src="logo" fit="contain" />
+          <!-- <q-img src="/images/ambest-logo.png" fit="contain" /> -->
         </q-avatar>
       </q-item>
 
@@ -45,7 +46,7 @@
       <q-list>
         <q-item to="/">
           <q-avatar square class="q-mr-md q-mx-auto responsive-logo" >
-            <q-img src="/images/ambest-logo.png" fit="contain" />
+            <q-img :src="logo" fit="contain" />
           </q-avatar>
         </q-item>
         <q-item clickable v-ripple to="/about-ambest" exact-active-class="bg-cyan-2" >
@@ -91,19 +92,19 @@
 
     <!-- Social Media Icons -->
     <div class="footer-social row justify-center q-mt-lg q-gutter-sm q-gutter-md-md">
-      <a href="https://www.facebook.com/AMBESTofficial/" target="_blank" style="color: #000;">
+      <a :href="facebookLink" target="_blank" style="color: #000;">
         <q-icon name="mdi-facebook" size="28px" class="q-mx-sm q-mx-md-md" />
       </a>
-      <a href="https://www.instagram.com/ambestofficial/" target="_blank" style="color: #000;">
+      <a :href="instagramLink" target="_blank" style="color: #000;">
         <q-icon name="mdi-instagram" size="28px" class="q-mx-sm q-mx-md-md" />
       </a>
-      <a href="https://x.com/i/flow/login?redirect_after_login=%2FAMBESTofficial" target="_blank" style="color: #000;">
+      <a :href="xLink" target="_blank" style="color: #000;">
         <q-icon name="mdi-twitter" size="28px" class="q-mx-sm q-mx-md-md" />
       </a>
-      <a href="https://www.linkedin.com/company/ambestofficial/" target="_blank" style="color: #000;">
+      <a :href="LinkedInLink" target="_blank" style="color: #000;">
         <q-icon name="mdi-linkedin" size="28px" class="q-mx-sm q-mx-md-md" />
       </a>
-      <a href="tel:+(800) 910-7220" style="color: #000;">
+      <a :href="`tel:+${contactNo}`" style="color: #000;">
         <q-icon name="mdi-phone" size="28px" class="q-mx-sm q-mx-md-md" />
       </a>
     </div>
@@ -122,16 +123,20 @@
 
       <!-- Office Details -->
       <div class="footer-info col-xs-12 col-sm-4 text-center q-mb-lg">
-        <b class="footer-heading">AMBEST CORPORATE OFFICE</b><br />
-        101 Winners Circle North, Suite 200 <br />
-        Brentwood, TN 37027
+        <b class="footer-heading">{{ officeName }}</b><br />
+        {{ address }}
+        <!-- 101 Winners Circle North, Suite 200 <br />
+        Brentwood, TN 37027 -->
       </div>
 
       <!-- Contact Information -->
       <div class="footer-info col-xs-12 col-sm-4 text-center q-mb-lg">
         <b class="footer-heading">GET IN TOUCH</b><br />
-        (615) 371-5187 <br />
-        <a href="mailto:info@am-best.com" class="email-link" style="color: #000; text-decoration: underline;">info@am-best.com</a>
+        <!-- (615) 371-5187 -->
+         {{ contactNo }}
+        <br />
+        <a :href="`mailto:${email}`" class="email-link" style="color: #000; text-decoration: underline;">{{ email }}</a>
+        <!-- <a href="mailto:info@am-best.com" class="email-link" style="color: #000; text-decoration: underline;">info@am-best.com</a> -->
       </div>
 
     </div>
@@ -154,17 +159,57 @@
 <script>
 console.log(window.innerWidth)
 
-import { ref } from 'vue'
+import { api,storage_url } from 'src/boot/axios'
+import { ref,onMounted } from 'vue'
 
 export default {
   setup() {
     const leftDrawerOpen = ref(false)
+    const logo = ref('');
+    const facebookLink = ref('');
+    const instagramLink = ref('');
+    const xLink = ref('');
+    const LinkedInLink = ref('');
+    const officeName = ref('');
+    const email = ref('');
+    const address = ref('');
+    const contactNo = ref('');
+    const getSiteDetails = ()=>{
+      api.get('get-front-site-details')
+      .then((response)=>{
+        let val = response.data.data;
+        logo.value = storage_url(val.logo);
+        facebookLink.value = val.facebook_link;
+        instagramLink.value = val.instagram_link;
+        LinkedInLink.value = val.store_link;
+        xLink.value = val.tweeter_link;
+        officeName.value = val.office_name;
+        email.value = val.email;
+        address.value = val.address;
+        contactNo.value = val.contact_no;
+      })
+      .catch((error)=>{
+        console.log(error);
 
+      })
+    }
+    onMounted(()=>{
+      getSiteDetails();
+    })
     return {
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value
       },
+      logo,
+      facebookLink,
+      instagramLink,
+      LinkedInLink,
+      xLink,
+      officeName,
+      email,
+      address,
+      contactNo,
     }
   }
 }

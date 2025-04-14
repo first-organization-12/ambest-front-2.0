@@ -97,8 +97,13 @@ export default {
         'password':password.value,
       })
         .then((response)=>{
+          // console.log(response.data);
           console.log(response.data.message);
+          const now = new Date();
+          const expiresAt = new Date(now.getTime() + response.data.data.expires_in * 1000);
+
           localStorage.setItem('accessToken',response.data.data.access_token);
+          localStorage.setItem('expiresAt', expiresAt.toISOString())
           router.push("/dashboard");
           showSuccessNotification(response.data.message)
         })
