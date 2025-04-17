@@ -99,17 +99,22 @@ export default {
         .then((response)=>{
           // console.log(response.data);
           console.log(response.data.message);
-          const now = new Date();
-          const expiresAt = new Date(now.getTime() + response.data.data.expires_in * 1000);
+          // const now = new Date();
+          const expiresAt = Date.now() + response.data.data.expires_in * 1000;
+          // const expiresAt = new Date(now.getTime() + response.data.data.expires_in * 1000);
 
-          localStorage.setItem('accessToken',response.data.data.access_token);
-          localStorage.setItem('expiresAt', expiresAt.toISOString())
+          localStorage.setItem('accessToken', response.data.data.access_token);
+          localStorage.setItem('accessTokenExpiry', expiresAt.toString());
+          // localStorage.setItem('accessTokenExpiry', expiresAt.toISOString());
+
+          console.log(response.data.data.access_token,expiresAt);
+
           router.push("/dashboard");
           showSuccessNotification(response.data.message)
         })
         .catch((error)=>{
-          console.log(error.response.data.message);
-          showErrorNotification(error.response.data.message);
+          console.log(error);
+          showErrorNotification(error);
           errorMessage.value = "Invalid email or password";
           email.value = '';
           password.value ='';

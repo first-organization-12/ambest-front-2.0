@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pa-md">
-    <q-card class="q-pa-md">
+    <q-card class="q-pa-md" style="height:100vh;">
 
     <!-- Button to Open Modal -->
      <div class="text-right q-my-md">

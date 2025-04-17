@@ -152,14 +152,20 @@
           header-class="faq-item"
         >
           <template v-slot:header>
-            <q-item-section class="text-desc" style="margin-bottom: .5rem; font-size: 22px; width: 500;"><strong>{{ item.question }}</strong></q-item-section>
+            <q-item-section class="text-desc" style="margin-bottom: .5rem; font-size: 22px; width: 500;">
+              <span v-html="item.question"></span>
+              <!-- <strong>{{ item.question }}</strong> -->
+            </q-item-section>
             <q-item-section side>
               <q-icon color="primary" name="add"  />
             </q-item-section>
           </template>
           <q-card>
             <q-card-section>
-              <p class="text-desc" style="font-size: 20px; width: 500;">{{ item.answer }}</p>
+              <p class="text-desc" style="font-size: 20px; width: 500;">
+                <span v-html="item.answer"></span>
+                <!-- {{ item.answer }} -->
+              </p>
             </q-card-section>
           </q-card>
         </q-expansion-item>
@@ -199,18 +205,7 @@ export default{
           { image: "/images/Sulser.png", name: "Joel Sulser", position: "Director of Service Centers" },
           { image: "/images/Shane.png", name: "Shane Vasel", position: "VP of Marketing & Purchasing" }
   ]);
-  const faqs = ref([
-          { question: "How do I become an AMBEST Member?", answer: "You can become a member by signing up on our website." },
-          { question: "What is AMBUCK$?", answer: "AMBUCK$ is our rewards program where you earn points on purchases." },
-          { question: "How do I earn AMBUCK$ points?", answer: "You earn points when you make qualifying purchases." },
-          { question: "Is there a fee to join AMBUCK$?", answer: "No, joining AMBUCK$ is completely free!" },
-          { question: "Can I use my AMBUCK$ points at any location?", answer: "Points can be redeemed at participating locations." },
-          { question: "I am not a truck stop owner. Can I still join AMBEST?", answer: "Yes, individuals can also join AMBEST." },
-          { question: "Can I track my AMBEST points?", answer: "Yes, you can track your points through our website." },
-          { question: "What is the AMBEST Fuel Card?", answer: "The AMBEST Fuel Card offers discounts on fuel purchases." },
-          { question: "How do I use the AMBEST Fuel Card?", answer: "Simply swipe your card at participating fuel stations." },
-          { question: "What are the benefits of using the AMBEST Fuel Card?", answer: "You can enjoy discounts, rewards, and more." }
-      ]);
+  const faqs = ref([]);
   const serviceOptions= ref([
         { label: "Select One", value: "" },
         { label: "Oil Change", value: "oil_change" },
@@ -285,9 +280,20 @@ export default{
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     };
+    const getFAQDetails=()=>{
+      api.get('get-front-faqs-details')
+      .then((response)=>{
+      let val = response.data.data;
+      faqs.value = val;
+      })
+      .catch((error)=>{
+        console.log(error);
+      })
+    }
     onMounted(() => {
+      getFAQDetails();
       window.onCaptchaVerified = (token) => {
-        recaptchaResponse.value = token
+        recaptchaResponse.value = token;
       }
     })
     const loadCaptcha = () =>{

@@ -35,10 +35,19 @@ export default boot(({ app, router }) => {
   api.interceptors.request.use(
     (config) => {
       const token = getAuthorizationToken();
-      // console.log(token);
-      if (token) {
+
+      const expiry = parseInt(localStorage.getItem('accessTokenExpiry') || '0');
+
+      if (token && Date.now() < expiry) {
         config.headers.Authorization = `Bearer ${token}`;
+      } else {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('accessTokenExpiry');
       }
+      // console.log(token);
+      // if (token) {
+      //   config.headers.Authorization = `Bearer ${token}`;
+      // }
       return config;
     },
     (error) => {
@@ -49,6 +58,7 @@ export default boot(({ app, router }) => {
   api.interceptors.response.use(
     (response) => response, // Return response if it's successful
     (error) => {
+      // console.log(error);
       console.log(error.response.status);
       if (error.response && error.response.status === 401) {
         console.log(error.response);

@@ -1,7 +1,7 @@
 <template>
   <!-- <h4>Welcome to Your Dashboard</h4> -->
   <q-card class="q-mt-md">
-      <q-card-section>
+      <q-card-section style="height:100vh;">
         <q-table
         flat
         bordered

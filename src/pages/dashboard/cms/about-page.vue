@@ -24,14 +24,14 @@
                   <q-img :src="missionImg" class="image-size"/>
                 </div>
                 <q-form @submit="handleMissionForm">
-                  <div class="q-mt-md">
+                  <!-- <div class="q-mt-md">
                     <h5 style="margin: 0%;">Title</h5>
                     <q-input
                     type="text" style="font-size: 16px;" :rules=[validateRequired] outlined v-model="missionTitle"
                     />
-                  </div>
+                  </div> -->
                   <div class="q-mt-md">
-                    <h5 style="margin: 0%;">Title</h5>
+                    <h5 style="margin: 0%;">Image</h5>
                     <q-file
                       v-model="missionImg"
                       label="Choose an image"
@@ -141,17 +141,14 @@
                   <q-img :src="storyImg" class="image-size"/>
                 </div>
                 <q-form @submit="handleStoryForm">
-                  <div class="q-mt-md">
+                  <!-- <div class="q-mt-md">
                     <h5 style="margin: 0%;">Title</h5>
                     <q-input
                     type="text" style="font-size: 16px;" :rules=[validateRequired] outlined v-model="storyTitle"
                     />
-                  </div>
+                  </div> -->
                   <div class="q-mt-md">
                     <h5 style="margin: 0%;">Image</h5>
-                    <!-- <q-input
-                    type="file" accept="image/*" @change="handleStoryImg" style="font-size: 16px;" outlined
-                    /> -->
                     <q-file
                       v-model="storyImg"
                       label="Choose an image"
@@ -480,7 +477,7 @@ export default{
     return (val && val.trim() !== "") || "This field is required";
     }
     // mission section
-    const missionImg = ref('/images/top-view-fuel-station.png');
+    const missionImg = ref('');
     const missionImgFile = ref('');
     const missionTitle = ref('Our Mission');
     const missionText = ref('');
@@ -509,7 +506,7 @@ export default{
     }
 
     // story area
-    const storyImg = ref('/images/top-view-fuel-station.png');
+    const storyImg = ref('');
     const storyImgFile = ref('');
     const storyTitle = ref('Our Story');
     const storyText = ref('');

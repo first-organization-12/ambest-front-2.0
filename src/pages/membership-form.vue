@@ -44,7 +44,7 @@
 
     <q-section>
       <div class="image-section">
-          <q-img class="big-image" src="images/F_AMBEST Travel Centers - RGB.png"/>
+          <q-img class="big-image" :src="sectionTwoImg"/>
       </div>
     </q-section>
 
@@ -52,7 +52,8 @@
       <div class="details-section">
       <div class="panel-container row items-start q-my-xl q-px-xl">
         <div class="col-12 col-md-6">
-          <div class="panel-card-name">AMBEST is a <strong>Member-Owned, Sales, Marketing,</strong> and <strong>Purchasing</strong> Organization. </div>
+          <span v-html="sectionOneText"></span>
+          <!-- <div class="panel-card-name">AMBEST is a <strong>Member-Owned, Sales, Marketing,</strong> and <strong>Purchasing</strong> Organization. </div>
           <p class="text-desc">We are a trusted network of the finest independently owned and operated truck stops and service centers nationwide. Our mission is to drive profitability and support the long-term success of our Members by providing exclusive benefits, industry insights, and growth opportunities. As a Member, you’ll gain access to valuable advantages, including:</p>
           <ul class="panel-lists text-desc">
             <li>An alliance with a solid industry brand.</li>
@@ -62,12 +63,12 @@
             <li>Participation in AMBUCK$, one of the industry's most well-respected loyalty programs with more than 300,000 cardholders.</li>
             <li>The AMBEST Fuel Card is a fleet card designed to not only drive business to Members, but also helps control fees.</li>
             <li>And much, much more!</li>
-          </ul>
+          </ul> -->
         </div>
         <div class="hero-image-section col-12 col-md-6 q-px-xl">
           <div class="" style="max-width: 500px;">
             <q-responsive :ratio="9/6">
-              <q-img src="images/member-img.png" style="border-radius: 1.25rem;"/>
+              <q-img :src="sectionOneImg" style="border-radius: 1.25rem;"/>
             </q-responsive>
           </div>
         </div>
@@ -77,11 +78,12 @@
 
     <q-section>
       <div class="qa-section text-center" id="form-break">
-          <h4 class="" style="font-weight: 800;">How Do I Become an AMBEST Member?</h4>
+        <span v-html="sectionTwoText"></span>
+          <!-- <h4 class="" style="font-weight: 800;">How Do I Become an AMBEST Member?</h4>
           <p class="text-desc" style="font-size: 26px; font-weight: 500;">If you own or operate a Travel or Service center and you're
             interested in becoming an AMBEST Member, fill out the form
             below and we'll contact you as soon as possible!
-          </p>
+          </p> -->
       </div>
     </q-section>
 
@@ -211,7 +213,7 @@
 
 <script>
 import { useQuasar } from 'quasar';
-import { api } from 'src/boot/axios';
+import { api,storage_url } from 'src/boot/axios';
 import { ref, onMounted } from 'vue';
 export default{
   setup(){
@@ -344,7 +346,26 @@ export default{
           setTimeout(loadCaptcha, 500); // Retry until grecaptcha is loaded
         }
       }
+      const sectionOneImg = ref('');
+      const sectionOneText = ref('');
+
+      const sectionTwoImg = ref('');
+      const sectionTwoText = ref('');
+      const getMembershipPageDetails = ()=>{
+        api.get('get-front-membership-page-details')
+      .then((response)=>{
+        console.log(response);
+        let val = response.data.data;
+        sectionOneImg.value = storage_url(val.top_section.img_url);
+        sectionOneText.value = val.top_section.description;
+
+        sectionTwoImg.value = storage_url(val.second_section.img_url);
+        sectionTwoText.value = val.second_section.description;
+      })
+      }
+
       onMounted(()=>{
+        getMembershipPageDetails();
         loadCaptcha();
       })
     return {
@@ -373,6 +394,10 @@ export default{
         showSuccessNotification,
         handlemembershipform,
         scrollToElement,
+        sectionOneImg,
+        sectionOneText,
+        sectionTwoImg,
+        sectionTwoText,
     }
   }}
 </script>

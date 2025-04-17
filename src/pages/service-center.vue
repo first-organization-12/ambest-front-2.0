@@ -21,7 +21,7 @@
         <div class="col-12 col-md-5 q-pa-xl" style="max-width: 600px; margin: auto;">
             <q-responsive :ratio="9/6">
               <q-img
-              src="/images/conversation.png"
+              :src="sectionOneImg"
               class="rounded-borders"
               fit="cover"
               width="100%"
@@ -68,14 +68,14 @@
         <!-- Left Side: Text Content -->
         <div class="col-12  col-md-7 "  >
           <div class="content q-px-xl">
-            <h4 class="" style="margin-block: 5px;">From <strong>Routine Maintenance </strong> to <strong>Complex Repairs</strong>, We’ve Got You Covered.</h4>
+            <span v-html="sectionOneText"></span>
+            <!-- <h4 class="" style="margin-block: 5px;">From <strong>Routine Maintenance </strong> to <strong>Complex Repairs</strong>, We’ve Got You Covered.</h4>
             <p class="text-desc_1_1" style="line-height: normal;">
               Our expert technicians are equipped to handle everything from basic preventative maintenance to advanced diagnostics and repair. Offering In-Shop and Mobile repair along with many locations that offer Towing & Recovery. We ensure your vehicle is in top condition so you can keep moving forward with Confidence.
-            </p>
+            </p> -->
           </div>
         </div>
       </div>
-
 
   <q-container class=" q-pa-md">
     <q-card class="bg-primary service-section text-white q-pa-lg">
@@ -115,10 +115,11 @@
             fit="cover"
              width="80%"/>
              <div class="q-pr-xl">
-               <h5 class="text-h5" style="margin-block: 5px;"><strong>Connecting You to Quality Care.</strong></h5>
+              <span v-html="sectionTwoText"></span>
+               <!-- <h5 class="text-h5" style="margin-block: 5px;"><strong>Connecting You to Quality Care.</strong></h5>
                <p class="text-desc_1_1" style="line-height: normal;">
                   AMBEST Service Centers are committed to keep you rolling. We are constantly innovating to find more efficient means to keep you on the road doing what you do best! Service Connection is made to designed to provide Ease, peace of mind and make your experience exceptional.
-                </p>
+                </p> -->
               </div>
           </div>
         </div>
@@ -127,7 +128,7 @@
         <div class="col-12 col-md-6 q-pa-xl" style="max-width: 600px; margin: auto;">
             <q-responsive :ratio="9/6">
               <q-img
-              src="/images/men-in-call.png"
+              :src="sectionTwoImg"
               class="rounded-borders"
               fit="cover"
               width="100%"
@@ -355,7 +356,7 @@
 
 <script>
 import { defineComponent, ref,nextTick,onMounted,onUnmounted } from 'vue';
-import { api } from "src/boot/axios";
+import { api, storage_url } from "src/boot/axios";
 import { useQuasar } from "quasar";
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -626,7 +627,28 @@ export default defineComponent({
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     };
-    onMounted(fetchLocations);
+
+    const sectionOneImg = ref('');
+    const sectionOneText = ref('');
+    const sectionTwoImg = ref('');
+    const sectionTwoText = ref('');
+    const getServerCenterDetails = ()=>{
+      api.get('get-front-service-center-page-details')
+      .then((response)=>{
+        console.log(response);
+        let val = response.data.data;
+        sectionOneImg.value = storage_url(val.top_section.img_url);
+        sectionOneText.value = val.top_section.description;
+
+        sectionTwoImg.value = storage_url(val.second_section.img_url);
+        sectionTwoText.value = val.second_section.description;
+
+      })
+    }
+    onMounted(()=>{
+      getServerCenterDetails();
+      fetchLocations();
+    });
     return {
       q,
       perks,
@@ -641,7 +663,6 @@ export default defineComponent({
       email,
       phone,
       companyName,
-      // service,
       message,
       slide,
       services,
@@ -666,6 +687,10 @@ export default defineComponent({
       addNearestLocations,
       calculateDistance,
       scrollToElement,
+      sectionOneImg,
+      sectionOneText,
+      sectionTwoImg,
+      sectionTwoText,
     };
   }
 });

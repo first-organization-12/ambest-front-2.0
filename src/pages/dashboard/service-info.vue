@@ -1,6 +1,6 @@
 <template>
     <q-card class="q-mt-md">
-      <q-card-section>
+      <q-card-section style="height:100vh;">
           <q-table
           flat
           bordered

@@ -27,7 +27,8 @@
               </div>
               <div class="panel-container row items-start q-mt-xl q-px-xl">
                 <div class="panel-sub-container col-12 col-md-6 q-px-xl">
-                  <div class="panel-card-name text-h5">The <strong>Direct</strong> Fuel Card</div>
+                  <span v-html="sectionOneText"></span>
+                  <!-- <div class="panel-card-name text-h5">The <strong>Direct</strong> Fuel Card</div>
                   <p class="panel-card-sub-text text-desc">Ideal for businesses with multiple vehicles, looking for customizable controls and detailed reporting. </p>
                   <p class="text-desc">AMBEST is proud to offer the AMBEST Fleet Card, a joint venture with EFS, an industry leader in third-party billing. Unlike any other fleet card on the market, this new tool has some outstanding features that will help fleets of all sizes control expenditures and make informed buying decisions. Some of the features of the AMBEST Fleet Card include:</p>
                   <ul class="panel-lists text-desc">
@@ -39,12 +40,12 @@
                     <li>FREE 24/7 customer service</li>
                     <li>Plus AMBEST will credit the transaction fee for loyal fleet customers that use the AMBEST Fuel Card anywhere within the AMBEST network</li>
                     <li>Earn 2X, 3X, & 4X AMBUCK$ points by fueling at AMBUCK$ locations.</li>
-                  </ul>
+                  </ul> -->
                 </div>
                 <div class="col-12 image-section col-md-6 q-px-xl">
                   <div class="" style="max-width: 500px;">
                     <q-responsive :ratio="9/6">
-                      <q-img src="/images/EFS-Direct-Card-Web.png"/>
+                      <q-img :src="sectionOneImg"/>
                     </q-responsive>
                     <q-btn
                       label="VIEW ACCEPTING LOCATIONS"
@@ -136,7 +137,8 @@
               </div>
               <div class="panel-container row items-start q-mt-xl q-px-xl">
                 <div class="col-12 col-md-6">
-                  <div class="panel-card-name">The <strong>Preferred</strong> Fuel Card</div>
+                  <span v-html="sectionTwoText"></span>
+                  <!-- <div class="panel-card-name">The <strong>Preferred</strong> Fuel Card</div>
                   <p class="panel-card-sub-text text-desc">The Preferred card designed specifically for carriers with small to mid-sized fleets.</p>
                   <p class="text-desc">AMBEST is proud to offer the AMBEST Preferred Fleet Card, a
                     joint venture with EFS, an industry leader in third-party billing. EFS can extend you the credit you need to get on the road, all you have to do is complete the online application process. Once your account is setup, fleet customers experience both transaction fee savings and fuel discounts when purchasing at over 500 AMBEST locations nationwide.</p>
@@ -144,12 +146,12 @@
                     <li>DEEP fuel discounts at AMBEST locations</li>
                     <li>$1.50 fuel transaction fee makes this card competitive for small fleets!</li>
                     <li>Earn 2X, 3X, & 4X AMBUCK$ points by fueling at AMBUCK$ locations.</li>
-                  </ul>
+                  </ul> -->
                 </div>
                 <div class="col-12 image-section col-md-6 q-px-xl">
                   <div class="" style="max-width: 500px;">
                     <q-responsive :ratio="9/6">
-                      <q-img src="/images/card.png"/>
+                      <q-img :src="sectionTwoImg"/>
                     </q-responsive>
                       <q-btn
                       label="VIEW ACCEPTING LOCATIONS"
@@ -239,8 +241,8 @@
   </q-page>
 </template>
 <script>
-import { ref } from 'vue'
-import { api } from 'src/boot/axios';
+import { onMounted, ref } from 'vue'
+import { api, storage_url } from 'src/boot/axios';
 import { useQuasar } from 'quasar';
   export default {
     setup() {
@@ -340,11 +342,30 @@ import { useQuasar } from 'quasar';
 
 
 
+    const sectionOneImg = ref('');
+    const sectionOneText = ref('');
 
+    const sectionTwoImg = ref('');
+    const sectionTwoText = ref('');
 
+    const getfuelCardDetails =()=>{
+      api.get('get-fornt-fuel-details-page-details')
+      .then((response)=>{
+        console.log(response);
+        let val = response.data.data;
 
+        sectionOneImg.value = storage_url(val.top_section.img_url);
+        sectionOneText.value = val.top_section.description;
 
-      return {q, tab,downloadFileBoucherESP, downloadFileDirectEsp, firstName,downloadFileDirect, lastName, email, phone, sortMessage, message, validateEmail, validatePhone, validateRequired,showSuccessNotification, showErrorNotification, submitForm,downloadFile, }
+        sectionTwoImg.value = storage_url(val.second_section.img_url);
+        sectionTwoText.value = val.second_section.description;
+      })
+    }
+    onMounted(()=>{
+      getfuelCardDetails();
+    })
+
+      return {q, tab,downloadFileBoucherESP, downloadFileDirectEsp, firstName,downloadFileDirect, lastName, email, phone, sortMessage, message, validateEmail, validatePhone, validateRequired,showSuccessNotification, showErrorNotification, submitForm,downloadFile, sectionOneImg,sectionOneText,sectionTwoImg,sectionTwoText }
     }}
 </script>
 <style scoped>

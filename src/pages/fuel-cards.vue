@@ -31,7 +31,8 @@
       <div class="q-pa-md row   justify-center  info-section q-col-gutter-md">
       <!-- Left Section (Text) -->
       <div class="col-md-7 col-12 q-pr-md">
-        <h4 class="q-pa-none">AMBEST <strong>Fuel Cards</strong> Provide:</h4>
+        <span v-html="sectionOneText"></span>
+        <!-- <h4 class="q-pa-none">AMBEST <strong>Fuel Cards</strong> Provide:</h4>
         <ul class="text-desc text-list">
           <li>Exclusive fuel discounts for professional drivers and fleet operators</li>
           <li>Earn AMBUCK$ points</li>
@@ -39,7 +40,7 @@
           <li>Expense tracking for better financial management</li>
           <li>Access to over 15,000 locations in the U.S. and Canada</li>
           <li>Access to AMBUCK$ reward points</li>
-        </ul>
+        </ul> -->
       </div>
 
       <!-- Right Section (Images) -->
@@ -54,7 +55,7 @@
       <div class="news-section row items-center bg-light q-mb-xl">
         <div class="col-12 col-md-6 text-center">
           <q-img
-            src="/images/young-truck-driver-casual-clothes-is-refueling-vehicle.png"
+            :src="sectionTwoImg"
             class="rounded-borders"
             fit="cover"
             style=" border-radius: 20px;"
@@ -64,8 +65,9 @@
         <!-- right Side: Text Content -->
         <div class="col-12  col-md-6 q-px-xl q-mb-xl">
           <div class="content q-py-md q-mb-none">
-            <h4 class="q-pa-none"><strong>Why </strong> Choose AMBEST <strong>Fuel Cards?</strong></h4>
-            <p class="text-desc" style="font-size: 20px; font-weight: 400;">Enjoy exclusive discounts at over 500 locally owned and independent locations nationwide, plus flexible options designed to meet the needs of both fleets and individual drivers. Support local businesses while saving more and keeping your journey running smoothly!</p>
+            <span v-html="sectionTwoText"></span>
+            <!-- <h4 class="q-pa-none"><strong>Why </strong> Choose AMBEST <strong>Fuel Cards?</strong></h4>
+            <p class="text-desc" style="font-size: 20px; font-weight: 400;">Enjoy exclusive discounts at over 500 locally owned and independent locations nationwide, plus flexible options designed to meet the needs of both fleets and individual drivers. Support local businesses while saving more and keeping your journey running smoothly!</p> -->
           </div>
         </div>
       </div>
@@ -73,10 +75,11 @@
 
     <div class="row justify-center q-my-xl">
       <div class="col-md-10 col-12 q-pa-xl">
-        <h4 class=" text-center" style="margin-block: 5px;"><span class="text-weight-bold">Find the Right AMBEST Fuel Card for You</span></h4>
+        <span v-html="sectionThreeText"></span>
+        <!-- <h4 class=" text-center" style="margin-block: 5px;"><span class="text-weight-bold">Find the Right AMBEST Fuel Card for You</span></h4>
         <p class="text-desc_1_1 text-center " style="font-size: 20px; font-weight: 400;">
           <strong>AMBEST offers two fuel card options to fit the unique needs of drivers  <br> and fleets. Compare below to see which one is the best fit for your business.</strong>
-        </p>
+        </p> -->
       </div>
     </div>
 
@@ -239,15 +242,38 @@
   </q-page>
 </template>
 <script>
+import { api, storage_url } from "src/boot/axios";
 import { ref, onMounted } from "vue";
 export default {
   data() {
     const isClient = ref(false);
+    const sectionOneText = ref('');
+    const sectionTwoImg = ref('');
+    const sectionTwoText = ref('');
+    const sectionThreeText = ref('');
+    const getFuelCardPageDetails = () =>{
+      api.get('get-front-fuel-card-page-details')
+      .then((response)=>{
+        console.log(response);
+        let val = response.data.data;
+        sectionOneText.value = val.top_section.description;
+        sectionTwoImg.value = storage_url(val.second_section.img_url);
+        sectionTwoText.value = val.second_section.description;
+        sectionThreeText.value = val.third_section.description;
+
+      })
+    }
+
     onMounted(() => {
-        isClient.value = true;
+      getFuelCardPageDetails();
+      isClient.value = true;
     });
     return {
       isClient,
+      sectionOneText,
+      sectionTwoImg,
+      sectionTwoText,
+      sectionThreeText,
     };
   }
 };

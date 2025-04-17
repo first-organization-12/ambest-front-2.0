@@ -242,7 +242,7 @@
           <q-item-section avatar>
             <q-icon name="map"/>
           </q-item-section>
-          <q-item-section>Contacts</q-item-section>
+          <q-item-section>Contacts & Faq</q-item-section>
         </q-item>
 
         <q-item
@@ -305,6 +305,7 @@ export default{
       api.post('logout')
       .then(()=>{
         localStorage.removeItem('accessToken');
+        localStorage.removeItem('accessTokenExpiry');
         showSuccessNotification('Logout Successfully !');
         router.push("/");
       })
