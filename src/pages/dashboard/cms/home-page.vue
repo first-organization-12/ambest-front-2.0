@@ -13,6 +13,7 @@
               { label: 'Icons Section', value: 'iconsSection' },
               { label: 'About Section', value: 'aboutSection' },
               { label: 'News Section', value: 'newsSection' },
+              { label: 'Customer Review', value: 'customerReview' },
             ]"
             class="custom-tabs"
           />
@@ -20,10 +21,81 @@
           <q-tab-panels v-model="tab" animated>
             <q-tab-panel v-if="tab === 'heroSection'" name="heroSection">
               <div class="work-area q-px-lg">
-                <h4 class=" q-pt-lg">Section One</h4>
-                <div class="flex justify-center">
-                  <!-- <q-img :src="aboutImageFile" class="image-size"/> -->
-                       <!-- Optional Preview -->
+                <h4 class="q-pt-lg">Section One</h4>
+                <q-card class="q-pa-lg" style="max-width: 500px; margin: auto;">
+                  <video
+                    v-if="videoPreview"
+                    controls
+                    class="q-mt-lg"
+                    style="width: 100%; border-radius: 8px;"
+                  >
+                    <source :src="videoPreview" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+
+                  <q-file
+                    outlined
+                    label="Select a video"
+                    accept="video/*"
+                    @update:model-value="handleFileChange"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="movie" />
+                    </template>
+                  </q-file>
+
+                  <q-btn
+                    label="Upload Video"
+                    color="primary"
+                    class="q-mt-md full-width"
+                    :disable="!videoFile || uploading"
+                    @click="uploadVideo"
+                  />
+                  <q-btn
+                    v-if="videoFile"
+                    label="remove"
+                    color="negative"
+                    class="q-mt-md full-width"
+                    :disable="!videoFile || uploading"
+                    @click="removeVideo"
+                  />
+
+                  <q-linear-progress
+                    v-if="uploading"
+                    :value="progress / 100"
+                    color="blue"
+                    size="10px"
+                    class="q-mt-md"
+                    stripe
+                    animation-speed="1000"
+                  />
+
+                  <div v-if="progress > 0" class="text-subtitle2 q-mt-sm text-center">
+                    {{ progress }}%
+                  </div>
+                </q-card>
+
+                <q-form @submit="handleBannerForm">
+                  <div class="q-mt-md">
+                    <h5 style="margin: 0%;">Video Text</h5>
+                    <q-editor
+                      v-model="videoText"
+                      :dense="$q.screen.lt.md"
+                      style="font-size: 16px;"
+                    />
+                  </div>
+
+                  <div class="q-mt-md">
+                    <h5 style="margin: 0%;">Label Text</h5>
+                    <q-editor
+                      v-model="labelText"
+                      :dense="$q.screen.lt.md"
+                      style="font-size: 16px;"
+                    />
+                  </div>
+                  <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
+                </q-form>
+                <!-- <div class="flex justify-center">
                     <video
                       v-if="videoPreview"
                       autoplay loop muted playsinline style="height: auto; width: 500px;"
@@ -43,20 +115,6 @@
                       @change="handleVideoChange"
                       standout
                     />
-                    <!-- <input
-                        type="file"
-                        accept="video/*"
-                        @change="handleVideoUpload"
-                        class="q-mb-md"
-                      /> -->
-                    <!-- <q-file
-                      outlined
-                      v-model="aboutImageFile"
-                      label="Upload Video"
-                      accept="video/*"
-                       @change="handleVideoUpload"
-                      class="q-mb-md"
-                      /> -->
                   </div>
                   <div class="q-mt-md">
                     <h5 style="margin: 0%;">Video Text</h5>
@@ -75,40 +133,7 @@
                     />
                   </div>
                   <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
-                </q-form>
-                <!-- <div class="" style="height: 40%;">
-                  <h4 class=" q-pt-lg">video preview</h4>
-                  <div class="q-px-lg flex items-center justify-evenly">
-                    <div class="video-preview">
-                      <video autoplay loop muted playsinline style="height: auto; width: 500px;">
-                        <source src="/videos/new-intro.mp4" type="video/mp4">
-                      </video>
-                    </div>
-                    <div class="form">
-                      <h5 style="margin: 0%;">Change Video</h5>
-                      <q-form>
-                        <q-input outlined type="file"  label=""/>
-                        <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
-                      </q-form>
-                    </div>
-                  </div>
-                </div>
-                <div class="" style="height: 30%;">
-                  <h4 class=" q-pt-lg">Video Text</h4>
-                  <h5 style="margin: 0%;">Change Text</h5>
-                      <q-form>
-                        <q-input type="text" style="font-size: 16px;" outlined v-model="videoText" />
-                        <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
-                      </q-form>
-                </div>
-                <div class="" style="height: 30%;">
-                  <h4 class="q-pt-lg">label Text</h4>
-                  <h5 style="margin: 0%;">Change Text</h5>
-                      <q-form>
-                        <q-input type="text" style="font-size: 16px;" outlined v-model="labelText" />
-                        <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
-                      </q-form>
-                </div> -->
+                </q-form> -->
               </div>
             </q-tab-panel>
           </q-tab-panels>
@@ -500,6 +525,173 @@
               </div>
             </q-tab-panel>
           </q-tab-panels>
+          <q-tab-panels v-model="tab" animated>
+            <q-tab-panel v-if="tab === 'customerReview'" name="customerReview">
+                <div class="work-area">
+                  <div class="row justify-between items-center">
+                    <h4 class=" q-pt-lg">Customer Reviews</h4>
+                    <q-btn color="primary" class="" @click="openModal()"  label="Add Customer Review"/>
+                  </div>
+                <q-dialog v-model="isModalOpen" full-width>
+                  <q-card>
+                    <q-card-section>
+                      <div class="text-h6">Customer Reviews</div>
+                    </q-card-section>
+
+                    <q-separator />
+
+                    <q-card-section>
+                      <q-form @submit="handleFaqForm">
+                        <input type="hidden" v-model="crId" />
+                        <div class="q-mt-md">
+                          <h5 style="margin: 0%;">Author Name</h5>
+                          <q-editor
+                          style="font-size: 16px;" min-height="3rem" :rules=[validateRequired] outlined v-model="author"
+                          :toolbar="[
+                              ['bold', 'italic', 'underline'],
+                              [{
+                                label: $q.lang.editor.formatting,
+                                icon: $q.iconSet.editor.formatting,
+                                list: 'no-icons',
+                                options: ['p', 'h3', 'h4', 'h5', 'h6', 'code']
+                              }]
+                            ]"
+                          />
+                          <!-- <q-editor
+                          style="font-size: 16px;" min-height="3rem" :rules=[validateRequired] outlined v-model="author"
+                          /> -->
+                        </div>
+                        <div class="q-mt-md">
+                          <h5 style="margin: 0%;">message</h5>
+                          <q-editor
+                            :rules=[validateRequired]
+                            v-model="message"
+                            :dense="$q.screen.lt.md"
+                            :toolbar="[
+                              [
+                                {
+                                  label: $q.lang.editor.align,
+                                  icon: $q.iconSet.editor.align,
+                                  fixedLabel: true,
+                                  options: ['left', 'center', 'right', 'justify']
+                                }
+                              ],
+                              ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
+                              ['token', 'hr', 'link', 'custom_btn'],
+                              ['print', 'fullscreen'],
+                              [
+                                {
+                                  label: $q.lang.editor.formatting,
+                                  icon: $q.iconSet.editor.formatting,
+                                  list: 'no-icons',
+                                  options: [
+                                    'p',
+                                    'h1',
+                                    'h2',
+                                    'h3',
+                                    'h4',
+                                    'h5',
+                                    'h6',
+                                    'code'
+                                  ]
+                                },
+                                {
+                                  label: $q.lang.editor.fontSize,
+                                  icon: $q.iconSet.editor.fontSize,
+                                  fixedLabel: true,
+                                  fixedIcon: true,
+                                  list: 'no-icons',
+                                  options: [
+                                    'size-1',
+                                    'size-2',
+                                    'size-3',
+                                    'size-4',
+                                    'size-5',
+                                    'size-6',
+                                    'size-7'
+                                  ]
+                                },
+                                {
+                                  label: $q.lang.editor.defaultFont,
+                                  icon: $q.iconSet.editor.font,
+                                  fixedIcon: true,
+                                  list: 'no-icons',
+                                  options: [
+                                    'default_font',
+                                    'arial',
+                                    'arial_black',
+                                    'comic_sans',
+                                    'courier_new',
+                                    'impact',
+                                    'lucida_grande',
+                                    'times_new_roman',
+                                    'verdana'
+                                  ]
+                                },
+                                'removeFormat'
+                              ],
+                              ['quote', 'unordered', 'ordered', 'outdent', 'indent'],
+
+                              ['undo', 'redo'],
+                              ['viewsource']
+                            ]"
+                            :fonts="{
+                              arial: 'Arial',
+                              arial_black: 'Arial Black',
+                              comic_sans: 'Comic Sans MS',
+                              courier_new: 'Courier New',
+                              impact: 'Impact',
+                              lucida_grande: 'Lucida Grande',
+                              times_new_roman: 'Times New Roman',
+                              verdana: 'Verdana'
+                            }"
+                            style="font-size: 16px;"
+                          />
+                        </div>
+                        <q-btn :label="formBtn" class="q-mt-sm" color="primary" type="submit"/>
+                      </q-form>
+                    </q-card-section>
+
+                    <q-separator />
+
+                    <q-card-actions align="right">
+                      <q-btn flat label="Close" color="primary" v-close-popup />
+                    </q-card-actions>
+                  </q-card>
+                </q-dialog>
+                <div class="faq-container">
+                    <q-list class="faq-list">
+                      <q-expansion-item
+                        v-for="(item, index) in testimonials"
+                        :key="index"
+                        expand-separator
+                        dense
+                        header-class="faq-item"
+                      >
+                        <template v-slot:header>
+                          <q-item-section side>
+                            <q-btn color="primary"  @click="handleUpdateBtn(item)" label="Edit"  />
+                          </q-item-section>
+                          <q-item-section class="text-desc" style="margin-bottom: .5rem; font-size: 22px; width: 500;">
+                            <!-- <strong>{{ item.author }}</strong> -->
+                            <span v-html="item.comment"></span>
+
+                        </q-item-section>
+                        </template>
+                        <q-card>
+                          <q-card-section>
+                            <p class="text-desc" style="font-size: 20px; width: 500;">
+                              <span v-html="item.name"></span>
+                              <!-- {{ item.message }} -->
+                            </p>
+                          </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </q-list>
+                </div>
+              </div>
+            </q-tab-panel>
+          </q-tab-panels>
       </q-card-section>
     </q-card>
 </template>
@@ -514,6 +706,7 @@ export default{
     const videoText =ref('Where America Stops for Service and Value');
     const labelText =ref('Where Drivers and Fleets Thrive on the Road!');
 
+    const testimonials = ref([]);
 
     // Icons section
     const iconsTitle =ref('');
@@ -620,27 +813,116 @@ export default{
 
     //video upload
     const videoFile = ref(null)
+    const progress = ref(0)
+    const uploading = ref(false)
     const videoPreview = ref(null)
-    let oldPreviewUrl = null;
-    const handleVideoUpload = (event) => {
-      const file = event.target.files[0]
-
-      if (file && file.type.startsWith('video/')) {
-        // Revoke previous preview if exists
-        if (oldPreviewUrl) {
-          URL.revokeObjectURL(oldPreviewUrl)
-        }
-
+    const handleFileChange = (fileList) => {
+      const file = fileList ? fileList : null
+      if (file && file instanceof File) {
         videoFile.value = file
-        oldPreviewUrl = URL.createObjectURL(file)
-        videoPreview.value = oldPreviewUrl
+        videoPreview.value = URL.createObjectURL(file)
+      } else if (Array.isArray(fileList) && fileList.length > 0) {
+        videoFile.value = fileList[0]
+        videoPreview.value = URL.createObjectURL(fileList[0])
       } else {
         videoFile.value = null
         videoPreview.value = null
       }
     }
+    const removeVideo = () => {
+    videoFile.value = null
+    videoPreview.value = null
+    progress.value = 0
+    }
 
-    
+    const uploadVideo = async () => {
+      if (!videoFile.value) return
+
+      const formData = new FormData()
+      formData.append('video', videoFile.value)
+
+      uploading.value = true
+      progress.value = 0
+
+      try {
+        await api.post('upload-video', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          onUploadProgress: (event) => {
+            if (event.lengthComputable) {
+              progress.value = Math.round((event.loaded / event.total) * 100)
+            }
+          }
+        })
+        .then((response)=>{
+          console.log(response);
+          showSuccessNotification(response.data.message);
+        })
+
+        uploading.value = false
+      } catch (error) {
+        console.log(error);
+        showErrorNotification('Upload failed:');
+        uploading.value = false
+      }
+    }
+
+    const handleBannerForm = ()=>{
+      const formData = new FormData()
+      formData.append('page_type','home');
+      formData.append('section_name','banner_section');
+      formData.append('title',videoText.value);
+      formData.append('description', labelText.value);
+      if (newsImage.value) {
+        formData.append('image', newsImage.value)
+      }
+      submitForms(formData);
+    }
+
+    // customer review
+    const isModalOpen = ref(false);
+    const crId = ref();
+    const author = ref("");
+    const message = ref("");
+    const formBtn = ref('Create');
+
+    const openModal = () => {
+    formBtn.value = 'Create';
+    crId.value = '';
+    author.value = "";
+    message.value = "";
+    isModalOpen.value = true;
+    };
+
+    const handleUpdateBtn = (item)=>{
+      console.log(item);
+      formBtn.value = 'Update';
+      crId.value = item.id;
+      author.value = item.name;
+      message.value = item.comment;
+      isModalOpen.value = true;
+    }
+
+    const handleFaqForm = ()=>{
+      const formData = new FormData();
+      formData.append('id',crId.value);
+      formData.append('author',author.value);
+      formData.append('message',message.value);
+      api.post('handle-customer-review',formData)
+      .then((response)=>{
+        console.log(response);
+        showSuccessNotification(response.data.message);
+      })
+      .catch((error)=>{
+        console.log(error);
+        showErrorNotification(error.response.data.message || error.message)
+      })
+
+      isModalOpen.value = false;
+      getHomePageDetails();
+    }
+
     // notifications
 
     const showSuccessNotification = (message) => {
@@ -666,6 +948,7 @@ export default{
       .then((response)=>{
         console.log(response);
         let val = response.data.data;
+        testimonials.value = val.customer_reviews;
         aboutImageFile.value = storage_url(val.about_section.img_url);
         aboutText.value = val.about_section.description;
         newsImageFile.value = storage_url(val.news_section.img_url);
@@ -705,9 +988,26 @@ export default{
       handleIconsForm,
       showErrorNotification,
       showSuccessNotification,
-      handleVideoUpload,
+      // handleVideoUpload,
       videoPreview,
       videoFile,
+      handleFileChange,
+      progress,
+      uploading,
+      removeVideo,
+      uploadVideo,
+      handleBannerForm,
+
+
+      testimonials,
+      isModalOpen,
+      crId,
+      author,
+      message,
+      handleFaqForm,
+      handleUpdateBtn,
+      openModal,
+      formBtn,
     }
   }
 }

@@ -2,7 +2,7 @@
   <q-page>
     <q-section>
       <div class="hero-container relative-position" style="height: 300px;">
-        <q-img src="/images/petrol-filling-station.png" class="absolute-full" style="object-fit: cover ;z-index: -1; background-color: transparent;">
+        <q-img :src="bannerImg" class="absolute-full" style="object-fit: cover ;z-index: -1; background-color: transparent;">
           <div class="absolute-center text-center text-white" style="background: transparent;">
             <div class="text-h2"><span class="text-weight-bold">AMBEST</span> Membership</div>
           </div>
@@ -351,11 +351,17 @@ export default{
 
       const sectionTwoImg = ref('');
       const sectionTwoText = ref('');
+
+      const bannerImg = ref('');
+
       const getMembershipPageDetails = ()=>{
         api.get('get-front-membership-page-details')
       .then((response)=>{
         console.log(response);
         let val = response.data.data;
+
+        bannerImg.value = storage_url(val.banner_section.img_url);
+
         sectionOneImg.value = storage_url(val.top_section.img_url);
         sectionOneText.value = val.top_section.description;
 
@@ -398,6 +404,7 @@ export default{
         sectionOneText,
         sectionTwoImg,
         sectionTwoText,
+        bannerImg,
     }
   }}
 </script>

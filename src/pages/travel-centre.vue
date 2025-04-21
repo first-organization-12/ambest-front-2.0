@@ -4,7 +4,7 @@
     <q-page-container style="padding-top: 0; padding-bottom:0px">
     <!-- Hero Section -->
       <div class="hero-container relative-position" style="height: 300px;">
-        <q-img src="/images/travel_center_bg.png" class="absolute-full" style="z-index: -1; background-color: transparent;">
+        <q-img :src="bannerImgFile" class="absolute-full" style="z-index: -1; background-color: transparent;">
           <div class="absolute-center text-center text-white" style="background: transparent;">
             <div class="text-h2 text-weight-bold">Travel Centers</div>
           </div>
@@ -18,7 +18,8 @@
             <div class="row justify-center text-center">
               <div class="col-12">
                 <h4 class=" q-ma-md">
-                  <strong>Your Home Away from Home</strong> — Find an AMBEST Travel Center near you.
+                  <span v-html="introText"></span>
+                  <!-- <strong>Your Home Away from Home</strong> — Find an AMBEST Travel Center near you. -->
                 </h4>
                 <q-btn color="primary" rounded unelevated style="text-transform:unset;" label="Locate a Travel Center" class="q-py-sm text-white text-bold" @click="scrollToElement('map-break')" />
               </div>
@@ -540,6 +541,9 @@ export default defineComponent({
 
     const sectionThreeImg = ref('');
     const sectionThreeText = ref('');
+
+    const bannerImgFile = ref('');
+    const introText = ref('');
     const getTravelCenterDetails =()=>{
       api.get('get-front-travel-page-details')
       .then((response)=>{
@@ -553,6 +557,9 @@ export default defineComponent({
 
         sectionThreeImg.value = storage_url(val.third_section.img_url);
         sectionThreeText.value = val.third_section.description;
+
+        bannerImgFile.value = storage_url(val.banner_section.img_url);
+        introText.value = val.banner_section.description;
       })
     }
 
@@ -587,6 +594,9 @@ export default defineComponent({
 
       sectionThreeImg,
       sectionThreeText,
+
+      bannerImgFile,
+      introText,
     };
   }
 });

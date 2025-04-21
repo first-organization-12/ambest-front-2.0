@@ -282,9 +282,11 @@ export default{
     };
     const getFAQDetails=()=>{
       api.get('get-front-faqs-details')
+
       .then((response)=>{
+        console.log(response);
       let val = response.data.data;
-      faqs.value = val;
+      faqs.value = val.faqs;
       })
       .catch((error)=>{
         console.log(error);

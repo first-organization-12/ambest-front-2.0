@@ -3,7 +3,7 @@
     <q-page-container style="padding: 0;">
     <!-- Hero Section -->
       <div class="hero-container relative-position" style="height: 300px;">
-        <q-img src="/images/man-using-laptop-factory-with-red-light 1.png" class="absolute-full" style="z-index: -1; background-color: transparent;">
+        <q-img :src="bannerImgFile" class="absolute-full" style="z-index: -1; background-color: transparent;">
           <div class="absolute-center text-center text-white" style="background: transparent;">
             <q-img class="banner-text-img" src="/images/Ambest-service-centers.png"/><div>
             </div>
@@ -12,7 +12,10 @@
       </div>
 
       <div class=" text-center q-ma-xl">
-        <h4 class=" q-ma-md"><strong>Where America Stops for Service and Value</strong></h4>
+        <h4 class=" q-ma-md">
+          <span v-html="introText"></span>
+          <!-- <strong>Where America Stops for Service and Value</strong> -->
+        </h4>
         <q-btn label="SEARCH SERVICE CENTERS" rounded unelevated color="primary"  @click="scrollToElement('map-break')" />
       </div>
 
@@ -632,6 +635,9 @@ export default defineComponent({
     const sectionOneText = ref('');
     const sectionTwoImg = ref('');
     const sectionTwoText = ref('');
+
+    const bannerImgFile = ref('');
+    const introText = ref('');
     const getServerCenterDetails = ()=>{
       api.get('get-front-service-center-page-details')
       .then((response)=>{
@@ -642,6 +648,9 @@ export default defineComponent({
 
         sectionTwoImg.value = storage_url(val.second_section.img_url);
         sectionTwoText.value = val.second_section.description;
+
+        bannerImgFile.value = storage_url(val.banner_section.img_url);
+        introText.value = val.banner_section.description;
 
       })
     }
@@ -691,6 +700,9 @@ export default defineComponent({
       sectionOneText,
       sectionTwoImg,
       sectionTwoText,
+
+      bannerImgFile,
+      introText,
     };
   }
 });

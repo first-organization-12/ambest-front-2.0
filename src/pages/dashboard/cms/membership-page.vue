@@ -9,12 +9,36 @@
             no-caps
             spread
             :options="[
+              { label: 'Banner', value: 'banner' },
               { label: 'Section One', value: 'sectionOne' },
               { label: 'Section Two', value: 'sectionTwo' },
               { label: 'Section Three', value: 'sectionThree' },
             ]"
             class="custom-tabs"
           />
+          <q-tab-panels v-model="tab" animated>
+            <q-tab-panel v-if="tab === 'banner'" name="banner">
+              <div class="work-area q-px-lg">
+                <h4 class=" q-pt-lg">Banner</h4>
+                <div class="flex justify-center">
+                  <q-img :src="bannerImg" style="width: 600px;"/>
+                </div>
+                <q-form @submit="handleBannerForm">
+                  <div class="q-mt-md">
+                    <h5 style="margin: 0%;">Banner Image</h5>
+                    <q-file
+                      v-model="bannerImgFile"
+                      label="Choose an image"
+                      accept="image/*"
+                      @update:model-value="handleBannerImg"
+                      outlined
+                    />
+                  </div>
+                  <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
+                </q-form>
+              </div>
+            </q-tab-panel>
+          </q-tab-panels>
           <q-tab-panels v-model="tab" animated>
             <q-tab-panel v-if="tab === 'sectionOne'" name="sectionOne">
               <div class="work-area q-px-lg">
@@ -434,6 +458,34 @@ export default{
       submitForms(formData);
     }
 
+    // Banner section
+    const bannerImgFile = ref('');
+    const bannerImg = ref('');
+
+    const handleBannerImg =(file)=>{
+      if (!file) return
+      bannerImgFile.value = file;
+      const reader = new FileReader()
+      reader.onload = () => {
+        bannerImg.value = reader.result
+      }
+      reader.readAsDataURL(file)
+    }
+
+    const handleBannerForm = ()=>{
+      const formData = new FormData();
+      formData.append('page_type','membership');
+      formData.append('section_name','banner_section');
+      if (bannerImgFile.value) {
+        formData.append('image',bannerImgFile.value);
+      }
+      formData.append('title','banner');
+      formData.append('description','ambuck$ banner');
+      submitForms(formData);
+    }
+
+
+
 
     const submitForms = (formData)=>{
       api.post('common-content-menagement-form',formData,{
@@ -475,6 +527,10 @@ export default{
       .then((response)=>{
         console.log(response);
         let val = response.data.data;
+        
+        if(val.banner_section){
+          bannerImg.value = storage_url(val.banner_section.img_url);
+        }
         sectionOneImg.value = storage_url(val.top_section.img_url);
         sectionOneText.value = val.top_section.description;
 
@@ -510,6 +566,11 @@ export default{
       sectionThreeText,
       handleSectionThreeImg,
       handleSectionThreeForm,
+
+      bannerImg,
+      bannerImgFile,
+      handleBannerImg,
+      handleBannerForm,
     }
   }
 }

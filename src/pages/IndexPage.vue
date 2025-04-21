@@ -2,19 +2,27 @@
   <q-page class="">
   <div class="banner relative-position" style="overflow: hidden;">
 
-    <video autoplay loop muted playsinline class="absolute-full" style="z-index: -1; width:100%;">
-      <source src="/videos/new-intro.mp4" type="video/mp4">
+    <video v-if="videoPreview" autoplay loop muted playsinline class="absolute-full" style="z-index: -1; width:100%;">
+      <source :src="videoPreview" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
+    <!-- <video autoplay loop muted playsinline class="absolute-full" style="z-index: -1; width:100%;">
+      <source src="/videos/new-intro.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video> -->
     <div class="banner-overlay absolute-center text-center">
       <h1 class="banner-title text-white text-h4 text-weight-bold">
-        Where America Stops for Service and Value
+        <span v-html="videoText"></span>
+        <!-- Where America Stops for Service and Value -->
       </h1>
     </div>
   </div>
 
     <div class="custom-banner" style="margin:30px auto 60px;">
-      <h4><span>Where Drivers and Fleets Thrive on the Road!</span></h4>
+      <h4>
+        <span v-html="introText"></span>
+        <!-- <span>Where Drivers and Fleets Thrive on the Road!</span> -->
+      </h4>
     </div>
 
 
@@ -225,10 +233,12 @@
       >
         <q-card-section class="overflow-hidden" style="white-space: nowrap;overflow:hidden">
           <p class="text-white q-mb-md ellipsis">
-            “{{ testimonial.message }}”
+            <span v-html="testimonial.message"></span>
+            <!-- “{{ testimonial.message }}” -->
           </p>
           <p class="text-white text-bold">
-            {{ testimonial.author }}
+            <span v-html="testimonial.author"></span>
+            <!-- {{ testimonial.author }} -->
           </p>
         </q-card-section>
       </q-card>
@@ -247,28 +257,7 @@ import { ref, computed,onMounted  } from "vue";
 const slide = ref(0);
 
 
-const testimonials = ref([
-  {
-    message:
-      "It's like a family business. It's nice, comfortable, pleasant, and clean.",
-    author: "— Thomas - Atmore, AL",
-  },
-  {
-    message:
-      "I choose to stop at AMBEST because of the quality service that they offer us. They have great support and a very clean facility.",
-    author: "— Anonymous",
-  },
-  {
-    message:
-      "I would plan my ride to get by an AMBEST location on any trip!",
-    author: "— Daniel - Gary, IN",
-  },
-  {
-    message:
-      "The people are friendly and make you feel like you’re part of the family! The restrooms are clean and the place is clean inside.",
-    author: "— Anonymous",
-  },
-]);
+const testimonials = ref([]);
 
 // Function to repeat testimonials to always have a multiple of 3
 const repeatedTestimonials = computed(() => {
@@ -365,12 +354,18 @@ const advantages = ref([
       const iconsTitle = ref('');
       const iconsSubTitle = ref('');
       const iconsDesc = ref('');
+      const videoPreview = ref('');
+      const videoText = ref('');
+      const introText = ref('');
       // const aboutimage = ref('');
       const getHomePageDetails=()=>{
         api.get('get-front-home-page-details')
         .then((response)=>{
-          console.log(response);
           let val = response.data.data;
+          videoPreview.value = storage_url(val.banner_section.img_url);
+          console.log(videoPreview.value);
+          videoText.value = val.banner_section.title;
+          introText.value = val.banner_section.description;
           aboutText.value = val.about_section.description;
           aboutimage.value = storage_url(val.about_section.img_url);
           newsImage.value = storage_url(val.news_section.img_url);
@@ -378,6 +373,14 @@ const advantages = ref([
           iconsTitle.value = val.icons_section.title;
           iconsSubTitle.value = val.icons_section.sub_title;
           iconsDesc.value = val.icons_section.description;
+          let apiReview = val.customer_reviews;
+
+          const transformed = apiReview.map(item => ({
+            message: item.comment,
+            author: item.name,
+          }));
+
+          testimonials.value = transformed;
         })
         .catch((error)=>{
           console.log(error);

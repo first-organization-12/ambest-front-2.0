@@ -3,7 +3,7 @@
     <q-page-container style="padding: 0;">
     <!-- Hero Section -->
       <div class="hero-container relative-position" style="height: 300px;">
-        <q-img src="/images/center-open-road-desert-landscape.png" class="absolute-full" style="z-index: -1; background-color: transparent;">
+        <q-img :src="bannerImgFile" class="absolute-full" style="z-index: -1; background-color: transparent;">
           <div class="absolute-center text-center text-white" style="background: transparent;">
             <div class="text-h2 text-weight-bold">About AMBEST</div>
           </div>
@@ -11,8 +11,9 @@
       </div>
       <q-section>
         <div class="q-my-xl text-center" style="width: 90%; margin-inline: auto;">
-          <h4 class="" style="margin-block: 5px; font-weight: 700;">Since 1988, AMBEST has been a trusted name for professional fleets across the U.S. </h4>
-          <p class="" style="font-size: 26px; font-weight: 500;">Committed to exceptional service, convenience, and community support.</p>
+          <!-- <h4 class="" style="margin-block: 5px; font-weight: 700;">Since 1988, AMBEST has been a trusted name for professional fleets across the U.S. </h4>
+          <p class="" style="font-size: 26px; font-weight: 500;">Committed to exceptional service, convenience, and community support.</p> -->
+          <span v-html="introText"></span>
           <q-btn label="DISCOVER OUR STORY" rounded unelevated color="primary" class="q-mt-md text-bold q-px-lg" target="_blank" href="https://youtu.be/JBtntZFLfoo"/>
         </div>
       </q-section>
@@ -237,12 +238,16 @@ export default defineComponent({
     const othersOneText = ref("");
     const othersTwoTitle = ref("");
     const othersTwoText = ref("");
+    const bannerImgFile = ref('');
+    const introText = ref('');
 
     const getAboutPageDetails = ()=>{
       api.get('get-front-about-page-details')
       .then((response)=>{
         console.log(response);
         let val = response.data.data;
+        bannerImgFile.value = storage_url(val.banner_section.img_url);
+        introText.value = val.banner_section.description;
         missionImg.value = storage_url(val.mission_section.img_url);
         missionTitle.value = val.mission_section.title;
         missionText.value = val.mission_section.description;
@@ -288,6 +293,9 @@ export default defineComponent({
       othersOneTitle,
       othersTwoText,
       othersTwoTitle,
+
+      bannerImgFile,
+      introText,
     };
   }
 });

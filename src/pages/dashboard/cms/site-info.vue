@@ -21,7 +21,24 @@
             <q-tab-panel v-if="tab === 'logo'" name="logo">
               <div class="work-area q-px-lg">
                 <h4 class=" q-pt-lg">Update Logo</h4>
-                <div class="row col-12">
+                <div class="flex justify-center">
+                  <q-img :src="logoImage" width="500px" style="object-fit: cover;"/>
+                </div>
+                <q-form @submit="handleLogoForm">
+                  <div class="q-mt-md">
+                    <h5 style="margin: 0%;">Change Logo</h5>
+                    <q-file
+                    outlined
+                    v-model="logoFile"
+                    label="Upload Image"
+                    accept="image/*"
+                    @update:model-value="handleLogoFile"
+                    class="q-mb-md"
+                    />
+                  </div>
+                  <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
+                </q-form>
+                <!-- <div class="row col-12">
                   <div v-if="logoImage" class="col-12 col-md-6">
                     <q-img :src="`http://127.0.0.1:8000/storage/${logoImage}`" width="500px" style="object-fit: cover;" />
                   </div>
@@ -44,7 +61,7 @@
                       <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
                     </q-form>
                   </div>
-                </div>
+                </div> -->
               </div>
             </q-tab-panel>
           </q-tab-panels>
@@ -127,7 +144,7 @@
 </template>
 <script>
 import { useQuasar } from 'quasar';
-import { api } from 'src/boot/axios';
+import { api, storage_url } from 'src/boot/axios';
 import { ref,onMounted } from 'vue';
 
 export default{
@@ -139,24 +156,31 @@ export default{
     const logoFile = ref('');
     const logoImage = ref('');
 
-    const handleLogoFile = (selectedFile) =>{
-      logoImage.value = selectedFile;
+    const handleLogoFile = (file) =>{
+      // logoImage.value = selectedFile;
+      if (!file) return
+      logoFile.value = file;
+      const reader = new FileReader()
+      reader.onload = () => {
+        logoImage.value = reader.result
+      }
+      reader.readAsDataURL(file)
     }
 
     const handleLogoForm = ()=>{
       const formData = new FormData();
-      formData.append('logo',logoImage.value);
+      formData.append('logo',logoFile.value);
       api.post('update-logo',formData,{
         headers: {
         'Content-Type': 'multipart/form-data'
         }
       }).then((response)=>{
-        console.log(response);
         showSuccessNotification(response.data.message)
       }).catch((error)=>{
         console.log(error);
         showErrorNotification(error.response.data.message || error.message);
       })
+      
     }
 
     // office section
@@ -262,7 +286,7 @@ export default{
       api.get('get-site-details')
       .then((response)=>{
         // showSuccessNotification(response.data.message);
-        console.log(response.data.data);
+        // console.log(response.data.data);
         let val = response.data.data;
         officeAddress.value = val.address;
         officeName.value = val.office_name;
@@ -273,7 +297,7 @@ export default{
         infoTitle.value = val.title;
         infoContact.value = val.contact_no;
         infoEmail.value = val.email;
-        logoImage.value = val.logo;
+        logoImage.value = storage_url(val.logo);
       })
       .catch((error)=>{
         showErrorNotification(error.response.data.message || error.message);

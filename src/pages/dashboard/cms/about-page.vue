@@ -9,13 +9,124 @@
             no-caps
             spread
             :options="[
+              { label: 'Banner', value: 'banner' },
               { label: 'Our Mission', value: 'mission' },
               { label: 'Our Story', value: 'story' },
               { label: 'Others', value: 'others' },
             ]"
             class="custom-tabs"
           />
+          <q-tab-panels v-model="tab" animated>
+            <q-tab-panel v-if="tab === 'banner'" name="banner">
+              <div class="work-area q-px-lg">
+                <h4 class=" q-pt-lg">Banner</h4>
+                <div class="flex justify-center">
+                  <q-img :src="bannerImg" style="width: 600px;"/>
+                </div>
+                <q-form @submit="handleBannerForm">
+                  <div class="q-mt-md">
+                    <h5 style="margin: 0%;">Banner Image</h5>
+                    <q-file
+                      v-model="bannerImgFile"
+                      label="Choose an image"
+                      accept="image/*"
+                      @update:model-value="handleBannerImg"
+                      outlined
+                    />
+                  </div>
 
+                  <div class="q-mt-md">
+                    <h5 style="margin: 0%;">Intro Text</h5>
+                    <q-editor v-model="introText"
+                    :dense="$q.screen.lt.md"
+                      :toolbar="[
+                        [
+                          {
+                            label: $q.lang.editor.align,
+                            icon: $q.iconSet.editor.align,
+                            fixedLabel: true,
+                            options: ['left', 'center', 'right', 'justify']
+                          }
+                        ],
+                        ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
+                        ['token', 'hr', 'link', 'custom_btn'],
+                        ['print', 'fullscreen'],
+                        [
+                          {
+                            label: $q.lang.editor.formatting,
+                            icon: $q.iconSet.editor.formatting,
+                            list: 'no-icons',
+                            options: [
+                              'p',
+                              'h1',
+                              'h2',
+                              'h3',
+                              'h4',
+                              'h5',
+                              'h6',
+                              'code'
+                            ]
+                          },
+                          {
+                            label: $q.lang.editor.fontSize,
+                            icon: $q.iconSet.editor.fontSize,
+                            fixedLabel: true,
+                            fixedIcon: true,
+                            list: 'no-icons',
+                            options: [
+                              'size-1',
+                              'size-2',
+                              'size-3',
+                              'size-4',
+                              'size-5',
+                              'size-6',
+                              'size-7'
+                            ]
+                          },
+                          {
+                            label: $q.lang.editor.defaultFont,
+                            icon: $q.iconSet.editor.font,
+                            fixedIcon: true,
+                            list: 'no-icons',
+                            options: [
+                              'default_font',
+                              'arial',
+                              'arial_black',
+                              'comic_sans',
+                              'courier_new',
+                              'impact',
+                              'lucida_grande',
+                              'times_new_roman',
+                              'verdana'
+                            ]
+                          },
+                          'removeFormat'
+                        ],
+                        ['quote', 'unordered', 'ordered', 'outdent', 'indent'],
+
+                        ['undo', 'redo'],
+                        ['viewsource']
+                      ]"
+                      :fonts="{
+                        arial: 'Arial',
+                        arial_black: 'Arial Black',
+                        comic_sans: 'Comic Sans MS',
+                        courier_new: 'Courier New',
+                        impact: 'Impact',
+                        lucida_grande: 'Lucida Grande',
+                        times_new_roman: 'Times New Roman',
+                        verdana: 'Verdana'
+                      }"
+                      style="font-size: 16px;"
+                    />
+                  </div>
+
+                  <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
+
+                </q-form>
+              </div>
+            </q-tab-panel>
+          </q-tab-panels>
           <q-tab-panels v-model="tab" animated>
             <q-tab-panel v-if="tab === 'mission'" name="mission">
               <div class="work-area q-px-lg">
@@ -471,18 +582,45 @@ import { useQuasar } from 'quasar';
 export default{
   setup(){
     const q = useQuasar();
-    const tab = ref('mission');
+    const tab = ref('banner');
     const FormImg = ref('');
     const validateRequired =(val)=>{
     return (val && val.trim() !== "") || "This field is required";
     }
+    // Banner section
+    const bannerImgFile = ref('');
+    const bannerImg = ref('');
+    const introText = ref('');
+
+    const handleBannerImg =(file)=>{
+      if (!file) return
+      bannerImgFile.value = file;
+      const reader = new FileReader()
+      reader.onload = () => {
+        bannerImg.value = reader.result
+      }
+      reader.readAsDataURL(file)
+    }
+
+    const handleBannerForm = ()=>{
+      const formData = new FormData();
+      formData.append('page_type','about');
+      formData.append('section_name','banner_section');
+      if (bannerImgFile.value) {
+        formData.append('image',bannerImgFile.value);
+      }
+      formData.append('title','banner');
+      formData.append('description',introText.value);
+      submitForms(formData);
+    }
+
     // mission section
     const missionImg = ref('');
     const missionImgFile = ref('');
     const missionTitle = ref('Our Mission');
     const missionText = ref('');
     const handleMissionImg = (file)=>{
-      console.log("inside function",file);
+
       if (!file) return
       missionImgFile.value = file;
       const reader = new FileReader()
@@ -593,6 +731,8 @@ export default{
       .then((response)=>{
         console.log(response);
         let val = response.data.data;
+        bannerImg.value = storage_url(val.banner_section.img_url);
+        introText.value = val.banner_section.description;
         missionImg.value = storage_url(val.mission_section.img_url);
         missionTitle.value = val.mission_section.title;
         missionText.value = val.mission_section.description;
@@ -630,6 +770,11 @@ export default{
       othersTwoText,
       othersTwoTitle,
       handlewhyJoin,
+      bannerImg,
+      bannerImgFile,
+      introText,
+      handleBannerImg,
+      handleBannerForm,
     }
   }
 }

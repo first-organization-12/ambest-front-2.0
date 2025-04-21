@@ -3,7 +3,7 @@
     <q-page-container style="padding: 0;">
     <!-- Hero Section -->
       <div class="hero-container relative-position" style="height: 300px;">
-        <q-img src="/images/cards-banner.png" class="absolute-full" style="z-index: -1; background-color: transparent;">
+        <q-img :src="bannerImgFile" class="absolute-full" style="z-index: -1; background-color: transparent;">
           <div class="absolute-center text-center text-white" style="background: transparent;">
             <div class="text-h2 text-weight-bold">AMBEST Fuel Cards</div>
           </div>
@@ -12,7 +12,10 @@
 
       <div class="custom-banner q-py-xl" style=" margin-top: 50px; padding: 40px;">
         <div class="flex flex-center" style="margin: 0%;">
-          <h4 class="q-ma-xs"><span style="color: white;">Drive Further, <strong>Spend Less</strong>—Your Fuel Savings Start Here!</span></h4>
+          <h4 class="q-ma-xs" style="color: white;">
+            <span v-html="introText"></span>
+            <!-- <span style="color: white;">Drive Further, <strong>Spend Less</strong>—Your Fuel Savings Start Here!</span> -->
+          </h4>
         </div>
         <q-btn
           outline
@@ -90,27 +93,34 @@
           <td class="" style="width: 5%;">
           </td>
           <td class="border-left q-pl-lg" style="width: 20%;">
-            <q-img src="/images/EFS-Direct-Card-Web.png" class="card-image" fit="cover"
+            <q-img :src="cardOneImg" class="card-image" fit="cover"
               width="50%"  />
             <q-card-section>
-              <p class="chart-title text-primary" style="font-weight: 800; margin:10px 0%;">EFS Direct Card</p>
+              <p class="chart-title text-primary" style="font-weight: 800; margin:10px 0%;">{{ cardOneTitle }}</p>
               <p class="text-subtitle2 text-desc">
-                Ideal for businesses with multiple vehicles looking for customizable controls and detailed reporting.
+                <span v-html="cardOneDesc"></span>
+                <!-- Ideal for businesses with multiple vehicles looking for customizable controls and detailed reporting. -->
               </p>
             </q-card-section>
           </td>
           <td class="border-left text-desc q-pl-lg" style="width: 20%;">
-            <q-img src="/images/card.png" class="card-image" fit="cover"
+            <q-img :src="cardTwoImg" class="card-image" fit="cover"
               width="50%"  />
             <q-card-section>
-              <p class="chart-title  text-primary" style="font-weight: 800; margin:10px 0%;">EFS Preferred Card</p>
+              <p class="chart-title  text-primary" style="font-weight: 800; margin:10px 0%;">{{ cardTwoTitle }}</p>
               <p class="text-subtitle2 text-desc">
-                Perfect for individual drivers or small fleets seeking straightforward savings, flexibility, and convenience with easy management.
+                <span v-html="cardTwoDesc"></span>
+                <!-- Perfect for individual drivers or small fleets seeking straightforward savings, flexibility, and convenience with easy management. -->
               </p>
             </q-card-section>
           </td>
         </tr>
-        <tr class="table-row-bg">
+        <tr v-for="(item,index) in compairSection" :key="index"  :class="{ 'table-row-bg': index % 2 === 0 }">
+          <td class="text-desc text-primary text-bold q-pl-lg">{{ item.title }}</td>
+          <td class="border-left text-desc q-pl-lg">{{ item.cardOne }}</td>
+          <td class="border-left text-desc q-pl-lg">{{ item.cardTwo }}</td>
+        </tr>
+        <!-- <tr class="table-row-bg">
           <td class="text-desc text-primary text-bold q-pl-lg">Best For</td>
           <td class="border-left text-desc q-pl-lg">Businesses managing multiple vehicles</td>
           <td class="border-left text-desc q-pl-lg">Individual drivers and small fleets</td>
@@ -134,7 +144,7 @@
           <td class="text-desc text-primary text-bold q-pl-lg">Reporting</td>
           <td class="border-left text-desc q-pl-lg">Detailed Reports for tracking expenses</td>
           <td class="border-left text-desc q-pl-lg">Detailed Reports for tracking expenses</td>
-        </tr>
+        </tr> -->
         <tr class="">
           <td class="text-desc text-primary text-bold q-pl-lg"></td>
           <td class="border-left text-desc q-pl-lg">
@@ -251,18 +261,44 @@ export default {
     const sectionTwoImg = ref('');
     const sectionTwoText = ref('');
     const sectionThreeText = ref('');
+    const bannerImgFile = ref('');
+    const introText = ref('');
+
+    const cardOneImg = ref('');
+    const cardOneTitle = ref('');
+    const cardOneDesc = ref('');
+
+    const cardTwoImg = ref('');
+    const cardTwoTitle = ref('');
+    const cardTwoDesc = ref('');
+
+    const compairSection = ref([]);
     const getFuelCardPageDetails = () =>{
       api.get('get-front-fuel-card-page-details')
       .then((response)=>{
         console.log(response);
         let val = response.data.data;
+        cardOneImg.value = storage_url(val.compair_section_one.img_url);
+        cardOneTitle.value = val.compair_section_one.title;
+        cardOneDesc.value = val.compair_section_one.description;
+
+        cardTwoImg.value = storage_url(val.compair_section_two.img_url);
+        cardTwoTitle.value = val.compair_section_two.title;
+        cardTwoDesc.value = val.compair_section_two.description;
+
+        bannerImgFile.value = storage_url(val.banner_section.img_url);
+        introText.value = val.banner_section.description;
         sectionOneText.value = val.top_section.description;
         sectionTwoImg.value = storage_url(val.second_section.img_url);
         sectionTwoText.value = val.second_section.description;
         sectionThreeText.value = val.third_section.description;
 
+        compairSection.value = val.compair_section;
+        console.log(compairSection.value);
+
       })
     }
+
 
     onMounted(() => {
       getFuelCardPageDetails();
@@ -274,6 +310,18 @@ export default {
       sectionTwoImg,
       sectionTwoText,
       sectionThreeText,
+
+      bannerImgFile,
+      introText,
+
+      cardOneImg,
+      cardOneTitle,
+      cardOneDesc,
+
+      cardTwoImg,
+      cardTwoTitle,
+      cardTwoDesc,
+      compairSection,
     };
   }
 };

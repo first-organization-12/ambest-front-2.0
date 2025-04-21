@@ -9,6 +9,7 @@
           no-caps
           spread
           :options="[
+            { label: 'Banner', value: 'banner' },
             { label: 'Faqs', value: 'sectionOne' },
             { label: 'Section one', value: 'story' },
             { label: 'Section two', value: 'others' },
@@ -16,6 +17,29 @@
           class="custom-tabs"
         />
 
+        <q-tab-panels v-model="tab" animated>
+          <q-tab-panel v-if="tab === 'banner'" name="banner">
+            <div class="work-area q-px-lg">
+              <h4 class=" q-pt-lg">Banner</h4>
+              <div class="flex justify-center">
+                <q-img :src="bannerImg" style="width: 600px;"/>
+              </div>
+              <q-form @submit="handleBannerForm">
+                <div class="q-mt-md">
+                  <h5 style="margin: 0%;">Banner Image</h5>
+                  <q-file
+                    v-model="bannerImgFile"
+                    label="Choose an image"
+                    accept="image/*"
+                    @update:model-value="handleBannerImg"
+                    outlined
+                  />
+                </div>
+                <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
+              </q-form>
+            </div>
+          </q-tab-panel>
+        </q-tab-panels>
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel v-if="tab === 'sectionOne'" name="sectionOne">
             <div class="work-area q-px-lg">
@@ -203,7 +227,7 @@
   </q-card>
 </template>
 <script>
-import { api } from 'src/boot/axios';
+import { api, storage_url } from 'src/boot/axios';
 import { onMounted, ref } from 'vue';
 import { useQuasar } from 'quasar';
 export default{
@@ -265,6 +289,49 @@ setup(){
     });
   };
 
+    // Banner section
+    const bannerImgFile = ref('');
+    const bannerImg = ref('');
+
+    const handleBannerImg =(file)=>{
+      if (!file) return
+      bannerImgFile.value = file;
+      const reader = new FileReader()
+      reader.onload = () => {
+        bannerImg.value = reader.result
+      }
+      reader.readAsDataURL(file)
+    }
+
+    const handleBannerForm = ()=>{
+      const formData = new FormData();
+      formData.append('page_type','contact');
+      formData.append('section_name','banner_section');
+      if (bannerImgFile.value) {
+        formData.append('image',bannerImgFile.value);
+      }
+      formData.append('title','banner');
+      formData.append('description','contacts banner');
+      submitBannerForms(formData);
+    }
+    const submitBannerForms = (formData)=>{
+      api.post('common-content-menagement-form',formData,{
+        headers: {
+        'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then((response)=>{
+        console.log(response);
+        showSuccessNotification(response.data.message);
+      })
+      .catch((error)=>{
+        console.log(error);
+
+        showErrorNotification(error.response.message || error.message);
+
+      })
+    }
+
   const submitForms = (formData)=>{
     api.post('submit-faq-form',formData)
     .then((response)=>{
@@ -287,7 +354,11 @@ setup(){
     .then((response)=>{
       console.log(response);
       let val = response.data.data;
-      faqs.value = val;
+      faqs.value = val.faqs;
+
+      if(val.banner_section){
+          bannerImg.value = storage_url(val.banner_section.img_url);
+      }
     })
   }
 
@@ -307,6 +378,11 @@ setup(){
     openModal,
     handleUpdateBtn,
     formBtn,
+
+    bannerImg,
+    bannerImgFile,
+    handleBannerForm,
+    handleBannerImg,
   }
 }
 }

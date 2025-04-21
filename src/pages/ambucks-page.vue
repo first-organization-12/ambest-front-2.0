@@ -3,7 +3,7 @@
     <q-page-container style="padding: 0;">
     <!-- Hero Section -->
       <div class="hero-container relative-position" style="height: 300px;">
-        <q-img src="/images/top-view-man-drinking-truck.png" class="absolute-full" style="z-index: -1; background-color: transparent;">
+        <q-img :src="bannerImgFile" class="absolute-full" style="z-index: -1; background-color: transparent;">
           <div class="absolute-center text-center text-white" style="background: transparent;">
             <div class="text-h2 text-weight-bold">AMBUCK$</div>
           </div>
@@ -145,11 +145,16 @@ export default {
 
     const sectionThreeImg = ref('');
     const sectionThreeText = ref('');
+
+    const bannerImgFile = ref('');
+
     const getAmbucksCenterDetails =()=>{
       api.get('get-front-ambucks-page-details')
       .then((response)=>{
         console.log(response);
         let val = response.data.data;
+        bannerImgFile.value = storage_url(val.banner_section.img_url);
+
         sectionOneImg.value = storage_url(val.top_section.img_url);
         sectionOneText.value = val.top_section.description;
 
@@ -171,6 +176,8 @@ export default {
       sectionThreeImg,
 
       sectionThreeText,
+
+      bannerImgFile,
     }
   }
 };
