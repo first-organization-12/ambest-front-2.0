@@ -220,8 +220,7 @@ export default{
 
     const captchaSuccess= ref(false);
     const recaptchaWidgetId = ref(null);
-    const recaptchaSiteKey = '6LdRFQorAAAAALZ4VbFUrEk9CesSAlgSlmnsvizF';
-    // const recaptchaSiteKey = '6LfBUAkrAAAAAKh4Enzz4ANdzfbf4exJLGe9Nbal';
+    const recaptchaSiteKey = '6LfBUAkrAAAAAKh4Enzz4ANdzfbf4exJLGe9Nbal';
     const recaptchaResponse = ref('');
 
 
