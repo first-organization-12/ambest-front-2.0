@@ -464,7 +464,7 @@
                             <q-input outlined v-model="cardOneTitle" label="Card Name"/>
                           </div>
                           <div class="q-mt-md">
-                            <q-editor outlined v-model="cardTwoDesc" label="Card Desc"/>
+                            <q-editor outlined v-model="cardOneDesc" label="Card Desc"/>
                           </div>
                           <div class="q-mt-md">
                             <q-btn color="primary" type="submit" label="submit"/>
@@ -693,26 +693,6 @@ export default{
         icon: "report_problem",
       });
     };
-    const getTravelCenterDetails =()=>{
-      api.get('get-fuel-card-page-details')
-      .then((response)=>{
-        console.log(response);
-        let val = response.data.data;
-
-        if(val.banner_section){
-          bannerImg.value = storage_url(val.banner_section.img_url);
-          introText.value = val.banner_section.description;
-        }
-
-        sectionOneText.value = val.top_section.description;
-        // storage_url('he')
-        sectionTwoImg.value = storage_url(val.second_section.img_url);
-        sectionTwoText.value = val.second_section.description;
-
-        sectionThreeText.value = val.third_section.description;
-      })
-    }
-
     // card section
     const cardOneImg = ref('/images/EFS-Direct-Card-Web.png');
     const cardOneImgFile = ref('');
@@ -730,11 +710,11 @@ export default{
     const cardTitleFour = ref('Accepted At');
     const cardTitleFive = ref('Reporting');
 
-    const bestFor = ref({cardOne:'Businesses managing multiple vehicles',cardTwo:'Individual drivers and small fleets'},);
-    const discounts = ref({cardOne:'Aggressive discounts at AMBEST locations',cardTwo:'Competitive discounts at AMBEST locations & affiliates'},);
-    const fuelControls = ref({cardOne:'Customizable spending limits and controls',cardTwo:'Simple, hassle-free purchasing'},);
-    const acceptedAt = ref({cardOne:'Nationwide fuel and maintenance locations',cardTwo:'Nationwide fuel and maintenance locations'},);
-    const reporting = ref({cardOne:'Detailed Reports for tracking expenses',cardTwo:'Detailed Reports for tracking expenses'},);
+    const bestFor = ref({cardOne:'',cardTwo:''},);
+    const discounts = ref({cardOne:'',cardTwo:''},);
+    const fuelControls = ref({cardOne:'',cardTwo:''},);
+    const acceptedAt = ref({cardOne:'',cardTwo:''},);
+    const reporting = ref({cardOne:'',cardTwo:''},);
 
 
     const handlecardOneImg =(file)=>{
@@ -798,6 +778,49 @@ export default{
       submitForms(formData);
     }
 
+    const getTravelCenterDetails =()=>{
+      api.get('get-fuel-card-page-details')
+      .then((response)=>{
+        console.log(response);
+        let val = response.data.data;
+
+        if(val.banner_section){
+          bannerImg.value = storage_url(val.banner_section.img_url);
+          introText.value = val.banner_section.description;
+        }
+
+        sectionOneText.value = val.top_section.description;
+        // storage_url('he')
+        sectionTwoImg.value = storage_url(val.second_section.img_url);
+        sectionTwoText.value = val.second_section.description;
+
+        sectionThreeText.value = val.third_section.description;
+
+        cardOneImg.value = storage_url(val.compair_section_one.img_url);
+        cardOneTitle.value = val.compair_section_one.title;
+        cardOneDesc.value = val.compair_section_one.description;
+
+        cardTwoImg.value = storage_url(val.compair_section_two.img_url);
+        cardTwoTitle.value = val.compair_section_two.title;
+        cardTwoDesc.value = val.compair_section_two.description;
+
+        bestFor.value.cardOne = val.compair_section[0].cardOne;
+        bestFor.value.cardTwo = val.compair_section[0].cardTwo;
+
+        discounts.value.cardOne = val.compair_section[1].cardOne;
+        discounts.value.cardTwo = val.compair_section[1].cardTwo;
+
+        fuelControls.value.cardOne = val.compair_section[2].cardOne;
+        fuelControls.value.cardTwo = val.compair_section[2].cardTwo;
+
+        acceptedAt.value.cardOne = val.compair_section[3].cardOne;
+        acceptedAt.value.cardTwo = val.compair_section[3].cardTwo;
+
+        reporting.value.cardOne = val.compair_section[4].cardOne;
+        reporting.value.cardTwo = val.compair_section[4].cardTwo;
+
+      })
+    }
     onMounted(()=>{
       getTravelCenterDetails();
     })

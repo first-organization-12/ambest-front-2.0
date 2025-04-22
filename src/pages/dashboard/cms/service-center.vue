@@ -13,6 +13,7 @@
               { label: 'Section One', value: 'sectionOne' },
               { label: 'Section Two', value: 'sectionTwo' },
               { label: 'Section Three', value: 'sectionThree' },
+              { label: 'Section Four', value: 'sectionFour' },
             ]"
             class="custom-tabs"
           />
@@ -460,6 +461,47 @@
               </div>
             </q-tab-panel>
           </q-tab-panels>
+
+          <q-tab-panels v-model="tab" animated>
+            <q-tab-panel v-if="tab === 'sectionFour'" name="sectionFour">
+              <div class="work-area q-px-lg">
+                <h4>Update Form Image</h4>
+                <q-form @submit="handleFormImgForm">
+                  <div class="flex justify-center">
+                  <q-img :src="formImg" style="width: 600px;"/>
+                  </div>
+                    <div class="q-mt-md">
+                      <h5 style="margin: 0%;">Banner Image</h5>
+                      <q-file
+                        v-model="formImgFile"
+                        label="Choose an image"
+                        accept="image/*"
+                        @update:model-value="handleFormImg"
+                        outlined
+                      />
+                    </div>
+                  <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
+                </q-form>
+                <h4>Update Warrenty Section Image</h4>
+                <q-form @submit="handleWarImgForm">
+                  <div class="flex justify-center">
+                  <q-img :src="warImg" style="width: 600px;"/>
+                  </div>
+                    <div class="q-mt-md">
+                      <h5 style="margin: 0%;">Banner Image</h5>
+                      <q-file
+                        v-model="warImgFile"
+                        label="Choose an image"
+                        accept="image/*"
+                        @update:model-value="handleWarImg"
+                        outlined
+                      />
+                    </div>
+                  <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
+                </q-form>
+              </div>
+            </q-tab-panel>
+          </q-tab-panels>
     </q-card-section>
   </q-card>
 </template>
@@ -610,6 +652,58 @@ export default{
         icon: "report_problem",
       });
     };
+
+
+        // form image
+        const formImg = ref('');
+    const formImgFile = ref('');
+    const handleFormImg =(file)=>{
+      if (!file) return
+      formImgFile.value = file;
+      const reader = new FileReader()
+      reader.onload = () => {
+        formImg.value = reader.result
+      }
+      reader.readAsDataURL(file)
+    }
+
+    const handleFormImgForm = () =>{
+      const formData = new FormData();
+      formData.append('page_type','serviceCenter');
+      formData.append('section_name','form_section');
+      if (formImgFile.value) {
+        formData.append('image',formImgFile.value);
+      }
+      formData.append('title','form image');
+      formData.append('description','form image');
+      submitForms(formData);
+    }
+    // war image
+    const warImg = ref('');
+    const warImgFile = ref('');
+    const handleWarImg =(file)=>{
+      if (!file) return
+      warImgFile.value = file;
+      const reader = new FileReader()
+      reader.onload = () => {
+        warImg.value = reader.result
+      }
+      reader.readAsDataURL(file)
+    }
+
+    const handleWarImgForm = () =>{
+      const formData = new FormData();
+      formData.append('page_type','serviceCenter');
+      formData.append('section_name','warranty_section');
+      if (warImgFile.value) {
+        formData.append('image',warImgFile.value);
+      }
+      formData.append('title','warranty image');
+      formData.append('description','warranty image');
+      submitForms(formData);
+    }
+
+
     const getTravelCenterDetails =()=>{
       api.get('get-service-center-page-details')
       .then((response)=>{
@@ -629,6 +723,9 @@ export default{
 
         sectionThreeImg.value = storage_url(val.third_section.img_url);
         sectionThreeText.value = val.third_section.description;
+
+        formImg.value = storage_url(val.form_section.img_url);
+        warImg.value = storage_url(val.war_section.img_url);
       })
     }
 
@@ -664,6 +761,15 @@ export default{
       handleBannerForm,
 
 
+      formImg,
+      formImgFile,
+      handleFormImg,
+      handleFormImgForm,
+
+      warImg,
+      warImgFile,
+      handleWarImg,
+      handleWarImgForm,
     }
   }
 }

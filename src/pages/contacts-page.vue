@@ -3,7 +3,7 @@
     <q-page-container style="padding: 0 !important;">
     <!-- Hero Section -->
       <div class="hero-container relative-position" style="height: 300px;">
-        <q-img src="/images/close-up-man-checking-mobile.png" class="absolute-full" style="z-index: -1; background-color: transparent;">
+        <q-img :src="bannerImg" class="absolute-full" style="z-index: -1; background-color: transparent;">
           <div class="absolute-center text-center text-white" style="background: transparent;">
             <div class="text-h2 text-weight-bold">Connect with Us!</div>
           </div>
@@ -180,7 +180,7 @@
 </template>
 <script>
 import { ref,onMounted } from "vue";
-import { api } from "src/boot/axios";
+import { api, storage_url } from "src/boot/axios";
 import { useQuasar } from "quasar";
 export default{
   setup(){
@@ -280,13 +280,14 @@ export default{
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     };
+    const bannerImg = ref('');
     const getFAQDetails=()=>{
       api.get('get-front-faqs-details')
-
       .then((response)=>{
-        console.log(response);
+      console.log(response);
       let val = response.data.data;
       faqs.value = val.faqs;
+      bannerImg.value = storage_url(val.banner_section.img_url);
       })
       .catch((error)=>{
         console.log(error);
@@ -345,7 +346,8 @@ export default{
       message,
       q,
       showSuccessNotification,
-      showErrorNotification
+      showErrorNotification,
+      bannerImg,
     }
   }}
 

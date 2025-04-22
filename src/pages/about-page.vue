@@ -134,7 +134,7 @@
         </div>
           <div class="col-12 col-md-6 text-center">
             <q-img
-              src="/images/shop.png"
+              :src="formImg"
               class="rounded-borders"
               fit="cover"
               height="100%"
@@ -160,6 +160,7 @@ export default defineComponent({
     const lastName = ref('');
     const email = ref('');
     const phone = ref('');
+    const formImg = ref('');
     // const service = ref('');
     const message = ref('');
     const aboutForm =ref(null);
@@ -258,6 +259,7 @@ export default defineComponent({
         othersOneText.value = val.driven_section.description;
         othersTwoTitle.value = val.whyjoin_section.title;
         othersTwoText.value = val.whyjoin_section.description;
+        formImg.value = storage_url(val.form_section.img_url);
       })
     }
 
@@ -296,6 +298,7 @@ export default defineComponent({
 
       bannerImgFile,
       introText,
+      formImg,
     };
   }
 });

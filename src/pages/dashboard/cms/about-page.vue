@@ -559,12 +559,20 @@
                 </q-form>
 
                 <h4>Update Form Image</h4>
-                <q-form>
-                  <q-file
-                  v-model="FormImg"
-                  label="Choose an image"
-                  accept="image/*"
-                  outlined />
+                <q-form @submit="handleFormImgForm">
+                  <div class="flex justify-center">
+                  <q-img :src="formImg" style="width: 600px;"/>
+                  </div>
+                    <div class="q-mt-md">
+                      <h5 style="margin: 0%;">Banner Image</h5>
+                      <q-file
+                        v-model="formImgFile"
+                        label="Choose an image"
+                        accept="image/*"
+                        @update:model-value="handleFormImg"
+                        outlined
+                      />
+                    </div>
                   <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
                 </q-form>
               </div>
@@ -600,6 +608,30 @@ export default{
         bannerImg.value = reader.result
       }
       reader.readAsDataURL(file)
+    }
+
+    const formImg = ref('');
+    const formImgFile = ref('');
+    const handleFormImg =(file)=>{
+      if (!file) return
+      formImgFile.value = file;
+      const reader = new FileReader()
+      reader.onload = () => {
+        formImg.value = reader.result
+      }
+      reader.readAsDataURL(file)
+    }
+
+    const handleFormImgForm = () =>{
+      const formData = new FormData();
+      formData.append('page_type','about');
+      formData.append('section_name','form_section');
+      if (formImgFile.value) {
+        formData.append('image',formImgFile.value);
+      }
+      formData.append('title','form image');
+      formData.append('description','form image');
+      submitForms(formData);
     }
 
     const handleBannerForm = ()=>{
@@ -743,6 +775,7 @@ export default{
         othersOneText.value = val.driven_section.description;
         othersTwoTitle.value = val.whyjoin_section.title;
         othersTwoText.value = val.whyjoin_section.description;
+        formImg.value = storage_url(val.form_section.img_url);
       })
     }
 
@@ -775,6 +808,10 @@ export default{
       introText,
       handleBannerImg,
       handleBannerForm,
+      formImg,
+      formImgFile,
+      handleFormImg,
+      handleFormImgForm,
     }
   }
 }

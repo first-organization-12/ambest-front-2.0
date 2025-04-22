@@ -181,7 +181,7 @@
         <div class="col-12 col-md-6 q-pa-xl" style="max-width: 600px;">
             <q-responsive :ratio="9/6">
               <q-img
-              src="/images/forest.png"
+              :src="sectionThirdImg"
               class="rounded-borders"
               fit="cover"
               width="100%"
@@ -197,10 +197,11 @@
             fit="cover"
              width="50%"/>
              <div class="">
-               <h5 class="text-h5" style="margin-block: 5px;"><strong>Your Freight Issues, AMBEST Cargo Solutions</strong></h5>
+              <span v-html="sectionThirdText"></span>
+               <!-- <h5 class="text-h5" style="margin-block: 5px;"><strong>Your Freight Issues, AMBEST Cargo Solutions</strong></h5>
                <p class="text-desc_1_1" style="line-height: normal;">
                   AMBEST Cargo Solutions offers Load Shift, Banding, Cross-docking, load Transfer, Fork Lift Service and more. We help Carriers reduce cost, optimize logistics and keep cargo moving Safely and efficiently.
-                  </p>
+                  </p> -->
               </div>
           </div>
         </div>
@@ -227,7 +228,7 @@
         <div class="col-12 col-md-6 text-center warranty-side-image q-pa-xl" style="max-width: 600px; margin: auto;">
           <q-responsive :ratio="9/6"  style="border-radius: 20px;">
             <q-img
-            src="/images/car-reparing.png"
+            :src="warImg"
             class="rounded-borders"
             fit="cover"
             width="100%"
@@ -310,7 +311,7 @@
         <!-- Right Side: Image -->
         <div class="col-12 col-md-6 text-center">
               <q-img
-                src="/images/headphone-girl.png"
+                :src="formImg"
                 class="rounded-borders form-section-image"
                 fit="cover"
                 height="100%"
@@ -635,9 +636,14 @@ export default defineComponent({
     const sectionOneText = ref('');
     const sectionTwoImg = ref('');
     const sectionTwoText = ref('');
+    const sectionThirdImg = ref('');
+    const sectionThirdText = ref('');
 
     const bannerImgFile = ref('');
     const introText = ref('');
+
+    const warImg = ref('');
+    const formImg = ref('');
     const getServerCenterDetails = ()=>{
       api.get('get-front-service-center-page-details')
       .then((response)=>{
@@ -649,9 +655,14 @@ export default defineComponent({
         sectionTwoImg.value = storage_url(val.second_section.img_url);
         sectionTwoText.value = val.second_section.description;
 
+        sectionThirdImg.value = storage_url(val.third_section.img_url);
+        sectionThirdText.value = val.third_section.description;
+
         bannerImgFile.value = storage_url(val.banner_section.img_url);
         introText.value = val.banner_section.description;
 
+        formImg.value = storage_url(val.form_section.img_url);
+        warImg.value = storage_url(val.war_section.img_url);
       })
     }
     onMounted(()=>{
@@ -700,9 +711,14 @@ export default defineComponent({
       sectionOneText,
       sectionTwoImg,
       sectionTwoText,
+      sectionThirdImg,
+      sectionThirdText,
 
       bannerImgFile,
       introText,
+
+      formImg,
+      warImg,
     };
   }
 });

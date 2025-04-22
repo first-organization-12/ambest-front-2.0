@@ -861,6 +861,7 @@ export default{
         })
 
         uploading.value = false
+        
       } catch (error) {
         console.log(error);
         showErrorNotification('Upload failed:');

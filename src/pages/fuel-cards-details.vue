@@ -95,7 +95,7 @@
                   <!-- Right Side: Image -->
                   <div class="col-12 col-md-6 text-center">
                         <q-img
-                          src="/images/fornt-truck.png"
+                          :src="directFormImg"
                           class="rounded-borders form-section-image"
                           fit="cover"
                           height="100%"
@@ -200,7 +200,7 @@
                 <!-- Right Side: Image -->
                 <div class="col-12 col-md-6 text-center">
                       <q-img
-                        src="/images/see-side-truck.png"
+                        :src="PreferredFormImg"
                         class="rounded-borders form-section-image"
                         fit="cover"
                         height="100%"
@@ -348,6 +348,8 @@ import { useQuasar } from 'quasar';
     const sectionTwoImg = ref('');
     const sectionTwoText = ref('');
 
+    const directFormImg = ref('');
+    const PreferredFormImg = ref('');
     const getfuelCardDetails =()=>{
       api.get('get-fornt-fuel-details-page-details')
       .then((response)=>{
@@ -359,13 +361,16 @@ import { useQuasar } from 'quasar';
 
         sectionTwoImg.value = storage_url(val.second_section.img_url);
         sectionTwoText.value = val.second_section.description;
+
+        directFormImg.value = storage_url(val.direct_form_section.img_url);
+        PreferredFormImg.value = storage_url(val.preferred_form_section.img_url);
       })
     }
     onMounted(()=>{
       getfuelCardDetails();
     })
 
-      return {q, tab,downloadFileBoucherESP, downloadFileDirectEsp, firstName,downloadFileDirect, lastName, email, phone, sortMessage, message, validateEmail, validatePhone, validateRequired,showSuccessNotification, showErrorNotification, submitForm,downloadFile, sectionOneImg,sectionOneText,sectionTwoImg,sectionTwoText }
+      return {q, tab,downloadFileBoucherESP, downloadFileDirectEsp, firstName,downloadFileDirect, lastName, email, phone, sortMessage, message, validateEmail, validatePhone, validateRequired,showSuccessNotification, showErrorNotification, submitForm,downloadFile, sectionOneImg,sectionOneText,sectionTwoImg,sectionTwoText,directFormImg,PreferredFormImg, }
     }}
 </script>
 <style scoped>
