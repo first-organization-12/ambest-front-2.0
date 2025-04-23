@@ -154,11 +154,11 @@
             <q-tab-panel v-if="tab === 'sectionTwo'" name="sectionTwo">
               <div class="work-area q-px-lg">
                 <h4 class=" q-pt-lg">Section two</h4>
-                <div class="flex justify-center">
+                <!-- <div class="flex justify-center">
                   <q-img :src="sectionTwoImg" class="image-size"/>
-                </div>
+                </div> -->
                 <q-form @submit="handleSectionTwoForm">
-                  <div class="q-mt-md">
+                  <!-- <div class="q-mt-md">
                     <h5 style="margin: 0%;">Image</h5>
                     <q-file
                       v-model="sectionTwoImgFile"
@@ -167,7 +167,7 @@
                       @update:model-value="handleSectionTwoImg"
                       outlined
                     />
-                  </div>
+                  </div> -->
                   <div class="q-mt-md">
                     <h5 style="margin: 0%;">Description</h5>
                     <q-editor

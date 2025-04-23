@@ -12,7 +12,6 @@
               { label: 'Banner', value: 'banner' },
               { label: 'Section One', value: 'sectionOne' },
               { label: 'Section Two', value: 'sectionTwo' },
-              { label: 'Section Three', value: 'sectionThree' },
             ]"
             class="custom-tabs"
           />
@@ -260,117 +259,6 @@
               </div>
             </q-tab-panel>
           </q-tab-panels>
-
-          <q-tab-panels v-model="tab" animated>
-            <q-tab-panel v-if="tab === 'sectionThree'" name="sectionThree">
-              <div class="work-area q-px-lg">
-                <h4 class=" q-pt-lg">Section three</h4>
-                <div class="flex justify-center">
-                  <q-img :src="sectionThreeImg" class="image-size"/>
-                </div>
-                <q-form @submit="handleSectionThreeForm">
-                  <div class="q-mt-md">
-                    <h5 style="margin: 0%;">Image</h5>
-                    <q-file
-                      v-model="sectionThreeImgFile"
-                      label="Choose an image"
-                      accept="image/*"
-                      @update:model-value="handleSectionThreeImg"
-                      outlined
-                    />
-                  </div>
-                  <div class="q-mt-md">
-                    <h5 style="margin: 0%;">Description</h5>
-                    <q-editor
-
-                      v-model="sectionThreeText"
-                      :dense="$q.screen.lt.md"
-                      :toolbar="[
-                        [
-                          {
-                            label: $q.lang.editor.align,
-                            icon: $q.iconSet.editor.align,
-                            fixedLabel: true,
-                            options: ['left', 'center', 'right', 'justify']
-                          }
-                        ],
-                        ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
-                        ['token', 'hr', 'link', 'custom_btn'],
-                        ['print', 'fullscreen'],
-                        [
-                          {
-                            label: $q.lang.editor.formatting,
-                            icon: $q.iconSet.editor.formatting,
-                            list: 'no-icons',
-                            options: [
-                              'p',
-                              'h1',
-                              'h2',
-                              'h3',
-                              'h4',
-                              'h5',
-                              'h6',
-                              'code'
-                            ]
-                          },
-                          {
-                            label: $q.lang.editor.fontSize,
-                            icon: $q.iconSet.editor.fontSize,
-                            fixedLabel: true,
-                            fixedIcon: true,
-                            list: 'no-icons',
-                            options: [
-                              'size-1',
-                              'size-2',
-                              'size-3',
-                              'size-4',
-                              'size-5',
-                              'size-6',
-                              'size-7'
-                            ]
-                          },
-                          {
-                            label: $q.lang.editor.defaultFont,
-                            icon: $q.iconSet.editor.font,
-                            fixedIcon: true,
-                            list: 'no-icons',
-                            options: [
-                              'default_font',
-                              'arial',
-                              'arial_black',
-                              'comic_sans',
-                              'courier_new',
-                              'impact',
-                              'lucida_grande',
-                              'times_new_roman',
-                              'verdana'
-                            ]
-                          },
-                          'removeFormat'
-                        ],
-                        ['quote', 'unordered', 'ordered', 'outdent', 'indent'],
-
-                        ['undo', 'redo'],
-                        ['viewsource']
-                      ]"
-                      :fonts="{
-                        arial: 'Arial',
-                        arial_black: 'Arial Black',
-                        comic_sans: 'Comic Sans MS',
-                        courier_new: 'Courier New',
-                        impact: 'Impact',
-                        lucida_grande: 'Lucida Grande',
-                        times_new_roman: 'Times New Roman',
-                        verdana: 'Verdana'
-                      }"
-                      style="font-size: 16px;"
-                    />
-                  </div>
-                  <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
-                </q-form>
-              </div>
-            </q-tab-panel>
-          </q-tab-panels>
     </q-card-section>
   </q-card>
 </template>
@@ -527,7 +415,7 @@ export default{
       .then((response)=>{
         console.log(response);
         let val = response.data.data;
-        
+
         if(val.banner_section){
           bannerImg.value = storage_url(val.banner_section.img_url);
         }

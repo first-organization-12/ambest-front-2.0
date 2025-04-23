@@ -146,15 +146,30 @@
       <q-card v-for="(service, index) in services" :key="index" class="service-card">
         <q-img :src="service.image" class="service-img" />
         <div class="service-content">
-          <q-item :to="service.route">
-            <div style="width: 100%;">
-              <h5 class="text-white text-bold q-mb-none">{{ service.title }}</h5>
-              <p class="text-white text-caption q-text-md">{{ service.subtitle }} →</p>
-            </div>
-          </q-item>
+              <!-- External link -->
+            <a v-if="service.route.startsWith('http')"
+              :href="service.route"
+              target="_blank"
+              style="text-decoration: none; width: 100%; display: block;">
+              <div>
+                <h5 class="text-white text-bold q-mb-none">{{ service.title }}</h5>
+                <p class="text-white text-caption q-text-md">{{ service.subtitle }} →</p>
+              </div>
+            </a>
+
+            <!-- Internal route -->
+            <q-item v-else
+                    tag="router-link"
+                    :to="service.route"
+                    style="text-decoration: none; width: 100%; display: block; padding: 0% !important;">
+              <div>
+                <h5 class="text-white text-bold q-mb-none">{{ service.title }}</h5>
+                <p class="text-white text-caption q-text-md">{{ service.subtitle }} →</p>
+              </div>
+            </q-item>
         </div>
       </q-card>
-      <q-card  class="service-card">
+      <!-- <q-card  class="service-card">
         <q-img src="/images/Mask_group_3.png" class="service-img" />
         <div class="service-content">
           <q-item target="_blank" href="https://qr.link/HeDWv6">
@@ -164,7 +179,7 @@
             </div>
           </q-item>
         </div>
-      </q-card>
+      </q-card> -->
     </div>
   </div>
 
@@ -317,21 +332,21 @@ const advantages = ref([
       {
         title: "Find a Truck Stop",
         subtitle: "Location Map",
-        image: "/images/Mask_group_1.png",
+        image: "",
         route:"/travel-centers#map-break"
       },
       {
         title: "Locate Service Centers",
         subtitle: "Find Expert Maintenance",
-        image: "/images/Hoyt-4.png",
+        image: "",
         route:"/service-centers"
       },
-      // {
-      //   title: "Download the App",
-      //   subtitle: "Stay Connected",
-      //   image: "/images/Mask_group_3.png",
-
-      // }
+      {
+        title: "Download the App",
+        subtitle: "Stay Connected",
+        image: "",
+        route: "https://qr.link/HeDWv6"
+      }
     ]);
 
     // const videoSources = ref([
@@ -363,7 +378,6 @@ const advantages = ref([
         .then((response)=>{
           let val = response.data.data;
           videoPreview.value = storage_url(val.banner_section.img_url);
-          console.log(videoPreview.value);
           videoText.value = val.banner_section.title;
           introText.value = val.banner_section.description;
           aboutText.value = val.about_section.description;
@@ -381,6 +395,9 @@ const advantages = ref([
           }));
 
           testimonials.value = transformed;
+          services.value[0].image  = storage_url(val.service_section_one.img_url);
+          services.value[1].image  = storage_url(val.service_section_two.img_url);
+          services.value[2].image  = storage_url(val.service_section_three.img_url);
         })
         .catch((error)=>{
           console.log(error);

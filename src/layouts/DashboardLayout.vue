@@ -8,9 +8,16 @@
         <q-img src="/images/ambest-logo.png" alt="Logo" style="width: 120px; height: auto" />
 
         <q-space />
+        
+        <q-btn color="primary" clickable v-close-popup @click="handleLogOut">
+          <q-item-section avatar>
+            <q-icon name="logout" />
+          </q-item-section>
+          <q-item-section>Logout</q-item-section>
+        </q-btn>
 
         <!-- Profile icon with dropdown menu -->
-        <q-btn flat round dense icon="account_circle">
+        <!-- <q-btn flat round dense icon="account_circle">
           <q-menu transition-show="jump-down" transition-hide="jump-up">
             <q-list style="min-width: 150px">
               <q-item clickable v-close-popup @click="navigateTo('settings')">
@@ -19,7 +26,6 @@
                 </q-item-section>
                 <q-item-section>Settings</q-item-section>
               </q-item>
-
               <q-item clickable v-close-popup @click="handleLogOut">
                 <q-item-section avatar>
                   <q-icon name="logout" />
@@ -28,7 +34,7 @@
               </q-item>
             </q-list>
           </q-menu>
-        </q-btn>
+        </q-btn> -->
       </q-toolbar>
     </q-header>
 
@@ -313,8 +319,8 @@ export default{
         console.log(error.message);
         this.showErrorNotification(error.data.message);
       })
-      localStorage.removeItem('accessToken');
-      router.push("/");
+      //localStorage.removeItem('accessToken');
+      // router.push("/");
     }
 
     return { showSuccessNotification, showErrorNotification, handleLogOut,toggleLeftDrawer, leftDrawerOpen}

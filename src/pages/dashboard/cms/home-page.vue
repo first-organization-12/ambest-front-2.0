@@ -14,6 +14,7 @@
               { label: 'About Section', value: 'aboutSection' },
               { label: 'News Section', value: 'newsSection' },
               { label: 'Customer Review', value: 'customerReview' },
+              { label: 'Others', value: 'others' },
             ]"
             class="custom-tabs"
           />
@@ -692,6 +693,78 @@
               </div>
             </q-tab-panel>
           </q-tab-panels>
+
+          <q-tab-panels v-model="tab" animated>
+          <q-tab-panel v-if="tab === 'others'" name="others">
+            <div class="work-area q-px-lg">
+              <h4 class=" q-pt-lg">Others</h4>
+
+              <div class="">
+                <div class="">
+                  <h4 class=" q-pt-lg">Update Truck Stop Image</h4>
+                  <div class="flex justify-center">
+                    <q-img :src="findTruckImg" width="500px" style="object-fit: cover;"/>
+                  </div>
+                  <q-form @submit="handleFindTruckForm">
+                    <div class="q-mt-md">
+                      <h5 style="margin: 0%;">Change Logo</h5>
+                      <q-file
+                      outlined
+                      v-model="findTruckImgFile"
+                      label="Upload Image"
+                      accept="image/*"
+                      @update:model-value="handleFindTruckUpload"
+                      class="q-mb-md"
+                      />
+                    </div>
+                    <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
+                  </q-form>
+                </div>
+                <div class="">
+                  <h4 class=" q-pt-lg">Update Locate Service Image</h4>
+                  <div class="flex justify-center">
+                    <q-img :src="serviceLocateImg" width="500px" style="object-fit: cover;"/>
+                  </div>
+                  <q-form @submit="handleServiceLocateForm">
+                    <div class="q-mt-md">
+                      <h5 style="margin: 0%;">Change Logo</h5>
+                      <q-file
+                      outlined
+                      v-model="serviceLocateImgFile"
+                      label="Upload Image"
+                      accept="image/*"
+                      @update:model-value="handleServiceLocateUpload"
+                      class="q-mb-md"
+                      />
+                    </div>
+                    <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
+                  </q-form>
+                </div>
+                <div class="">
+                  <h4 class=" q-pt-lg">Update Download Image</h4>
+                  <div class="flex justify-center">
+                    <q-img :src="downloadAppImg" width="500px" style="object-fit: cover;"/>
+                  </div>
+                  <q-form @submit="handledownloadAppForm">
+                    <div class="q-mt-md">
+                      <h5 style="margin: 0%;">Change Logo</h5>
+                      <q-file
+                      outlined
+                      v-model="downloadAppImgFile"
+                      label="Upload Image"
+                      accept="image/*"
+                      @update:model-value="handleDownloadAppUpload"
+                      class="q-mb-md"
+                      />
+                    </div>
+                    <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
+                  </q-form>
+                </div>
+              </div>
+            </div>
+          </q-tab-panel>
+        </q-tab-panels>
+
       </q-card-section>
     </q-card>
 </template>
@@ -861,7 +934,7 @@ export default{
         })
 
         uploading.value = false
-        
+
       } catch (error) {
         console.log(error);
         showErrorNotification('Upload failed:');
@@ -943,6 +1016,84 @@ export default{
         icon: "report_problem",
       });
    };
+
+   const findTruckImg = ref('');
+   const findTruckImgFile = ref('');
+
+   const serviceLocateImg = ref('');
+   const serviceLocateImgFile = ref('');
+
+   const downloadAppImg = ref('');
+   const downloadAppImgFile = ref('');
+
+   const handleFindTruckUpload = (file) =>{
+      if (!file) return
+      findTruckImgFile.value = file;
+      const reader = new FileReader()
+      reader.onload = () => {
+        findTruckImg.value = reader.result
+      }
+      reader.readAsDataURL(file)
+   }
+
+   const handleFindTruckForm = () =>{
+    const formData = new FormData()
+      formData.append('page_type','home');
+      formData.append('section_name','service_section_one');
+      formData.append('title',"service_section");
+      formData.append('description',"Service Section");
+      if (findTruckImgFile.value) {
+        formData.append('image', findTruckImgFile.value)
+      }
+      submitForms(formData);
+   }
+
+   const handleServiceLocateUpload = (file) =>{
+      if (!file) return
+      serviceLocateImgFile.value = file;
+      const reader = new FileReader()
+      reader.onload = () => {
+        serviceLocateImg.value = reader.result
+      }
+      reader.readAsDataURL(file)
+   }
+
+   const handleServiceLocateForm = () =>{
+      const formData = new FormData()
+      formData.append('page_type','home');
+      formData.append('section_name','service_section_two');
+      formData.append('title',"service_section");
+      formData.append('description',"Service Section");
+      if (serviceLocateImgFile.value) {
+        formData.append('image', serviceLocateImgFile.value)
+      }
+      submitForms(formData);
+    }
+
+   const handleDownloadAppUpload = (file) =>{
+      if (!file) return
+      downloadAppImgFile.value = file;
+      const reader = new FileReader()
+      reader.onload = () => {
+        downloadAppImg.value = reader.result
+      }
+      reader.readAsDataURL(file)
+   }
+
+   const handledownloadAppForm = () =>{
+      const formData = new FormData()
+      formData.append('page_type','home');
+      formData.append('section_name','service_section_three');
+      formData.append('title',"service_section");
+      formData.append('description',"Service Section");
+      if (downloadAppImgFile.value) {
+        formData.append('image', downloadAppImgFile.value)
+      }
+      submitForms(formData);
+    }
+
+
+
   //  get home page details
     const getHomePageDetails = () =>{
       api.get('get-home-page-details')
@@ -957,9 +1108,13 @@ export default{
         iconsTitle.value = val.icons_section.title;
         iconsSubTitle.value = val.icons_section.sub_title;
         iconsDesc.value = val.icons_section.description;
+
+        findTruckImg.value = storage_url(val.service_section_one.img_url);
+        serviceLocateImg.value = storage_url(val.service_section_two.img_url);
+        downloadAppImg.value = storage_url(val.service_section_three.img_url);
       })
       .catch((error)=>{
-        showErrorNotification(error.response.data.message || error.message)
+        showErrorNotification(error.message || error.message)
         console.log(error);
       })
     }
@@ -1009,6 +1164,22 @@ export default{
       handleUpdateBtn,
       openModal,
       formBtn,
+
+      findTruckImg,
+      findTruckImgFile,
+      handleFindTruckUpload,
+      handleFindTruckForm,
+
+      serviceLocateImg,
+      serviceLocateImgFile,
+      handleServiceLocateUpload,
+      handleServiceLocateForm,
+
+      downloadAppImg,
+      downloadAppImgFile,
+      handleDownloadAppUpload,
+      handledownloadAppForm,
+
     }
   }
 }

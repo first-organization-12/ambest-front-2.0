@@ -11,8 +11,6 @@
           :options="[
             { label: 'Banner', value: 'banner' },
             { label: 'Faqs', value: 'sectionOne' },
-            { label: 'Section one', value: 'story' },
-            { label: 'Section two', value: 'others' },
           ]"
           class="custom-tabs"
         />
