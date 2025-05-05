@@ -332,19 +332,19 @@ const advantages = ref([
       {
         title: "Find a Truck Stop",
         subtitle: "Location Map",
-        image: "",
+        image: "/images/Mask_group_1.png",
         route:"/travel-centers#map-break"
       },
       {
         title: "Locate Service Centers",
         subtitle: "Find Expert Maintenance",
-        image: "",
+        image: "/images/Hoyt-4.png",
         route:"/service-centers"
       },
       {
         title: "Download the App",
         subtitle: "Stay Connected",
-        image: "",
+        image: "/images/Mask_group_3.png",
         route: "https://qr.link/HeDWv6"
       }
     ]);
@@ -395,9 +395,9 @@ const advantages = ref([
           }));
 
           testimonials.value = transformed;
-          services.value[0].image  = storage_url(val.service_section_one.img_url);
-          services.value[1].image  = storage_url(val.service_section_two.img_url);
-          services.value[2].image  = storage_url(val.service_section_three.img_url);
+          // services.value[0].image  = storage_url(val.service_section_one.img_url);
+          // services.value[1].image  = storage_url(val.service_section_two.img_url);
+          // services.value[2].image  = storage_url(val.service_section_three.img_url);
         })
         .catch((error)=>{
           console.log(error);

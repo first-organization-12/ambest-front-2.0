@@ -105,16 +105,15 @@ export default {
 
           localStorage.setItem('accessToken', response.data.data.access_token);
           localStorage.setItem('accessTokenExpiry', expiresAt.toString());
-          // localStorage.setItem('accessTokenExpiry', expiresAt.toISOString());
 
-          console.log(response.data.data.access_token,expiresAt);
+          // console.log(response.data.data.access_token,expiresAt);
 
           router.push("/dashboard");
           showSuccessNotification(response.data.message)
         })
         .catch((error)=>{
           console.log(error);
-          showErrorNotification(error);
+          showErrorNotification(error?.response?.data?.message ?? error.message);
           errorMessage.value = "Invalid email or password";
           email.value = '';
           password.value ='';

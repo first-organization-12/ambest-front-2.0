@@ -79,7 +79,7 @@
 
     <!-- Logo and Navigation -->
     <div class="footer-top q-mb-sm">
-      <q-img src="/images/ambest-logo.png" class="footer-logo" />
+      <q-img :src="logo" class="footer-logo" />
       <div class="footer-nav row wrap justify-center">
         <q-btn flat label="ABOUT" class="footer-link" to="/about-ambest"/>
         <q-btn flat label="TRAVEL CENTERS" class="footer-link" to="/travel-centers"/>

@@ -8,11 +8,11 @@ import axios from "axios";
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
-const api = axios.create({ baseURL: "https://am-best.com/ambest-backend/public/api/" });
+const api = axios.create({ baseURL: "https://am-best.com/backend-api/public/api" });
 // const api = axios.create({ baseURL: "http://127.0.0.1:8000/api/" });
 
 const storage_url = (url) =>{
-  return `https://am-best.com/ambest-backend/public/storage/${url}`
+  return `https://am-best.com/backend-api/public/storage/${url}`
   // return `http://127.0.0.1:8000/storage/${url}`
 }
 
