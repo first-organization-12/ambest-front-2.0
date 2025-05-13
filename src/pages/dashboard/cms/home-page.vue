@@ -14,7 +14,7 @@
               { label: 'About Section', value: 'aboutSection' },
               { label: 'News Section', value: 'newsSection' },
               { label: 'Customer Review', value: 'customerReview' },
-              { label: 'Service Section', value: 'others' },
+              // { label: 'Service Section', value: 'others' },
             ]"
             class="custom-tabs"
           />
@@ -1139,17 +1139,17 @@ export default{
         iconsSubTitle.value = val.icons_section.sub_title;
         iconsDesc.value = val.icons_section.description;
 
-        findTruckImg.value = storage_url(val.service_section_one.img_url);
-        findTruckText.value = val.service_section_one.title;
-        findTruckSubTitle.value = val.service_section_one.description;
+        // findTruckImg.value = storage_url(val.service_section_one.img_url);
+        // findTruckText.value = val.service_section_one.title;
+        // findTruckSubTitle.value = val.service_section_one.description;
 
-        serviceLocateImg.value = storage_url(val.service_section_two.img_url);
-        serviceLocateText.value = val.service_section_two.title;
-        serviceLocateSubTitle.value = val.service_section_two.description;
+        // serviceLocateImg.value = storage_url(val.service_section_two.img_url);
+        // serviceLocateText.value = val.service_section_two.title;
+        // serviceLocateSubTitle.value = val.service_section_two.description;
 
-        downloadAppImg.value = storage_url(val.service_section_three.img_url);
-        downloadAppText.value = val.service_section_three.title;
-        downloadAppSubTitle.value = val.service_section_three.description;
+        // downloadAppImg.value = storage_url(val.service_section_three.img_url);
+        // downloadAppText.value = val.service_section_three.title;
+        // downloadAppSubTitle.value = val.service_section_three.description;
       })
       .catch((error)=>{
         showErrorNotification(error.message || error.message)
