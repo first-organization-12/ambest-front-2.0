@@ -208,13 +208,13 @@
         fit="cover"
       />
     </div>
-    <div v-else class="col-12 col-md-6 text-center">
+    <!-- <div v-else class="col-12 col-md-6 text-center">
       <q-img
         src="/images/top-view-fuel-station.png"
         class="rounded-borders"
         fit="cover"
       />
-    </div>
+    </div> -->
 
 </div>
 
@@ -330,21 +330,21 @@ const advantages = ref([
 
     const services = ref([
       {
-        title: "Find a Truck Stop",
-        subtitle: "Location Map",
-        image: "/images/Mask_group_1.png",
+        title: "",
+        subtitle: "",
+        image: "",
         route:"/travel-centers#map-break"
       },
       {
-        title: "Locate Service Centers",
-        subtitle: "Find Expert Maintenance",
-        image: "/images/Hoyt-4.png",
+        title: "",
+        subtitle: "",
+        image: "",
         route:"/service-centers"
       },
       {
-        title: "Download the App",
-        subtitle: "Stay Connected",
-        image: "/images/Mask_group_3.png",
+        title: "",
+        subtitle: "",
+        image: "",
         route: "https://qr.link/HeDWv6"
       }
     ]);
@@ -395,9 +395,15 @@ const advantages = ref([
           }));
 
           testimonials.value = transformed;
-          // services.value[0].image  = storage_url(val.service_section_one.img_url);
-          // services.value[1].image  = storage_url(val.service_section_two.img_url);
-          // services.value[2].image  = storage_url(val.service_section_three.img_url);
+          services.value[0].image  = storage_url(val.service_section_one.img_url);
+          services.value[0].title = val.service_section_one.title;
+          services.value[0].subtitle = val.service_section_one.description;
+          services.value[1].image  = storage_url(val.service_section_two.img_url);
+          services.value[1].title  = val.service_section_two.title;
+          services.value[1].subtitle  = val.service_section_two.description;
+          services.value[2].image  = storage_url(val.service_section_three.img_url);
+          services.value[2].title  = val.service_section_three.title;
+          services.value[2].subtitle  = val.service_section_three.description;
         })
         .catch((error)=>{
           console.log(error);

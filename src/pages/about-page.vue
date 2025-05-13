@@ -14,12 +14,41 @@
           <!-- <h4 class="" style="margin-block: 5px; font-weight: 700;">Since 1988, AMBEST has been a trusted name for professional fleets across the U.S. </h4>
           <p class="" style="font-size: 26px; font-weight: 500;">Committed to exceptional service, convenience, and community support.</p> -->
           <span v-html="introText"></span>
-          <q-btn label="DISCOVER OUR STORY" rounded unelevated color="primary" class="q-mt-md text-bold q-px-lg" target="_blank" href="https://youtu.be/JBtntZFLfoo"/>
+          <!-- <q-btn label="DISCOVER OUR STORY" rounded unelevated color="primary" class="q-mt-md text-bold q-px-lg" target="_blank" href="https://youtu.be/JBtntZFLfoo"/> -->
         </div>
       </q-section>
 
       <q-section>
-          <div class="news-section row items-center bg-light">
+          <div class="news-section story-image-section row items-center bg-light" style="margin: 20px auto;">
+            <!-- Right Side: Image -->
+            <div class="col-12 col-md-6 text-center q-px-xl">
+              <a class="video-link" href="javasrcipt::void(0)" @click="playVideo" v-if="!isPlaying">
+                <q-img
+                :src="storyImg"
+                class="rounded-borders dynamic-width"
+                fit="cover"
+                />
+              </a>
+              <div v-if="isPlaying">
+                <iframe
+                  class="dynamic-width" height="315" :src="videoUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+                ></iframe>
+              </div>
+            </div>
+            <!-- Left Side: Text Content -->
+            <div class="col-12 col-md-6">
+              <div class="content q-py-xl q-px-lg">
+                <!-- <h4 class="" style="margin: 20px 0; font-weight: 400;"><span class="text-weight-bold">{{ storyTitle }}</span></h4> -->
+                <p class="text-desc" style="font-size: 20px; font-weight: 400;" v-html="storyText">
+
+                </p>
+              </div>
+            </div>
+        </div>
+      </q-section>
+
+      <q-section>
+        <div class="news-section row items-center bg-light">
           <!-- Left Side: Text Content -->
           <div class="col-12 col-md-6">
             <div class="content q-pa-xl">
@@ -37,28 +66,6 @@
               fit="cover"
             />
           </div>
-        </div>
-      </q-section>
-
-      <q-section>
-          <div class="news-section story-image-section row items-center bg-light" style="margin: 20px auto;">
-            <!-- Right Side: Image -->
-            <div class="col-12 col-md-6 text-center q-px-xl">
-              <q-img
-              :src="storyImg"
-              class="rounded-borders dynamic-width"
-              fit="cover"
-              />
-            </div>
-            <!-- Left Side: Text Content -->
-            <div class="col-12 col-md-6">
-              <div class="content q-py-xl q-px-lg">
-                <!-- <h4 class="" style="margin: 20px 0; font-weight: 400;"><span class="text-weight-bold">{{ storyTitle }}</span></h4> -->
-                <p class="text-desc" style="font-size: 20px; font-weight: 400;" v-html="storyText">
-
-                </p>
-              </div>
-            </div>
         </div>
       </q-section>
 
@@ -232,9 +239,27 @@ export default defineComponent({
     const missionImg = ref('');
     const missionText = ref('');
     const missionTitle = ref('');
+    // story section
     const storyImg = ref('');
     const storyTitle = ref('');
     const storyText = ref('');
+
+    const videoUrl = ref('https://www.youtube.com/embed/JBtntZFLfoo?si=MDIFxW7NCCgmgsh3');
+    const isLoaded = ref(false);
+    const isPlaying = ref(false);
+    const aspectRatio = ref(16 / 9);
+
+    const onImageLoaded = () => {
+        isLoaded.value = true;
+    };
+
+    const playVideo = () => {
+      console.log('====================================');
+      console.log("inside function");
+      console.log('====================================');
+      isPlaying.value = true;
+    };
+    // end story section
     const othersOneTitle = ref("");
     const othersOneText = ref("");
     const othersTwoTitle = ref("");
@@ -299,6 +324,13 @@ export default defineComponent({
       bannerImgFile,
       introText,
       formImg,
+
+      videoUrl,
+      isLoaded,
+      isPlaying,
+      aspectRatio,
+      onImageLoaded,
+      playVideo,
     };
   }
 });
@@ -381,5 +413,34 @@ padding: 20px;
 @media (min-width: 600px) {
 
 }
+
+
+.video-link{
+  position:relative;
+}
+
+.video-link::after, .video-link::before{
+content: "";
+position: absolute;
+height: 89px;
+width: 89px;
+top: calc(50% - 40px);
+left: calc(50% - 49px);
+border-radius: 59%;
+transition: all 0.3s;
+}
+.video-link::after {
+  background: no-repeat url('/images/play-icon.png') center;
+  background-size: 100px;
+}
+.video-link:hover::after {
+  transform: scale(0.9);
+  box-shadow: 0 0 0 15px rgb(255 255 255/0.35);
+}
+.video-link:hover::before {
+  opacity: 0.3;
+  transform: scale(1.6);
+}
+
 
 </style>

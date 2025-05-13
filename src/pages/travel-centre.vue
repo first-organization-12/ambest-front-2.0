@@ -147,7 +147,7 @@
         <q-input class="" v-model="searchQuery" label="Search location or select state" outlined dense @update:model-value="filterSuggestions" />
         <q-list v-if="suggestions.length" class="suggestions-list">
           <q-item v-for="(item, index) in suggestions" :key="index" clickable @click="selectLocation(item)">
-            <q-item-section>{{ item.city }}, {{ item.state }} - {{ item.zip }}</q-item-section>
+            <q-item-section> {{ item.name }},{{ item.city }}, {{ item.state }} - {{ item.zip }}</q-item-section>
           </q-item>
         </q-list>
       </div>
@@ -195,56 +195,12 @@
   </div>
 
 
-      <!-- <div class="about-section row items-center q-mt-xxl" style="max-width: 80%; margin: auto;">
-
-        Left Side: Text Content
-        <div class="col-12 col-md-6 q-pa-xl">
-          <div class="content q-pa-xl">
-            <h4 class="text-dark q-mb-xs">
-              The <strong>Best Stops</strong> Aren’t on Every Corner —
-              <strong>They’re on the Right Route!</strong>
-            </h4>
-
-            <p class="text-body2 text-desc_1_1 text-dark q-mt-lg">
-              At AMBEST, our mission isn’t to be on every corner—it’s to be exactly where you need us most.
-              We carefully select top-quality locations along the nation’s busiest routes, ensuring you always have
-              access to exceptional service, clean facilities, and great deals on the essentials.
-            </p>
-
-            <p class="text-body2 text-desc_1_1 text-dark q-mt-lg">
-              No matter where you stop, you can count on a warm welcome and a commitment to excellence.
-              Because as our customer, you deserve the best—and that's America's Best.
-            </p>
-          </div>
-        </div>
-
-        Right Side: Image
-        <div class="col-12 col-md-6 text-center">
-          <q-img src="/images/mask_group_6.png" class="rounded-borders" fit="cover" />
-        </div>
-
-      </div> -->
-
       <div class="about-section row" style="margin: 20px auto; border-radius: 20px; width: 90%;">
         <!-- Left Side: Text Content -->
         <div class="col-12  col-md-6 q-px-xl flex  items-center">
           <div class="content  q-px-xl ">
             <span v-html="sectionThreeText"></span>
-            <!-- <h4 class="text-dark q-mb-xs">
-              The <strong>Best Stops</strong> Aren’t on Every Corner —
-              <strong>They’re on the Right Route!</strong>
-            </h4>
 
-            <p class="text-body2 text-desc_1_1 text-dark q-mt-lg">
-              At AMBEST, our mission isn’t to be on every corner—it’s to be exactly where you need us most.
-              We carefully select top-quality locations along the nation’s busiest routes, ensuring you always have
-              access to exceptional service, clean facilities, and great deals on the essentials.
-            </p>
-
-            <p class="text-body2 text-desc_1_1 text-dark q-mt-lg">
-              No matter where you stop, you can count on a warm welcome and a commitment to excellence.
-              Because as our customer, you deserve the best—and that's America's Best.
-            </p> -->
           </div>
         </div>
         <!-- Right Side: Image -->
@@ -359,6 +315,7 @@ export default defineComponent({
         return;
       }
       suggestions.value = locations.value.filter(loc =>
+        loc.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
         loc.city.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
         loc.state.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
         loc.zip.includes(searchQuery.value)
@@ -366,7 +323,7 @@ export default defineComponent({
     };
 
     const selectLocation = (location) => {
-      searchQuery.value = `${location.city}, ${location.state} - ${location.zip}`;
+      searchQuery.value = `${location.name}, ${location.city}, ${location.state} - ${location.zip}`;
       suggestions.value = [];
       selectedLocation.value = location;
 

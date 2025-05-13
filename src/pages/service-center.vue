@@ -72,10 +72,6 @@
         <div class="col-12  col-md-7 "  >
           <div class="content q-px-xl">
             <span v-html="sectionOneText"></span>
-            <!-- <h4 class="" style="margin-block: 5px;">From <strong>Routine Maintenance </strong> to <strong>Complex Repairs</strong>, We’ve Got You Covered.</h4>
-            <p class="text-desc_1_1" style="line-height: normal;">
-              Our expert technicians are equipped to handle everything from basic preventative maintenance to advanced diagnostics and repair. Offering In-Shop and Mobile repair along with many locations that offer Towing & Recovery. We ensure your vehicle is in top condition so you can keep moving forward with Confidence.
-            </p> -->
           </div>
         </div>
       </div>
@@ -259,7 +255,7 @@
         <q-input class="" v-model="searchQuery" label="Search location or select state" outlined dense @update:model-value="filterSuggestions" />
         <q-list v-if="suggestions.length" class="suggestions-list">
           <q-item v-for="(item, index) in suggestions" :key="index" clickable @click="selectLocation(item)">
-            <q-item-section>{{ item.city }}, {{ item.state }} - {{ item.zip }}</q-item-section>
+            <q-item-section>{{ item.name }}, {{ item.city }}, {{ item.state }} - {{ item.zip }}</q-item-section>
           </q-item>
         </q-list>
       </div>
@@ -333,17 +329,6 @@
                     <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="email" :rules="[validateRequired,validateEmail]" label="Email"/>
                     <q-input class="col-12 col-md-6 input-area" bg-color="white"  outlined v-model="phone" :rules="[validateRequired,validatePhone]" label="Phone"/>
                     <q-input class="col-12 input-area" bg-color="white"  outlined v-model="companyName" :rules="[validateRequired]" label="Company Name"/>
-                    <!-- <q-select
-                      class="col-12 input-area"
-                      bg-color="white"
-                      outlined
-                      v-model="service"
-                      :options="contactOptions"
-                      :rules="[validateRequired]"
-                      label="Service"
-                      emit-value
-                      map-options
-                    /> -->
                     <q-input class="col-12 " bg-color="white" outlined v-model="message" :rules="[validateRequired]" label="Message" type="textarea"/>
                   </div>
                   <div class="flex flex-center q-my-sm">
@@ -564,6 +549,7 @@ export default defineComponent({
         return;
       }
       suggestions.value = locations.value.filter(loc =>
+        loc.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
         loc.city.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
         loc.state.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
         loc.zip.includes(searchQuery.value)
@@ -571,7 +557,7 @@ export default defineComponent({
     };
 
     const selectLocation = (location) => {
-      searchQuery.value = `${location.city}, ${location.state} - ${location.zip}`;
+      searchQuery.value = `${location.name}, ${location.city}, ${location.state} - ${location.zip}`;
       suggestions.value = [];
       selectedLocation.value = location;
 

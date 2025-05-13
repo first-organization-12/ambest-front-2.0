@@ -14,7 +14,7 @@
               { label: 'About Section', value: 'aboutSection' },
               { label: 'News Section', value: 'newsSection' },
               { label: 'Customer Review', value: 'customerReview' },
-              // { label: 'Others', value: 'others' },
+              { label: 'Service Section', value: 'others' },
             ]"
             class="custom-tabs"
           />
@@ -717,6 +717,14 @@
                       class="q-mb-md"
                       />
                     </div>
+                    <div class="q-mt-md">
+                      <h5 style="margin: 0%;">Title</h5>
+                      <q-input type="text" style="font-size: 16px;" :rules=[validateRequired] outlined v-model="findTruckText" />
+                    </div>
+                    <div class="q-mt-md">
+                      <h5 style="margin: 0%;">Sub Title</h5>
+                      <q-input type="text" style="font-size: 16px;" :rules=[validateRequired] outlined v-model="findTruckSubTitle" />
+                    </div>
                     <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
                   </q-form>
                 </div>
@@ -737,6 +745,14 @@
                       class="q-mb-md"
                       />
                     </div>
+                    <div class="q-mt-md">
+                      <h5 style="margin: 0%;">Title</h5>
+                      <q-input type="text" style="font-size: 16px;" :rules=[validateRequired] outlined v-model="serviceLocateText" />
+                    </div>
+                    <div class="q-mt-md">
+                      <h5 style="margin: 0%;">Sub Title</h5>
+                      <q-input type="text" style="font-size: 16px;" :rules=[validateRequired] outlined v-model="serviceLocateSubTitle" />
+                    </div>
                     <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
                   </q-form>
                 </div>
@@ -756,6 +772,14 @@
                       @update:model-value="handleDownloadAppUpload"
                       class="q-mb-md"
                       />
+                    </div>
+                    <div class="q-mt-md">
+                      <h5 style="margin: 0%;">Title</h5>
+                      <q-input type="text" style="font-size: 16px;" :rules=[validateRequired] outlined v-model="downloadAppText" />
+                    </div>
+                    <div class="q-mt-md">
+                      <h5 style="margin: 0%;">Sub Title</h5>
+                      <q-input type="text" style="font-size: 16px;" :rules=[validateRequired] outlined v-model="downloadAppSubTitle" />
                     </div>
                     <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
                   </q-form>
@@ -1017,80 +1041,86 @@ export default{
       });
    };
 
-  //  const findTruckImg = ref('');
-  //  const findTruckImgFile = ref('');
+   const findTruckImg = ref('');
+   const findTruckImgFile = ref('');
+   const findTruckText = ref('');
+   const findTruckSubTitle = ref('');
 
-  //  const serviceLocateImg = ref('');
-  //  const serviceLocateImgFile = ref('');
+   const serviceLocateImg = ref('');
+   const serviceLocateImgFile = ref('');
+   const serviceLocateText = ref();
+   const serviceLocateSubTitle = ref('');
 
-  //  const downloadAppImg = ref('');
-  //  const downloadAppImgFile = ref('');
+   const downloadAppImg = ref('');
+   const downloadAppImgFile = ref('');
+   const downloadAppText = ref('');
+   const downloadAppSubTitle = ref('');
 
-  //  const handleFindTruckUpload = (file) =>{
-  //     if (!file) return
-  //     findTruckImgFile.value = file;
-  //     const reader = new FileReader()
-  //     reader.onload = () => {
-  //       findTruckImg.value = reader.result
-  //     }
-  //     reader.readAsDataURL(file)
-  //  }
+   const handleFindTruckUpload = (file) =>{
+      if (!file) return
+      findTruckImgFile.value = file;
+      const reader = new FileReader()
+      reader.onload = () => {
+        findTruckImg.value = reader.result
+      }
+      reader.readAsDataURL(file)
+   }
 
-  //  const handleFindTruckForm = () =>{
-  //   const formData = new FormData()
-  //     formData.append('page_type','home');
-  //     formData.append('section_name','service_section_one');
-  //     formData.append('title',"service_section");
-  //     formData.append('description',"Service Section");
-  //     if (findTruckImgFile.value) {
-  //       formData.append('image', findTruckImgFile.value)
-  //     }
-  //     submitForms(formData);
-  //  }
+   const handleFindTruckForm = () =>{
+    const formData = new FormData()
+      formData.append('page_type','home');
+      formData.append('section_name','service_section_one');
+      formData.append('title',findTruckText.value);
+      formData.append('description',findTruckSubTitle.value);
+      if (findTruckImgFile.value) {
+        formData.append('image', findTruckImgFile.value)
+      }
+      submitForms(formData);
+   }
 
-  //  const handleServiceLocateUpload = (file) =>{
-  //     if (!file) return
-  //     serviceLocateImgFile.value = file;
-  //     const reader = new FileReader()
-  //     reader.onload = () => {
-  //       serviceLocateImg.value = reader.result
-  //     }
-  //     reader.readAsDataURL(file)
-  //  }
+   const handleServiceLocateUpload = (file) =>{
+      if (!file) return
+      serviceLocateImgFile.value = file;
+      const reader = new FileReader()
+      reader.onload = () => {
+        serviceLocateImg.value = reader.result
+      }
+      reader.readAsDataURL(file)
+   }
 
-  //  const handleServiceLocateForm = () =>{
-  //     const formData = new FormData()
-  //     formData.append('page_type','home');
-  //     formData.append('section_name','service_section_two');
-  //     formData.append('title',"service_section");
-  //     formData.append('description',"Service Section");
-  //     if (serviceLocateImgFile.value) {
-  //       formData.append('image', serviceLocateImgFile.value)
-  //     }
-  //     submitForms(formData);
-  //   }
+   const handleServiceLocateForm = () =>{
+      const formData = new FormData()
+      formData.append('page_type','home');
+      formData.append('section_name','service_section_two');
+      formData.append('title',serviceLocateText.value);
+      formData.append('description',serviceLocateSubTitle.value);
+      if (serviceLocateImgFile.value) {
+        formData.append('image', serviceLocateImgFile.value)
+      }
+      submitForms(formData);
+    }
 
-  //  const handleDownloadAppUpload = (file) =>{
-  //     if (!file) return
-  //     downloadAppImgFile.value = file;
-  //     const reader = new FileReader()
-  //     reader.onload = () => {
-  //       downloadAppImg.value = reader.result
-  //     }
-  //     reader.readAsDataURL(file)
-  //  }
+   const handleDownloadAppUpload = (file) =>{
+      if (!file) return
+      downloadAppImgFile.value = file;
+      const reader = new FileReader()
+      reader.onload = () => {
+        downloadAppImg.value = reader.result
+      }
+      reader.readAsDataURL(file)
+   }
 
-  //  const handledownloadAppForm = () =>{
-  //     const formData = new FormData()
-  //     formData.append('page_type','home');
-  //     formData.append('section_name','service_section_three');
-  //     formData.append('title',"service_section");
-  //     formData.append('description',"Service Section");
-  //     if (downloadAppImgFile.value) {
-  //       formData.append('image', downloadAppImgFile.value)
-  //     }
-  //     submitForms(formData);
-  //   }
+   const handledownloadAppForm = () =>{
+      const formData = new FormData()
+      formData.append('page_type','home');
+      formData.append('section_name','service_section_three');
+      formData.append('title',downloadAppText.value);
+      formData.append('description',downloadAppSubTitle.value);
+      if (downloadAppImgFile.value) {
+        formData.append('image', downloadAppImgFile.value)
+      }
+      submitForms(formData);
+    }
 
 
 
@@ -1109,9 +1139,17 @@ export default{
         iconsSubTitle.value = val.icons_section.sub_title;
         iconsDesc.value = val.icons_section.description;
 
-        // findTruckImg.value = storage_url(val.service_section_one.img_url);
-        // serviceLocateImg.value = storage_url(val.service_section_two.img_url);
-        // downloadAppImg.value = storage_url(val.service_section_three.img_url);
+        findTruckImg.value = storage_url(val.service_section_one.img_url);
+        findTruckText.value = val.service_section_one.title;
+        findTruckSubTitle.value = val.service_section_one.description;
+
+        serviceLocateImg.value = storage_url(val.service_section_two.img_url);
+        serviceLocateText.value = val.service_section_two.title;
+        serviceLocateSubTitle.value = val.service_section_two.description;
+
+        downloadAppImg.value = storage_url(val.service_section_three.img_url);
+        downloadAppText.value = val.service_section_three.title;
+        downloadAppSubTitle.value = val.service_section_three.description;
       })
       .catch((error)=>{
         showErrorNotification(error.message || error.message)
@@ -1165,20 +1203,26 @@ export default{
       openModal,
       formBtn,
 
-      // findTruckImg,
-      // findTruckImgFile,
-      // handleFindTruckUpload,
-      // handleFindTruckForm,
+      findTruckImg,
+      findTruckImgFile,
+      findTruckText,
+      findTruckSubTitle,
+      handleFindTruckUpload,
+      handleFindTruckForm,
 
-      // serviceLocateImg,
-      // serviceLocateImgFile,
-      // handleServiceLocateUpload,
-      // handleServiceLocateForm,
+      serviceLocateImg,
+      serviceLocateImgFile,
+      serviceLocateText,
+      serviceLocateSubTitle,
+      handleServiceLocateUpload,
+      handleServiceLocateForm,
 
-      // downloadAppImg,
-      // downloadAppImgFile,
-      // handleDownloadAppUpload,
-      // handledownloadAppForm,
+      downloadAppImg,
+      downloadAppImgFile,
+      downloadAppText,
+      downloadAppSubTitle,
+      handleDownloadAppUpload,
+      handledownloadAppForm,
 
     }
   }
