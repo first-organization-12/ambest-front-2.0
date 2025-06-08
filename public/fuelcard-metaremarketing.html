@@ -159,7 +159,7 @@
 					<div class="bee-block bee-block-3 bee-image" id="module_df88b2ae-31ac-4579-8aeb-28a01e9bab1a"><img class="bee-center bee-fixedwidth" src="https://app.clickdimensions.com/blob/am-bestcom-a6e7g/files/image18.jpg?m=12/31/2024%203:52:00%20AM" style="max-width:270px;" alt=""></div>
 				</div>
 				<div class="bee-col bee-col-2 bee-col-w6">
-					<div class="bee-block bee-block-1 bee-html-block"><iframe src="https://web.am-best.com/am-bestcom-a6e7g/pages/lrh6350qeekambfvqzzkg.html?parentId=1e0e0344e4b0ef11b8e90022480c4a8e" direct-link="https://web.am-best.com/am-bestcom-a6e7g/pages/lrh6350qeekambfvqzzkg.html?parentId=1e0e0344e4b0ef11b8e90022480c4a8e" allowtransparency="true" width="100%" height="609px" type="text/html" frameborder="0" style="border:0"></iframe></div>
+					<div class="bee-block bee-block-1 bee-html-block"><iframe src="https://web.am-best.com/am-bestcom-a6e7g/pages/lrh6350qeekambfvqzzkg.html" direct-link="https://web.am-best.com/am-bestcom-a6e7g/pages/lrh6350qeekambfvqzzkg.html" allowtransparency="true" width="100%" height="609px" type="text/html" frameborder="0" style="border:0"></iframe></div>
 					<div class="bee-block bee-block-2 bee-paragraph">
 						<p>*Preferred Card users save an average of 51 cents per gallon across all of our service centers. Results may vary based upon location</p>
 					</div>
@@ -271,7 +271,47 @@
 		</div>
 	</div>
 
+<script>
+  (function () {
+    const iframe = document.querySelector('iframe[src*="web.am-best.com"]');
+    if (!iframe) return;
 
+    const iframeUrl = new URL(iframe.src);
+    const pageParams = new URLSearchParams(window.location.search);
+    const mergedParams = new URLSearchParams();
+
+    let hasUtmCampaign = false;
+
+    // Keep original iframe params
+    for (const [key, value] of iframeUrl.searchParams.entries()) {
+      mergedParams.set(key, value);
+    }
+
+    // Translate and merge new params
+    for (const [key, value] of pageParams.entries()) {
+      if (key === 'gad_source') {
+        mergedParams.set('utm_source', `google-${value}`);
+      } else if (key === 'gbraid') {
+        mergedParams.set('utm_content', `gbraid-${value}`);
+      } else if (key === 'gclid') {
+        mergedParams.set('utm_term', `gclid=${value}`);
+      } else {
+        mergedParams.set(key, value);
+        if (key === 'utm_campaign') {
+          hasUtmCampaign = true;
+        }
+      }
+    }
+
+    // If utm_campaign is missing, set a default
+    if (!hasUtmCampaign) {
+      mergedParams.set('utm_campaign', 'Meta_Remarketing');
+    }
+
+    iframeUrl.search = mergedParams.toString();
+    iframe.src = iframeUrl.toString();
+  })();
+</script>
 	
 
 </body>
