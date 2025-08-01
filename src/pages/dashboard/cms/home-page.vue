@@ -76,13 +76,127 @@
                   </div>
                 </q-card>
 
-                <q-form @submit="handleBannerForm">
+                <q-form @submit="handleBannerForm" class="q-mt-xl">
+                  <div class="flex justify-center">
+                    <q-img :src="bannerImageFile" class="image-size"/>
+                  </div>
                   <div class="q-mt-md">
-                    <h5 style="margin: 0%;">Video Text</h5>
-                    <q-editor
+                    <h5 style="margin: 0%;">Banner Image</h5>
+                    <q-file
+                      outlined
+                      v-model="bannerImageFile"
+                      label="Upload Image"
+                      accept="image/*"
+                      @update:model-value="handleBannerFileUpload"
+                      class="q-mb-md"
+                      />
+                  </div>
+                  <div class="q-mb-md">
+                    <div class="q-gutter-sm">
+                      <q-checkbox
+                        v-model="bannerStatus"
+                        color="secondary"
+                        label="Show banner image on home page"
+                        true-value="yes"
+                        false-value="no"
+                      />
+                    </div>
+                  </div>
+                  <div class="q-mt-md">
+                    <h5 style="margin: 0%;">Banner Text</h5>
+                    <!-- <q-editor
                       v-model="videoText"
                       :dense="$q.screen.lt.md"
                       style="font-size: 16px;"
+                    /> -->
+                    <q-editor
+                      v-model="videoText"
+                      :dense="$q.screen.lt.md"
+                      :toolbar="[
+                        [
+                          {
+                            label: $q.lang.editor.align,
+                            icon: $q.iconSet.editor.align,
+                            fixedLabel: true,
+                            list: 'only-icons',
+                            options: ['left', 'center', 'right', 'justify']
+                          },
+                          {
+                            label: $q.lang.editor.align,
+                            icon: $q.iconSet.editor.align,
+                            fixedLabel: true,
+                            options: ['left', 'center', 'right', 'justify']
+                          }
+                        ],
+                        ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
+                        ['token', 'hr', 'link', 'custom_btn'],
+                        ['fullscreen'],
+                        [
+                          {
+                            label: $q.lang.editor.formatting,
+                            icon: $q.iconSet.editor.formatting,
+                            list: 'no-icons',
+                            options: [
+                              'p',
+                              'h1',
+                              'h2',
+                              'h3',
+                              'h4',
+                              'h5',
+                              'h6',
+                              'code'
+                            ]
+                          },
+                          {
+                            label: $q.lang.editor.fontSize,
+                            icon: $q.iconSet.editor.fontSize,
+                            fixedLabel: true,
+                            fixedIcon: true,
+                            list: 'no-icons',
+                            options: [
+                              'size-1',
+                              'size-2',
+                              'size-3',
+                              'size-4',
+                              'size-5',
+                              'size-6',
+                              'size-7'
+                            ]
+                          },
+                          {
+                            label: $q.lang.editor.defaultFont,
+                            icon: $q.iconSet.editor.font,
+                            fixedIcon: true,
+                            list: 'no-icons',
+                            options: [
+                              'default_font',
+                              'arial',
+                              'arial_black',
+                              'comic_sans',
+                              'courier_new',
+                              'impact',
+                              'lucida_grande',
+                              'times_new_roman',
+                              'verdana'
+                            ]
+                          },
+                          'removeFormat'
+                        ],
+                        ['quote', 'unordered', 'ordered', 'outdent', 'indent'],
+
+                        ['undo', 'redo'],
+                        ['viewsource']
+                      ]"
+                      :fonts="{
+                        arial: 'Arial',
+                        arial_black: 'Arial Black',
+                        comic_sans: 'Comic Sans MS',
+                        courier_new: 'Courier New',
+                        impact: 'Impact',
+                        lucida_grande: 'Lucida Grande',
+                        times_new_roman: 'Times New Roman',
+                        verdana: 'Verdana'
+                      }"
                     />
                   </div>
 
@@ -802,6 +916,19 @@ export default{
     const tab = ref('heroSection');
     const videoText =ref('Where America Stops for Service and Value');
     const labelText =ref('Where Drivers and Fleets Thrive on the Road!');
+    //banner image section
+    const bannerImage = ref(null);
+    const bannerImageFile = ref(null);
+    const bannerStatus = ref('no');
+    const handleBannerFileUpload = (file) =>{
+      if (!file) return
+      bannerImage.value = file;
+      const reader = new FileReader()
+      reader.onload = () => {
+        bannerImageFile.value = reader.result
+      }
+      reader.readAsDataURL(file)
+    }
 
     const testimonials = ref([]);
 
@@ -903,7 +1030,7 @@ export default{
       .catch((error)=>{
         console.log(error);
 
-        showErrorNotification(error.response.message || error.message);
+        showErrorNotification(error.response?.data.message || error.message);
 
       })
     }
@@ -915,6 +1042,12 @@ export default{
     const videoPreview = ref(null)
     const handleFileChange = (fileList) => {
       const file = fileList ? fileList : null
+
+      const maxSize = 86 * 1024 * 1024 // 85MB
+      if (file && file.size > maxSize) {
+        showErrorNotification('Video must not be greater than 85 MB')
+        return
+      }
       if (file && file instanceof File) {
         videoFile.value = file
         videoPreview.value = URL.createObjectURL(file)
@@ -958,12 +1091,13 @@ export default{
         })
 
         uploading.value = false
-
+        removeVideo()
       } catch (error) {
         console.log(error);
-        showErrorNotification('Upload failed:');
+        showErrorNotification(error.response.data.message ?? 'Upload failed:');
         uploading.value = false
       }
+      progress.value = 0
     }
 
     const handleBannerForm = ()=>{
@@ -972,9 +1106,10 @@ export default{
       formData.append('section_name','banner_section');
       formData.append('title',videoText.value);
       formData.append('description', labelText.value);
-      if (newsImage.value) {
-        formData.append('image', newsImage.value)
-      }
+      formData.append('bannerStatus', bannerStatus.value);
+        if (bannerImage.value){
+            formData.append('bannerImageFile', bannerImage.value);
+        }
       submitForms(formData);
     }
 
@@ -1128,7 +1263,7 @@ export default{
     const getHomePageDetails = () =>{
       api.get('get-home-page-details')
       .then((response)=>{
-        console.log(response);
+        // console.log(response);
         let val = response.data.data;
         testimonials.value = val.customer_reviews;
         aboutImageFile.value = storage_url(val.about_section.img_url);
@@ -1139,6 +1274,8 @@ export default{
         iconsSubTitle.value = val.icons_section.sub_title;
         iconsDesc.value = val.icons_section.description;
 
+        bannerImageFile.value = storage_url(val.banner.path);
+        bannerStatus.value = val.banner.is_active === 1 ? 'yes' : 'no';
         // findTruckImg.value = storage_url(val.service_section_one.img_url);
         // findTruckText.value = val.service_section_one.title;
         // findTruckSubTitle.value = val.service_section_one.description;
@@ -1152,7 +1289,7 @@ export default{
         // downloadAppSubTitle.value = val.service_section_three.description;
       })
       .catch((error)=>{
-        showErrorNotification(error.message || error.message)
+        showErrorNotification(error.response?.data.message || error.message)
         console.log(error);
       })
     }
@@ -1224,6 +1361,11 @@ export default{
       handleDownloadAppUpload,
       handledownloadAppForm,
 
+
+      bannerImage,
+      bannerImageFile,
+      handleBannerFileUpload,
+      bannerStatus,
     }
   }
 }

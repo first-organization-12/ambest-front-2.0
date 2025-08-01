@@ -104,6 +104,15 @@ const routes = [
   },
 
   {
+    path: '/page/:route(.*)*',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dynamic-pages.vue') }
+    ]
+  },
+
+
+  {
     path: '/login',
     // component: () => import('layouts/MainLayout.vue'),
     children: [
@@ -254,6 +263,14 @@ const routes = [
     ]
   },
 
+  {
+    path: '/dashboard/dynamic-pages-content-management',
+    component: () => import('layouts/DashboardLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/dashboard/cms/dynamic-page.vue')}
+    ]
+  },
+
 
 
 
@@ -261,6 +278,7 @@ const routes = [
   // but you can also remove it
   {
     path: '/:catchAll(.*)*',
+    name: 'NotFound',
     component: () => import('pages/ErrorNotFound.vue')
   }
 ]

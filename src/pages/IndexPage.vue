@@ -1,11 +1,18 @@
 <template>
   <q-page class="">
   <div class="banner relative-position" style="overflow: hidden;">
-
-    <video v-if="videoPreview" autoplay loop muted playsinline class="absolute-full" style="z-index: -1; width:100%;">
-      <source :src="videoPreview" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+      <q-img v-if="bannerIsActive"
+        :src="bannerImage"
+        fit="cover"
+        position="center"
+        style="width: 100%; height: 100%; z-index: -1;"
+      />
+    <div v-else >
+      <video v-if="videoPreview" autoplay loop muted playsinline class="absolute-full" style="z-index: -1; width:100%;">
+        <source :src="videoPreview" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
     <!-- <video autoplay loop muted playsinline class="absolute-full" style="z-index: -1; width:100%;">
       <source src="/videos/new-intro.mp4" type="video/mp4">
       Your browser does not support the video tag.
@@ -274,6 +281,9 @@ const slide = ref(0);
 
 const testimonials = ref([]);
 
+const bannerIsActive = ref(0);
+const bannerImage = ref('');
+
 // Function to repeat testimonials to always have a multiple of 3
 const repeatedTestimonials = computed(() => {
   let repeated = [...testimonials.value];
@@ -395,6 +405,8 @@ const advantages = ref([
           }));
 
           testimonials.value = transformed;
+          bannerIsActive.value = val.banner.is_active;
+          bannerImage.value = storage_url(val.banner.path);
           // services.value[0].image  = storage_url(val.service_section_one.img_url);
           // services.value[0].title = val.service_section_one.title;
           // services.value[0].subtitle = val.service_section_one.description;

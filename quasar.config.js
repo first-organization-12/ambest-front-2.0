@@ -43,7 +43,7 @@ export default defineConfig((/* ctx */) => {
         cssAddon: true
       },
 
-    
+
       // vueRouterBase,
       // vueDevtools,
       // vueOptionsAPI: false,
@@ -94,7 +94,7 @@ export default defineConfig((/* ctx */) => {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['Notify']
+      plugins: ['Notify','Dialog']
     },
 
     // animations: 'all', // --- includes all animations
