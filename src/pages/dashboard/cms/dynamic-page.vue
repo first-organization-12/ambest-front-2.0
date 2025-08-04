@@ -527,14 +527,6 @@
 
           })
         });
-        // q.dialog({
-        //   title: 'Confirm Delete',
-        //   message: `Are you sure you want to delete "${row.title}"?`,
-        //   cancel: true,
-        //   persistent: true
-        // }).onOk(async () => {
-
-        // });
       };
 
 

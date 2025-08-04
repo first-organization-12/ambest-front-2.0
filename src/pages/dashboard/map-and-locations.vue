@@ -3,19 +3,28 @@
     <q-card class="q-pa-md" style="height:100vh;">
 
     <!-- Button to Open Modal -->
-     <div class="text-right q-my-md">
-       <q-btn label="Upload CSV File" color="primary" @click="showModal = true" />
-     </div>
+     <div class="flex justify-end" style="gap:10px">
+       <div v-if="selectedDeleteButton" class="text-right q-my-md">
+         <q-btn label="Delete Locations" color="red" @click="handleBulkDelete" />
+        </div>
+       <div class="text-right q-my-md">
+         <q-btn label="Add Location" color="primary" @click="handleCreateModel" />
+        </div>
+        <div class="text-right q-my-md">
+          <!-- <q-btn label="Upload CSV File" color="primary" @click="showModal=true" /> -->
+          <q-btn label="Upload CSV File" color="primary" @click="handlecsvUpload()" />
+        </div>
+      </div>
 
     <!-- File Upload Modal -->
     <q-dialog v-model="showModal">
-      <q-card class="q-pa-md" style="width: 400px">
+      <q-card style="min-width: 50vw;">
         <q-card-section>
-          <div class="text-h6">Upload File</div>
+          <div class="text-h6">Upload Location File</div>
         </q-card-section>
 
         <q-card-section>
-          <!-- File Input with Validation -->
+
           <q-file
             v-model="selectedFile"
             label="Choose File"
@@ -28,20 +37,58 @@
           <q-banner v-if="fileError" class="bg-red text-white q-mt-sm">
             {{ errorMessage }}
           </q-banner>
+
+
+          <div v-if="preview.invalid_rows?.length" class="q-mt-md">
+            <q-banner class="bg-orange text-white">
+              {{ preview.invalid_rows.length }} invalid row(s) detected. Confirm to proceed with valid rows only.
+              {{ preview.valid_rows_count }} valid row(s).
+              {{ preview.duplicate_entries }} duplicate row(s).
+            </q-banner>
+
+            <q-markup-table dense flat bordered class="q-mt-sm">
+              <thead>
+                <tr>
+                  <th>Row</th>
+                  <th>Errors</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(row, index) in preview.invalid_rows" :key="index">
+                  <td>{{ row.row }}</td>
+                  <td>
+                    <ul>
+                      <li v-for="(err, i) in row.errors" :key="i">{{ err }}</li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </q-markup-table>
+          </div>
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn flat label="cancel" color="negative" @click="resetForm" />
+          <q-btn flat label="Cancel" color="negative" @click="resetForm" />
+
           <q-btn
+            v-if="preview.status === 'preview'"
+            flat
+            label="Confirm Import"
+            color="primary"
+            :disable="loading"
+            @click="confirmImport"
+          />
+
+          <q-btn
+            v-else
             flat
             label="Upload"
             color="primary"
-            @click="handleUpload"
             :disable="fileError || !selectedFile || loading"
+            @click="handleUpload"
           />
         </q-card-actions>
 
-        <!-- Loading Indicator -->
         <q-inner-loading :showing="loading">
           <q-spinner color="primary" size="50px" />
         </q-inner-loading>
@@ -69,17 +116,52 @@
                 <q-icon name="search" />
               </template>
             </q-input>
+        </template>
+
+      <!-- Header checkbox -->
+          <template v-slot:header-cell-select="props">
+            <q-th :props="props">
+              <q-checkbox
+                v-model="allSelected"
+                @update:model-value="toggleSelectAll"
+              />
+            </q-th>
           </template>
 
-          <template v-slot:body-cell-feedback_mail="props">
-          <q-td :props="props" class="feedback_mail">
-            <a :href="`mailto:${props.row.feedback_mail}`">{{  props.row.feedback_mail }}</a>
+          <!-- Row checkbox -->
+          <template v-slot:body-cell-select="props">
+            <q-td :props="props">
+              <q-checkbox
+                :model-value="selectedLocationsForDelete.includes(props.row.id)"
+                @update:model-value="(val) => toggleSelection(val, props.row.id)"
+              />
+            </q-td>
+          </template>
+
+        <template v-slot:body-cell-star_color="props">
+          <q-td :props="props" class="star_color">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              :fill="getStarColor(props.row.star_color)"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="12" cy="12" r="10" stroke="black" stroke-width="1" />
+            </svg>
           </q-td>
         </template>
 
           <template v-slot:body-cell-main_phone="props">
           <q-td :props="props" class="main_phone">
             <a :href="`tel:${props.row.main_phone}`">{{ props.row.main_phone }}</a>
+          </q-td>
+        </template>
+
+        <template v-slot:body-cell-action="props">
+          <q-td align="center">
+            <q-btn dense flat icon="edit" color="primary" @click="editRow(props.row)" />
+            <q-btn dense flat icon="delete" color="negative" @click="deleteRow(props.row)" />
           </q-td>
         </template>
 
@@ -93,6 +175,83 @@
       </div>
   </q-card>
   </q-page>
+
+<q-dialog v-model="addModel" >
+<q-card style="min-width: 50vw;">
+    <q-card-section>
+      <div class="text-h6">{{ modelTitle }}</div>
+    </q-card-section>
+
+    <q-separator />
+
+    <q-card-section>
+      <q-form @submit="handleCreateForm">
+          <q-select
+            v-model="form.location_type"
+            :options="locationTypeOptions"
+            label="Location Type"
+            emit-value
+            map-options
+            style="font-size: 16px; margin-top: 5px;" outlined
+          />
+
+          <q-input
+            v-model="form.name"
+            :rules="[
+              val => !val || val.length <= 255 || 'Name must be 255 characters or less'
+            ]"
+            label="Name" maxlength="255" style="font-size: 16px; margin-top: 5px;" outlined />
+
+          <q-input
+          v-model="form.directory_address"
+          type="textarea"
+          rows="3"
+          label="Directory Address" style="font-size: 16px; margin-top: 5px;" outlined />
+
+          <q-input v-model="form.city"
+            :rules="[
+              val => !val || val.length <= 255 || 'City must be 255 characters or less'
+            ]"
+            label="City" maxlength="255" style="font-size: 16px; margin-top: 5px;" outlined />
+
+          <q-input v-model="form.state"
+            :rules="[
+              val => !val || val.length <= 255 || 'State must be 255 characters or less'
+            ]"
+            label="State" maxlength="255" style="font-size: 16px; margin-top: 5px;" outlined />
+
+          <q-input v-model="form.zip"
+            :rules="[
+              val => !val || /^\d+$/.test(val) || 'ZIP code must be numeric'
+            ]"
+           label="Zip Code" type="number" style="font-size: 16px; margin-top: 5px;" outlined />
+
+          <q-input v-model="form.main_phone"
+          mask="(###) ###-####"
+          hint="Format: (555) 123-4567"
+          label="Main Phone" style="font-size: 16px; margin-top: 5px;" outlined />
+
+          <q-input v-model="form.lat"
+          :rules="[
+            val => !val || /^-?\d+\.?\d*$/.test(val) || 'Please enter a valid latitude'
+          ]"
+          hint="Example: 40.7128"
+          label="Latitude" style="font-size: 16px; margin-top: 5px;" outlined />
+
+          <q-input v-model="form.long"
+          :rules="[
+            val => !val || /^-?\d+\.?\d*$/.test(val) || 'Please enter a valid longitude'
+          ]"
+          hint="Example: -74.0060"
+          label="Longitude" style="font-size: 16px; margin-top: 5px;" outlined />
+        <q-card-actions align="right">
+          <q-btn :label="formBtn" class="q-mt-sm" style="margin-top: 5px;" color="primary" type="submit"/>
+          <q-btn flat label="Close" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-form>
+    </q-card-section>
+  </q-card>
+  </q-dialog>
 </template>
 
 <script>
@@ -113,25 +272,35 @@ export default {
       const loading = ref(false);
       const tableData = ref([]);
       const columns = [
-        { name: "internal_id", label: "Id", align: "left", field: "internal_id", sortable: true },
+        { name: 'select', label: '', field: 'id' },
+        { name: "id", label: "Id", align: "left", field: "id", sortable: true },
+        { name: "star_color", label: "Start Color", align: "left", field: "star_color", sortable: true },
         { name: "name", label: "Name", align: "left", field: "name", sortable: true },
         { name: "directory_address", label: "Directory Address", align: "left", field: "directory_address", sortable: true },
         { name: "city", label: "City", align: "left", field: "city", sortable: true },
-        { name: "state_in_sort", label: "State", align: "left", field: "state_in_sort", sortable: true },
+        { name: "state", label: "State", align: "left", field: "state", sortable: true },
         { name: "zip", label: "Zip Code", align: "left", field: "zip", sortable: true },
         { name: "main_phone", label: "Main Phone", align: "left", field: "main_phone", },
         { name: "lat", label: "Lat", align: "left", field: "lat", sortable: true },
         { name: "long", label: "Long", align: "left", field: "long", sortable: true },
-        { name: "restaurants", label: "Restaurants", align: "left", field: "restaurants", sortable: true },
-        { name: "website", label: "Web Site", align: "left", field: "website", sortable: true },
-        { name: "retail_diesel", label: "Retail Diesel", align: "left", field: "retail_diesel", sortable: true },
-        { name: "hours_of_operation", label: "Hours of Operation", align: "left", field: "hours_of_operation", sortable: true },
-        { name: "all_amenities", label: "All Amenities", align: "left", field: "all_amenities", sortable: true },
-        { name: "social_media", label: "Social Media", align: "left", field: "social_media", sortable: true },
-        { name: "feedback_mail", label: "Feedback Mail", align: "left", field: "feedback_mail", sortable: true },
-        { name: "state", label: "State", align: "left", field: "state", sortable: true },
-        { name: "website_notes", label: "Website Notes", align: "left", field: "website_notes", sortable: true },
+        { name: 'action', label: 'Action', align: 'center' }
     ];
+    function getStarColor(color) {
+      switch (color) {
+        case 'blue':
+          return '#027dff';
+        case 'red':
+          return '#ff0000';
+        case 'green':
+          return '#008000';
+        case 'yellow':
+          return '#ffa500';
+        case 'white':
+          return '#89cff0';
+        default:
+          return 'gold';
+      }
+    }
 
       // Allowed file types
       const allowedTypes = ["text/csv", "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"];
@@ -155,7 +324,12 @@ export default {
           errorMessage.value = "";
         }
       };
-
+      const  preview = ref({});
+      const handlecsvUpload =()=>{
+        // console.log("click");
+        showModal.value = true;
+        preview.value = {};
+      }
       // Handle File Upload via Axios
       const handleUpload = async () => {
         if (!selectedFile.value) {
@@ -168,23 +342,67 @@ export default {
         const formData = new FormData();
         formData.append("csv_file", selectedFile.value);
 
+        try {
+            const res = await api.post('import-locations-csv', formData,{
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            });
+            showSuccessNotification(res.data.message)
+            // q.notify({ type: 'positive', message: res.data.message });
+            resetForm();
+          } catch (err) {
+            if (err.response?.status === 422 && err.response.data.status === 'preview') {
+              preview.value = err.response.data;
+              console.log(preview.value);
+
+            } else {
+              showErrorNotification('Upload failed.')
+              // q.notify({ type: 'negative', message: 'Upload failed.' });
+            }
+          } finally {
+            loading.value = false;
+          }
+
         // Replace with your API URL
-        api.post("import-locations-csv", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }).then(()=>{
-          // console.log("File uploaded successfully:", response.data);
-          showSuccessNotification('File uploaded successfully');
+        // api.post("import-locations-csv", formData, {
+        //   headers: {
+        //     "Content-Type": "multipart/form-data",
+        //   },
+        // }).then(()=>{
+        //   // console.log("File uploaded successfully:", response.data);
+        //   showSuccessNotification('File uploaded successfully');
+        //   resetForm();
+        //   getLocations();
+        // }).catch((error)=>{
+        //   console.error("Upload failed:", error);
+        //   errorMessage.value = "Upload failed! Please try again.";
+        //   fileError.value = true;
+        // })
+        // loading.value = false; // Hide loading spinner
+      };
+
+      const confirmImport = async() =>{
+        if (!selectedFile.value) return;
+
+        loading.value = true;
+        const formData = new FormData();
+        formData.append("csv_file", selectedFile.value);;
+        formData.append('confirm_import', 1);
+
+        try {
+          const res = await api.post('import-locations-csv', formData);
+          showSuccessNotification(res.data.message)
           resetForm();
           getLocations();
-        }).catch((error)=>{
-          console.error("Upload failed:", error);
-          errorMessage.value = "Upload failed! Please try again.";
-          fileError.value = true;
-        })
-        loading.value = false; // Hide loading spinner
-      };
+        } catch (err) {
+          console.log(err);
+          showErrorNotification('Confirmation failed.')
+          // this.$q.notify({ type: 'negative', message: 'Confirmation failed.' });
+        } finally {
+          loading.value = false;
+        }
+      }
 
       // Reset Form
       const resetForm = () => {
@@ -206,6 +424,31 @@ export default {
         loadingTable.value = false;
       }
 
+      const deleteRow = (row) => {
+        q.dialog({
+          title: 'Confirm Delete',
+          message: `Are you sure you want to delete "${row.name}"?`,
+          cancel: true,
+          persistent: true
+        }).onOk(()=>{
+          api.delete('delete-location', {
+            data: { id: row.id }
+          })
+          .then((response)=>{
+            tableData.value = response.data.data;
+            showSuccessNotification(response.data.message);
+          })
+          .catch((error)=>{
+            console.log(error);
+            console.log(error.message);
+            console.log(error?.response?.data.message);
+
+            showErrorNotification(error?.response?.data.message || error.response.message || error.message);
+
+          })
+        });
+      };
+
       const showSuccessNotification = (message) => {
         q.notify({
           color: "positive",
@@ -224,6 +467,180 @@ export default {
           });
         };
 
+    //location add model
+    const addModel = ref(false);
+    const selectedDeleteButton = ref(false);
+    const modelTitle = ref('');
+    const formBtn = ref('');
+    const form = ref({
+      location_type: '',
+      id: '',
+      name: '',
+      directory_address: '',
+      city: '',
+      state: '',
+      zip: '',
+      main_phone: '',
+      lat: '',
+      long: '',
+    })
+    const locationTypeOptions = [
+      { label: 'Ambest Travel/Service Center', value: 'ambest_travel/service_center' },
+      { label: 'Ambest Travel Center', value: 'ambest_travel_center' },
+      { label: 'Ambest Fuel Stop', value: 'ambest_fuel_stop' },
+      { label: 'Ambest Express', value: 'ambest_express' },
+      { label: 'Ambest Service Center', value: 'ambest_service_center' },
+      { label: 'Ambest Mobile Location', value: 'ambest_mobile_location' },
+    ]
+    const onReset = () =>{
+      form.value = {
+        location_type: '',
+        id: '',
+        name: '',
+        directory_address: '',
+        city: '',
+        state: '',
+        zip: '',
+        main_phone: '',
+        lat: '',
+        long: '',
+      };
+    }
+    const handleCreateModel = ()=>{
+      onReset()
+      modelTitle.value = "Add New AMBEST Location";
+      addModel.value = true;
+      formBtn.value = "Add Location";
+    }
+    const handleCreateForm = ()=>{
+      const formData = Object.keys(form.value).reduce((acc, key) => {
+        if (form.value[key] !== '' && form.value[key] !== null) {
+          acc[key] = form.value[key]
+        }
+        return acc
+      }, {})
+      console.log('Form submitted:', formData)
+      api.post('store-location',formData)
+      .then((res)=>{
+        tableData.value = res.data.data;
+        showSuccessNotification(res.data.message);
+        onReset();
+        addModel.value = false;
+      })
+      .catch((error)=>{
+        console.log(error);
+        console.log(error.message);
+        console.log(error?.response?.data.message);
+        showErrorNotification(error?.response?.data.message || error.response.message || error.message);
+      })
+    }
+    function getlocationType(color) {
+      switch (color) {
+        case 'blue':
+          return 'ambest_travel/service_center';
+        case 'red':
+          return 'ambest_travel_center';
+        case 'green':
+          return 'ambest_express';
+        case 'yellow':
+          return 'ambest_fuel_stop';
+        case 'white':
+          return 'ambest_service_center';
+        default:
+          return ;
+      }
+    }
+    const editRow = (row) =>{
+      modelTitle.value = "Update AMBEST Location";
+      addModel.value = true;
+      formBtn.value = "Update Location";
+
+      form.value.location_type = getlocationType(row.star_color);
+      form.value.id = row.id;
+      form.value.name = row.name;
+      form.value.directory_address = row.directory_address;
+      form.value.city = row.city;
+      form.value.state = row.state;
+      form.value.zip = row.zip;
+      form.value.main_phone = row.main_phone;
+      form.value.lat = row.lat;
+      form.value.long = row.long;
+
+    }
+    // bulk delete
+    const selectedLocationsForDelete = ref([]);
+    const allSelected = ref(false);
+    // Toggle single selection
+    const toggleSelection = (val, id) => {
+      if (val) {
+        selectedLocationsForDelete.value.push(id)
+      } else {
+        selectedLocationsForDelete.value = selectedLocationsForDelete.value.filter(i => i !== id)
+      }
+      updateAllSelected()
+      if(selectedLocationsForDelete.value.length >= 1){
+        deleteBtn(true)
+      }else{
+        deleteBtn(false)
+      }
+    }
+
+    // Toggle all
+    const toggleSelectAll = (val) => {
+      if (val) {
+        selectedLocationsForDelete.value = tableData.value.map(loc => loc.id)
+      } else {
+        selectedLocationsForDelete.value = [];
+      }
+      allSelected.value = val
+      if(selectedLocationsForDelete.value.length >= 1){
+        deleteBtn(true)
+      }else{
+        deleteBtn(false)
+      }
+    }
+
+    // Update "Select All" state if any item is manually selected/unselected
+    const updateAllSelected = () => {
+      allSelected.value = selectedLocationsForDelete.value.length === tableData.value.length
+      if(selectedLocationsForDelete.value.length >= 1){
+        deleteBtn(true)
+      }else{
+        deleteBtn(false)
+      }
+    }
+
+    const deleteBtn = (val)=>{
+      selectedDeleteButton.value = val;
+    }
+
+    const handleBulkDelete =()=>{
+
+      q.dialog({
+          title: 'Confirm Bulk Delete',
+          message: `Are you sure you want to delete selected "${selectedLocationsForDelete.value.length}" locations ?`,
+          cancel: true,
+          persistent: true
+        }).onOk(()=>{
+          const ids = selectedLocationsForDelete.value.map(row => row);
+          api.delete('location-bulk-delete',{data:{ ids }})
+          .then((res)=>{
+            let { message } = res.data;
+            allSelected.value = false;
+            selectedLocationsForDelete.value = [];
+            deleteBtn(false);
+            getLocations();
+            showSuccessNotification(message);
+          })
+          .catch((err)=>{
+            console.log(err);
+            console.log(err.message);
+            console.log(err?.response?.data.message);
+
+            showErrorNotification(err?.response?.data.message || err.response.message || err.message);
+          })
+        });
+    }
     onMounted(getLocations);
     return{
       q,
@@ -239,8 +656,29 @@ export default {
       tableData,
       loadingTable,
       search,
-      pagination
+      pagination,
+      deleteRow,
 
+      addModel,
+      modelTitle,
+      formBtn,
+      form,
+      handleCreateModel,
+      locationTypeOptions,
+      handleCreateForm,
+      editRow,
+      getStarColor,
+
+      selectedLocationsForDelete,
+      allSelected,
+      toggleSelection,
+      toggleSelectAll,
+      selectedDeleteButton,
+      handleBulkDelete,
+
+      preview,
+      confirmImport,
+      handlecsvUpload,
     }
   }
 }

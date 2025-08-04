@@ -288,7 +288,10 @@ export default defineComponent({
 
       markersLayer = L.layerGroup().addTo(map);
       locations.value.forEach(location => {
-        addMarker(location);
+        if(location.lat && location.long)
+          {
+            addMarker(location);
+          }
       });
     };
 
