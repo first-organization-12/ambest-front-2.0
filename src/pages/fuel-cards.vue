@@ -48,8 +48,8 @@
 
       <!-- Right Section (Images) -->
       <div class="col-md-5 col-6 text-start q-pl-none relative-position">
-        <q-img src="/images/EFS-Direct-Card-Web.png" class="overlapping-card" />
-        <q-img src="/images/card.png" class="overlapping-card second-card" />
+        <q-img :src="cardOneImg" class="overlapping-card" />
+        <q-img :src="cardTwoImg" class="overlapping-card second-card" />
       </div>
     </div>
 

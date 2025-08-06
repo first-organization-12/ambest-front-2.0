@@ -11,7 +11,6 @@
          <q-btn label="Add Location" color="primary" @click="handleCreateModel" />
         </div>
         <div class="text-right q-my-md">
-          <!-- <q-btn label="Upload CSV File" color="primary" @click="showModal=true" /> -->
           <q-btn label="Upload CSV File" color="primary" @click="handlecsvUpload()" />
         </div>
       </div>
@@ -38,32 +37,67 @@
             {{ errorMessage }}
           </q-banner>
 
+          <!-- Processing Status -->
+          <div v-if="uploadStatus === 'processing'" class="q-mt-md">
+            <q-banner class="bg-blue text-white">
+              <div class="flex items-center">
+                <q-spinner class="q-mr-sm" />
+                Processing file... Please wait.
+              </div>
+            </q-banner>
+          </div>
 
-          <div v-if="preview.invalid_rows?.length" class="q-mt-md">
-            <q-banner class="bg-orange text-white">
-              {{ preview.invalid_rows.length }} invalid row(s) detected. Confirm to proceed with valid rows only.
-              {{ preview.valid_rows_count }} valid row(s).
-              {{ preview.duplicate_entries }} duplicate row(s).
+          <!-- Preview Data -->
+          <div v-if="preview.counts" class="q-mt-md">
+            <q-banner>
+              <div class="flex justify-evenly" style="height: 50px;">
+                <div class="text-center text-green" style="font-size: 20px;">
+                  <div>{{ preview.counts.valid }}</div>
+                  Valid Rows
+                </div>
+                <div class="text-center text-red" style="font-size: 20px;">
+                  <div>{{ preview.counts.invalid }}</div>
+                  Invalid Rows
+                </div>
+                <div class="text-center text-warning" style="font-size: 20px;" v-if="preview.counts.duplicate">
+                  <div>{{ preview.counts.duplicate }}</div>
+                  Duplicate Rows
+                </div>
+                <div class="text-center text-primary" style="font-size: 20px;">
+                  <div>{{ preview.counts.total }}</div>
+                  Total Rows
+                </div>
+              </div>
             </q-banner>
 
-            <q-markup-table dense flat bordered class="q-mt-sm">
+            <!-- Invalid Rows Table -->
+            <q-markup-table v-if="preview.invalid_rows?.length" dense flat bordered class="q-mt-sm">
               <thead>
                 <tr>
-                  <th>Row</th>
+                  <th>Row No</th>
+                  <th>Name</th>
                   <th>Errors</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="text-center">
                 <tr v-for="(row, index) in preview.invalid_rows" :key="index">
                   <td>{{ row.row }}</td>
+                  <td>{{ row.data?.name || 'N/A' }}</td>
                   <td>
-                    <ul>
+                    <ul style="text-align: left;">
                       <li v-for="(err, i) in row.errors" :key="i">{{ err }}</li>
                     </ul>
                   </td>
                 </tr>
               </tbody>
             </q-markup-table>
+          </div>
+
+          <!-- Error Display -->
+          <div v-if="preview.status === 'error'" class="q-mt-md">
+            <q-banner class="bg-red text-white">
+              {{ preview.message }}
+            </q-banner>
           </div>
         </q-card-section>
 
@@ -80,7 +114,7 @@
           />
 
           <q-btn
-            v-else
+            v-else-if="uploadStatus !== 'processing'"
             flat
             label="Upload"
             color="primary"
@@ -95,7 +129,7 @@
       </q-card>
     </q-dialog>
 
-
+    <!-- Rest of your existing table code remains the same -->
     <q-table
         flat
         bordered
@@ -176,6 +210,7 @@
   </q-card>
   </q-page>
 
+<!-- Add/Edit Location Modal - Keep your existing modal code -->
 <q-dialog v-model="addModel" >
 <q-card style="min-width: 50vw;">
     <q-card-section>
@@ -255,11 +290,11 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { api } from 'src/boot/axios';
 import { useQuasar } from 'quasar';
-export default {
 
+export default {
   setup(){
       const loadingTable = ref(true);
       const search = ref("");
@@ -271,6 +306,13 @@ export default {
       const errorMessage = ref("");
       const loading = ref(false);
       const tableData = ref([]);
+
+      // New refs for preview functionality
+      const preview = ref({});
+      const uploadStatus = ref(''); // 'processing', 'preview', 'error', ''
+      const currentCacheKey = ref('');
+      const pollInterval = ref(null);
+
       const columns = [
         { name: 'select', label: '', field: 'id' },
         { name: "id", label: "Id", align: "left", field: "id", sortable: true },
@@ -284,23 +326,24 @@ export default {
         { name: "lat", label: "Lat", align: "left", field: "lat", sortable: true },
         { name: "long", label: "Long", align: "left", field: "long", sortable: true },
         { name: 'action', label: 'Action', align: 'center' }
-    ];
-    function getStarColor(color) {
-      switch (color) {
-        case 'blue':
-          return '#027dff';
-        case 'red':
-          return '#ff0000';
-        case 'green':
-          return '#008000';
-        case 'yellow':
-          return '#ffa500';
-        case 'white':
-          return '#89cff0';
-        default:
-          return 'gold';
+      ];
+
+      function getStarColor(color) {
+        switch (color) {
+          case 'blue':
+            return '#027dff';
+          case 'red':
+            return '#ff0000';
+          case 'green':
+            return '#008000';
+          case 'yellow':
+            return '#ffa500';
+          case 'white':
+            return '#89cff0';
+          default:
+            return 'gold';
+        }
       }
-    }
 
       // Allowed file types
       const allowedTypes = ["text/csv", "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"];
@@ -324,13 +367,49 @@ export default {
           errorMessage.value = "";
         }
       };
-      const  preview = ref({});
-      const handlecsvUpload =()=>{
-        // console.log("click");
+
+      const handlecsvUpload = () => {
         showModal.value = true;
         preview.value = {};
+        uploadStatus.value = '';
       }
-      // Handle File Upload via Axios
+
+      // Poll for preview data
+      const pollForPreview = async (cacheKey) => {
+        try {
+          const response = await api.post('locations/import/preview', {
+            cache_key: cacheKey
+          });
+
+          if (response.data.data) {
+            preview.value = response.data.data;
+            uploadStatus.value = response.data.data.status;
+
+            // Stop polling when we get the preview or error
+            if (response.data.data.status === 'preview' || response.data.data.status === 'error') {
+              clearInterval(pollInterval.value);
+              loading.value = false;
+            }
+          }
+        } catch (error) {
+          if (error.response?.status === 404) {
+            // Still processing, continue polling
+            return;
+          } else {
+            // Real error occurred
+            console.error('Preview polling error:', error);
+            clearInterval(pollInterval.value);
+            loading.value = false;
+            uploadStatus.value = 'error';
+            preview.value = {
+              status: 'error',
+              message: 'Failed to get preview data'
+            };
+          }
+        }
+      };
+
+      // Handle File Upload
       const handleUpload = async () => {
         if (!selectedFile.value) {
           fileError.value = true;
@@ -338,71 +417,99 @@ export default {
           return;
         }
 
-        loading.value = true; // Show loading spinner
+        loading.value = true;
+        uploadStatus.value = 'processing';
+        preview.value = {};
+
         const formData = new FormData();
         formData.append("csv_file", selectedFile.value);
 
         try {
-            const res = await api.post('import-locations-csv', formData,{
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            });
-            showSuccessNotification(res.data.message)
-            // q.notify({ type: 'positive', message: res.data.message });
-            resetForm();
-          } catch (err) {
-            if (err.response?.status === 422 && err.response.data.status === 'preview') {
-              preview.value = err.response.data;
-              console.log(preview.value);
+          const response = await api.post('locations/import', formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
 
-            } else {
-              showErrorNotification('Upload failed.')
-              // q.notify({ type: 'negative', message: 'Upload failed.' });
-            }
-          } finally {
-            loading.value = false;
+          if (response.data.data?.cache_key) {
+            currentCacheKey.value = response.data.data.cache_key;
+
+            // Start polling for preview
+            pollInterval.value = setInterval(() => {
+              pollForPreview(currentCacheKey.value);
+            }, 2000);
+
+            // Also check immediately
+            pollForPreview(currentCacheKey.value);
           }
 
-        // Replace with your API URL
-        // api.post("import-locations-csv", formData, {
-        //   headers: {
-        //     "Content-Type": "multipart/form-data",
-        //   },
-        // }).then(()=>{
-        //   // console.log("File uploaded successfully:", response.data);
-        //   showSuccessNotification('File uploaded successfully');
-        //   resetForm();
-        //   getLocations();
-        // }).catch((error)=>{
-        //   console.error("Upload failed:", error);
-        //   errorMessage.value = "Upload failed! Please try again.";
-        //   fileError.value = true;
-        // })
-        // loading.value = false; // Hide loading spinner
+        } catch (error) {
+          console.error('Upload error:', error);
+          loading.value = false;
+          uploadStatus.value = 'error';
+          preview.value = {
+            status: 'error',
+            message: error.response?.data?.message || 'Upload failed'
+          };
+          showErrorNotification(error.response?.data?.message || 'Upload failed');
+        }
       };
 
-      const confirmImport = async() =>{
-        if (!selectedFile.value) return;
+      // Confirm Import
+      const confirmImport = async () => {
+        if (!currentCacheKey.value) return;
 
         loading.value = true;
-        const formData = new FormData();
-        formData.append("csv_file", selectedFile.value);;
-        formData.append('confirm_import', 1);
 
         try {
-          const res = await api.post('import-locations-csv', formData);
-          showSuccessNotification(res.data.message)
-          resetForm();
-          getLocations();
-        } catch (err) {
-          console.log(err);
-          showErrorNotification('Confirmation failed.')
-          // this.$q.notify({ type: 'negative', message: 'Confirmation failed.' });
-        } finally {
-          loading.value = false;
-        }
-      }
+          const response = await api.post('locations/import/confirm', {
+            cache_key: currentCacheKey.value,
+            skip_invalid: false // or true if you want to skip invalid rows
+          });
+
+          if (response.data.data?.cache_key) {
+            const finalCacheKey = response.data.data.cache_key;
+
+            // Start polling for final import status
+            const finalPollInterval = setInterval(async () => {
+              try {
+                  const statusResponse = await api.post('locations/import/status', {
+                    cache_key: finalCacheKey
+                  });
+
+                  if (statusResponse.data.data) {
+                    const finalData = statusResponse.data.data;
+
+                    if (finalData.status === 'completed') {
+                      clearInterval(finalPollInterval);
+                      showSuccessNotification(
+                        `Import completed! ${finalData.counts.imported} locations imported, ${finalData.counts.skipped} skipped.`
+                      );
+                      resetForm();
+                      getLocations();
+                    } else if (finalData.status === 'error') {
+                      clearInterval(finalPollInterval);
+                      showErrorNotification(finalData.message);
+                      loading.value = false;
+                    }
+                  }
+                } catch (statusError) {
+                  if (statusError.response?.status !== 404) {
+                    clearInterval(finalPollInterval);
+                    showErrorNotification('Failed to check import status');
+                    loading.value = false;
+                  }
+                  // 404 means still processing, continue polling
+                }
+              }, 2000);
+            }
+
+          } catch (error) {
+            console.error('Confirm import error:', error);
+            showErrorNotification(error.response?.data?.message || 'Import confirmation failed');
+            loading.value = false;
+          }
+      };
 
       // Reset Form
       const resetForm = () => {
@@ -411,14 +518,30 @@ export default {
         errorMessage.value = "";
         showModal.value = false;
         loading.value = false;
+        preview.value = {};
+        uploadStatus.value = '';
+        currentCacheKey.value = '';
+
+        // Clear any existing polling
+        if (pollInterval.value) {
+          clearInterval(pollInterval.value);
+          pollInterval.value = null;
+        }
       };
 
-      const getLocations=()=>{
+      // Clean up polling on component unmount
+      onUnmounted(() => {
+        if (pollInterval.value) {
+          clearInterval(pollInterval.value);
+        }
+      });
+
+      const getLocations = () => {
         api.get('get-locations-and-fuel-price')
-        .then((response)=>{
+        .then((response) => {
             tableData.value = response.data.data;
         })
-        .catch((error)=>{
+        .catch((error) => {
           console.log(error);
         })
         loadingTable.value = false;
@@ -430,21 +553,20 @@ export default {
           message: `Are you sure you want to delete "${row.name}"?`,
           cancel: true,
           persistent: true
-        }).onOk(()=>{
+        }).onOk(() => {
           api.delete('delete-location', {
             data: { id: row.id }
           })
-          .then((response)=>{
+          .then((response) => {
             tableData.value = response.data.data;
             showSuccessNotification(response.data.message);
           })
-          .catch((error)=>{
+          .catch((error) => {
             console.log(error);
             console.log(error.message);
             console.log(error?.response?.data.message);
 
             showErrorNotification(error?.response?.data.message || error.response.message || error.message);
-
           })
         });
       };
@@ -458,42 +580,21 @@ export default {
         });
       };
 
-        const showErrorNotification = (message) => {
-          q.notify({
-            color: "negative",
-            position: "top",
-            message: message,
-            icon: "report_problem",
-          });
-        };
+      const showErrorNotification = (message) => {
+        q.notify({
+          color: "negative",
+          position: "top",
+          message: message,
+          icon: "report_problem",
+        });
+      };
 
-    //location add model
-    const addModel = ref(false);
-    const selectedDeleteButton = ref(false);
-    const modelTitle = ref('');
-    const formBtn = ref('');
-    const form = ref({
-      location_type: '',
-      id: '',
-      name: '',
-      directory_address: '',
-      city: '',
-      state: '',
-      zip: '',
-      main_phone: '',
-      lat: '',
-      long: '',
-    })
-    const locationTypeOptions = [
-      { label: 'Ambest Travel/Service Center', value: 'ambest_travel/service_center' },
-      { label: 'Ambest Travel Center', value: 'ambest_travel_center' },
-      { label: 'Ambest Fuel Stop', value: 'ambest_fuel_stop' },
-      { label: 'Ambest Express', value: 'ambest_express' },
-      { label: 'Ambest Service Center', value: 'ambest_service_center' },
-      { label: 'Ambest Mobile Location', value: 'ambest_mobile_location' },
-    ]
-    const onReset = () =>{
-      form.value = {
+      // Location add model (keeping your existing code)
+      const addModel = ref(false);
+      const selectedDeleteButton = ref(false);
+      const modelTitle = ref('');
+      const formBtn = ref('');
+      const form = ref({
         location_type: '',
         id: '',
         name: '',
@@ -504,127 +605,151 @@ export default {
         main_phone: '',
         lat: '',
         long: '',
-      };
-    }
-    const handleCreateModel = ()=>{
-      onReset()
-      modelTitle.value = "Add New AMBEST Location";
-      addModel.value = true;
-      formBtn.value = "Add Location";
-    }
-    const handleCreateForm = ()=>{
-      const formData = Object.keys(form.value).reduce((acc, key) => {
-        if (form.value[key] !== '' && form.value[key] !== null) {
-          acc[key] = form.value[key]
+      })
+
+      const locationTypeOptions = [
+        { label: 'Ambest Travel/Service Center', value: 'ambest_travel/service_center' },
+        { label: 'Ambest Travel Center', value: 'ambest_travel_center' },
+        { label: 'Ambest Fuel Stop', value: 'ambest_fuel_stop' },
+        { label: 'Ambest Express', value: 'ambest_express' },
+        { label: 'Ambest Service Center', value: 'ambest_service_center' },
+        // { label: 'Ambest Mobile Location', value: 'ambest_mobile_location' },
+      ]
+
+      const onReset = () => {
+        form.value = {
+          location_type: '',
+          id: '',
+          name: '',
+          directory_address: '',
+          city: '',
+          state: '',
+          zip: '',
+          main_phone: '',
+          lat: '',
+          long: '',
+        };
+      }
+
+      const handleCreateModel = () => {
+        onReset()
+        modelTitle.value = "Add New AMBEST Location";
+        addModel.value = true;
+        formBtn.value = "Add Location";
+      }
+
+      const handleCreateForm = () => {
+        const formData = Object.keys(form.value).reduce((acc, key) => {
+          if (form.value[key] !== '' && form.value[key] !== null) {
+            acc[key] = form.value[key]
+          }
+          return acc
+        }, {})
+        console.log('Form submitted:', formData)
+        api.post('store-location', formData)
+        .then((res) => {
+          tableData.value = res.data.data;
+          showSuccessNotification(res.data.message);
+          onReset();
+          addModel.value = false;
+        })
+        .catch((error) => {
+          console.log(error);
+          console.log(error.message);
+          console.log(error?.response?.data.message);
+          showErrorNotification(error?.response?.data.message || error.response.message || error.message);
+        })
+      }
+
+      function getlocationType(color) {
+        switch (color) {
+          case 'blue':
+            return 'ambest_travel/service_center';
+          case 'red':
+            return 'ambest_travel_center';
+          case 'green':
+            return 'ambest_express';
+          case 'yellow':
+            return 'ambest_fuel_stop';
+          case 'white':
+            return 'ambest_service_center';
+          default:
+            return;
         }
-        return acc
-      }, {})
-      console.log('Form submitted:', formData)
-      api.post('store-location',formData)
-      .then((res)=>{
-        tableData.value = res.data.data;
-        showSuccessNotification(res.data.message);
-        onReset();
-        addModel.value = false;
-      })
-      .catch((error)=>{
-        console.log(error);
-        console.log(error.message);
-        console.log(error?.response?.data.message);
-        showErrorNotification(error?.response?.data.message || error.response.message || error.message);
-      })
-    }
-    function getlocationType(color) {
-      switch (color) {
-        case 'blue':
-          return 'ambest_travel/service_center';
-        case 'red':
-          return 'ambest_travel_center';
-        case 'green':
-          return 'ambest_express';
-        case 'yellow':
-          return 'ambest_fuel_stop';
-        case 'white':
-          return 'ambest_service_center';
-        default:
-          return ;
       }
-    }
-    const editRow = (row) =>{
-      modelTitle.value = "Update AMBEST Location";
-      addModel.value = true;
-      formBtn.value = "Update Location";
 
-      form.value.location_type = getlocationType(row.star_color);
-      form.value.id = row.id;
-      form.value.name = row.name;
-      form.value.directory_address = row.directory_address;
-      form.value.city = row.city;
-      form.value.state = row.state;
-      form.value.zip = row.zip;
-      form.value.main_phone = row.main_phone;
-      form.value.lat = row.lat;
-      form.value.long = row.long;
+      const editRow = (row) => {
+        modelTitle.value = "Update AMBEST Location";
+        addModel.value = true;
+        formBtn.value = "Update Location";
 
-    }
-    // bulk delete
-    const selectedLocationsForDelete = ref([]);
-    const allSelected = ref(false);
-    // Toggle single selection
-    const toggleSelection = (val, id) => {
-      if (val) {
-        selectedLocationsForDelete.value.push(id)
-      } else {
-        selectedLocationsForDelete.value = selectedLocationsForDelete.value.filter(i => i !== id)
+        form.value.location_type = getlocationType(row.star_color);
+        form.value.id = row.id;
+        form.value.name = row.name;
+        form.value.directory_address = row.directory_address;
+        form.value.city = row.city;
+        form.value.state = row.state;
+        form.value.zip = row.zip;
+        form.value.main_phone = row.main_phone;
+        form.value.lat = row.lat;
+        form.value.long = row.long;
       }
-      updateAllSelected()
-      if(selectedLocationsForDelete.value.length >= 1){
-        deleteBtn(true)
-      }else{
-        deleteBtn(false)
+
+      // Bulk delete functionality (keeping your existing code)
+      const selectedLocationsForDelete = ref([]);
+      const allSelected = ref(false);
+
+      const toggleSelection = (val, id) => {
+        if (val) {
+          selectedLocationsForDelete.value.push(id)
+        } else {
+          selectedLocationsForDelete.value = selectedLocationsForDelete.value.filter(i => i !== id)
+        }
+        updateAllSelected()
+        if (selectedLocationsForDelete.value.length >= 1) {
+          deleteBtn(true)
+        } else {
+          deleteBtn(false)
+        }
       }
-    }
 
-    // Toggle all
-    const toggleSelectAll = (val) => {
-      if (val) {
-        selectedLocationsForDelete.value = tableData.value.map(loc => loc.id)
-      } else {
-        selectedLocationsForDelete.value = [];
+      const toggleSelectAll = (val) => {
+        if (val) {
+          selectedLocationsForDelete.value = tableData.value.map(loc => loc.id)
+        } else {
+          selectedLocationsForDelete.value = [];
+        }
+        allSelected.value = val
+        if (selectedLocationsForDelete.value.length >= 1) {
+          deleteBtn(true)
+        } else {
+          deleteBtn(false)
+        }
       }
-      allSelected.value = val
-      if(selectedLocationsForDelete.value.length >= 1){
-        deleteBtn(true)
-      }else{
-        deleteBtn(false)
+
+      const updateAllSelected = () => {
+        allSelected.value = selectedLocationsForDelete.value.length === tableData.value.length
+        if (selectedLocationsForDelete.value.length >= 1) {
+          deleteBtn(true)
+        } else {
+          deleteBtn(false)
+        }
       }
-    }
 
-    // Update "Select All" state if any item is manually selected/unselected
-    const updateAllSelected = () => {
-      allSelected.value = selectedLocationsForDelete.value.length === tableData.value.length
-      if(selectedLocationsForDelete.value.length >= 1){
-        deleteBtn(true)
-      }else{
-        deleteBtn(false)
+      const deleteBtn = (val) => {
+        selectedDeleteButton.value = val;
       }
-    }
 
-    const deleteBtn = (val)=>{
-      selectedDeleteButton.value = val;
-    }
-
-    const handleBulkDelete =()=>{
-
-      q.dialog({
+      const handleBulkDelete = () => {
+        q.dialog({
           title: 'Confirm Bulk Delete',
           message: `Are you sure you want to delete selected "${selectedLocationsForDelete.value.length}" locations ?`,
           cancel: true,
           persistent: true
-        }).onOk(()=>{
+        }).onOk(() => {
           const ids = selectedLocationsForDelete.value.map(row => row);
-          api.delete('location-bulk-delete',{data:{ ids }})
-          .then((res)=>{
+          api.delete('location-bulk-delete', { data: { ids } })
+          .then((res) => {
             let { message } = res.data;
             allSelected.value = false;
             selectedLocationsForDelete.value = [];
@@ -632,7 +757,7 @@ export default {
             getLocations();
             showSuccessNotification(message);
           })
-          .catch((err)=>{
+          .catch((err) => {
             console.log(err);
             console.log(err.message);
             console.log(err?.response?.data.message);
@@ -640,52 +765,59 @@ export default {
             showErrorNotification(err?.response?.data.message || err.response.message || err.message);
           })
         });
+      }
+
+      onMounted(getLocations);
+
+      return {
+        q,
+        showModal,
+        handleUpload,
+        selectedFile,
+        validateFile,
+        resetForm,
+        showSuccessNotification,
+        showErrorNotification,
+        getLocations,
+        columns,
+        tableData,
+        loadingTable,
+        search,
+        pagination,
+        deleteRow,
+
+        addModel,
+        modelTitle,
+        formBtn,
+        form,
+        handleCreateModel,
+        locationTypeOptions,
+        handleCreateForm,
+        editRow,
+        getStarColor,
+
+        selectedLocationsForDelete,
+        allSelected,
+        toggleSelection,
+        toggleSelectAll,
+        selectedDeleteButton,
+        handleBulkDelete,
+
+        // New preview-related returns
+        preview,
+        confirmImport,
+        handlecsvUpload,
+        uploadStatus,
+        loading,
+        fileError,
+        errorMessage
+      }
     }
-    onMounted(getLocations);
-    return{
-      q,
-      showModal,
-      handleUpload,
-      selectedFile,
-      validateFile,
-      resetForm,
-      showSuccessNotification,
-      showErrorNotification,
-      getLocations,
-      columns,
-      tableData,
-      loadingTable,
-      search,
-      pagination,
-      deleteRow,
-
-      addModel,
-      modelTitle,
-      formBtn,
-      form,
-      handleCreateModel,
-      locationTypeOptions,
-      handleCreateForm,
-      editRow,
-      getStarColor,
-
-      selectedLocationsForDelete,
-      allSelected,
-      toggleSelection,
-      toggleSelectAll,
-      selectedDeleteButton,
-      handleBulkDelete,
-
-      preview,
-      confirmImport,
-      handlecsvUpload,
-    }
-  }
 }
-
 </script>
+
 <style>
-.q-table__control .q-btn{
+.q-table__control .q-btn {
   display: none;
 }
 </style>

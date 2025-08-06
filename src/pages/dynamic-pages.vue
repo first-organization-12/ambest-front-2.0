@@ -1,5 +1,5 @@
 <template>
-    <div v-if="content" style="min-height: 100vh;">
+    <div v-if="content" style="min-height: 100vh;padding-inline: 50px;">
       <div v-html="content"></div>
     </div>
 </template>
