@@ -104,6 +104,16 @@ const routes = [
   },
 
   {
+    path: '/Quick-Links/AMBEST-Mobile-App',
+    component: {
+      created() {
+        window.location.href = 'https://qr.codes/8QTAVN';
+      },
+      template: '<div>Redirecting...</div>'
+    }
+  },
+
+  {
     path: '/page/:route(.*)*',
     component: () => import('layouts/MainLayout.vue'),
     children: [

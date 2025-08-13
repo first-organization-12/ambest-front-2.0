@@ -1,5 +1,9 @@
 <template>
   <q-page class="">
+    <div v-if="notificationStatus" class="text-white flex justify-center items-center" style="min-height: 60px; background:#dc2626; padding: 20px;">
+
+      <p class="text-h5 text-weight-bold" style="margin: 0;"><span v-html="notificationText"></span></p>
+    </div>
   <div class="banner relative-position" style="overflow: hidden;">
       <q-img v-if="bannerIsActive"
         :src="bannerImage"
@@ -275,6 +279,8 @@
 import { api, storage_url } from "src/boot/axios";
 import { ref, computed,onMounted  } from "vue";
 
+const notificationText = ref('');
+const notificationStatus = ref(false);
 
 const slide = ref(0);
 
@@ -407,6 +413,9 @@ const advantages = ref([
           testimonials.value = transformed;
           bannerIsActive.value = val.banner.is_active;
           bannerImage.value = storage_url(val.banner.path);
+
+          notificationText.value = val.notification_bar.description;
+          notificationStatus.value = val.notification_bar.sub_title === 'yes' ? true : false;
           // services.value[0].image  = storage_url(val.service_section_one.img_url);
           // services.value[0].title = val.service_section_one.title;
           // services.value[0].subtitle = val.service_section_one.description;

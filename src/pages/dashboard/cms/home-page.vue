@@ -103,7 +103,7 @@
                     </div>
                   </div>
                   <div class="q-mt-md">
-                    <h5 style="margin: 0%;">Banner Text</h5>
+                    <h5 style="margin: 0%;">Video / Banner Text</h5>
                     <!-- <q-editor
                       v-model="videoText"
                       :dense="$q.screen.lt.md"
@@ -210,45 +210,112 @@
                   </div>
                   <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
                 </q-form>
-                <!-- <div class="flex justify-center">
-                    <video
-                      v-if="videoPreview"
-                      autoplay loop muted playsinline style="height: auto; width: 500px;"
-                    >
-                      <source :src="videoPreview" type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                </div>
-                <q-form @submit="handleAboutForm">
+                <q-form @submit="handleNotificationForm">
                   <div class="q-mt-md">
-                    <h5 style="margin: 0%;">Upload Video</h5>
-                    <q-input
-                      filled
-                      label="Upload Video"
-                      type="file"
-                      accept="video/*"
-                      @change="handleVideoChange"
-                      standout
+                    <h5 style="margin: 0%;">Notification Banner Text</h5>
+                    <q-editor
+                      v-model="notificationText"
+                      :dense="$q.screen.lt.md"
+                      :toolbar="[
+                        [
+                          {
+                            label: $q.lang.editor.align,
+                            icon: $q.iconSet.editor.align,
+                            fixedLabel: true,
+                            list: 'only-icons',
+                            options: ['left', 'center', 'right', 'justify']
+                          },
+                          {
+                            label: $q.lang.editor.align,
+                            icon: $q.iconSet.editor.align,
+                            fixedLabel: true,
+                            options: ['left', 'center', 'right', 'justify']
+                          }
+                        ],
+                        ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript'],
+                        ['token', 'hr', 'link', 'custom_btn'],
+                        ['fullscreen'],
+                        [
+                          {
+                            label: $q.lang.editor.formatting,
+                            icon: $q.iconSet.editor.formatting,
+                            list: 'no-icons',
+                            options: [
+                              'p',
+                              'h1',
+                              'h2',
+                              'h3',
+                              'h4',
+                              'h5',
+                              'h6',
+                              'code'
+                            ]
+                          },
+                          {
+                            label: $q.lang.editor.fontSize,
+                            icon: $q.iconSet.editor.fontSize,
+                            fixedLabel: true,
+                            fixedIcon: true,
+                            list: 'no-icons',
+                            options: [
+                              'size-1',
+                              'size-2',
+                              'size-3',
+                              'size-4',
+                              'size-5',
+                              'size-6',
+                              'size-7'
+                            ]
+                          },
+                          {
+                            label: $q.lang.editor.defaultFont,
+                            icon: $q.iconSet.editor.font,
+                            fixedIcon: true,
+                            list: 'no-icons',
+                            options: [
+                              'default_font',
+                              'arial',
+                              'arial_black',
+                              'comic_sans',
+                              'courier_new',
+                              'impact',
+                              'lucida_grande',
+                              'times_new_roman',
+                              'verdana'
+                            ]
+                          },
+                          'removeFormat'
+                        ],
+                        ['quote', 'unordered', 'ordered', 'outdent', 'indent'],
+
+                        ['undo', 'redo'],
+                        ['viewsource']
+                      ]"
+                      :fonts="{
+                        arial: 'Arial',
+                        arial_black: 'Arial Black',
+                        comic_sans: 'Comic Sans MS',
+                        courier_new: 'Courier New',
+                        impact: 'Impact',
+                        lucida_grande: 'Lucida Grande',
+                        times_new_roman: 'Times New Roman',
+                        verdana: 'Verdana'
+                      }"
                     />
                   </div>
-                  <div class="q-mt-md">
-                    <h5 style="margin: 0%;">Video Text</h5>
-                    <q-editor
-                      v-model="videoText"
-                      :dense="$q.screen.lt.md"
-                      style="font-size: 16px;"
-                    />
-                  </div>
-                  <div class="q-mt-md">
-                    <h5 style="margin: 0%;">Label Text</h5>
-                    <q-editor
-                      v-model="labelText"
-                      :dense="$q.screen.lt.md"
-                      style="font-size: 16px;"
-                    />
+                  <div class="q-mb-md">
+                    <div class="q-gutter-sm">
+                      <q-checkbox
+                        v-model="notificationStatus"
+                        color="secondary"
+                        label="Show Notification Banner Message"
+                        true-value="yes"
+                        false-value="no"
+                      />
+                    </div>
                   </div>
                   <q-btn label="update" class="q-mt-sm" color="primary" type="submit"/>
-                </q-form> -->
+                </q-form>
               </div>
             </q-tab-panel>
           </q-tab-panels>
@@ -1256,9 +1323,21 @@ export default{
       }
       submitForms(formData);
     }
+    // ====================================
+    // notification
+    // ====================================
 
-
-
+    const notificationText = ref('');
+    const notificationStatus = ref('no');
+    const handleNotificationForm = () =>{
+      const formData = new FormData();
+      formData.append('page_type','home');
+      formData.append('section_name','notification_bar');
+      formData.append('title','notification_bar');
+      formData.append('sub_title',notificationStatus.value);
+      formData.append('description',notificationText.value);
+      submitForms(formData);
+    }
   //  get home page details
     const getHomePageDetails = () =>{
       api.get('get-home-page-details')
@@ -1276,6 +1355,9 @@ export default{
 
         bannerImageFile.value = storage_url(val.banner.path);
         bannerStatus.value = val.banner.is_active === 1 ? 'yes' : 'no';
+
+        notificationText.value = val.notification_bar.description;
+        notificationStatus.value = val.notification_bar.sub_title;
         // findTruckImg.value = storage_url(val.service_section_one.img_url);
         // findTruckText.value = val.service_section_one.title;
         // findTruckSubTitle.value = val.service_section_one.description;
@@ -1366,6 +1448,10 @@ export default{
       bannerImageFile,
       handleBannerFileUpload,
       bannerStatus,
+
+      notificationText,
+      notificationStatus,
+      handleNotificationForm,
     }
   }
 }
