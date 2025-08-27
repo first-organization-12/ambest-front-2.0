@@ -44,7 +44,7 @@
 
                   <!-- Buttons -->
                   <div class="row" style="gap: 5px;">
-                    <q-btn color="primary" rounded unelevated label="Download Location List" class="q-mr-sm text-bold" @click="downloadExcel" />
+                    <q-btn color="primary" rounded unelevated label="Download Location List" class="q-mr-sm text-bold" @click="downloadExcel" :disable="!isDownloadReady" />
                     <!-- <q-btn color="primary" outline rounded unelevated label="Print location list" class=" text-bold" @click="printLocations" /> -->
                   </div>
                 </div>
@@ -389,42 +389,78 @@ export default defineComponent({
     };
 
 
+    const isDownloadReady = ref(true); // Flag to indicate if download is ready
 
-    const downloadExcel = () => {
-      const filePath = "/files/AMBESTTruckStops.csv"; // Change this to your file path inside the "public" folder
-      const link = document.createElement("a");
-      link.href = filePath;
-      link.download = "AMBESTTruckStops.csv"; // Name of the file when downloaded
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+    const downloadExcel = async() => {
+      try {
+        isDownloadReady.value = false; // Disable button
+        const response = await api.get('export-locations')
+
+      if (response.data.success) {
+        // Start polling for completion
+        pollExportStatus()
+      }
+      } catch (error) {
+        console.error('Export error:', error)
+        isDownloadReady.value = true; // Re-enable button
+      }
     };
+     const pollExportStatus = () =>{
+        let counter = 0;
+        const maxCounter = 10;
+        const delay = 3000;
+        const checkStatus = async () => {
+          try {
+            const statusResponse = await api.get('export-locations/status')
+            if (statusResponse.data.data.status === 'completed') {
+              downloadFile()
+            } else if (statusResponse.data.status === 'failed') {
+              console.error('Export failed')
+            } else {
+              // Still processing, check again after a delay
+              console.log(statusResponse.data.data.status + ' counter : ' + counter);
+              if (counter < maxCounter) {
+                counter++;
+                setTimeout(checkStatus, delay)
+              } else {
+                isDownloadReady.value = true; // Re-enable button
+                throw new Error('Export timed out');
+              }
+            }
+          } catch (error) {
+            console.error('Status check error:', error)
+            isDownloadReady.value = true; // Re-enable button
+          }
+        }
+        checkStatus()
+     }
 
-    // const downloadExcel = async () => {
-    //   try {
-    //     let response =  await api.get('get-downloadable-locations')
-    //     let downloadLocations ;
-    //     // if (!locations || locations.length === 0) {
-    //     //   alert("No data available to download.");
-    //     //   return;
-    //     // }
+    const downloadFile = ()=>{
+      // const filePath = storage_url('exports/locations_list.xlsx');
+      // const link = document.createElement("a");
+      // link.href = filePath;
+      // document.body.appendChild(link);
+      // link.click();
+      // document.body.removeChild(link);
+      api.get('export-locations/download', { responseType: 'blob' })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', 'locations_list.xlsx'); //or any other extension
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        })
+        .catch((error) => {
+          console.error('Download error:', error);
+        })
+        .finally(() => {
+          isDownloadReady.value = true; // Re-enable button
+        });
+    }
 
-    //     // Remove 'id' field from each object
-    //     downloadLocations = response.data.data;
 
-    //     // Convert data to worksheet
-    //     const worksheet = XLSX.utils.json_to_sheet(downloadLocations);
-
-    //     // Create workbook and append worksheet
-    //     const workbook = XLSX.utils.book_new();
-    //     XLSX.utils.book_append_sheet(workbook, worksheet, "Locations");
-
-    //     // Create and download Excel file
-    //     XLSX.writeFile(workbook, "locations.xlsx");
-    //   } catch (error) {
-    //     console.error("Error downloading location list:", error);
-    //   }
-    // };
     const printLocations = () => {
       try {
           if (!locations.value || locations.value.length === 0) {
@@ -557,6 +593,8 @@ export default defineComponent({
 
       bannerImgFile,
       introText,
+
+      isDownloadReady,
     };
   }
 });
