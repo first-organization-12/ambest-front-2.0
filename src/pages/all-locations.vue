@@ -44,7 +44,7 @@
             <div v-for="(location, index) in selectedLocation" :key="index" class="col-10 col-md-3 location-card">
               <div class="row items-baseline">
                 <!-- Circle Dot beside heading -->
-                <q-badge :color="location.star_color ==='white' ? '#89cff0ff' : location.star_color"  rounded class="location-dot q-mr-md" />
+                <q-badge rounded class="location-dot q-mr-md" :style="{ backgroundColor: location.star_color==='blue' ? '#027dffff' : location.star_color==='red' ? '#ff0000ff' : location.star_color==='green' ? '#008000ff' : location.star_color==='yellow' ? '#ffa500ff' : location.star_color==='white' ? '#89cff0ff' : 'gold'}" />
                 <div>
                   <p class="text-bold text-primary text-h6 q-mb-xs">{{ location.name }}</p>
                   <p class="text-body1 q-mb-none">{{ location.city  }}, {{ location.state  }},{{ location.zip  }}.</p>
