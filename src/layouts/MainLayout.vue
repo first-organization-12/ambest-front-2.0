@@ -24,9 +24,14 @@
         <q-space />
 
         <!-- ICONS -->
+        <!-- RETAIL PORTAL BUTTON -->
+        <a href="https://dynopat.com/ambest/" target="_blank" style="color: white; text-decoration: none;">
+          <q-btn label="RETAIL PORTAL" class="q-mr-md" style="background-color: #1976D2;" />
+        </a>
+
          <a target="_blank" style="color: #000;" href="https://ambest.powerappsportals.com/home/">
            <q-btn flat round dense icon="person_outline" class="q-mr-md"/>
-        </a>
+         </a>
         <!-- <q-btn flat round dense icon="local_gas_station" to="/fuel-price"/> -->
 
         <!-- MENU BUTTON - Show Only on Mobile -->
@@ -63,6 +68,13 @@
         </q-item>
         <q-item clickable v-ripple to="/ambuck$" exact-active-class="bg-cyan-2" >
           <q-item-section>AMBUCK$</q-item-section>
+        </q-item>
+        <q-item clickable v-ripple>
+          <q-item-section>
+            <a href="https://dynopat.com/ambest/" target="_blank" style="color: inherit; text-decoration: none;">
+              RETAIL PORTAL
+            </a>
+          </q-item-section>
         </q-item>
       </q-list>
     </q-drawer>
