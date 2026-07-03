@@ -25,7 +25,7 @@
 
         <!-- ICONS -->
         <!-- RETAIL PORTAL BUTTON -->
-        <a href="https://dynopat.com/ambest/" target="_blank" style="color: white; text-decoration: none;">
+        <a href="https://am-best.com/portal/" target="_blank" style="color: white; text-decoration: none;">
           <q-btn label="RETAIL PORTAL" class="q-mr-md" style="background-color: #1976D2;" />
         </a>
 
@@ -71,7 +71,7 @@
         </q-item>
         <q-item clickable v-ripple>
           <q-item-section>
-            <a href="https://dynopat.com/ambest/" target="_blank" style="color: inherit; text-decoration: none;">
+            <a href="https://am-best.com/portal/" target="_blank" style="color: inherit; text-decoration: none;">
               RETAIL PORTAL
             </a>
           </q-item-section>

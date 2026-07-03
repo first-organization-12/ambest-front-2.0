@@ -95,11 +95,12 @@ export default{
         selectedLocation.value = locations.value;
         return;
       }
+      const query = searchQuery.value.toLowerCase();
       selectedLocation.value = locations.value.filter(loc =>
-        loc.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-        loc.city.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-        loc.state.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-        loc.zip.includes(searchQuery.value)
+        (loc.name || '').toLowerCase().includes(query) ||
+        (loc.city || '').toLowerCase().includes(query) ||
+        (loc.state || '').toLowerCase().includes(query) ||
+        (loc.zip || '').includes(searchQuery.value)
       );
     };
 

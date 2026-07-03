@@ -124,10 +124,11 @@ export default {
         suggestions.value = [];
         return;
       }
+      const query = searchQuery.value.toLowerCase();
       suggestions.value = locations.value.filter(loc =>
-        loc.city.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-        loc.state.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-        loc.zip.includes(searchQuery.value)
+        (loc.city || '').toLowerCase().includes(query) ||
+        (loc.state || '').toLowerCase().includes(query) ||
+        (loc.zip || '').includes(searchQuery.value)
       );
     };
 
